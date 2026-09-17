@@ -7,22 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C467FB012237E42E0C85D6E /* AddIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F38AA75896B8A39D2016A7B /* AddIngredientView.swift */; };
+		0E45F9E74889980657C4C635 /* FlavorProfileIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40541440027B25657E6D218 /* FlavorProfileIndicatorView.swift */; };
 		1787323C2E036E7F1BF5E69A /* taxonomy.json in Resources */ = {isa = PBXBuildFile; fileRef = 5799D9FDE8CD9BA98424AB81 /* taxonomy.json */; };
 		2054B1A2638A953550A5B15E /* NorseMixologyCore in Frameworks */ = {isa = PBXBuildFile; productRef = 76DB75D275C8F897141A9B75 /* NorseMixologyCore */; };
+		2FD7E96A4C5E11F5D2797055 /* CabinetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3220C27E0E6E6FC75816A15E /* CabinetViewModel.swift */; };
+		3BE1756335CB3C5CB896BD6C /* IngredientRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EE292D0306D2037CBD407B /* IngredientRow.swift */; };
+		3F9DE0F371F918E0FBDA1988 /* FavouritesPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF4AA444124AF3802906A27 /* FavouritesPlaceholderView.swift */; };
 		3FD609A620F528A8235BB7F6 /* NorseMixologyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40BFB481FBF6BE13016628E /* NorseMixologyApp.swift */; };
 		50606B2D570B3677D4FAAD32 /* recipes.json in Resources */ = {isa = PBXBuildFile; fileRef = D24F6F076A0150460DDA4B19 /* recipes.json */; };
+		A2EF2F62113F2EC826DA6F04 /* AddIngredientConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02101A11D23B974EE6190E0C /* AddIngredientConfirmationView.swift */; };
+		AFB0DFBFB9270A1E9E69ECDC /* BrowseTaxonomyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871FC8AF4B99B832AF1E9EB8 /* BrowseTaxonomyView.swift */; };
+		BC1AF9E4815D1E76C5CF004A /* RecipesPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F14BACE1C79A582537E1CE /* RecipesPlaceholderView.swift */; };
+		D11A4FF34C8FC0A1C08FB469 /* AddIngredientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB9F51908C3BBE04BA95C93 /* AddIngredientViewModel.swift */; };
 		D1C3E3B4DDE8BB0444E0FFE3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225F46BBEE893F2C52A5E369 /* ContentView.swift */; };
 		F650EC28DB369D60879B9AA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75D19359C364DC1F5C2E3C12 /* Assets.xcassets */; };
+		FD4147044D603BE2759792DD /* CabinetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41F87FEDD57946CE12B9756 /* CabinetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02101A11D23B974EE6190E0C /* AddIngredientConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientConfirmationView.swift; sourceTree = "<group>"; };
+		08F14BACE1C79A582537E1CE /* RecipesPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesPlaceholderView.swift; sourceTree = "<group>"; };
 		225F46BBEE893F2C52A5E369 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3220C27E0E6E6FC75816A15E /* CabinetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetViewModel.swift; sourceTree = "<group>"; };
 		5799D9FDE8CD9BA98424AB81 /* taxonomy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taxonomy.json; sourceTree = "<group>"; };
+		5F38AA75896B8A39D2016A7B /* AddIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientView.swift; sourceTree = "<group>"; };
 		75D19359C364DC1F5C2E3C12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85F1E0184AF6937E1E75B592 /* NorseMixology.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NorseMixology.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		871FC8AF4B99B832AF1E9EB8 /* BrowseTaxonomyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseTaxonomyView.swift; sourceTree = "<group>"; };
 		A9E01A2459193DDA4C2AB0CC /* NorseMixologyCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = NorseMixologyCore; path = Packages/NorseMixologyCore; sourceTree = SOURCE_ROOT; };
+		AEF4AA444124AF3802906A27 /* FavouritesPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesPlaceholderView.swift; sourceTree = "<group>"; };
+		B2EE292D0306D2037CBD407B /* IngredientRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientRow.swift; sourceTree = "<group>"; };
+		B41F87FEDD57946CE12B9756 /* CabinetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetView.swift; sourceTree = "<group>"; };
 		D24F6F076A0150460DDA4B19 /* recipes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recipes.json; sourceTree = "<group>"; };
 		D40BFB481FBF6BE13016628E /* NorseMixologyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NorseMixologyApp.swift; sourceTree = "<group>"; };
+		E40541440027B25657E6D218 /* FlavorProfileIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlavorProfileIndicatorView.swift; sourceTree = "<group>"; };
+		EAB9F51908C3BBE04BA95C93 /* AddIngredientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +63,10 @@
 				75D19359C364DC1F5C2E3C12 /* Assets.xcassets */,
 				225F46BBEE893F2C52A5E369 /* ContentView.swift */,
 				D40BFB481FBF6BE13016628E /* NorseMixologyApp.swift */,
+				5028564AB6C466E898F7931B /* Cabinet */,
+				891043505758285A55EBCDA7 /* Components */,
+				EB0C049126F13EC575BDDFD2 /* Favourites */,
+				DBCD4C0934BF146A2B2CDCD5 /* Recipes */,
 				668DC00DF2C4302D0DD4E2E8 /* Resources */,
 			);
 			path = NorseMixology;
@@ -56,6 +80,20 @@
 			path = Packages;
 			sourceTree = "<group>";
 		};
+		5028564AB6C466E898F7931B /* Cabinet */ = {
+			isa = PBXGroup;
+			children = (
+				02101A11D23B974EE6190E0C /* AddIngredientConfirmationView.swift */,
+				5F38AA75896B8A39D2016A7B /* AddIngredientView.swift */,
+				EAB9F51908C3BBE04BA95C93 /* AddIngredientViewModel.swift */,
+				871FC8AF4B99B832AF1E9EB8 /* BrowseTaxonomyView.swift */,
+				B41F87FEDD57946CE12B9756 /* CabinetView.swift */,
+				3220C27E0E6E6FC75816A15E /* CabinetViewModel.swift */,
+				B2EE292D0306D2037CBD407B /* IngredientRow.swift */,
+			);
+			path = Cabinet;
+			sourceTree = "<group>";
+		};
 		668DC00DF2C4302D0DD4E2E8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -63,6 +101,14 @@
 				5799D9FDE8CD9BA98424AB81 /* taxonomy.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		891043505758285A55EBCDA7 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E40541440027B25657E6D218 /* FlavorProfileIndicatorView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		8CD21F405A943FDCC208F811 = {
@@ -80,6 +126,22 @@
 				85F1E0184AF6937E1E75B592 /* NorseMixology.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		DBCD4C0934BF146A2B2CDCD5 /* Recipes */ = {
+			isa = PBXGroup;
+			children = (
+				08F14BACE1C79A582537E1CE /* RecipesPlaceholderView.swift */,
+			);
+			path = Recipes;
+			sourceTree = "<group>";
+		};
+		EB0C049126F13EC575BDDFD2 /* Favourites */ = {
+			isa = PBXGroup;
+			children = (
+				AEF4AA444124AF3802906A27 /* FavouritesPlaceholderView.swift */,
+			);
+			path = Favourites;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,8 +218,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2EF2F62113F2EC826DA6F04 /* AddIngredientConfirmationView.swift in Sources */,
+				0C467FB012237E42E0C85D6E /* AddIngredientView.swift in Sources */,
+				D11A4FF34C8FC0A1C08FB469 /* AddIngredientViewModel.swift in Sources */,
+				AFB0DFBFB9270A1E9E69ECDC /* BrowseTaxonomyView.swift in Sources */,
+				FD4147044D603BE2759792DD /* CabinetView.swift in Sources */,
+				2FD7E96A4C5E11F5D2797055 /* CabinetViewModel.swift in Sources */,
 				D1C3E3B4DDE8BB0444E0FFE3 /* ContentView.swift in Sources */,
+				3F9DE0F371F918E0FBDA1988 /* FavouritesPlaceholderView.swift in Sources */,
+				0E45F9E74889980657C4C635 /* FlavorProfileIndicatorView.swift in Sources */,
+				3BE1756335CB3C5CB896BD6C /* IngredientRow.swift in Sources */,
 				3FD609A620F528A8235BB7F6 /* NorseMixologyApp.swift in Sources */,
+				BC1AF9E4815D1E76C5CF004A /* RecipesPlaceholderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

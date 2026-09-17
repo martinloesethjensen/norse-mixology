@@ -4,20 +4,25 @@ import NorseMixologyCore
 
 @main
 struct NorseMixologyApp: App {
-    init() {
-        NorseMixologyApp.loadBundledTaxonomyAndLog()
-    }
+    @State private var taxonomyStore = TaxonomyStore()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(taxonomyStore)
+                .task {
+                    loadBundledTaxonomyAndLog()
+                }
         }
         .modelContainer(for: [CabinetItem.self, FavouriteRecipe.self])
     }
 
-    /// Phase 1 only parses and logs the bundled catalog — seeding it into
-    /// SwiftData happens in Phase 2 (Cabinet) / Phase 5 (Favourites).
-    private static func loadBundledTaxonomyAndLog() {
+    /// Loads the bundled catalog into `taxonomyStore` (used by Cabinet/Add
+    /// Ingredient) and logs the counts the Phase 1 verification checklist
+    /// wants. The taxonomy itself is read-only reference data — it is never
+    /// written into SwiftData; only `CabinetItem`s (Phase 2) and
+    /// `FavouriteRecipe`s (Phase 5) are persisted.
+    private func loadBundledTaxonomyAndLog() {
         guard
             let taxonomyURL = Bundle.main.url(forResource: "taxonomy", withExtension: "json"),
             let recipesURL = Bundle.main.url(forResource: "recipes", withExtension: "json")
@@ -26,9 +31,9 @@ struct NorseMixologyApp: App {
             return
         }
         do {
-            let categories = try IngredientTaxonomy.loadCategories(from: Data(contentsOf: taxonomyURL))
-            let styleCount = categories.reduce(0) { $0 + $1.families.reduce(0) { $0 + $1.styles.count } }
-            print("Taxonomy loaded: \(styleCount) styles")
+            let taxonomyData = try Data(contentsOf: taxonomyURL)
+            taxonomyStore.load(taxonomyData: taxonomyData)
+            print("Taxonomy loaded: \(taxonomyStore.styleCount) styles")
 
             let recipes = try IngredientTaxonomy.loadRecipes(from: Data(contentsOf: recipesURL))
             print("Recipes loaded: \(recipes.count) recipes")
