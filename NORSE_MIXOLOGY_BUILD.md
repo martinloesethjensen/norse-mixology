@@ -88,6 +88,23 @@ A recipe with any `UNRESOLVED` required ingredient is dropped from results.
 
 If the two platform implementations ever disagree, this section — not either codebase — is the tiebreaker.
 
+**Deriving `role` (not a stored field):** `RecipeIngredient` has no `role` field, so role is derived at match time from the ingredient's taxonomy category/family — both platforms must apply this exact mapping:
+
+| Category | Family | Role |
+|---|---|---|
+| Spirit | — | `Base` (largest ml amount among the recipe's Spirit ingredients) else `Modifier` |
+| Wine & Fortified | — | `Modifier` |
+| Liqueur | — | `Accent` |
+| Syrup | — | `Sweetener/Sour` |
+| Mixer | Juice | `Sweetener/Sour` |
+| Mixer | other | `Bitters/Mixer` |
+| Garnish | Bitters | `Bitters/Mixer` |
+| Garnish | other | `Garnish` |
+| Fruit | — | `Garnish` |
+| anything else | — | `Accent` (fallback) |
+
+Garnish-role ingredients never drop a recipe (treated like an unresolved *optional* ingredient — skipped, no score penalty) regardless of the seed data's `isOptional` flag. This is why "Gin + Campari + Sweet Vermouth → Negroni, exact" holds even though the Negroni's orange-wheel garnish isn't flagged optional in `recipes.json`.
+
 ## Design System — "Modern Neon Bar"
 
 Both platforms follow system light/dark appearance (never forced). Same tokens, mapped for each mode:
