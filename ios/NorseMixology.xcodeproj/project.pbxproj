@@ -7,17 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1787323C2E036E7F1BF5E69A /* taxonomy.json in Resources */ = {isa = PBXBuildFile; fileRef = 5799D9FDE8CD9BA98424AB81 /* taxonomy.json */; };
 		2054B1A2638A953550A5B15E /* NorseMixologyCore in Frameworks */ = {isa = PBXBuildFile; productRef = 76DB75D275C8F897141A9B75 /* NorseMixologyCore */; };
 		3FD609A620F528A8235BB7F6 /* NorseMixologyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40BFB481FBF6BE13016628E /* NorseMixologyApp.swift */; };
+		50606B2D570B3677D4FAAD32 /* recipes.json in Resources */ = {isa = PBXBuildFile; fileRef = D24F6F076A0150460DDA4B19 /* recipes.json */; };
 		D1C3E3B4DDE8BB0444E0FFE3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225F46BBEE893F2C52A5E369 /* ContentView.swift */; };
 		F650EC28DB369D60879B9AA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75D19359C364DC1F5C2E3C12 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		225F46BBEE893F2C52A5E369 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5799D9FDE8CD9BA98424AB81 /* taxonomy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taxonomy.json; sourceTree = "<group>"; };
 		75D19359C364DC1F5C2E3C12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85F1E0184AF6937E1E75B592 /* NorseMixology.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NorseMixology.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E01A2459193DDA4C2AB0CC /* NorseMixologyCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = NorseMixologyCore; path = Packages/NorseMixologyCore; sourceTree = SOURCE_ROOT; };
+		D24F6F076A0150460DDA4B19 /* recipes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recipes.json; sourceTree = "<group>"; };
 		D40BFB481FBF6BE13016628E /* NorseMixologyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NorseMixologyApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -39,6 +43,7 @@
 				75D19359C364DC1F5C2E3C12 /* Assets.xcassets */,
 				225F46BBEE893F2C52A5E369 /* ContentView.swift */,
 				D40BFB481FBF6BE13016628E /* NorseMixologyApp.swift */,
+				668DC00DF2C4302D0DD4E2E8 /* Resources */,
 			);
 			path = NorseMixology;
 			sourceTree = "<group>";
@@ -49,6 +54,15 @@
 				A9E01A2459193DDA4C2AB0CC /* NorseMixologyCore */,
 			);
 			path = Packages;
+			sourceTree = "<group>";
+		};
+		668DC00DF2C4302D0DD4E2E8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D24F6F076A0150460DDA4B19 /* recipes.json */,
+				5799D9FDE8CD9BA98424AB81 /* taxonomy.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		8CD21F405A943FDCC208F811 = {
@@ -130,6 +144,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F650EC28DB369D60879B9AA0 /* Assets.xcassets in Resources */,
+				50606B2D570B3677D4FAAD32 /* recipes.json in Resources */,
+				1787323C2E036E7F1BF5E69A /* taxonomy.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

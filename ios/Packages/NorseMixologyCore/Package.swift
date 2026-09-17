@@ -19,7 +19,8 @@ let package = Package(
         ),
         .testTarget(
             name: "NorseMixologyCoreTests",
-            dependencies: ["NorseMixologyCore"]
+            dependencies: ["NorseMixologyCore"],
+            resources: [.copy("Resources/taxonomy.json"), .copy("Resources/recipes.json")]
         )
     ]
 )
