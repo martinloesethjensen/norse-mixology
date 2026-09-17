@@ -1,0 +1,147 @@
+# Norse Mixology — Build Reference
+
+> Single source of truth for architecture decisions in this repo. Full design rationale and phase-by-phase checklists live in the Obsidian vault (`Project Ideas/Dev Project Ideas/Norse Mixology/`) — this file is the condensed reference Claude Code (or any contributor) reads before starting a phase.
+>
+> ```
+> Read NORSE_MIXOLOGY_BUILD.md in full. Then build Phase N. Do not continue to Phase N+1.
+> ```
+
+A mixology app where you tell it what's in your cabinet and it finds the cocktails you can make — with smart substitution for what you're missing, computed entirely on-device.
+
+## MVP Scope
+
+- ✅ Local-first: cabinet + favourites + recipe catalog all on-device (SwiftData on iOS, Room on Android)
+- ✅ Two platforms: iOS (SwiftUI) + Android (Jetpack Compose), phone and tablet
+- ✅ Anonymous — no login required
+- ✅ Smart substitution, computed entirely on-device
+- ❌ No backend/network calls in MVP (Rust backend is a later release)
+- ❌ No tvOS/macOS in MVP
+- ❌ No user accounts, no social/sharing
+
+## Tech Stack
+
+| Layer | iOS | Android |
+|---|---|---|
+| UI | SwiftUI | Jetpack Compose |
+| Local storage | SwiftData | Room |
+| State management | `@Observable` view models | `ViewModel` + `StateFlow` |
+| Navigation | `TabView`/`NavigationStack`, `NavigationSplitView` at tablet width | Navigation 3, `NavigationSuiteScaffold` |
+| Networking | none in MVP | none in MVP |
+| Min OS | iOS 17 | Android 8.0 / API 26 |
+
+## Repo Layout
+
+```
+norse-mixology/
+├── ios/
+│   ├── project.yml                    ← xcodegen spec (regenerate with `xcodegen generate`)
+│   ├── NorseMixology.xcodeproj         ← generated, not hand-edited
+│   ├── NorseMixology/                  ← app target (SwiftUI views, assets)
+│   └── Packages/NorseMixologyCore/     ← local SPM package: Models/, Services/, Taxonomy/
+└── android/
+    └── app/
+        ├── data/{local,seed,repository}/
+        ├── domain/matching/
+        └── ui/{cabinet,recipes,favourites,theme}/
+```
+
+Neither platform has a `Networking/`/`networking/` folder — there is no server counterpart in MVP.
+
+## Data Model & Matching Engine
+
+Full taxonomy tables (spirits, liqueurs, mixers, syrups, garnishes, etc.) are in the vault's `Data Model.md`. Key shapes both platforms must realize field-for-field:
+
+**Ingredient hierarchy:** `IngredientCategory → IngredientFamily → IngredientStyle`, each `IngredientStyle` carrying a `FlavorProfile`, an ABV range, and example brands.
+
+**FlavorProfile** — normalized 0.0–1.0 scores: `sweetness, bitterness, smokiness, citrus, floral, spice, herbal, fruity, oaky`, plus `abv` (actual percentage).
+
+**Recipe** — `id, name, description, glassType, method, ingredients: [RecipeIngredient], steps, flavorProfile, tags, difficulty, imageURL`. `RecipeIngredient` — `ingredientStyleId, amount, preparation, isOptional, substituteNotes`. Bundled in `recipes.json`, seeded into local storage on first launch on both platforms (no server round-trip — the two implementations only need to agree on JSON shape).
+
+**CabinetItem** — `id, ingredientStyleId, ingredientFamilyId, categoryId, displayName, brand, style, family, category, flavorProfile, dateAdded`.
+
+**FavouriteRecipe** — `id, recipeId, recipeName, dateFavourited`.
+
+On Android, Room has no native array-of-struct column, so `Recipe.ingredients` becomes a separate `RecipeIngredient` table with a `recipeId` foreign key, loaded via `@Relation`/`@Transaction` so callers still see a single `Recipe` + `List<RecipeIngredient>`.
+
+### Matching algorithm (single source of truth — Swift and Kotlin must match this exactly)
+
+```
+resolve(required, cabinet, prefs):
+  if user rule .reject(required → X)      → X is forbidden
+  if user rule .accept(required → X)      → quality = 1.0        (user overrides math)
+  if exact style in cabinet               → quality = 1.0
+  if enabled curated rule covers it       → quality = rule.baseQuality
+  else best same-family cabinet item:
+      sim = cosineSimilarity(required.profile, candidate.profile)
+      if sim >= threshold(prefs.strictness) → quality = sim
+      else                                  → UNRESOLVED
+```
+
+A recipe with any `UNRESOLVED` required ingredient is dropped from results.
+
+- **Cosine similarity** is computed over the 9 flavour dimensions (excludes `abv`). Substitute-display threshold: similarity ≥ 0.55.
+- **Strictness → threshold:** `threshold = 0.45 + strictness * 0.40` (strictness `0`…`1` → threshold `0.45`…`0.85`).
+- **matchScore** (recipe-level, weighted by ingredient role):
+  `matchScore = 1 - (Σ roleWeight(role) · (1 - quality) / Σ roleWeight(role))`
+  Default role weights: Base `1.0`, Modifier `0.8`, Sweetener/Sour `0.6`, Bitters/Mixer `0.4`, Accent `0.3`, Garnish `0.1`.
+  `matchScore = 1.0` → `"exact"`; `0.55–0.99` → `"partial"`.
+
+If the two platform implementations ever disagree, this section — not either codebase — is the tiebreaker.
+
+## Design System — "Modern Neon Bar"
+
+Both platforms follow system light/dark appearance (never forced). Same tokens, mapped for each mode:
+
+| Token | Dark | Light |
+|---|---|---|
+| Background | `#0D0F14` | `#F7F8FA` |
+| Surface | `#161920` | `#FFFFFF` |
+| Surface Raised | `#1F232D` | `#EFF1F4` |
+| Border | `#262B36` | `#DDE1E7` |
+| Accent (lime) | `#8FE388` | `#8FE388` |
+| Text Primary | `#EEF1F5` | `#14171C` |
+| Text Secondary | `#9AA1AF` | `#5B6472` |
+
+Match-status: Exact `#8FE388`, Substituted `#F0B93D` (both modes); Unavailable `#4A5160` dark / `#A6AEBA` light.
+
+Typography (native system fonts — SF Pro on iOS, Roboto on Android): Display/Title 26sp/pt·800, Section Heading 16sp/pt·600, Body 13sp/pt·400 (secondary colour), Label/Badge 10sp/pt·700 uppercase.
+
+Full palette is wired into each platform's theme starting the MVP Polish phases (iOS Phase 6, Android Phase 10) — until then, screens use each platform's default theme, which already respects system appearance.
+
+## iOS Architecture
+
+- **Structure:** single Xcode project (`NorseMixology.xcodeproj`, generated via `xcodegen` from `project.yml`), one universal iOS+iPadOS target, local SPM package `NorseMixologyCore` (Models/, Services/, Taxonomy/, plus a test target) for business logic.
+- **State:** `@Observable` view models exclusively — no Combine, no `ObservableObject`.
+- **Navigation:** `TabView` + `NavigationStack` at compact width; `NavigationSplitView` (sidebar + detail) at regular width (iPad).
+- **Persistence:** SwiftData `@Model` classes for `CabinetItem`/`FavouriteRecipe`; `taxonomy.json`/`recipes.json` bundled and seeded on first launch.
+- **Bundle ID:** `dev.martinloeseth.NorseMixology`.
+
+## Android Architecture
+
+- **Structure:** single Android Studio project, one `app/` module, package layout above.
+- **State:** `ViewModel` + `StateFlow`, collected via `collectAsStateWithLifecycle()` — no RxJava, no LiveData. Repository pattern between ViewModels and data sources (per current official Android architecture guidance).
+- **Navigation:** Navigation 3 (`androidx.navigation3`) + `NavigationSuiteScaffold` — bottom bar at phone width, nav rail / two-pane list-detail at tablet width.
+- **Persistence:** Room 3 (`androidx.room3`) `@Entity` data classes, KSP for annotation processing. `UUID`/`Date`/`List<String>` need `TypeConverter`s. `taxonomy.json`/`recipes.json` bundled in `assets/`, parsed with kotlinx.serialization, seeded on first launch (version-flagged to avoid reseeding).
+- **Application ID:** `dev.martinloeseth.NorseMixology` (Kotlin source package stays lowercase, `dev.martinloeseth.norsemixology`, per Kotlin/Android convention — `applicationId` and `namespace` are independent settings).
+
+## Build Phases
+
+| Phase | Name |
+|---|---|
+| 0 | Project Setup — Xcode + Android Studio scaffolding |
+| 1 | Ingredient Taxonomy & Data Model — author `taxonomy.json` + `recipes.json` |
+| 2 | iOS: The Cabinet (SwiftData) |
+| 3 | iOS: Recipe Matching Engine (Swift) |
+| 4 | iOS: Recipe Browser & Results UI |
+| 5 | iOS: Favourites |
+| 6 | iOS: MVP Polish — dark/light theme system, tablet split view |
+| 7 | Android: Cabinet & Taxonomy (Room, Compose) |
+| 8 | Android: Recipe Matching Engine (Kotlin, same spec as Phase 3) |
+| 9 | Android: Recipe Browser & Favourites |
+| 10 | Android: MVP Polish — tablet layout, platform parity check against iOS |
+
+Build order: iOS first, end-to-end to a complete MVP, then port to Android.
+
+## Full design docs
+
+The Obsidian vault (`Project Ideas/Dev Project Ideas/Norse Mixology/`) has the complete picture: `Overview.md`, `Data Model.md` (full taxonomy tables), `Design System.md`, `Frontend - iOS.md`, `Frontend - Android.md`, `Deployment.md`, `Future Improvements.md`, and per-phase checklists under `Phases/`.
