@@ -13,6 +13,9 @@ public final class TaxonomyStore {
     public private(set) var categoryNamesById: [UUID: String] = [:]
     public private(set) var isLoaded = false
 
+    public private(set) var recipes: [Recipe] = []
+    public private(set) var recipesLoaded = false
+
     public init() {}
 
     /// No-op if already loaded — safe to call from multiple views without
@@ -37,5 +40,18 @@ public final class TaxonomyStore {
         self.isLoaded = true
     }
 
+    /// No-op if already loaded.
+    public func loadRecipes(from data: Data) {
+        guard !recipesLoaded else { return }
+        guard let parsed = try? IngredientTaxonomy.loadRecipes(from: data) else { return }
+        self.recipes = parsed
+        self.recipesLoaded = true
+    }
+
     public var styleCount: Int { stylesById.count }
+
+    /// Flattened lookup tables over `categories`, for the matching engine.
+    public var index: TaxonomyIndex {
+        TaxonomyIndex(stylesById: stylesById, familyNamesById: familyNamesById, categoryNamesById: categoryNamesById)
+    }
 }

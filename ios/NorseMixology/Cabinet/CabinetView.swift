@@ -7,6 +7,7 @@ struct CabinetView: View {
 
     @State private var viewModel: CabinetViewModel?
     @State private var isPresentingAddSheet = false
+    @State private var matchResults: MatchResultsPayload?
 
     var body: some View {
         NavigationStack {
@@ -26,6 +27,9 @@ struct CabinetView: View {
                         Image(systemName: "plus")
                     }
                 }
+            }
+            .navigationDestination(item: $matchResults) { payload in
+                RecipeBrowserView(results: payload.results)
             }
         }
         .onAppear {
@@ -62,7 +66,7 @@ struct CabinetView: View {
                 }
                 .listStyle(.insetGrouped)
 
-                findRecipesButton
+                findRecipesButton(viewModel: viewModel)
             }
         }
     }
@@ -86,18 +90,27 @@ struct CabinetView: View {
         .padding()
     }
 
-    private var findRecipesButton: some View {
+    private func findRecipesButton(viewModel: CabinetViewModel) -> some View {
         Button {
-            // Wired in Phase 3 (matching engine) / Phase 4 (results UI).
+            matchResults = MatchResultsPayload(results: viewModel.findRecipes(taxonomyStore: taxonomyStore))
         } label: {
             Text("Find Recipes")
                 .frame(maxWidth: .infinity)
         }
         .buttonStyle(.borderedProminent)
-        .disabled(true)
         .padding()
-        .help("Coming soon")
     }
+}
+
+/// Wraps match results with a fresh identity per search so
+/// `navigationDestination(item:)` (which requires `Hashable`) can be driven
+/// without threading `Hashable` through the whole matching-result model graph.
+struct MatchResultsPayload: Hashable {
+    let id = UUID()
+    let results: [RecipeMatchResult]
+
+    static func == (lhs: MatchResultsPayload, rhs: MatchResultsPayload) -> Bool { lhs.id == rhs.id }
+    func hash(into hasher: inout Hasher) { hasher.combine(id) }
 }
 
 private struct CabinetItemRow: View {

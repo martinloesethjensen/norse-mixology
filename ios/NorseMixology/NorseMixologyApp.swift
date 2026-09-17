@@ -35,8 +35,8 @@ struct NorseMixologyApp: App {
             taxonomyStore.load(taxonomyData: taxonomyData)
             print("Taxonomy loaded: \(taxonomyStore.styleCount) styles")
 
-            let recipes = try IngredientTaxonomy.loadRecipes(from: Data(contentsOf: recipesURL))
-            print("Recipes loaded: \(recipes.count) recipes")
+            taxonomyStore.loadRecipes(from: try Data(contentsOf: recipesURL))
+            print("Recipes loaded: \(taxonomyStore.recipes.count) recipes")
         } catch {
             print("⚠️ Failed to load bundled taxonomy/recipes: \(error)")
         }
