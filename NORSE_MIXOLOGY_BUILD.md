@@ -105,6 +105,18 @@ If the two platform implementations ever disagree, this section — not either c
 
 Garnish-role ingredients never drop a recipe (treated like an unresolved *optional* ingredient — skipped, no score penalty) regardless of the seed data's `isOptional` flag. This is why "Gin + Campari + Sweet Vermouth → Negroni, exact" holds even though the Negroni's orange-wheel garnish isn't flagged optional in `recipes.json`.
 
+## Recipe Browser rules (Phase 4 — Android Phase 9 must match)
+
+Pure presentation logic lives in `NorseMixologyCore` (`RecipePresentation.swift`, unit-tested) so both platforms apply identical rules:
+
+- **Grouping** of match results: `matchType == exact` → **Perfect Match**; partial with ≤ 1 substitution → **Almost There**; partial with ≥ 2 substitutions → **Worth Exploring**. Order within a group is the engine's order (never re-sorted).
+- **Card badge:** exact → "✓ All ingredients" (lime); partial → "1 sub needed" / "N subs needed" (gold). Results never contain recipes with an unresolved required ingredient, so there is no "missing" card badge.
+- **Ingredient row status** (recipe detail): a reported substitution for that required style → *substituted* (wins even if the exact style is also in the cabinet, e.g. a user "accept" override); else exact style in cabinet → *exact*; else → *unavailable*. Only optional/garnish ingredients can be unavailable — e.g. a Negroni with gin/Campari/vermouth is a Perfect Match whose orange-wheel row shows unavailable.
+- **Where results live:** the Recipes tab hosts the browser and re-matches whenever it appears (and on pull-to-refresh). Cabinet's "Find Recipes" re-matches and switches to the Recipes tab.
+- **Layout:** compact width pushes the detail screen; regular width shows a list/detail split. The app-wide tablet shell is Phase 6.
+- **Glass icons (SF Symbols):** coupe/martini/flute/wine glass → `wineglass`; rocks → `cup.and.saucer`; highball/collins/hurricane → `cylinder`; mug → `mug`.
+- **Note:** a cross-family swap such as Vodka for Gin is *not* a substitution — vodka isn't in gin's family and there's no curated rule — so such a recipe drops out instead of moving to "Almost There". Use a same-family swap (e.g. Contemporary Gin for London Dry Gin) when checking that flow.
+
 ## Design System — "Modern Neon Bar"
 
 Both platforms follow system light/dark appearance (never forced). Same tokens, mapped for each mode:

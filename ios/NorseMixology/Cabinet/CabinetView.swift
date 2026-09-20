@@ -1,13 +1,17 @@
 import SwiftUI
+import SwiftData
 import NorseMixologyCore
 
 struct CabinetView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(TaxonomyStore.self) private var taxonomyStore
+    @Environment(RecipeBrowserViewModel.self) private var recipeBrowserViewModel
+
+    /// Called after a fresh match has been run, so the host can show the results.
+    let onFindRecipes: () -> Void
 
     @State private var viewModel: CabinetViewModel?
     @State private var isPresentingAddSheet = false
-    @State private var matchResults: MatchResultsPayload?
 
     var body: some View {
         NavigationStack {
@@ -27,9 +31,6 @@ struct CabinetView: View {
                         Image(systemName: "plus")
                     }
                 }
-            }
-            .navigationDestination(item: $matchResults) { payload in
-                RecipeBrowserView(results: payload.results)
             }
         }
         .onAppear {
@@ -66,7 +67,7 @@ struct CabinetView: View {
                 }
                 .listStyle(.insetGrouped)
 
-                findRecipesButton(viewModel: viewModel)
+                findRecipesButton
             }
         }
     }
@@ -90,9 +91,10 @@ struct CabinetView: View {
         .padding()
     }
 
-    private func findRecipesButton(viewModel: CabinetViewModel) -> some View {
+    private var findRecipesButton: some View {
         Button {
-            matchResults = MatchResultsPayload(results: viewModel.findRecipes(taxonomyStore: taxonomyStore))
+            recipeBrowserViewModel.refresh(context: modelContext, taxonomyStore: taxonomyStore)
+            onFindRecipes()
         } label: {
             Text("Find Recipes")
                 .frame(maxWidth: .infinity)
@@ -100,17 +102,6 @@ struct CabinetView: View {
         .buttonStyle(.borderedProminent)
         .padding()
     }
-}
-
-/// Wraps match results with a fresh identity per search so
-/// `navigationDestination(item:)` (which requires `Hashable`) can be driven
-/// without threading `Hashable` through the whole matching-result model graph.
-struct MatchResultsPayload: Hashable {
-    let id = UUID()
-    let results: [RecipeMatchResult]
-
-    static func == (lhs: MatchResultsPayload, rhs: MatchResultsPayload) -> Bool { lhs.id == rhs.id }
-    func hash(into hasher: inout Hasher) { hasher.combine(id) }
 }
 
 private struct CabinetItemRow: View {

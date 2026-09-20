@@ -52,17 +52,4 @@ final class CabinetViewModel {
         CabinetService.remove(item, context: modelContext)
         refresh()
     }
-
-    /// Runs the matching engine against the current cabinet. Synchronous —
-    /// matching ~150 bundled recipes is near-instant on-device, so no
-    /// loading state is needed (see Phase 3 notes).
-    func findRecipes(taxonomyStore: TaxonomyStore) -> [RecipeMatchResult] {
-        let results = RecipeService.findRecipes(
-            for: items,
-            recipes: taxonomyStore.recipes,
-            taxonomyCategories: taxonomyStore.categories
-        )
-        print("Find Recipes: \(results.count) matches for \(items.count) cabinet item(s)")
-        return results
-    }
 }
