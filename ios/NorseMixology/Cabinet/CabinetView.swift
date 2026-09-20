@@ -22,13 +22,15 @@ struct CabinetView: View {
                     ProgressView()
                 }
             }
+            .dsScreenBackground()
             .navigationTitle("Cabinet")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         isPresentingAddSheet = true
                     } label: {
-                        Image(systemName: "plus")
+                        Label("Add Ingredient", systemImage: "plus")
+                            .labelStyle(.iconOnly)
                     }
                 }
             }
@@ -48,47 +50,44 @@ struct CabinetView: View {
     @ViewBuilder
     private func content(viewModel: CabinetViewModel) -> some View {
         if viewModel.isEmpty {
-            emptyState
+            ContentUnavailableView {
+                Label("Your cabinet is empty", systemImage: "archivebox")
+            } description: {
+                Text("Add what's in your cabinet to get started")
+            } actions: {
+                Button("Add Ingredient") { isPresentingAddSheet = true }
+                    .buttonStyle(.dsPrimary)
+                    .frame(maxWidth: 280)
+            }
         } else {
             VStack(spacing: 0) {
                 List {
                     ForEach(viewModel.groupedItems, id: \.category) { group in
-                        Section(group.category) {
+                        Section {
                             ForEach(group.items) { item in
                                 CabinetItemRow(item: item)
+                                    .listRowBackground(DesignTokens.surface)
                             }
                             .onDelete { offsets in
                                 for index in offsets {
                                     viewModel.remove(group.items[index])
                                 }
                             }
+                        } header: {
+                            Text(group.category)
+                                .dsText(.label)
+                                .textCase(.uppercase)
+                                .tracking(0.6)
+                                .foregroundStyle(DesignTokens.textSecondary)
                         }
                     }
                 }
                 .listStyle(.insetGrouped)
+                .dsListBackground()
 
                 findRecipesButton
             }
         }
-    }
-
-    private var emptyState: some View {
-        VStack(spacing: 16) {
-            Spacer()
-            Image(systemName: "archivebox")
-                .font(.system(size: 48))
-                .foregroundStyle(.secondary)
-            Text("Your cabinet is empty")
-                .font(.headline)
-            Text("Add what's in your cabinet to get started")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-            Button("Add Ingredient") { isPresentingAddSheet = true }
-                .buttonStyle(.borderedProminent)
-            Spacer()
-        }
-        .padding()
     }
 
     private var findRecipesButton: some View {
@@ -97,9 +96,9 @@ struct CabinetView: View {
             onFindRecipes()
         } label: {
             Text("Find Recipes")
-                .frame(maxWidth: .infinity)
         }
-        .buttonStyle(.borderedProminent)
+        .buttonStyle(.dsPrimary)
+        .frame(maxWidth: 560)
         .padding()
     }
 }
@@ -111,12 +110,15 @@ private struct CabinetItemRow: View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
                 Text(item.displayName)
+                    .dsText(.heading)
+                    .foregroundStyle(DesignTokens.textPrimary)
                 Text(item.style)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .dsText(.body)
+                    .foregroundStyle(DesignTokens.textSecondary)
             }
             Spacer()
             FlavorProfileIndicatorView(profile: item.flavorProfile)
         }
+        .accessibilityElement(children: .combine)
     }
 }

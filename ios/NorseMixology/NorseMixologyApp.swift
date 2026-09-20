@@ -42,18 +42,18 @@ struct NorseMixologyApp: App {
             let taxonomyURL = Bundle.main.url(forResource: "taxonomy", withExtension: "json"),
             let recipesURL = Bundle.main.url(forResource: "recipes", withExtension: "json")
         else {
-            print("⚠️ Bundled taxonomy.json/recipes.json not found")
+            AppLog.catalog.error("Bundled taxonomy.json/recipes.json not found")
             return
         }
         do {
             let taxonomyData = try Data(contentsOf: taxonomyURL)
             taxonomyStore.load(taxonomyData: taxonomyData)
-            print("Taxonomy loaded: \(taxonomyStore.styleCount) styles")
+            AppLog.catalog.info("Taxonomy loaded: \(taxonomyStore.styleCount) styles")
 
             taxonomyStore.loadRecipes(from: try Data(contentsOf: recipesURL))
-            print("Recipes loaded: \(taxonomyStore.recipes.count) recipes")
+            AppLog.catalog.info("Recipes loaded: \(taxonomyStore.recipes.count) recipes")
         } catch {
-            print("⚠️ Failed to load bundled taxonomy/recipes: \(error)")
+            AppLog.catalog.error("Failed to load bundled taxonomy/recipes: \(error.localizedDescription)")
         }
     }
 }

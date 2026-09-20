@@ -113,7 +113,7 @@ Pure presentation logic lives in `NorseMixologyCore` (`RecipePresentation.swift`
 - **Card badge:** exact → "✓ All ingredients" (lime); partial → "1 sub needed" / "N subs needed" (gold). Results never contain recipes with an unresolved required ingredient, so there is no "missing" card badge.
 - **Ingredient row status** (recipe detail): a reported substitution for that required style → *substituted* (wins even if the exact style is also in the cabinet, e.g. a user "accept" override); else exact style in cabinet → *exact*; else → *unavailable*. Only optional/garnish ingredients can be unavailable — e.g. a Negroni with gin/Campari/vermouth is a Perfect Match whose orange-wheel row shows unavailable.
 - **Where results live:** the Recipes tab hosts the browser and re-matches whenever it appears (and on pull-to-refresh). Cabinet's "Find Recipes" re-matches and switches to the Recipes tab.
-- **Layout:** compact width pushes the detail screen; regular width shows a list/detail split. The app-wide tablet shell is Phase 6.
+- **Layout:** compact width pushes the detail screen; regular width shows a list/detail split inside the Recipes tab. The tab bar is kept on iPad — an app-wide sidebar shell was considered in Phase 6 and left as a post-MVP option (see the vault's Future Improvements).
 - **Glass icons (SF Symbols):** coupe/martini/flute/wine glass → `wineglass`; rocks → `cup.and.saucer`; highball/collins/hurricane → `cylinder`; mug → `mug`.
 - **Note:** a cross-family swap such as Vodka for Gin is *not* a substitution — vodka isn't in gin's family and there's no curated rule — so such a recipe drops out instead of moving to "Almost There". Use a same-family swap (e.g. Contemporary Gin for London Dry Gin) when checking that flow.
 
@@ -127,6 +127,19 @@ Pure presentation logic lives in `NorseMixologyCore` (`RecipePresentation.swift`
 - **Recipe no longer in the catalog:** keep the cached-name row, dimmed and non-navigable, still removable via swipe.
 - **Swipe** a row to unfavourite.
 - **iOS migration note:** `FavouriteRecipe` was a one-field stub in Phases 0–4. Its new attributes have default values so SwiftData upgrades existing stores in place (verified on a simulator store created by the Phase 4 build). Room on Android starts fresh, so this doesn't apply there.
+
+## Hardening rules (Phase 6 — Android Phase 10 must match)
+
+- **Tolerant catalog parsing:** a malformed recipe entry is skipped (and logged with the skipped count) instead of failing the whole catalog. A file that isn't a JSON array at all is still an error.
+- **Duplicate ingredient:** tapping an ingredient already in the cabinet shows a transient "Already in your cabinet" notice (~2 s, announced to the screen reader). Ingredient rows are real buttons, not tap gestures, so assistive tech can activate them.
+- **Empty results:** "Your cabinet didn't match any recipes. Try adding some base spirits like gin, rum, or vodka."
+- **Unavailable favourite:** "This recipe is no longer available".
+- **Flavour indicator:** five dots (sweetness, bitterness, smokiness, citrus, herbal) in the accent colour, strength = value. Read aloud as one element: "Sweetness: high, Bitterness: low, …" with low < 0.34 ≤ medium < 0.67 ≤ high.
+- **Design tokens everywhere:** no screen defines its own colour or font size. Match-status colours are used identically on cards, badges and ingredient rows.
+- **Large text:** header pills stack rather than wrap mid-word; icon slots and step badges scale with the text; buttons grow with their label (min 44 pt).
+- **Logging:** structured logging only (`os.Logger` on iOS, `Log` on Android) — no `print`.
+- **Localisation-ready:** iOS keeps UI strings in a String Catalog (`ios/NorseMixology/Localizable.xcstrings`; `ios/scripts/sync-strings.sh` refreshes it after a CLI build). Android uses `strings.xml`. Not yet localisable on iOS: strings produced by the core package (badge labels, glass/method/difficulty names, substitution notes assembled from English fragments) — see Future Improvements.
+- **Performance budget:** matching a 30-item cabinet against the full catalog (~158 recipes) must stay well under 100 ms (measured ~8 ms on a Mac debug build; a unit test enforces it).
 
 ## Design System — "Modern Neon Bar"
 
@@ -146,7 +159,7 @@ Match-status: Exact `#8FE388`, Substituted `#F0B93D` (both modes); Unavailable `
 
 Typography (native system fonts — SF Pro on iOS, Roboto on Android): Display/Title 26sp/pt·800, Section Heading 16sp/pt·600, Body 13sp/pt·400 (secondary colour), Label/Badge 10sp/pt·700 uppercase.
 
-Full palette is wired into each platform's theme starting the MVP Polish phases (iOS Phase 6, Android Phase 10) — until then, screens use each platform's default theme, which already respects system appearance.
+The full palette is wired into every iOS screen as of Phase 6 (`Theme/DesignTokens.swift` is the only place colours and font sizes are defined); Android gets the same in Phase 10. Until then an Android screen uses its default theme, which already respects system appearance.
 
 ## iOS Architecture
 

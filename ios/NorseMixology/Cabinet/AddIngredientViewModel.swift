@@ -1,11 +1,17 @@
-import Foundation
+import SwiftUI
 import NorseMixologyCore
 
 @Observable
 final class AddIngredientViewModel {
-    enum Mode: String, CaseIterable {
-        case search = "Search"
-        case browse = "Browse"
+    enum Mode: CaseIterable {
+        case search, browse
+
+        var title: LocalizedStringKey {
+            switch self {
+            case .search: return "Search"
+            case .browse: return "Browse"
+            }
+        }
     }
 
     let taxonomyStore: TaxonomyStore

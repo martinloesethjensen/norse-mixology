@@ -22,8 +22,9 @@ struct RecipeResultsList: View {
             ContentUnavailableView(
                 "No Matching Recipes",
                 systemImage: "wineglass",
-                description: Text("Your cabinet didn't match any recipes. Try adding more ingredients.")
+                description: Text("Your cabinet didn't match any recipes. Try adding some base spirits like gin, rum, or vodka.")
             )
+            .dsScreenBackground()
         } else {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 12) {
@@ -34,12 +35,13 @@ struct RecipeResultsList: View {
                 .padding(.horizontal, 16)
                 .padding(.bottom, 20)
             }
+            .dsScreenBackground()
             .refreshable { onRefresh() }
         }
     }
 
     @ViewBuilder
-    private func section(_ title: String, subtitle: String, matches: [RecipeMatchResult]) -> some View {
+    private func section(_ title: LocalizedStringResource, subtitle: LocalizedStringResource, matches: [RecipeMatchResult]) -> some View {
         if !matches.isEmpty {
             Section {
                 ForEach(matches) { result in
@@ -47,11 +49,11 @@ struct RecipeResultsList: View {
                 }
             } header: {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("\(title) (\(matches.count))")
+                    Text("\(String(localized: title)) (\(matches.count))")
                         .dsText(.heading)
                         .foregroundStyle(DesignTokens.textPrimary)
                         .accessibilityAddTraits(.isHeader)
-                    Text(subtitle)
+                    Text(String(localized: subtitle))
                         .dsText(.body)
                         .foregroundStyle(DesignTokens.textSecondary)
                 }

@@ -7,8 +7,7 @@ enum AppTab: Hashable {
 }
 
 /// Root: `TabView` with a `NavigationStack` per screen. The Recipes tab adapts
-/// itself to a list/detail split at regular width; the app-wide iPad shell
-/// (sidebar replacing the tab bar) lands in Phase 6.
+/// itself to a list/detail split at regular width.
 struct ContentView: View {
     @State private var selectedTab: AppTab = .recipes
     @State private var recipeBrowserViewModel = RecipeBrowserViewModel()
@@ -32,12 +31,15 @@ struct ContentView: View {
 }
 
 #Preview {
-    let container = try! ModelContainer(
+    if let container = try? ModelContainer(
         for: CabinetItem.self, FavouriteRecipe.self,
         configurations: ModelConfiguration(isStoredInMemoryOnly: true)
-    )
-    return ContentView()
-        .environment(TaxonomyStore())
-        .environment(FavouritesViewModel(modelContext: container.mainContext))
-        .modelContainer(container)
+    ) {
+        ContentView()
+            .environment(TaxonomyStore())
+            .environment(FavouritesViewModel(modelContext: container.mainContext))
+            .modelContainer(container)
+    } else {
+        Text("Couldn't create the preview data container")
+    }
 }

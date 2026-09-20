@@ -10,6 +10,7 @@ struct IngredientRowView: View {
     let substitute: SubstitutionDetail?
 
     @State private var isExpanded = false
+    @ScaledMetric(relativeTo: .headline) private var iconWidth: CGFloat = 22
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -35,7 +36,7 @@ struct IngredientRowView: View {
             HStack(alignment: .top, spacing: 12) {
                 Image(systemName: status.symbolName)
                     .foregroundStyle(status.color)
-                    .frame(width: 22)
+                    .frame(width: iconWidth)
                     .padding(.top, 1)
 
                 VStack(alignment: .leading, spacing: 3) {
@@ -74,7 +75,7 @@ struct IngredientRowView: View {
                 }
                 .dsText(.body)
                 .foregroundStyle(DesignTokens.textSecondary)
-                .padding(.leading, 34)
+                .padding(.leading, iconWidth + 12)
                 .transition(.opacity)
             }
         }

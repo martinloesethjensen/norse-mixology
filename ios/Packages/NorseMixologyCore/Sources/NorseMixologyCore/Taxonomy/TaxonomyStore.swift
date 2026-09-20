@@ -43,9 +43,16 @@ public final class TaxonomyStore {
     /// No-op if already loaded.
     public func loadRecipes(from data: Data) {
         guard !recipesLoaded else { return }
-        guard let parsed = try? IngredientTaxonomy.loadRecipes(from: data) else { return }
-        self.recipes = parsed
-        self.recipesLoaded = true
+        do {
+            let result = try IngredientTaxonomy.loadRecipesReportingSkipped(from: data)
+            if result.skippedCount > 0 {
+                AppLog.catalog.warning("Skipped \(result.skippedCount) malformed recipe(s) in the bundled catalog")
+            }
+            self.recipes = result.recipes
+            self.recipesLoaded = true
+        } catch {
+            AppLog.catalog.error("Bundled recipe catalog could not be read: \(error.localizedDescription)")
+        }
     }
 
     public var styleCount: Int { stylesById.count }

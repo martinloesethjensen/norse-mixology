@@ -8,6 +8,7 @@ struct AddIngredientView: View {
 
     @State private var viewModel: AddIngredientViewModel
     @State private var styleForConfirmation: IngredientStyle?
+    @State private var duplicateTaps = 0
 
     init(cabinetViewModel: CabinetViewModel, taxonomyStore: TaxonomyStore) {
         self.cabinetViewModel = cabinetViewModel
@@ -20,7 +21,7 @@ struct AddIngredientView: View {
             VStack(spacing: 0) {
                 Picker("Mode", selection: Bindable(viewModel).mode) {
                     ForEach(AddIngredientViewModel.Mode.allCases, id: \.self) { mode in
-                        Text(mode.rawValue).tag(mode)
+                        Text(mode.title).tag(mode)
                     }
                 }
                 .pickerStyle(.segmented)
@@ -35,6 +36,7 @@ struct AddIngredientView: View {
                     }
                 }
             }
+            .dsScreenBackground()
             .navigationTitle("Add Ingredient")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -54,26 +56,38 @@ struct AddIngredientView: View {
     private var searchView: some View {
         VStack {
             TextField("Search ingredients or brands", text: Bindable(viewModel).searchText)
-                .textFieldStyle(.roundedBorder)
+                .dsText(.heading)
+                .foregroundStyle(DesignTokens.textPrimary)
+                .padding(12)
+                .frame(minHeight: 44)
+                .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(DesignTokens.surface))
+                .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).strokeBorder(DesignTokens.border, lineWidth: 1))
                 .padding(.horizontal)
 
             if viewModel.searchText.trimmingCharacters(in: .whitespaces).isEmpty {
                 Spacer()
                 Text("Search by ingredient, style, or brand name")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .dsText(.body)
+                    .foregroundStyle(DesignTokens.textSecondary)
                 Spacer()
             } else {
                 List(viewModel.searchResults) { style in
                     let inCabinet = cabinetViewModel.contains(styleId: style.id)
-                    IngredientRow(style: style, familyName: viewModel.familyName(for: style), isInCabinet: inCabinet)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            guard !inCabinet else { return }
+                    Button {
+                        if inCabinet {
+                            duplicateTaps += 1
+                        } else {
                             styleForConfirmation = style
                         }
+                    } label: {
+                        IngredientRow(style: style, familyName: viewModel.familyName(for: style), isInCabinet: inCabinet)
+                    }
+                    .buttonStyle(.plain)
+                    .listRowBackground(DesignTokens.surface)
                 }
                 .listStyle(.plain)
+                .dsListBackground()
+                .transientNotice("Already in your cabinet", trigger: duplicateTaps)
             }
         }
     }

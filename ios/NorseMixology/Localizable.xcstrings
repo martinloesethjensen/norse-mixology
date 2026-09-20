@@ -1,0 +1,183 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%@ (%lld)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ (%2$lld)"
+          }
+        }
+      }
+    },
+    "%@ glass" : {
+
+    },
+    "%lld" : {
+
+    },
+    "+%lld more" : {
+
+    },
+    "Add Ingredient" : {
+
+    },
+    "Add to Cabinet" : {
+
+    },
+    "Add to favourites" : {
+
+    },
+    "Add what's in your cabinet to get started" : {
+
+    },
+    "Already in your cabinet" : {
+
+    },
+    "Brand (optional)" : {
+
+    },
+    "Browse" : {
+
+    },
+    "Cabinet" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "Confirm" : {
+
+    },
+    "Couldn't create the preview data container" : {
+
+    },
+    "Example brands: %@" : {
+
+    },
+    "Favourite" : {
+
+    },
+    "Favourited %@" : {
+
+    },
+    "Favourites" : {
+
+    },
+    "Find Recipes" : {
+
+    },
+    "Flavour profile" : {
+
+    },
+    "Hides the substitution note" : {
+
+    },
+    "Missing 1 ingredient" : {
+
+    },
+    "Mode" : {
+
+    },
+    "Needs a few subs" : {
+
+    },
+    "No Favourites Yet" : {
+
+    },
+    "No Matching Recipes" : {
+
+    },
+    "Pick a cocktail from the list to see how to make it." : {
+
+    },
+    "Recipe Unavailable" : {
+
+    },
+    "Recipes" : {
+
+    },
+    "Recipes you love will appear here" : {
+
+    },
+    "Remove from favourites" : {
+
+    },
+    "Search" : {
+
+    },
+    "Search by ingredient, style, or brand name" : {
+
+    },
+    "Search ingredients or brands" : {
+
+    },
+    "Select a Recipe" : {
+
+    },
+    "Shows the substitution note" : {
+
+    },
+    "Step %lld: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Step %1$lld: %2$@"
+          }
+        }
+      }
+    },
+    "Substitutions" : {
+
+    },
+    "This recipe is no longer available" : {
+
+    },
+    "This recipe is no longer available." : {
+
+    },
+    "Unfavourite" : {
+
+    },
+    "Using %@" : {
+
+    },
+    "Using %@ instead of %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Using %1$@ instead of %2$@"
+          }
+        }
+      }
+    },
+    "You have everything" : {
+
+    },
+    "Your cabinet didn't match any recipes. Try adding some base spirits like gin, rum, or vodka." : {
+
+    },
+    "Your cabinet is empty" : {
+
+    },
+    "e.g. Hendrick's" : {
+
+    },
+    "🍹 Perfect Match" : {
+
+    },
+    "🔄 Almost There" : {
+
+    },
+    "🔍 Worth Exploring" : {
+
+    }
+  },
+  "version" : "1.0"
+}

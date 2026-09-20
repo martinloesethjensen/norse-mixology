@@ -23,6 +23,7 @@
 		A2EF2F62113F2EC826DA6F04 /* AddIngredientConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02101A11D23B974EE6190E0C /* AddIngredientConfirmationView.swift */; };
 		A4C35A2A1344DBA6B56AB2D6 /* IngredientRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5523321FAE89E256CC5E9 /* IngredientRowView.swift */; };
 		AFB0DFBFB9270A1E9E69ECDC /* BrowseTaxonomyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871FC8AF4B99B832AF1E9EB8 /* BrowseTaxonomyView.swift */; };
+		B2C6DEBC4B058D4B1EB27126 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 92778BA510F5F5EDE1FD96B8 /* Localizable.xcstrings */; };
 		B2C87521E5AFC04B2BD0CF30 /* RecipeBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B0530F9C757852122D3D7 /* RecipeBrowserView.swift */; };
 		C5940F6141D2AE1B297EAA12 /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD92DFCDB0DBB7D772E13274 /* RecipeDetailView.swift */; };
 		C9785288354CA25531D0A048 /* DesignTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8690FC3511DF012245BEE1C /* DesignTokens.swift */; };
@@ -44,6 +45,7 @@
 		75D19359C364DC1F5C2E3C12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85F1E0184AF6937E1E75B592 /* NorseMixology.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NorseMixology.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		871FC8AF4B99B832AF1E9EB8 /* BrowseTaxonomyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseTaxonomyView.swift; sourceTree = "<group>"; };
+		92778BA510F5F5EDE1FD96B8 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		9DEF8DBACE716CAD2809A3D2 /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
 		A6323A9628A9113D0FC2473C /* RecipeResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeResultsList.swift; sourceTree = "<group>"; };
 		A8690FC3511DF012245BEE1C /* DesignTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignTokens.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			children = (
 				75D19359C364DC1F5C2E3C12 /* Assets.xcassets */,
 				225F46BBEE893F2C52A5E369 /* ContentView.swift */,
+				92778BA510F5F5EDE1FD96B8 /* Localizable.xcstrings */,
 				D40BFB481FBF6BE13016628E /* NorseMixologyApp.swift */,
 				5028564AB6C466E898F7931B /* Cabinet */,
 				891043505758285A55EBCDA7 /* Components */,
@@ -235,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F650EC28DB369D60879B9AA0 /* Assets.xcassets in Resources */,
+				B2C6DEBC4B058D4B1EB27126 /* Localizable.xcstrings in Resources */,
 				50606B2D570B3677D4FAAD32 /* recipes.json in Resources */,
 				1787323C2E036E7F1BF5E69A /* taxonomy.json in Resources */,
 			);
@@ -290,6 +294,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.martinloeseth.NorseMixology;
 				SDKROOT = iphoneos;
@@ -297,6 +302,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -320,6 +326,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.martinloeseth.NorseMixology;
 				SDKROOT = iphoneos;
@@ -327,6 +334,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -16,20 +16,30 @@ struct AddIngredientConfirmationView: View {
                 Section {
                     HStack {
                         Text(style.name)
-                            .font(.headline)
+                            .dsText(.heading)
+                            .foregroundStyle(DesignTokens.textPrimary)
                         Spacer()
                         FlavorProfileIndicatorView(profile: style.flavorProfile)
                     }
                     if !style.exampleBrands.isEmpty {
                         Text("Example brands: \(style.exampleBrands.joined(separator: ", "))")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .dsText(.body)
+                            .foregroundStyle(DesignTokens.textSecondary)
                     }
                 }
-                Section("Brand (optional)") {
+                .listRowBackground(DesignTokens.surface)
+                Section {
                     TextField("e.g. Hendrick's", text: $brandText)
+                } header: {
+                    Text("Brand (optional)")
+                        .dsText(.label)
+                        .textCase(.uppercase)
+                        .tracking(0.6)
+                        .foregroundStyle(DesignTokens.textSecondary)
                 }
+                .listRowBackground(DesignTokens.surface)
             }
+            .dsListBackground()
             .navigationTitle("Confirm")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

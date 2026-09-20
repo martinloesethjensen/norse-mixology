@@ -12,8 +12,19 @@ public enum IngredientTaxonomy {
         try JSONDecoder().decode([IngredientCategory].self, from: data)
     }
 
+    /// Skips individual malformed recipe entries rather than failing the whole
+    /// catalog — one bad entry must never leave the app with no recipes.
+    /// Still throws if the data isn't a JSON array at all.
     public static func loadRecipes(from data: Data) throws -> [Recipe] {
-        try JSONDecoder().decode([Recipe].self, from: data)
+        try loadRecipesReportingSkipped(from: data).recipes
+    }
+
+    /// Like `loadRecipes`, also reporting how many entries could not be decoded
+    /// (so the caller can log it).
+    public static func loadRecipesReportingSkipped(from data: Data) throws -> (recipes: [Recipe], skippedCount: Int) {
+        let entries = try JSONDecoder().decode([LossyDecodable<Recipe>].self, from: data)
+        let recipes = entries.compactMap(\.value)
+        return (recipes, entries.count - recipes.count)
     }
 
     /// Flattens a parsed taxonomy into its leaf styles, keyed by id — the
@@ -28,5 +39,15 @@ public enum IngredientTaxonomy {
             }
         }
         return result
+    }
+}
+
+/// Decodes to `nil` instead of throwing, so one bad element doesn't fail the
+/// whole array it sits in. (The array's container still advances past it.)
+private struct LossyDecodable<Value: Decodable>: Decodable {
+    let value: Value?
+
+    init(from decoder: Decoder) throws {
+        value = try? Value(from: decoder)
     }
 }

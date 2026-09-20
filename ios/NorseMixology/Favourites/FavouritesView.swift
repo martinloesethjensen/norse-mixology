@@ -23,10 +23,17 @@ struct FavouritesView: View {
                     favouritesList
                 }
             }
+            .dsScreenBackground()
             .navigationTitle("Favourites")
             .navigationDestination(for: UUID.self) { recipeId in
                 if let recipe = taxonomyStore.recipes.first(where: { $0.id == recipeId }) {
                     FavouriteRecipeDetail(recipe: recipe)
+                } else {
+                    ContentUnavailableView(
+                        "Recipe Unavailable",
+                        systemImage: "wineglass",
+                        description: Text("This recipe is no longer available.")
+                    )
                 }
             }
         }
@@ -51,6 +58,7 @@ struct FavouritesView: View {
             }
         }
         .listStyle(.plain)
+        .dsListBackground()
     }
 
     @ViewBuilder
@@ -93,7 +101,7 @@ private struct FavouriteRowView: View {
                 if let recipe {
                     OutlinePillView(text: recipe.difficulty.displayName)
                 } else {
-                    Text("No longer in the recipe catalog")
+                    Text("This recipe is no longer available")
                         .dsText(.body)
                         .foregroundStyle(DesignTokens.textSecondary)
                 }

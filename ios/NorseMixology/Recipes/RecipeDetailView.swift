@@ -16,6 +16,7 @@ struct RecipeDetailView: View {
     @Environment(FavouritesViewModel.self) private var favourites
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var heartIsPulsing = false
+    @ScaledMetric(relativeTo: .caption) private var stepBadgeSize: CGFloat = 22
 
     init(recipe: Recipe, match: RecipeMatchResult?, cabinetStyleIds: Set<UUID>) {
         self.recipe = recipe
@@ -55,6 +56,7 @@ struct RecipeDetailView: View {
             .padding(.vertical, 20)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .dsScreenBackground()
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
@@ -95,15 +97,22 @@ struct RecipeDetailView: View {
                     .foregroundStyle(DesignTokens.textPrimary)
             }
 
-            HStack(spacing: 8) {
-                OutlinePillView(text: recipe.method.displayName)
-                OutlinePillView(text: recipe.difficulty.displayName)
-                if let match {
-                    MatchBadgeView(state: MatchBadgeState(result: match))
-                } else {
-                    OutlinePillView(text: "Missing ingredients")
-                }
+            // One line when it fits; stacked at large text sizes so nothing wraps mid-word.
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 8) { headerPills }
+                VStack(alignment: .leading, spacing: 8) { headerPills }
             }
+        }
+    }
+
+    @ViewBuilder
+    private var headerPills: some View {
+        OutlinePillView(text: recipe.method.displayName)
+        OutlinePillView(text: recipe.difficulty.displayName)
+        if let match {
+            MatchBadgeView(state: MatchBadgeState(result: match))
+        } else {
+            OutlinePillView(text: "Missing ingredients")
         }
     }
 
@@ -173,7 +182,7 @@ struct RecipeDetailView: View {
                         Text("\(index + 1)")
                             .dsText(.label)
                             .foregroundStyle(DesignTokens.textSecondary)
-                            .frame(width: 22, height: 22)
+                            .frame(width: stepBadgeSize, height: stepBadgeSize)
                             .overlay(Circle().strokeBorder(DesignTokens.border, lineWidth: 1))
                             .accessibilityHidden(true)
                         Text(step)

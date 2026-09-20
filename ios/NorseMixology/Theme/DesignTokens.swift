@@ -5,8 +5,8 @@ import NorseMixologyCore
 /// "Modern Neon Bar" tokens from the vault's Design System note, mapped for
 /// both system appearances (see NORSE_MIXOLOGY_BUILD.md → Design System).
 ///
-/// Phase 4 uses these for the recipe cards, badges and detail screen. Wiring
-/// them app-wide (backgrounds, tab bar, Cabinet screens) is Phase 6.
+/// Every screen takes its colours and text styles from here — nothing else in
+/// the app hard-codes a colour or a font size.
 enum DesignTokens {
     static let background = Color.adaptive(dark: 0x0D0F14, light: 0xF7F8FA)
     static let surface = Color.adaptive(dark: 0x161920, light: 0xFFFFFF)
@@ -133,4 +133,77 @@ extension AvailabilityStatus {
         case .unavailable: return "xmark.circle.fill"
         }
     }
+}
+
+// MARK: - Shared screen styling
+
+extension View {
+    /// The Design System Background token behind a screen's content.
+    func dsScreenBackground() -> some View {
+        background(DesignTokens.background)
+    }
+
+    /// For `List` / `Form`: hides the system grouped background so the
+    /// Background token shows through.
+    func dsListBackground() -> some View {
+        scrollContentBackground(.hidden).background(DesignTokens.background)
+    }
+
+    /// Briefly shows `text` as a banner above the bottom edge each time
+    /// `trigger` changes (increment it to show), and announces it to VoiceOver.
+    func transientNotice(_ text: String, trigger: Int) -> some View {
+        modifier(TransientNoticeModifier(text: text, trigger: trigger))
+    }
+}
+
+private struct TransientNoticeModifier: ViewModifier {
+    let text: String
+    let trigger: Int
+    @State private var isVisible = false
+
+    func body(content: Content) -> some View {
+        content
+            .safeAreaInset(edge: .bottom) {
+                if isVisible {
+                    Text(text)
+                        .dsText(.heading)
+                        .foregroundStyle(DesignTokens.textPrimary)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
+                        .background(Capsule().fill(DesignTokens.surfaceRaised))
+                        .overlay(Capsule().strokeBorder(DesignTokens.border, lineWidth: 1))
+                        .padding(.bottom, 8)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+            }
+            // Each new trigger cancels the previous task, restarting the timer.
+            .task(id: trigger) {
+                guard trigger > 0 else { return }
+                withAnimation(.easeInOut(duration: 0.2)) { isVisible = true }
+                AccessibilityNotification.Announcement(text).post()
+                try? await Task.sleep(for: .seconds(2))
+                guard !Task.isCancelled else { return }
+                withAnimation(.easeInOut(duration: 0.2)) { isVisible = false }
+            }
+    }
+}
+
+/// The primary call-to-action: filled lime with dark text, at least 44pt tall.
+struct DSPrimaryButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .dsText(.heading)
+            .foregroundStyle(DesignTokens.onBadge)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
+            .frame(maxWidth: .infinity, minHeight: 44)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(DesignTokens.accent.opacity(configuration.isPressed ? 0.8 : 1))
+            )
+    }
+}
+
+extension ButtonStyle where Self == DSPrimaryButtonStyle {
+    static var dsPrimary: DSPrimaryButtonStyle { DSPrimaryButtonStyle() }
 }

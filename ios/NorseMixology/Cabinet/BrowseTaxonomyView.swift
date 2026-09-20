@@ -8,11 +8,17 @@ struct BrowseTaxonomyView: View {
 
     var body: some View {
         List(taxonomyStore.categories) { category in
-            NavigationLink(category.name) {
+            NavigationLink {
                 FamilyListView(category: category, cabinetViewModel: cabinetViewModel, onSelectStyle: onSelectStyle)
+            } label: {
+                Text(category.name)
+                    .dsText(.heading)
+                    .foregroundStyle(DesignTokens.textPrimary)
             }
+            .listRowBackground(DesignTokens.surface)
         }
         .listStyle(.plain)
+        .dsListBackground()
     }
 }
 
@@ -23,11 +29,17 @@ private struct FamilyListView: View {
 
     var body: some View {
         List(category.families) { family in
-            NavigationLink(family.name) {
+            NavigationLink {
                 StyleListView(family: family, cabinetViewModel: cabinetViewModel, onSelectStyle: onSelectStyle)
+            } label: {
+                Text(family.name)
+                    .dsText(.heading)
+                    .foregroundStyle(DesignTokens.textPrimary)
             }
+            .listRowBackground(DesignTokens.surface)
         }
         .listStyle(.plain)
+        .dsListBackground()
         .navigationTitle(category.name)
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -38,17 +50,26 @@ private struct StyleListView: View {
     let cabinetViewModel: CabinetViewModel
     let onSelectStyle: (IngredientStyle) -> Void
 
+    @State private var duplicateTaps = 0
+
     var body: some View {
         List(family.styles) { style in
             let inCabinet = cabinetViewModel.contains(styleId: style.id)
-            IngredientRow(style: style, familyName: family.name, isInCabinet: inCabinet)
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    guard !inCabinet else { return }
+            Button {
+                if inCabinet {
+                    duplicateTaps += 1
+                } else {
                     onSelectStyle(style)
                 }
+            } label: {
+                IngredientRow(style: style, familyName: family.name, isInCabinet: inCabinet)
+            }
+            .buttonStyle(.plain)
+            .listRowBackground(DesignTokens.surface)
         }
         .listStyle(.plain)
+        .dsListBackground()
+        .transientNotice("Already in your cabinet", trigger: duplicateTaps)
         .navigationTitle(family.name)
         .navigationBarTitleDisplayMode(.inline)
     }

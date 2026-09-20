@@ -169,7 +169,7 @@ public enum MatchingService {
         var best: (item: CabinetItem, similarity: Double)?
         for candidate in familyCandidates {
             let similarity = FlavorSimilarity.cosine(requiredStyle.flavorProfile, candidate.flavorProfile)
-            if best == nil || similarity > best!.similarity {
+            if similarity > (best?.similarity ?? -1) {
                 best = (candidate, similarity)
             }
         }
