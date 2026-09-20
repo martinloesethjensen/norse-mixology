@@ -3,15 +3,32 @@ import NorseMixologyCore
 
 /// Full recipe: header, ingredients with cabinet availability, substitution
 /// notes, and method steps.
+///
+/// `match` is `nil` for a recipe the current cabinet can't make (reachable from
+/// Favourites): ingredients are then simply in the cabinet or not, and there is
+/// no substitution callout.
 struct RecipeDetailView: View {
-    let result: RecipeMatchResult
+    let recipe: Recipe
+    let match: RecipeMatchResult?
     let cabinetStyleIds: Set<UUID>
 
     @Environment(TaxonomyStore.self) private var taxonomyStore
-    /// Visual stub — persistence is wired in Phase 5.
-    @State private var isFavourite = false
+    @Environment(FavouritesViewModel.self) private var favourites
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var heartIsPulsing = false
 
-    private var recipe: Recipe { result.recipe }
+    init(recipe: Recipe, match: RecipeMatchResult?, cabinetStyleIds: Set<UUID>) {
+        self.recipe = recipe
+        self.match = match
+        self.cabinetStyleIds = cabinetStyleIds
+    }
+
+    init(result: RecipeMatchResult, cabinetStyleIds: Set<UUID>) {
+        self.init(recipe: result.recipe, match: result, cabinetStyleIds: cabinetStyleIds)
+    }
+
+    private var substitutions: [SubstitutionDetail] { match?.substitutions ?? [] }
+    private var isFavourite: Bool { favourites.isFavourited(recipe.id) }
 
     var body: some View {
         ScrollView {
@@ -26,7 +43,7 @@ struct RecipeDetailView: View {
 
                 ingredientsSection
 
-                if !result.substitutions.isEmpty {
+                if !substitutions.isEmpty {
                     substitutionCallout
                 }
 
@@ -41,14 +58,26 @@ struct RecipeDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Button {
-                    isFavourite.toggle()
-                } label: {
+                Button(action: toggleFavourite) {
                     Image(systemName: isFavourite ? "heart.fill" : "heart")
                         .foregroundStyle(isFavourite ? DesignTokens.accent : DesignTokens.textSecondary)
+                        .scaleEffect(heartIsPulsing ? 1.3 : 1)
                 }
+                .sensoryFeedback(.impact(weight: .medium), trigger: isFavourite)
                 .accessibilityLabel(isFavourite ? "Remove from favourites" : "Add to favourites")
             }
+        }
+    }
+
+    private func toggleFavourite() {
+        favourites.toggle(recipe)
+        guard !reduceMotion else { return }
+
+        // Brief scale-up bounce on tap.
+        withAnimation(.spring(response: 0.25, dampingFraction: 0.45)) { heartIsPulsing = true }
+        Task { @MainActor in
+            try? await Task.sleep(for: .milliseconds(150))
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) { heartIsPulsing = false }
         }
     }
 
@@ -69,7 +98,11 @@ struct RecipeDetailView: View {
             HStack(spacing: 8) {
                 OutlinePillView(text: recipe.method.displayName)
                 OutlinePillView(text: recipe.difficulty.displayName)
-                MatchBadgeView(state: MatchBadgeState(result: result))
+                if let match {
+                    MatchBadgeView(state: MatchBadgeState(result: match))
+                } else {
+                    OutlinePillView(text: "Missing ingredients")
+                }
             }
         }
     }
@@ -80,7 +113,7 @@ struct RecipeDetailView: View {
         VStack(alignment: .leading, spacing: 14) {
             sectionHeading("Ingredients")
             VStack(alignment: .leading, spacing: 16) {
-                ForEach(RecipeAvailability.rows(for: result, cabinetStyleIds: cabinetStyleIds)) { row in
+                ForEach(RecipeAvailability.rows(for: recipe, substitutions: substitutions, cabinetStyleIds: cabinetStyleIds)) { row in
                     IngredientRowView(
                         name: taxonomyStore.stylesById[row.ingredient.ingredientStyleId]?.name ?? "Unknown ingredient",
                         ingredient: row.ingredient,
@@ -100,7 +133,7 @@ struct RecipeDetailView: View {
                 .dsText(.heading)
                 .foregroundStyle(DesignTokens.matchSubstituted)
 
-            ForEach(Array(result.substitutions.enumerated()), id: \.offset) { _, substitution in
+            ForEach(Array(substitutions.enumerated()), id: \.offset) { _, substitution in
                 VStack(alignment: .leading, spacing: 3) {
                     Text("Using \(substitution.substitute.name) instead of \(substitution.required.name)")
                         .dsText(.heading)

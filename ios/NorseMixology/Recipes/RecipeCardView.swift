@@ -7,6 +7,8 @@ struct RecipeCardView: View {
     let result: RecipeMatchResult
     var isSelected = false
 
+    @Environment(FavouritesViewModel.self) private var favourites
+
     private var recipe: Recipe { result.recipe }
 
     var body: some View {
@@ -16,6 +18,11 @@ struct RecipeCardView: View {
                     .dsText(.heading)
                     .foregroundStyle(DesignTokens.textPrimary)
                 Spacer(minLength: 8)
+                if favourites.isFavourited(recipe.id) {
+                    Image(systemName: "heart.fill")
+                        .foregroundStyle(DesignTokens.accent)
+                        .accessibilityLabel("Favourite")
+                }
                 Image(systemName: recipe.glassType.symbolName)
                     .foregroundStyle(DesignTokens.textSecondary)
                     .accessibilityLabel("\(recipe.glassType.displayName) glass")

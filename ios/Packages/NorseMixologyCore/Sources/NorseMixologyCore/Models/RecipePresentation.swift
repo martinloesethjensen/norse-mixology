@@ -90,12 +90,23 @@ public enum RecipeAvailability {
     /// cabinet, because a user "accept" override can substitute even when the
     /// exact style is also owned.
     public static func rows(for result: RecipeMatchResult, cabinetStyleIds: Set<UUID>) -> [IngredientAvailability] {
+        rows(for: result.recipe, substitutions: result.substitutions, cabinetStyleIds: cabinetStyleIds)
+    }
+
+    /// For a recipe without a match result — e.g. a favourite the current
+    /// cabinet can't make — pass no substitutions: every ingredient is then
+    /// simply in the cabinet or not.
+    public static func rows(
+        for recipe: Recipe,
+        substitutions: [SubstitutionDetail],
+        cabinetStyleIds: Set<UUID>
+    ) -> [IngredientAvailability] {
         let substitutionByRequiredId = Dictionary(
-            result.substitutions.map { ($0.required.id, $0) },
+            substitutions.map { ($0.required.id, $0) },
             uniquingKeysWith: { first, _ in first }
         )
 
-        return result.recipe.ingredients.enumerated().map { position, ingredient in
+        return recipe.ingredients.enumerated().map { position, ingredient in
             if let substitution = substitutionByRequiredId[ingredient.ingredientStyleId] {
                 return IngredientAvailability(id: position, ingredient: ingredient, status: .substituted, substitution: substitution)
             }

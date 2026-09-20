@@ -23,7 +23,7 @@ struct ContentView: View {
                 .tabItem { Label("Cabinet", systemImage: "archivebox") }
                 .tag(AppTab.cabinet)
 
-            FavouritesPlaceholderView()
+            FavouritesView()
                 .tabItem { Label("Favourites", systemImage: "heart") }
                 .tag(AppTab.favourites)
         }
@@ -32,7 +32,12 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    let container = try! ModelContainer(
+        for: CabinetItem.self, FavouriteRecipe.self,
+        configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+    )
+    return ContentView()
         .environment(TaxonomyStore())
-        .modelContainer(for: [CabinetItem.self, FavouriteRecipe.self], inMemory: true)
+        .environment(FavouritesViewModel(modelContext: container.mainContext))
+        .modelContainer(container)
 }

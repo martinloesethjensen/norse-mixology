@@ -5,16 +5,31 @@ import NorseMixologyCore
 @main
 struct NorseMixologyApp: App {
     @State private var taxonomyStore = TaxonomyStore()
+    @State private var favouritesViewModel: FavouritesViewModel
+    private let modelContainer: ModelContainer
+
+    init() {
+        // The container is built explicitly (rather than via `.modelContainer(for:)`)
+        // so the app-wide `FavouritesViewModel` can share its main context.
+        do {
+            let container = try ModelContainer(for: CabinetItem.self, FavouriteRecipe.self)
+            modelContainer = container
+            _favouritesViewModel = State(initialValue: FavouritesViewModel(modelContext: container.mainContext))
+        } catch {
+            fatalError("Failed to create the SwiftData container: \(error)")
+        }
+    }
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(taxonomyStore)
+                .environment(favouritesViewModel)
                 .task {
                     loadBundledTaxonomyAndLog()
                 }
         }
-        .modelContainer(for: [CabinetItem.self, FavouriteRecipe.self])
+        .modelContainer(modelContainer)
     }
 
     /// Loads the bundled catalog into `taxonomyStore` (used by Cabinet/Add

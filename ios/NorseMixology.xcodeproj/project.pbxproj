@@ -14,8 +14,8 @@
 		1F61758E55F372CF31DB782D /* MatchBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E7FB6DFEDFA01C43B90C45 /* MatchBadgeView.swift */; };
 		2054B1A2638A953550A5B15E /* NorseMixologyCore in Frameworks */ = {isa = PBXBuildFile; productRef = 76DB75D275C8F897141A9B75 /* NorseMixologyCore */; };
 		2FD7E96A4C5E11F5D2797055 /* CabinetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3220C27E0E6E6FC75816A15E /* CabinetViewModel.swift */; };
+		303EE8CF7021F1D862698604 /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEF8DBACE716CAD2809A3D2 /* FavouritesView.swift */; };
 		3BE1756335CB3C5CB896BD6C /* IngredientRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EE292D0306D2037CBD407B /* IngredientRow.swift */; };
-		3F9DE0F371F918E0FBDA1988 /* FavouritesPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF4AA444124AF3802906A27 /* FavouritesPlaceholderView.swift */; };
 		3FD609A620F528A8235BB7F6 /* NorseMixologyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40BFB481FBF6BE13016628E /* NorseMixologyApp.swift */; };
 		50606B2D570B3677D4FAAD32 /* recipes.json in Resources */ = {isa = PBXBuildFile; fileRef = D24F6F076A0150460DDA4B19 /* recipes.json */; };
 		68942B801ECE0BAAF6B982ED /* RecipeBrowserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B4A40E66B86CFA6F37205 /* RecipeBrowserViewModel.swift */; };
@@ -44,11 +44,11 @@
 		75D19359C364DC1F5C2E3C12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85F1E0184AF6937E1E75B592 /* NorseMixology.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NorseMixology.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		871FC8AF4B99B832AF1E9EB8 /* BrowseTaxonomyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseTaxonomyView.swift; sourceTree = "<group>"; };
+		9DEF8DBACE716CAD2809A3D2 /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
 		A6323A9628A9113D0FC2473C /* RecipeResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeResultsList.swift; sourceTree = "<group>"; };
 		A8690FC3511DF012245BEE1C /* DesignTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignTokens.swift; sourceTree = "<group>"; };
 		A9E01A2459193DDA4C2AB0CC /* NorseMixologyCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = NorseMixologyCore; path = Packages/NorseMixologyCore; sourceTree = SOURCE_ROOT; };
 		AD92DFCDB0DBB7D772E13274 /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
-		AEF4AA444124AF3802906A27 /* FavouritesPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesPlaceholderView.swift; sourceTree = "<group>"; };
 		B2EE292D0306D2037CBD407B /* IngredientRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientRow.swift; sourceTree = "<group>"; };
 		B41F87FEDD57946CE12B9756 /* CabinetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetView.swift; sourceTree = "<group>"; };
 		C7D36E297D6879F46A4BAAB4 /* RecipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCardView.swift; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 		EB0C049126F13EC575BDDFD2 /* Favourites */ = {
 			isa = PBXGroup;
 			children = (
-				AEF4AA444124AF3802906A27 /* FavouritesPlaceholderView.swift */,
+				9DEF8DBACE716CAD2809A3D2 /* FavouritesView.swift */,
 			);
 			path = Favourites;
 			sourceTree = "<group>";
@@ -255,7 +255,7 @@
 				2FD7E96A4C5E11F5D2797055 /* CabinetViewModel.swift in Sources */,
 				D1C3E3B4DDE8BB0444E0FFE3 /* ContentView.swift in Sources */,
 				C9785288354CA25531D0A048 /* DesignTokens.swift in Sources */,
-				3F9DE0F371F918E0FBDA1988 /* FavouritesPlaceholderView.swift in Sources */,
+				303EE8CF7021F1D862698604 /* FavouritesView.swift in Sources */,
 				0E45F9E74889980657C4C635 /* FlavorProfileIndicatorView.swift in Sources */,
 				3BE1756335CB3C5CB896BD6C /* IngredientRow.swift in Sources */,
 				A4C35A2A1344DBA6B56AB2D6 /* IngredientRowView.swift in Sources */,

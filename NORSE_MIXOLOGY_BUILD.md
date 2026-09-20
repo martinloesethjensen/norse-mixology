@@ -117,6 +117,17 @@ Pure presentation logic lives in `NorseMixologyCore` (`RecipePresentation.swift`
 - **Glass icons (SF Symbols):** coupe/martini/flute/wine glass → `wineglass`; rocks → `cup.and.saucer`; highball/collins/hurricane → `cylinder`; mug → `mug`.
 - **Note:** a cross-family swap such as Vodka for Gin is *not* a substitution — vodka isn't in gin's family and there's no curated rule — so such a recipe drops out instead of moving to "Almost There". Use a same-family swap (e.g. Contemporary Gin for London Dry Gin) when checking that flow.
 
+## Favourites rules (Phase 5 — Android Phase 9 must match)
+
+- **Storage:** `FavouriteRecipe` = `id, recipeId, recipeName, dateFavourited` — `recipeId` points at the bundled catalog, `recipeName` is cached for the list row. One record per recipe (saving an already-saved recipe is a no-op) and every change is saved immediately, not left to autosave.
+- **Order:** most recently favourited first.
+- **State is shared app-wide:** one `FavouritesViewModel` (injected at the app root) backs the detail-screen heart, the filled heart on result cards, and the Favourites tab, so they never disagree. On iOS it lives in `NorseMixologyCore/ViewModels/` so it can be unit-tested.
+- **Heart:** toggles favourite; brief scale bounce + medium haptic (skip the bounce under Reduce Motion).
+- **Opening a favourite:** the recipe is looked up in the bundled catalog by `recipeId` (synchronous, no loading state), and availability is computed against the *current* cabinet. If the cabinet can no longer make it the matching engine returns no result: show a "Missing ingredients" pill, ingredient rows as exact/unavailable only, and no substitution callout.
+- **Recipe no longer in the catalog:** keep the cached-name row, dimmed and non-navigable, still removable via swipe.
+- **Swipe** a row to unfavourite.
+- **iOS migration note:** `FavouriteRecipe` was a one-field stub in Phases 0–4. Its new attributes have default values so SwiftData upgrades existing stores in place (verified on a simulator store created by the Phase 4 build). Room on Android starts fresh, so this doesn't apply there.
+
 ## Design System — "Modern Neon Bar"
 
 Both platforms follow system light/dark appearance (never forced). Same tokens, mapped for each mode:
