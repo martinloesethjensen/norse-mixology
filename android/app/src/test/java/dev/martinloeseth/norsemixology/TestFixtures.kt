@@ -7,6 +7,7 @@ import dev.martinloeseth.norsemixology.data.local.NorseMixologyDatabase_Impl
 import dev.martinloeseth.norsemixology.data.seed.CatalogParser
 import dev.martinloeseth.norsemixology.data.seed.SeedFlagStore
 import dev.martinloeseth.norsemixology.data.seed.TaxonomyRows
+import dev.martinloeseth.norsemixology.domain.RecipeCatalog
 import dev.martinloeseth.norsemixology.domain.Taxonomy
 import java.io.File
 
@@ -21,6 +22,12 @@ object SeedFiles {
 
     fun taxonomyRows(): TaxonomyRows = CatalogParser.parseTaxonomy(taxonomyText())
     fun taxonomy(): Taxonomy = Taxonomy.from(taxonomyRows())
+
+    /** Parsed straight from the shared JSON, bypassing Room — for pure matching-engine tests. */
+    fun recipeCatalog(): RecipeCatalog {
+        val rows = CatalogParser.parseRecipes(recipesText()).rows
+        return RecipeCatalog.from(rows.recipes, rows.ingredients)
+    }
 }
 
 /** A real Room database in memory, driven by the bundled SQLite so it runs on the plain JVM. */

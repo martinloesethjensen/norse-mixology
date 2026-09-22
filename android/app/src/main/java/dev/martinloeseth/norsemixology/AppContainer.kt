@@ -6,10 +6,12 @@ import androidx.room3.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import dev.martinloeseth.norsemixology.data.local.NorseMixologyDatabase
 import dev.martinloeseth.norsemixology.data.repository.CabinetRepository
+import dev.martinloeseth.norsemixology.data.repository.RecipeRepository
 import dev.martinloeseth.norsemixology.data.repository.TaxonomyRepository
 import dev.martinloeseth.norsemixology.data.seed.CatalogSeeder
 import dev.martinloeseth.norsemixology.data.seed.DataStoreSeedFlagStore
 import dev.martinloeseth.norsemixology.data.seed.SeedResult
+import dev.martinloeseth.norsemixology.domain.RecipeCatalog
 import dev.martinloeseth.norsemixology.domain.Taxonomy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,9 +36,13 @@ class AppContainer(context: Context) {
 
     val cabinetRepository = CabinetRepository(database.cabinetDao())
     private val taxonomyRepository = TaxonomyRepository(database.taxonomyDao())
+    private val recipeRepository = RecipeRepository(database.recipeDao())
 
     private val _taxonomy = MutableStateFlow(Taxonomy.Empty)
     val taxonomy: StateFlow<Taxonomy> = _taxonomy
+
+    private val _recipeCatalog = MutableStateFlow(RecipeCatalog.Empty)
+    val recipeCatalog: StateFlow<RecipeCatalog> = _recipeCatalog
 
     private val seeder = CatalogSeeder(
         database = database,
@@ -53,6 +59,7 @@ class AppContainer(context: Context) {
                     is SeedResult.Seeded -> Log.i(TAG, "Seeded ${result.styles} styles, ${result.recipes} recipes (${result.skippedRecipes} skipped)")
                 }
                 _taxonomy.value = taxonomyRepository.load()
+                _recipeCatalog.value = recipeRepository.load()
             } catch (e: Exception) {
                 Log.e(TAG, "Could not load the bundled catalog", e)
             }

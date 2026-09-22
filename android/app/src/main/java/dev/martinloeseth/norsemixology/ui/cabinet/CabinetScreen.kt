@@ -27,6 +27,7 @@ import androidx.compose.material.icons.filled.Kitchen
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -61,7 +62,13 @@ private val MaxContentWidth = 720.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CabinetScreen(viewModel: CabinetViewModel, onAddIngredient: () -> Unit, modifier: Modifier = Modifier) {
+fun CabinetScreen(
+    viewModel: CabinetViewModel,
+    onAddIngredient: () -> Unit,
+    onFindRecipes: () -> Unit,
+    findRecipesLoading: Boolean,
+    modifier: Modifier = Modifier,
+) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val colors = NorseTheme.colors
 
@@ -75,7 +82,7 @@ fun CabinetScreen(viewModel: CabinetViewModel, onAddIngredient: () -> Unit, modi
             )
         },
         // The bar is the Scaffold's bottomBar (not part of the list) so the FAB floats above it.
-        bottomBar = { if (!state.isLoading && !state.isEmpty) FindRecipesBar() },
+        bottomBar = { if (!state.isLoading && !state.isEmpty) FindRecipesBar(onClick = onFindRecipes, loading = findRecipesLoading) },
         floatingActionButton = {
             FloatingActionButton(onClick = onAddIngredient, containerColor = colors.accent, contentColor = colors.onAccent) {
                 Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add_ingredient))
@@ -131,9 +138,8 @@ private fun CabinetList(state: CabinetUiState, onToggleCategory: (String) -> Uni
     }
 }
 
-/** Wired up in Phase 8 (the matching engine). Disabled until then, with an honest label. */
 @Composable
-private fun FindRecipesBar() {
+private fun FindRecipesBar(onClick: () -> Unit, loading: Boolean) {
     val colors = NorseTheme.colors
     Column(
         // navigationBarsPadding: on tablets there is no bottom nav bar to absorb the system inset.
@@ -141,15 +147,20 @@ private fun FindRecipesBar() {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Button(
-            onClick = {},
-            enabled = false,
+            onClick = onClick,
+            enabled = !loading,
             colors = ButtonDefaults.buttonColors(
                 containerColor = colors.accent, contentColor = colors.onAccent,
                 disabledContainerColor = colors.surfaceRaised, disabledContentColor = colors.textSecondary,
             ),
             modifier = Modifier.widthIn(max = MaxContentWidth).fillMaxWidth().heightIn(min = 48.dp),
-        ) { Text(stringResource(R.string.find_recipes)) }
-        Text(stringResource(R.string.find_recipes_coming_soon), style = NorseTheme.type.body, color = colors.textSecondary, modifier = Modifier.padding(top = 4.dp))
+        ) {
+            if (loading) {
+                CircularProgressIndicator(modifier = Modifier.size(20.dp), color = colors.onAccent, strokeWidth = 2.dp)
+            } else {
+                Text(stringResource(R.string.find_recipes))
+            }
+        }
     }
 }
 

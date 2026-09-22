@@ -17,7 +17,6 @@
     <string name="cabinet_empty_body">Add what\'s in your cabinet to get started</string>
     <string name="add_ingredient">Add Ingredient</string>
     <string name="find_recipes">Find Recipes</string>
-    <string name="find_recipes_coming_soon">Coming soon</string>
     <string name="remove_from_cabinet">Remove from cabinet</string>
     <string name="expand_category">Expand %1$s</string>
     <string name="collapse_category">Collapse %1$s</string>
@@ -25,6 +24,11 @@
         <item quantity="one">%1$d item</item>
         <item quantity="other">%1$d items</item>
     </plurals>
+
+    <!-- Recipe results (Phase 8 stub — the real browser lands in Phase 9) -->
+    <string name="recipe_results_title">%1$d Recipes</string>
+    <string name="recipe_results_empty">No recipes match your cabinet yet — add a few more ingredients and try again.</string>
+    <string name="recipe_results_substitutions">%1$d substitution(s)</string>
 
     <!-- Add ingredient -->
     <string name="mode_search">Search</string>

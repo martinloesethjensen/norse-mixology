@@ -3,6 +3,7 @@ package dev.martinloeseth.norsemixology.ui.cabinet
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -15,6 +16,9 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import dev.martinloeseth.norsemixology.AppContainer
+import dev.martinloeseth.norsemixology.ui.recipes.FindRecipesState
+import dev.martinloeseth.norsemixology.ui.recipes.RecipeMatchViewModel
+import dev.martinloeseth.norsemixology.ui.recipes.RecipeResultsScreen
 import kotlinx.serialization.Serializable
 import java.util.UUID
 
@@ -22,6 +26,7 @@ import java.util.UUID
 @Serializable data object AddIngredientKey : NavKey
 @Serializable data class BrowseFamiliesKey(val categoryId: String) : NavKey
 @Serializable data class BrowseStylesKey(val familyId: String) : NavKey
+@Serializable data object RecipeResultsKey : NavKey
 
 /**
  * The Cabinet tab's navigation: Cabinet → Add Ingredient → Browse (Category → Family → Style).
@@ -38,6 +43,19 @@ fun CabinetFlow(container: AppContainer) {
         factory = viewModelFactory { initializer { AddIngredientViewModel(container.taxonomy, container.cabinetRepository) } },
     )
     val addState by addViewModel.uiState.collectAsStateWithLifecycle()
+
+    val matchViewModel: RecipeMatchViewModel = viewModel(
+        viewModelStoreOwner = activity,
+        factory = viewModelFactory {
+            initializer { RecipeMatchViewModel(container.cabinetRepository, container.taxonomy, container.recipeCatalog) }
+        },
+    )
+    val matchState by matchViewModel.state.collectAsStateWithLifecycle()
+    LaunchedEffect(matchState) {
+        if (matchState is FindRecipesState.Ready) {
+            backStack.add(RecipeResultsKey)
+        }
+    }
 
     NavDisplay(
         backStack = backStack,
@@ -56,6 +74,18 @@ fun CabinetFlow(container: AppContainer) {
                     onAddIngredient = {
                         addViewModel.reset()
                         backStack.add(AddIngredientKey)
+                    },
+                    onFindRecipes = matchViewModel::findRecipes,
+                    findRecipesLoading = matchState is FindRecipesState.Loading,
+                )
+            }
+            entry<RecipeResultsKey> {
+                val ready = matchState as? FindRecipesState.Ready
+                RecipeResultsScreen(
+                    results = ready?.results.orEmpty(),
+                    onBack = {
+                        backStack.removeLastOrNull()
+                        matchViewModel.consumeResults()
                     },
                 )
             }

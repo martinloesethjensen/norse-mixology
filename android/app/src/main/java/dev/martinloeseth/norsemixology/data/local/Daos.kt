@@ -74,6 +74,12 @@ abstract class RecipeDao {
     @Query("SELECT COUNT(*) FROM RecipeIngredient")
     abstract suspend fun ingredientCount(): Int
 
+    @Query("SELECT * FROM Recipe ORDER BY sortOrder")
+    abstract suspend fun recipes(): List<Recipe>
+
+    @Query("SELECT * FROM RecipeIngredient ORDER BY recipeId, position")
+    abstract suspend fun recipeIngredients(): List<RecipeIngredient>
+
     @Insert
     protected abstract suspend fun insertRecipes(items: List<Recipe>)
 
