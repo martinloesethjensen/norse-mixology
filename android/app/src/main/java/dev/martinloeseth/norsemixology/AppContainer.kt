@@ -6,6 +6,7 @@ import androidx.room3.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import dev.martinloeseth.norsemixology.data.local.NorseMixologyDatabase
 import dev.martinloeseth.norsemixology.data.repository.CabinetRepository
+import dev.martinloeseth.norsemixology.data.repository.FavouritesRepository
 import dev.martinloeseth.norsemixology.data.repository.RecipeRepository
 import dev.martinloeseth.norsemixology.data.repository.TaxonomyRepository
 import dev.martinloeseth.norsemixology.data.seed.CatalogSeeder
@@ -35,6 +36,7 @@ class AppContainer(context: Context) {
             .build()
 
     val cabinetRepository = CabinetRepository(database.cabinetDao())
+    val favouritesRepository = FavouritesRepository(database.favouriteDao())
     private val taxonomyRepository = TaxonomyRepository(database.taxonomyDao())
     private val recipeRepository = RecipeRepository(database.recipeDao())
 

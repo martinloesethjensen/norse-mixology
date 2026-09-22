@@ -3,7 +3,6 @@ package dev.martinloeseth.norsemixology.ui.cabinet
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -16,9 +15,6 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import dev.martinloeseth.norsemixology.AppContainer
-import dev.martinloeseth.norsemixology.ui.recipes.FindRecipesState
-import dev.martinloeseth.norsemixology.ui.recipes.RecipeMatchViewModel
-import dev.martinloeseth.norsemixology.ui.recipes.RecipeResultsScreen
 import kotlinx.serialization.Serializable
 import java.util.UUID
 
@@ -26,16 +22,18 @@ import java.util.UUID
 @Serializable data object AddIngredientKey : NavKey
 @Serializable data class BrowseFamiliesKey(val categoryId: String) : NavKey
 @Serializable data class BrowseStylesKey(val familyId: String) : NavKey
-@Serializable data object RecipeResultsKey : NavKey
 
 /**
  * The Cabinet tab's navigation: Cabinet → Add Ingredient → Browse (Category → Family → Style).
  * Every screen of the add flow shares one [AddIngredientViewModel] (scoped to the activity, and
  * reset when the flow opens), so the confirmation sheet — hosted here, above the whole back stack —
  * works the same whether the style was picked from Search or from Browse.
+ *
+ * [onFindRecipes] switches the app to the Recipes tab — matching iOS, the match itself is re-run
+ * by the Recipes tab whenever it appears, not by this button (see `RecipesFlow`).
  */
 @Composable
-fun CabinetFlow(container: AppContainer) {
+fun CabinetFlow(container: AppContainer, onFindRecipes: () -> Unit) {
     val backStack = rememberNavBackStack(CabinetKey)
     val activity = LocalActivity.current as ComponentActivity
     val addViewModel: AddIngredientViewModel = viewModel(
@@ -43,19 +41,6 @@ fun CabinetFlow(container: AppContainer) {
         factory = viewModelFactory { initializer { AddIngredientViewModel(container.taxonomy, container.cabinetRepository) } },
     )
     val addState by addViewModel.uiState.collectAsStateWithLifecycle()
-
-    val matchViewModel: RecipeMatchViewModel = viewModel(
-        viewModelStoreOwner = activity,
-        factory = viewModelFactory {
-            initializer { RecipeMatchViewModel(container.cabinetRepository, container.taxonomy, container.recipeCatalog) }
-        },
-    )
-    val matchState by matchViewModel.state.collectAsStateWithLifecycle()
-    LaunchedEffect(matchState) {
-        if (matchState is FindRecipesState.Ready) {
-            backStack.add(RecipeResultsKey)
-        }
-    }
 
     NavDisplay(
         backStack = backStack,
@@ -75,18 +60,7 @@ fun CabinetFlow(container: AppContainer) {
                         addViewModel.reset()
                         backStack.add(AddIngredientKey)
                     },
-                    onFindRecipes = matchViewModel::findRecipes,
-                    findRecipesLoading = matchState is FindRecipesState.Loading,
-                )
-            }
-            entry<RecipeResultsKey> {
-                val ready = matchState as? FindRecipesState.Ready
-                RecipeResultsScreen(
-                    results = ready?.results.orEmpty(),
-                    onBack = {
-                        backStack.removeLastOrNull()
-                        matchViewModel.consumeResults()
-                    },
+                    onFindRecipes = onFindRecipes,
                 )
             }
             entry<AddIngredientKey> {

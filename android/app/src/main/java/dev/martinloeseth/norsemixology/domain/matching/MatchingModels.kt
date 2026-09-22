@@ -2,6 +2,7 @@ package dev.martinloeseth.norsemixology.domain.matching
 
 import dev.martinloeseth.norsemixology.data.local.IngredientStyle
 import dev.martinloeseth.norsemixology.data.local.Recipe
+import dev.martinloeseth.norsemixology.data.local.RecipeIngredient
 import java.util.UUID
 
 /**
@@ -68,6 +69,9 @@ data class SubstitutionDetail(
 
 data class RecipeMatchResult(
     val recipe: Recipe,
+    /** The recipe's ingredient lines — Room splits these into their own table, unlike iOS's
+     *  `Recipe.ingredients`, so the result carries them for the detail screen. */
+    val ingredients: List<RecipeIngredient>,
     val matchScore: Double,
     val matchType: MatchType,
     val substitutions: List<SubstitutionDetail>,

@@ -27,7 +27,6 @@ import androidx.compose.material.icons.filled.Kitchen
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -66,7 +65,6 @@ fun CabinetScreen(
     viewModel: CabinetViewModel,
     onAddIngredient: () -> Unit,
     onFindRecipes: () -> Unit,
-    findRecipesLoading: Boolean,
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -82,7 +80,7 @@ fun CabinetScreen(
             )
         },
         // The bar is the Scaffold's bottomBar (not part of the list) so the FAB floats above it.
-        bottomBar = { if (!state.isLoading && !state.isEmpty) FindRecipesBar(onClick = onFindRecipes, loading = findRecipesLoading) },
+        bottomBar = { if (!state.isLoading && !state.isEmpty) FindRecipesBar(onClick = onFindRecipes) },
         floatingActionButton = {
             FloatingActionButton(onClick = onAddIngredient, containerColor = colors.accent, contentColor = colors.onAccent) {
                 Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add_ingredient))
@@ -139,7 +137,7 @@ private fun CabinetList(state: CabinetUiState, onToggleCategory: (String) -> Uni
 }
 
 @Composable
-private fun FindRecipesBar(onClick: () -> Unit, loading: Boolean) {
+private fun FindRecipesBar(onClick: () -> Unit) {
     val colors = NorseTheme.colors
     Column(
         // navigationBarsPadding: on tablets there is no bottom nav bar to absorb the system inset.
@@ -148,18 +146,10 @@ private fun FindRecipesBar(onClick: () -> Unit, loading: Boolean) {
     ) {
         Button(
             onClick = onClick,
-            enabled = !loading,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = colors.accent, contentColor = colors.onAccent,
-                disabledContainerColor = colors.surfaceRaised, disabledContentColor = colors.textSecondary,
-            ),
+            colors = ButtonDefaults.buttonColors(containerColor = colors.accent, contentColor = colors.onAccent),
             modifier = Modifier.widthIn(max = MaxContentWidth).fillMaxWidth().heightIn(min = 48.dp),
         ) {
-            if (loading) {
-                CircularProgressIndicator(modifier = Modifier.size(20.dp), color = colors.onAccent, strokeWidth = 2.dp)
-            } else {
-                Text(stringResource(R.string.find_recipes))
-            }
+            Text(stringResource(R.string.find_recipes))
         }
     }
 }

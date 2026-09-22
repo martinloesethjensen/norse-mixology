@@ -15,9 +15,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import dev.martinloeseth.norsemixology.AppContainer
 import dev.martinloeseth.norsemixology.R
 import dev.martinloeseth.norsemixology.ui.cabinet.CabinetFlow
+import dev.martinloeseth.norsemixology.ui.favourites.FavouritesFlow
+import dev.martinloeseth.norsemixology.ui.favourites.FavouritesViewModel
+import dev.martinloeseth.norsemixology.ui.recipes.RecipeViewModel
+import dev.martinloeseth.norsemixology.ui.recipes.RecipesFlow
 import dev.martinloeseth.norsemixology.ui.theme.NorseTheme
 
 private enum class AppTab(val label: Int, val icon: ImageVector) {
@@ -29,11 +36,22 @@ private enum class AppTab(val label: Int, val icon: ImageVector) {
 /**
  * Top-level shell. `NavigationSuiteScaffold` picks the chrome from the window size — a bottom bar
  * on phones, a navigation rail on tablets — while the destinations stay identical.
+ *
+ * `RecipeViewModel` and `FavouritesViewModel` are created here (app-wide, activity-scoped) so
+ * Cabinet's "Find Recipes", the Recipes tab and the Favourites tab all read the same state —
+ * mirroring iOS's `@Environment`-injected view models at the app root.
  */
 @Composable
 fun NorseMixologyApp(container: AppContainer) {
     val colors = NorseTheme.colors
     var tab by rememberSaveable { mutableStateOf(AppTab.Cabinet) }
+
+    val recipeViewModel: RecipeViewModel = viewModel(
+        factory = viewModelFactory { initializer { RecipeViewModel(container.cabinetRepository, container.taxonomy, container.recipeCatalog) } },
+    )
+    val favouritesViewModel: FavouritesViewModel = viewModel(
+        factory = viewModelFactory { initializer { FavouritesViewModel(container.favouritesRepository) } },
+    )
 
     val itemColors = NavigationSuiteDefaults.itemColors()
     NavigationSuiteScaffold(
@@ -56,9 +74,12 @@ fun NorseMixologyApp(container: AppContainer) {
         ),
     ) {
         when (tab) {
-            AppTab.Recipes -> PlaceholderScreen(R.string.recipes_placeholder_title, R.string.recipes_placeholder_body)
-            AppTab.Cabinet -> CabinetFlow(container)
-            AppTab.Favourites -> PlaceholderScreen(R.string.favourites_placeholder_title, R.string.favourites_placeholder_body)
+            AppTab.Recipes -> RecipesFlow(container, recipeViewModel, favouritesViewModel)
+            AppTab.Cabinet -> CabinetFlow(container, onFindRecipes = {
+                recipeViewModel.refresh()
+                tab = AppTab.Recipes
+            })
+            AppTab.Favourites -> FavouritesFlow(container, favouritesViewModel)
         }
     }
 }

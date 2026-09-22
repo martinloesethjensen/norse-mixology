@@ -120,7 +120,7 @@ object MatchingEngine {
 
             val matchScore = if (totalWeight > 0) 1 - (weightedShortfall / totalWeight) else 1.0
             val matchType = if (matchScore >= 0.999) MatchType.Exact else MatchType.Partial
-            results.add(RecipeMatchResult(entry.recipe, matchScore, matchType, substitutions))
+            results.add(RecipeMatchResult(entry.recipe, entry.ingredients, matchScore, matchType, substitutions))
         }
 
         return results.sortedWith(

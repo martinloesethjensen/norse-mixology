@@ -67,6 +67,22 @@ interface CabinetDao {
 }
 
 @Dao
+interface FavouriteDao {
+    /** Ignored (returns -1) if the recipe is already favourited — enforced by a unique index. */
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(favourite: FavouriteRecipe): Long
+
+    @Query("DELETE FROM FavouriteRecipe WHERE recipeId = :recipeId")
+    suspend fun deleteByRecipeId(recipeId: UUID)
+
+    @Query("SELECT COUNT(*) FROM FavouriteRecipe WHERE recipeId = :recipeId")
+    suspend fun countForRecipe(recipeId: UUID): Int
+
+    @Query("SELECT * FROM FavouriteRecipe ORDER BY dateFavourited DESC")
+    fun observeAll(): Flow<List<FavouriteRecipe>>
+}
+
+@Dao
 abstract class RecipeDao {
     @Query("SELECT COUNT(*) FROM Recipe")
     abstract suspend fun recipeCount(): Int

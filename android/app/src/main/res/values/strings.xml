@@ -5,10 +5,6 @@
     <string name="tab_recipes">Recipes</string>
     <string name="tab_cabinet">Cabinet</string>
     <string name="tab_favourites">Favourites</string>
-    <string name="recipes_placeholder_title">Recipes</string>
-    <string name="recipes_placeholder_body">Coming soon — the recipe browser lands in a later phase.</string>
-    <string name="favourites_placeholder_title">Favourites</string>
-    <string name="favourites_placeholder_body">Coming soon — save recipes to see them here.</string>
     <string name="navigate_back">Back</string>
 
     <!-- Cabinet -->
@@ -25,10 +21,54 @@
         <item quantity="other">%1$d items</item>
     </plurals>
 
-    <!-- Recipe results (Phase 8 stub — the real browser lands in Phase 9) -->
-    <string name="recipe_results_title">%1$d Recipes</string>
-    <string name="recipe_results_empty">No recipes match your cabinet yet — add a few more ingredients and try again.</string>
-    <string name="recipe_results_substitutions">%1$d substitution(s)</string>
+    <!-- Recipe browser -->
+    <string name="recipes_title">Recipes</string>
+    <string name="match_badge_exact">✓ All ingredients</string>
+    <plurals name="match_badge_substituted">
+        <item quantity="one">%1$d sub needed</item>
+        <item quantity="other">%1$d subs needed</item>
+    </plurals>
+    <string name="glass_content_description">%1$s glass</string>
+    <string name="favourite_content_description">Favourite</string>
+    <string name="substituted_ingredient_pill">%1$s for %2$s</string>
+    <string name="more_substitutions">+%1$d more</string>
+    <string name="perfect_match_title">🍹 Perfect Match</string>
+    <string name="perfect_match_subtitle">You have everything</string>
+    <string name="almost_there_title">🔄 Almost There</string>
+    <string name="almost_there_subtitle">Missing 1 ingredient</string>
+    <string name="worth_exploring_title">🔍 Worth Exploring</string>
+    <string name="worth_exploring_subtitle">Needs a few subs</string>
+    <string name="section_header_with_count">%1$s (%2$d)</string>
+    <string name="recipes_empty_title">No Matching Recipes</string>
+    <string name="recipes_empty_body">Your cabinet didn\'t match any recipes. Try adding some base spirits like gin, rum, or vodka.</string>
+    <string name="select_a_recipe_title">Select a Recipe</string>
+    <string name="select_a_recipe_body">Pick a cocktail from the list to see how to make it.</string>
+
+    <!-- Recipe detail -->
+    <string name="ingredients_heading">Ingredients</string>
+    <string name="substitutions_heading">Substitutions</string>
+    <string name="method_heading">Method</string>
+    <string name="using_instead_of">Using %1$s instead of %2$s</string>
+    <string name="using_substitute">Using %1$s</string>
+    <string name="missing_ingredients_pill">Missing ingredients</string>
+    <string name="add_to_favourites">Add to favourites</string>
+    <string name="remove_from_favourites">Remove from favourites</string>
+    <string name="step_content_description">Step %1$d: %2$s</string>
+    <string name="show_substitution_note">Shows the substitution note</string>
+    <string name="hide_substitution_note">Hides the substitution note</string>
+    <string name="ingredient_status_exact">In your cabinet</string>
+    <string name="ingredient_status_substituted">Substituted</string>
+    <string name="ingredient_status_unavailable">Not in your cabinet</string>
+    <string name="unknown_ingredient">Unknown ingredient</string>
+    <string name="optional_suffix"> · optional</string>
+
+    <!-- Favourites -->
+    <string name="favourites_title">Favourites</string>
+    <string name="favourites_empty_title">No Favourites Yet</string>
+    <string name="favourites_empty_body">Recipes you love will appear here</string>
+    <string name="favourited_on">Favourited %1$s</string>
+    <string name="recipe_no_longer_available">This recipe is no longer available</string>
+    <string name="unfavourite">Unfavourite</string>
 
     <!-- Add ingredient -->
     <string name="mode_search">Search</string>

@@ -84,8 +84,8 @@ data class CabinetItem(
     val dateAdded: Date,
 )
 
-/** Stub until Phase 9 wires favourites; the table exists so the schema is stable from v1. */
-@Entity
+/** One record per recipe — enforced by the unique index, not just the UI (saving twice is a no-op). */
+@Entity(indices = [Index(value = ["recipeId"], unique = true)])
 data class FavouriteRecipe(
     @PrimaryKey val id: UUID,
     val recipeId: UUID,

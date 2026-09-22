@@ -34,4 +34,5 @@ abstract class NorseMixologyDatabase : RoomDatabase() {
     abstract fun taxonomyDao(): TaxonomyDao
     abstract fun cabinetDao(): CabinetDao
     abstract fun recipeDao(): RecipeDao
+    abstract fun favouriteDao(): FavouriteDao
 }
