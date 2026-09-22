@@ -1,3 +1,58 @@
 <resources>
     <string name="app_name">Norse Mixology</string>
+
+    <!-- Navigation -->
+    <string name="tab_recipes">Recipes</string>
+    <string name="tab_cabinet">Cabinet</string>
+    <string name="tab_favourites">Favourites</string>
+    <string name="recipes_placeholder_title">Recipes</string>
+    <string name="recipes_placeholder_body">Coming soon — the recipe browser lands in a later phase.</string>
+    <string name="favourites_placeholder_title">Favourites</string>
+    <string name="favourites_placeholder_body">Coming soon — save recipes to see them here.</string>
+    <string name="navigate_back">Back</string>
+
+    <!-- Cabinet -->
+    <string name="cabinet_title">Cabinet</string>
+    <string name="cabinet_empty_title">Your cabinet is empty</string>
+    <string name="cabinet_empty_body">Add what\'s in your cabinet to get started</string>
+    <string name="add_ingredient">Add Ingredient</string>
+    <string name="find_recipes">Find Recipes</string>
+    <string name="find_recipes_coming_soon">Coming soon</string>
+    <string name="remove_from_cabinet">Remove from cabinet</string>
+    <string name="expand_category">Expand %1$s</string>
+    <string name="collapse_category">Collapse %1$s</string>
+    <plurals name="items_count">
+        <item quantity="one">%1$d item</item>
+        <item quantity="other">%1$d items</item>
+    </plurals>
+
+    <!-- Add ingredient -->
+    <string name="mode_search">Search</string>
+    <string name="mode_browse">Browse</string>
+    <string name="search_placeholder">Search ingredients or brands</string>
+    <string name="search_hint">Search by ingredient, style, or brand name</string>
+    <string name="search_no_results">No ingredients match \"%1$s\"</string>
+    <string name="already_in_cabinet">Already in your cabinet</string>
+    <string name="in_cabinet_state">In your cabinet</string>
+    <string name="clear_search">Clear search</string>
+
+    <!-- Confirmation sheet -->
+    <string name="confirm_title">Confirm</string>
+    <string name="example_brands">Example brands: %1$s</string>
+    <string name="brand_label">Brand (optional)</string>
+    <string name="brand_placeholder">e.g. Hendrick\'s</string>
+    <string name="add_to_cabinet">Add to Cabinet</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Flavour profile -->
+    <string name="flavour_profile">Flavour profile</string>
+    <string name="flavour_sweetness">Sweetness</string>
+    <string name="flavour_bitterness">Bitterness</string>
+    <string name="flavour_smokiness">Smokiness</string>
+    <string name="flavour_citrus">Citrus</string>
+    <string name="flavour_herbal">Herbal</string>
+    <string name="flavour_level_low">low</string>
+    <string name="flavour_level_medium">medium</string>
+    <string name="flavour_level_high">high</string>
+    <string name="flavour_summary_entry">%1$s: %2$s</string>
 </resources>

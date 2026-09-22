@@ -141,6 +141,18 @@ Pure presentation logic lives in `NorseMixologyCore` (`RecipePresentation.swift`
 - **Localisation-ready:** iOS keeps UI strings in a String Catalog (`ios/NorseMixology/Localizable.xcstrings`; `ios/scripts/sync-strings.sh` refreshes it after a CLI build). Android uses `strings.xml`. Not yet localisable on iOS: strings produced by the core package (badge labels, glass/method/difficulty names, substitution notes assembled from English fragments) — see Future Improvements.
 - **Performance budget:** matching a 30-item cabinet against the full catalog (~158 recipes) must stay well under 100 ms (measured ~8 ms on a Mac debug build; a unit test enforces it).
 
+## Android data layer & seeding (Phase 7)
+
+- **Room 3, not Room 2.** Package is `androidx.room3`; type converters are `@ColumnTypeConverter` classes listed in `@ColumnTypeConverters`. `UUID` and enums use Room's *built-in* converters (enabled on the database), so only `Date` and `List<String>` need custom ones. Room 3 has no implicit driver: the app passes `AndroidSQLiteDriver()`.
+- **JVM unit tests run real Room** against an in-memory database using the host-JVM SQLite driver (`androidx.sqlite:sqlite-bundled-jvm` — the plain `sqlite-bundled` resolves to the Android variant, which ships phone ABIs only and can't load on a Mac). Fast and no emulator needed for repository, seeder and view-model tests.
+- **One catalog source of truth.** `/seed-data/*.json` feeds both apps. Android copies just `taxonomy.json` + `recipes.json` into generated assets at build time (`copySeedData` task), so the APK can't drift. A unit test also asserts that `ios/NorseMixology/Resources/*.json` is byte-identical to `/seed-data` — regenerate/copy both together.
+- **Seeding.** `CatalogSeeder` runs on a background coroutine at app start and writes the catalog tables in atomic replaces; a DataStore integer flag (`CatalogSeeder.CATALOG_VERSION`) records what's loaded. **Bump `CATALOG_VERSION` whenever `/seed-data` changes.** Reseeding replaces taxonomy/recipe tables only — the user's cabinet and favourites are never touched, which is why `CabinetItem` is a snapshot with no foreign key to the taxonomy.
+- **Tolerant parsing** (same rule as iOS): a malformed recipe is skipped and counted, not fatal; a non-array file still fails.
+- **Cabinet uniqueness** is enforced by the database (unique index on `ingredientStyleId`), not just the UI. `CabinetRepository.add` returns `false` for a duplicate.
+- **Schema notes beyond the design doc:** `sortOrder` on category/family/style/recipe keeps the catalog's authored order for Browse; `RecipeIngredient.position` keeps ingredient order. `FavouriteRecipe` exists as a stub table so the v1 schema is stable. No destructive migrations, ever — a future schema change needs a real `Migration`.
+- **Add-ingredient flow:** Cabinet → Add (Search | Browse) → Browse pushes Category → Family → Style on a Navigation 3 back stack. One `AddIngredientViewModel` (activity-scoped, `reset()` on entry) serves every screen so the confirmation `ModalBottomSheet`, hosted above the back stack, behaves identically from Search and Browse; after adding, the stack pops back to the Cabinet from any depth.
+- **Tokens:** `ui/theme/Colour.kt` / `Type.kt` mirror the iOS tokens (dark/light pairs; dynamic colour deliberately off). On Android the selected nav item is a lime pill with a dark icon, which sidesteps the light-mode lime-on-white contrast problem noted for iOS.
+
 ## Design System — "Modern Neon Bar"
 
 Both platforms follow system light/dark appearance (never forced). Same tokens, mapped for each mode:

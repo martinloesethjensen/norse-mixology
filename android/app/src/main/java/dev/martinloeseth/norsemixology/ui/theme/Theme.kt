@@ -1,50 +1,56 @@
 package dev.martinloeseth.norsemixology.ui.theme
 
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 
-private val DarkColorScheme = darkColorScheme(primary = Purple80, secondary = PurpleGrey80, tertiary = Pink80)
+/** Access to the Design System tokens: `NorseTheme.colors.surfaceRaised`, `NorseTheme.type.heading`. */
+object NorseTheme {
+    val colors: NorseColors
+        @Composable @ReadOnlyComposable get() = LocalNorseColors.current
+    val type: NorseType
+        @Composable @ReadOnlyComposable get() = LocalNorseType.current
+}
 
-private val LightColorScheme =
-  lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40,
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
-  )
-
+/**
+ * Follows the system light/dark setting (never forced). Dynamic colour is deliberately off: the
+ * app's identity is the Modern Neon Bar palette on both platforms.
+ */
 @Composable
 fun NorseMixologyTheme(
-  darkTheme: Boolean = isSystemInDarkTheme(),
-  // Dynamic color is available on Android 12+
-  dynamicColor: Boolean = true,
-  content: @Composable () -> Unit,
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit,
 ) {
-  val colorScheme =
-    when {
-      dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-        val context = LocalContext.current
-        if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-      }
-      darkTheme -> DarkColorScheme
-      else -> LightColorScheme
+    val colors = if (darkTheme) DarkNorseColors else LightNorseColors
+    val scheme = if (darkTheme) {
+        darkColorScheme(
+            primary = colors.accent, onPrimary = colors.onAccent,
+            secondaryContainer = colors.accent, onSecondaryContainer = colors.onAccent,
+            background = colors.background, onBackground = colors.textPrimary,
+            surface = colors.surface, onSurface = colors.textPrimary,
+            surfaceVariant = colors.surfaceRaised, onSurfaceVariant = colors.textSecondary,
+            surfaceContainer = colors.surface, surfaceContainerHigh = colors.surfaceRaised,
+            surfaceContainerHighest = colors.surfaceRaised,
+            outline = colors.border, outlineVariant = colors.border,
+        )
+    } else {
+        lightColorScheme(
+            primary = colors.accent, onPrimary = colors.onAccent,
+            secondaryContainer = colors.accent, onSecondaryContainer = colors.onAccent,
+            background = colors.background, onBackground = colors.textPrimary,
+            surface = colors.surface, onSurface = colors.textPrimary,
+            surfaceVariant = colors.surfaceRaised, onSurfaceVariant = colors.textSecondary,
+            surfaceContainer = colors.surface, surfaceContainerHigh = colors.surfaceRaised,
+            surfaceContainerHighest = colors.surfaceRaised,
+            outline = colors.border, outlineVariant = colors.border,
+        )
     }
 
-  MaterialTheme(colorScheme = colorScheme, typography = Typography, content = content)
+    CompositionLocalProvider(LocalNorseColors provides colors, LocalNorseType provides DefaultNorseType) {
+        MaterialTheme(colorScheme = scheme, typography = DefaultNorseType.toMaterialTypography(), content = content)
+    }
 }

@@ -5,6 +5,16 @@ plugins {
   alias(libs.plugins.ksp)
 }
 
+// The recipe/taxonomy catalog has one source of truth: /seed-data (also bundled by the iOS app).
+// Copy just the two JSON files into the generated assets so the APK can never drift from it.
+val seedDataDir = rootProject.file("../seed-data")
+val seedAssetsDir = layout.buildDirectory.dir("generated/seed-assets")
+val copySeedData = tasks.register<Copy>("copySeedData") {
+    from(seedDataDir) { include("taxonomy.json", "recipes.json") }
+    into(seedAssetsDir)
+}
+tasks.matching { it.name.startsWith("merge") && it.name.endsWith("Assets") }.configureEach { dependsOn(copySeedData) }
+
 android {
     namespace = "dev.martinloeseth.norsemixology"
     compileSdk = 36
@@ -31,6 +41,14 @@ android {
       aidl = false
       buildConfig = false
       shaders = false
+    }
+
+    sourceSets {
+        getByName("main") { assets.directories.add(seedAssetsDir.get().asFile.absolutePath) }
+    }
+
+    testOptions {
+        unitTests.all { it.systemProperty("seed.dir", seedDataDir.absolutePath) }
     }
 
     packaging {
@@ -83,7 +101,15 @@ dependencies {
   implementation(libs.androidx.navigation3.runtime)
   implementation(libs.androidx.lifecycle.viewmodel.navigation3)
 
-  // Local persistence (entities/DAOs populated starting Phase 7)
+  // Local persistence
   implementation(libs.androidx.room3.runtime)
+  implementation(libs.androidx.sqlite.framework)
   ksp(libs.androidx.room3.compiler)
+  implementation(libs.androidx.datastore.preferences)
+  implementation(libs.kotlinx.serialization.json)
+  testImplementation(libs.androidx.sqlite.bundled.jvm)
+
+  // Adaptive navigation chrome (bottom bar on phones, rail on tablets) + icons
+  implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
+  implementation(libs.androidx.compose.material.icons.extended)
 }
