@@ -214,7 +214,7 @@ private fun SwipeableCabinetRow(item: CabinetItem, onRemove: () -> Unit) {
             Column(Modifier.weight(1f)) {
                 Text(item.displayName, style = NorseTheme.type.heading, color = colors.textPrimary, maxLines = 2, overflow = TextOverflow.Ellipsis)
                 Text(
-                    if (item.style == item.displayName) item.family else "${item.style} · ${item.family}",
+                    if (item.style == item.displayName) item.family else stringResource(R.string.style_and_family, item.style, item.family),
                     style = NorseTheme.type.body,
                     color = colors.textSecondary,
                     maxLines = 1,

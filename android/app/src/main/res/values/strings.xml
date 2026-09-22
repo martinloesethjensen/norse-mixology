@@ -14,6 +14,7 @@
     <string name="add_ingredient">Add Ingredient</string>
     <string name="find_recipes">Find Recipes</string>
     <string name="remove_from_cabinet">Remove from cabinet</string>
+    <string name="style_and_family">%1$s · %2$s</string>
     <string name="expand_category">Expand %1$s</string>
     <string name="collapse_category">Collapse %1$s</string>
     <plurals name="items_count">
@@ -31,7 +32,10 @@
     <string name="glass_content_description">%1$s glass</string>
     <string name="favourite_content_description">Favourite</string>
     <string name="substituted_ingredient_pill">%1$s for %2$s</string>
-    <string name="more_substitutions">+%1$d more</string>
+    <plurals name="more_substitutions">
+        <item quantity="one">+%1$d more</item>
+        <item quantity="other">+%1$d more</item>
+    </plurals>
     <string name="perfect_match_title">🍹 Perfect Match</string>
     <string name="perfect_match_subtitle">You have everything</string>
     <string name="almost_there_title">🔄 Almost There</string>
@@ -59,6 +63,7 @@
     <string name="ingredient_status_exact">In your cabinet</string>
     <string name="ingredient_status_substituted">Substituted</string>
     <string name="ingredient_status_unavailable">Not in your cabinet</string>
+    <string name="ingredient_row_content_description">%1$s, %2$s</string>
     <string name="unknown_ingredient">Unknown ingredient</string>
     <string name="optional_suffix"> · optional</string>
 

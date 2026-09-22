@@ -8,6 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -140,7 +141,7 @@ private fun Header(recipe: Recipe, match: RecipeMatchResult?) {
             Icon(recipe.glassType.icon, contentDescription = stringResource(R.string.glass_content_description, recipe.glassType.displayName), tint = colors.textSecondary)
             Text(recipe.name, style = NorseTheme.type.display, color = colors.textPrimary)
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             OutlinePill(recipe.method.displayName)
             OutlinePill(recipe.difficulty.displayName)
             if (match != null) {
@@ -194,14 +195,17 @@ private fun IngredientRow(name: String, ingredient: RecipeIngredient, status: Av
         Modifier
             .fillMaxWidth()
             .let { base -> if (substitute != null) base.clickable(onClickLabel = if (isExpanded) stringResource(R.string.hide_substitution_note) else stringResource(R.string.show_substitution_note)) { isExpanded = !isExpanded } else base }
-            .semantics { contentDescription = "$name, $statusLabel" },
+            .let { base ->
+                val rowDescription = stringResource(R.string.ingredient_row_content_description, name, statusLabel)
+                base.semantics { contentDescription = rowDescription }
+            },
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Icon(icon, contentDescription = null, tint = statusColor, modifier = Modifier.size(22.dp))
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                 Text(name, style = NorseTheme.type.heading, color = if (status == AvailabilityStatus.Unavailable) colors.textSecondary else colors.textPrimary)
-                Text(detailLine(ingredient), style = NorseTheme.type.body, color = colors.textSecondary)
+                Text(detailLine(ingredient, stringResource(R.string.optional_suffix)), style = NorseTheme.type.body, color = colors.textSecondary)
                 if (substitute != null) {
                     Text(stringResource(R.string.using_substitute, substitute.substitute.name), style = NorseTheme.type.body, color = colors.matchSubstituted)
                 }
@@ -222,11 +226,11 @@ private fun IngredientRow(name: String, ingredient: RecipeIngredient, status: Av
 }
 
 /** "60ml, freshly squeezed · optional" */
-private fun detailLine(ingredient: RecipeIngredient): String {
+private fun detailLine(ingredient: RecipeIngredient, optionalSuffix: String): String {
     val parts = mutableListOf(ingredient.amount)
     if (!ingredient.preparation.isNullOrEmpty()) parts += ingredient.preparation
     var line = parts.joinToString(", ")
-    if (ingredient.isOptional) line += " · optional"
+    if (ingredient.isOptional) line += optionalSuffix
     return line
 }
 
@@ -266,11 +270,12 @@ private fun MethodSection(steps: List<String>) {
                     ) {
                         Text("${index + 1}", style = NorseTheme.type.label, color = colors.textSecondary)
                     }
+                    val stepDescription = stringResource(R.string.step_content_description, index + 1, step)
                     Text(
                         step,
                         style = NorseTheme.type.heading.copy(fontWeight = FontWeight.Normal),
                         color = colors.textPrimary,
-                        modifier = Modifier.weight(1f).semantics { contentDescription = "Step ${index + 1}: $step" },
+                        modifier = Modifier.weight(1f).semantics { contentDescription = stepDescription },
                     )
                 }
             }

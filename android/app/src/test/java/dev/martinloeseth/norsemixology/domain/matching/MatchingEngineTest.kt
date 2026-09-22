@@ -129,4 +129,18 @@ class MatchingEngineTest {
             }
         }
     }
+
+    /** Phase 6/10 performance budget — mirrors iOS's HardeningTests exactly. */
+    @Test
+    fun matchingA30ItemCabinetAgainstTheFullCatalogIsWellUnder100ms() {
+        val cabinet = taxonomy.stylesById.values.sortedBy { it.name }.take(30).map { CabinetItems.create(it, taxonomy, null) }
+        assertEquals(30, cabinet.size)
+
+        val start = System.nanoTime()
+        val results = MatchingEngine.match(cabinet, catalog.recipes, taxonomy)
+        val elapsedMs = (System.nanoTime() - start) / 1_000_000.0
+
+        assertTrue("budget is defined against a realistically sized catalog", catalog.recipes.size > 100)
+        assertTrue("matched ${catalog.recipes.size} recipes in ${elapsedMs.toInt()}ms, ${results.size} results", elapsedMs < 100.0)
+    }
 }

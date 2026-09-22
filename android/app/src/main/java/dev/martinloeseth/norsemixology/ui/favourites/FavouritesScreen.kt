@@ -49,8 +49,8 @@ fun FavouritesScreen(
     recipesById: Map<UUID, RecipeWithIngredients>,
     onSelect: (UUID) -> Unit,
     onRemove: (FavouriteRecipe) -> Unit,
-    selectedRecipeId: UUID? = null,
     modifier: Modifier = Modifier,
+    selectedRecipeId: UUID? = null,
 ) {
     val colors = NorseTheme.colors
     if (state.isEmpty) {

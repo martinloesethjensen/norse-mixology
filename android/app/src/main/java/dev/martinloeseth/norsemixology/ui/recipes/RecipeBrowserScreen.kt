@@ -38,8 +38,8 @@ fun RecipeBrowserScreen(
     favouritesViewModel: FavouritesViewModel,
     onRefresh: () -> Unit,
     onSelectRecipe: (UUID) -> Unit,
-    selectedRecipeId: UUID? = null,
     modifier: Modifier = Modifier,
+    selectedRecipeId: UUID? = null,
 ) {
     val colors = NorseTheme.colors
     var isRefreshing by remember { mutableStateOf(false) }

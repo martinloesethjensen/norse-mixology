@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -28,7 +29,7 @@ private val CardShape = RoundedCornerShape(14.dp)
 
 /** A single result in the Recipe Browser: name, glass, method/difficulty, and how well the cabinet covers it. */
 @Composable
-fun RecipeCard(result: RecipeMatchResult, isFavourited: Boolean, isSelected: Boolean = false, modifier: Modifier = Modifier) {
+fun RecipeCard(result: RecipeMatchResult, isFavourited: Boolean, modifier: Modifier = Modifier, isSelected: Boolean = false) {
     val colors = NorseTheme.colors
     val recipe = result.recipe
 
@@ -63,7 +64,8 @@ fun RecipeCard(result: RecipeMatchResult, isFavourited: Boolean, isSelected: Boo
                     uppercase = false,
                 )
                 if (result.substitutions.size > 1) {
-                    Text(stringResource(R.string.more_substitutions, result.substitutions.size - 1), style = NorseTheme.type.body, color = colors.textSecondary)
+                    val moreCount = result.substitutions.size - 1
+                    Text(pluralStringResource(R.plurals.more_substitutions, moreCount, moreCount), style = NorseTheme.type.body, color = colors.textSecondary)
                 }
             }
         }
