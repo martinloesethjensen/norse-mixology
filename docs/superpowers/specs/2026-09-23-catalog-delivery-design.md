@@ -82,6 +82,10 @@ Validation runs on every PR (`check.yml`) and gates publishing (`publish.yml`).
 
 Additive changes (new optional fields) stay in `/v1/`. A breaking change publishes to `/v2/` while `/v1/` stays frozen at its last version so older app builds keep working.
 
+### Hosting URL (verified 2026-09-23)
+
+The owner's GitHub user site has a custom domain behind Cloudflare, so `martinloesethjensen.github.io/norse-catalog/` answers with a 301 to **plain http** on `martinloeseth.dev`, which App Transport Security would block. Clients therefore use `https://martinloeseth.dev/norse-catalog/` directly (valid TLS, ETag + 304 verified). Cloudflare's bot filtering sits in front: it returned 403 to Python's `urllib` user agent but 200 to CFNetwork and curl. If it ever challenges app traffic, refreshes fail and the app keeps its current catalog (rows 4/7). Recommended: a Cloudflare rule that skips bot protection for `/norse-catalog/*`.
+
 ### Repo security
 
 2FA on the owning account; branch protection on `main` (PR + passing `check.yml` required); Pages deploys only via the `publish.yml` Action.
@@ -182,7 +186,7 @@ CREATE INDEX recipe_tag_by_tag ON recipe_tag(tag);
 
 **Integration:** `TaxonomyStore` keeps its public API; its source switches from parsing bundled JSON to reading `CatalogDatabase`. Views, view models and `MatchingService` are unchanged. The DB is rebuilt on-device from the bundled JSON on first launch (~158 recipes; expected to take milliseconds), so no prebuilt `.sqlite` ships in the bundle.
 
-**Configuration:** the catalog base URL (`https://martinloesethjensen.github.io/norse-catalog/`) is a single Swift constant in the app target (`CatalogConfig.baseURL`) — the project generates its Info.plist, which doesn't take arbitrary keys. HTTPS enforced by App Transport Security defaults. Downloads are held in memory (≤ 2 MB each), so there is no download temp directory.
+**Configuration:** the catalog base URL (`https://martinloeseth.dev/norse-catalog/`) is a single Swift constant in the app target (`CatalogConfig.baseURL`) — the project generates its Info.plist, which doesn't take arbitrary keys. HTTPS enforced by App Transport Security defaults. Downloads are held in memory (≤ 2 MB each), so there is no download temp directory.
 
 ---
 

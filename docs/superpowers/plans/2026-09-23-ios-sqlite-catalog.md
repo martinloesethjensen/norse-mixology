@@ -10,13 +10,13 @@
 
 **Spec:** `/Users/mlj/dev/norse-mixology/docs/superpowers/specs/2026-09-23-catalog-delivery-design.md` (§3–§6)
 
-**This is Plan 2 of 2.** Tasks 1–7 and 9 need nothing from Plan 1. **Task 8 requires Plan 1 to be finished** (`https://martinloesethjensen.github.io/norse-catalog/v1/manifest.json` live).
+**This is Plan 2 of 2.** Tasks 1–7 and 9 need nothing from Plan 1. **Task 8 requires Plan 1 to be finished** (`https://martinloeseth.dev/norse-catalog/v1/manifest.json` live).
 
 ## Global Constraints
 
 - iOS 17 minimum; package platforms `.iOS(.v17), .macOS(.v14)` unchanged — core tests run on macOS with `swift test`.
 - Android is paused: do not modify anything under `android/`.
-- Catalog base URL: `https://martinloesethjensen.github.io/norse-catalog/`; manifest at `v1/manifest.json`.
+- Catalog base URL: `https://martinloeseth.dev/norse-catalog/`; manifest at `v1/manifest.json`.
 - Supported manifest `schemaVersion`: `1`. Client file cap: `2_000_000` bytes per catalog file; manifest cap `65_536` bytes.
 - Hashed file names must match `^(taxonomy|recipes)\.[0-9a-f]{8}\.json$`; `sha256` must match `^[0-9a-f]{64}$`.
 - DB schema version (`PRAGMA user_version`): `1`.
@@ -2278,7 +2278,7 @@ git commit -m "iOS: cabinet items for styles removed from the catalog never subs
 
 ### Task 8: Sync the bundled snapshot from the published catalog
 
-**Requires Plan 1 complete** (`curl -sSf https://martinloesethjensen.github.io/norse-catalog/v1/manifest.json` succeeds). If it doesn't, stop and report; do not hand-write a manifest.
+**Requires Plan 1 complete** (`curl -sSf https://martinloeseth.dev/norse-catalog/v1/manifest.json` succeeds). If it doesn't, stop and report; do not hand-write a manifest.
 
 **Files:**
 - Create: `scripts/sync-catalog.sh` (repo root)
@@ -2349,10 +2349,10 @@ Expected: `testShippedCatalogBootstrapsCleanly` FAILS (no `manifest.json` in `io
 # and the core package's test resources. Verifies every hash before writing anything.
 #
 # Usage: scripts/sync-catalog.sh [BASE_URL]
-#   BASE_URL defaults to https://martinloesethjensen.github.io/norse-catalog
+#   BASE_URL defaults to https://martinloeseth.dev/norse-catalog
 set -euo pipefail
 
-BASE="${1:-https://martinloesethjensen.github.io/norse-catalog}/v1"
+BASE="${1:-https://martinloeseth.dev/norse-catalog}/v1"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
@@ -2536,7 +2536,7 @@ import Foundation
 import NorseMixologyCore
 
 enum CatalogConfig {
-    static let baseURL = URL(string: "https://martinloesethjensen.github.io/norse-catalog/")!
+    static let baseURL = URL(string: "https://martinloeseth.dev/norse-catalog/")!
 }
 
 /// Connects the core catalog pipeline to this app: its bundle, its
@@ -2688,7 +2688,7 @@ Then add a new section after "Hardening rules (Phase 6 — Android Phase 10 must
 ```markdown
 ## Catalog delivery (iOS)
 
-- **Source:** `https://martinloesethjensen.github.io/norse-catalog/v1/manifest.json` → content-hashed `taxonomy.<sha8>.json` / `recipes.<sha8>.json`. Spec: `docs/superpowers/specs/2026-09-23-catalog-delivery-design.md`.
+- **Source:** `https://martinloeseth.dev/norse-catalog/v1/manifest.json` → content-hashed `taxonomy.<sha8>.json` / `recipes.<sha8>.json`. Spec: `docs/superpowers/specs/2026-09-23-catalog-delivery-design.md`.
 - **On device:** `Application Support/Catalog/catalog.sqlite` (GRDB, `STRICT` tables, foreign keys, 0–1 `CHECK`s, `user_version` = `CatalogSchema.version`). Built only by `CatalogImporter` from hash-verified JSON; read only by `CatalogDatabase` (read-only, then closed — `TaxonomyStore` holds the catalog in memory).
 - **Launch:** `CatalogBootstrap` removes staging leftovers, loads the live DB, and rebuilds from the bundled snapshot if it's missing, corrupt, a different schema version, or older than the bundle. If that fails it keeps an older valid DB, else the app shows "Catalog unavailable".
 - **Refresh:** `CatalogUpdater` runs after the UI is up on every cold launch: conditional GET with the stored ETag, 64 KB manifest cap, 2 MB file caps enforced while streaming, SHA-256 checks, import into `catalog.new.sqlite`, atomic replace. New content applies on the **next** launch. A manifest whose `generatedAt` isn't newer than the current catalog is ignored.
@@ -2719,7 +2719,7 @@ At the top of "## 4. Taxonomy versioning with eTag", add:
 In "## Backend", after the existing paragraph, add:
 
 ```markdown
-**Catalog hosting (since 2026-09-23):** the public `norse-catalog` GitHub repo publishes the catalog to `https://martinloesethjensen.github.io/norse-catalog/v1/` via GitHub Actions (free). Workflow: edit `generate.py` → `python3 -m catalog.build` → commit `site/` → PR (CI checks) → merge (deploys). Before each app release, run `scripts/sync-catalog.sh` in the app repo to refresh the bundled fallback.
+**Catalog hosting (since 2026-09-23):** the public `norse-catalog` GitHub repo publishes the catalog to `https://martinloeseth.dev/norse-catalog/v1/` via GitHub Actions (free). Workflow: edit `generate.py` → `python3 -m catalog.build` → commit `site/` → PR (CI checks) → merge (deploys). Before each app release, run `scripts/sync-catalog.sh` in the app repo to refresh the bundled fallback.
 ```
 
 - [ ] **Step 5: Obsidian — `Data Model.md`**
