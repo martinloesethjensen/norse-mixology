@@ -63,4 +63,27 @@ enum CatalogFixtures {
         try paths.prepareDirectory()
         return paths
     }
+
+    /// Builds a live catalog from the bundled fixture JSON and returns its meta.
+    @discardableResult
+    static func installLive(
+        at paths: CatalogPaths,
+        generatedAt: Date = t0,
+        contentVersion: String = "aaaaaaaa",
+        source: CatalogSource = .bundled,
+        etag: String? = nil
+    ) throws -> CatalogMeta {
+        let taxonomy = try taxonomyData()
+        let recipes = try recipesData()
+        try CatalogImporter.build(
+            at: paths.staging,
+            manifest: manifest(taxonomy: taxonomy, recipes: recipes, generatedAt: generatedAt, contentVersion: contentVersion),
+            taxonomyData: taxonomy,
+            recipesData: recipes,
+            source: source,
+            etag: etag
+        )
+        try paths.promoteStaging()
+        return try CatalogDatabase.load(from: paths.live).meta
+    }
 }
