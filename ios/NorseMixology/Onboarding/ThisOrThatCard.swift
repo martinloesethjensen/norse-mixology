@@ -27,7 +27,7 @@ struct ThisOrThatCard: View {
         )
         .offset(x: dragOffset)
         .rotationEffect(.degrees(dragOffset / 20))
-        .gesture(
+        .simultaneousGesture(
             DragGesture()
                 .onChanged { value in
                     isDragging = true
