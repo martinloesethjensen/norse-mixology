@@ -19,3 +19,6 @@ android/.idea/
 android/captures/
 android/.cxx/
 android/.kotlin/
+
+# Superpowers subagent-driven-development scratch workspace
+.superpowers/
