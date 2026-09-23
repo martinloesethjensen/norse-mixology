@@ -142,10 +142,12 @@ public enum MatchingService {
         prefs: MatchPreferences
     ) -> Resolution {
         // 1. User accept override.
+        // A style that has left the catalog can't be a substitute (see CatalogToleranceTests).
         if let acceptedId = prefs.acceptOverrides[requiredStyle.id],
            !prefs.isRejected(substituteId: acceptedId, for: requiredStyle.id),
-           cabinetByStyleId[acceptedId] != nil {
-            return .resolved(quality: 1.0, substituteStyle: stylesById[acceptedId])
+           cabinetByStyleId[acceptedId] != nil,
+           let acceptedStyle = stylesById[acceptedId] {
+            return .resolved(quality: 1.0, substituteStyle: acceptedStyle)
         }
 
         // 2. Exact style in cabinet.
@@ -164,7 +166,11 @@ public enum MatchingService {
 
         // 4. Best same-family cabinet item by cosine similarity.
         let familyCandidates = (cabinetByFamilyId[requiredStyle.familyId] ?? [])
-            .filter { $0.ingredientStyleId != requiredStyle.id && !prefs.isRejected(substituteId: $0.ingredientStyleId, for: requiredStyle.id) }
+            .filter {
+                $0.ingredientStyleId != requiredStyle.id
+                    && stylesById[$0.ingredientStyleId] != nil // ghost cabinet items never substitute
+                    && !prefs.isRejected(substituteId: $0.ingredientStyleId, for: requiredStyle.id)
+            }
 
         var best: (item: CabinetItem, similarity: Double)?
         for candidate in familyCandidates {
