@@ -19,7 +19,7 @@ struct ThisOrThatCard: View {
             choiceHalf(.left, label: question.leftLabel)
             choiceHalf(.right, label: question.rightLabel)
         }
-        .frame(height: 220)
+        .frame(minHeight: 220)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
