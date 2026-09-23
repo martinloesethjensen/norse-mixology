@@ -99,7 +99,8 @@ struct TasteOnboardingView: View {
         }
     }
 
-    private func answer(_ choice: ThisOrThatCard.Choice) {
+    private func answer(_ questionId: Int, _ choice: ThisOrThatCard.Choice) {
+        guard questionId == questions[currentIndex].id else { return }
         profile[keyPath: questions[currentIndex].axis] = choice == .left ? 0.85 : 0.15
         withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
             if currentIndex < questions.count - 1 {

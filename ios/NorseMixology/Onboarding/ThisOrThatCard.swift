@@ -7,7 +7,7 @@ struct ThisOrThatCard: View {
     enum Choice { case left, right }
 
     let question: TasteQuizQuestion
-    let onChoose: (Choice) -> Void
+    let onChoose: (Int, Choice) -> Void
 
     @State private var dragOffset: CGFloat = 0
     @State private var isDragging = false
@@ -36,9 +36,9 @@ struct ThisOrThatCard: View {
                 .onEnded { value in
                     isDragging = false
                     if value.translation.width > dragCommitThreshold {
-                        onChoose(.right)
+                        onChoose(question.id, .right)
                     } else if value.translation.width < -dragCommitThreshold {
-                        onChoose(.left)
+                        onChoose(question.id, .left)
                     }
                     withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
                         dragOffset = 0
@@ -51,7 +51,7 @@ struct ThisOrThatCard: View {
     @ViewBuilder
     private func choiceHalf(_ choice: Choice, label: String) -> some View {
         Button {
-            onChoose(choice)
+            onChoose(question.id, choice)
         } label: {
             Text(label)
                 .dsText(.heading)
@@ -68,7 +68,7 @@ struct ThisOrThatCard: View {
 }
 
 #Preview {
-    ThisOrThatCard(question: TasteQuizQuestion.all[0]) { _ in }
+    ThisOrThatCard(question: TasteQuizQuestion.all[0]) { _, _ in }
         .padding()
         .dsScreenBackground()
 }
