@@ -54,4 +54,13 @@ enum CatalogFixtures {
         encoder.dateEncodingStrategy = .iso8601
         return try encoder.encode(manifest)
     }
+
+    /// A fresh, empty catalog directory under the temp dir.
+    static func tempPaths() throws -> CatalogPaths {
+        let directory = FileManager.default.temporaryDirectory
+            .appending(path: "catalog-tests-\(UUID().uuidString)", directoryHint: .isDirectory)
+        let paths = CatalogPaths(directory: directory)
+        try paths.prepareDirectory()
+        return paths
+    }
 }
