@@ -30,13 +30,15 @@ Guiding principle: **failure first.** Every link in the chain has a named failur
 ```
 norse-catalog/
 ├── generate.py          # moved from app repo seed-data/
-├── validate.py          # invariant checks
-├── build.py             # generate → validate → write site/
+├── catalog/validate.py  # invariant checks
+├── catalog/build.py     # generate → validate → write site/ (run locally, output committed)
 ├── site/v1/             # committed published output (retains last 3 versions)
 └── .github/workflows/
-    ├── check.yml        # on PR: generate + validate
-    └── publish.yml      # on push to main: build + deploy to Pages
+    ├── check.yml        # on PR + push: tests; fail if site/ is stale vs generate.py
+    └── publish.yml      # on push to main: same checks, then deploy site/ to Pages
 ```
+
+CI never writes to the repo: the author runs `python3 -m catalog.build` and commits `site/`; CI re-runs the (idempotent) build and fails if it would change anything. No write tokens, no bot commits to a protected branch.
 
 ### Published layout
 
@@ -88,7 +90,7 @@ Additive changes (new optional fields) stay in `/v1/`. A breaking change publish
 
 ## 3. App-repo sync script
 
-`scripts/sync-catalog.sh` fetches the live `/v1/manifest.json` and its two files, verifies hashes, and writes `manifest.json`, `taxonomy.json`, `recipes.json` into the iOS app bundle resources. It replaces the app repo's `seed-data/` directory (removed once `generate.py` has moved). Run manually before a release; the bundled snapshot is the app's last-known-good fallback.
+`scripts/sync-catalog.sh` fetches the live `/v1/manifest.json` and its two files, verifies hashes, and writes `manifest.json`, `taxonomy.json`, `recipes.json` into **both** `seed-data/` and `ios/NorseMixology/Resources/`. `seed-data/` stays as the synced snapshot because the (paused) Android build copies its JSON at build time and an Android unit test asserts the iOS resources are byte-identical to it; only `generate.py` leaves the app repo. Run manually before a release; the bundled snapshot is the app's last-known-good fallback.
 
 ---
 
@@ -100,7 +102,7 @@ Additive changes (new optional fields) stay in `/v1/`. A breaking change publish
 
 ```sql
 CREATE TABLE catalog_meta (key TEXT PRIMARY KEY, value TEXT NOT NULL) STRICT;
-  -- keys: schemaVersion, contentVersion, generatedAt, source ('bundled' | 'remote')
+  -- keys: schemaVersion, contentVersion, generatedAt, source ('bundled' | 'remote'), etag (remote only)
 
 CREATE TABLE category (
   id TEXT PRIMARY KEY, name TEXT NOT NULL, sort_order INTEGER NOT NULL) STRICT;
@@ -115,7 +117,7 @@ CREATE TABLE style (
   family_id TEXT NOT NULL REFERENCES family(id),
   category_id TEXT NOT NULL REFERENCES category(id),
   name TEXT NOT NULL, sort_order INTEGER NOT NULL,
-  abv_min REAL, abv_max REAL,
+  abv_min REAL NOT NULL, abv_max REAL NOT NULL,
   sweetness REAL NOT NULL CHECK (sweetness BETWEEN 0 AND 1),
   bitterness REAL NOT NULL CHECK (bitterness BETWEEN 0 AND 1),
   smokiness REAL NOT NULL CHECK (smokiness BETWEEN 0 AND 1),
@@ -133,8 +135,8 @@ CREATE TABLE style_brand (
 
 CREATE TABLE recipe (
   id TEXT PRIMARY KEY, sort_order INTEGER NOT NULL,
-  name TEXT NOT NULL, description TEXT, glass_type TEXT, method TEXT,
-  difficulty TEXT, image_url TEXT,
+  name TEXT NOT NULL, description TEXT NOT NULL, glass_type TEXT NOT NULL, method TEXT NOT NULL,
+  difficulty TEXT NOT NULL, image_url TEXT,
   sweetness REAL NOT NULL CHECK (sweetness BETWEEN 0 AND 1),
   bitterness REAL NOT NULL CHECK (bitterness BETWEEN 0 AND 1),
   smokiness REAL NOT NULL CHECK (smokiness BETWEEN 0 AND 1),
@@ -159,8 +161,8 @@ CREATE TABLE recipe_step (
   PRIMARY KEY (recipe_id, position)) STRICT;
 
 CREATE TABLE recipe_tag (
-  recipe_id TEXT NOT NULL REFERENCES recipe(id), tag TEXT NOT NULL,
-  PRIMARY KEY (recipe_id, tag)) STRICT;
+  recipe_id TEXT NOT NULL REFERENCES recipe(id), position INTEGER NOT NULL, tag TEXT NOT NULL,
+  PRIMARY KEY (recipe_id, position), UNIQUE (recipe_id, tag)) STRICT;
 CREATE INDEX recipe_tag_by_tag ON recipe_tag(tag);
 ```
 
@@ -170,9 +172,9 @@ CREATE INDEX recipe_tag_by_tag ON recipe_tag(tag);
 
 | Unit | Responsibility | Depends on |
 |---|---|---|
-| `CatalogPaths` | Locations in Application Support: `catalog.sqlite`, `catalog.new.sqlite`, download temp dir | — |
-| `CatalogImporter` | `(manifest, taxonomyData, recipesData, destination)` → decode with existing decoders, reject if any row is skipped, create schema, insert everything in one transaction, run `PRAGMA foreign_key_check` + `integrity_check`. Throws typed `CatalogImportError` | GRDB, existing JSON decoders |
-| `CatalogDatabase` | Opens the live DB **read-only**; returns existing `[IngredientCategory]` / `[Recipe]` model types and `catalog_meta` | GRDB |
+| `CatalogPaths` | Locations in Application Support: `catalog.sqlite`, `catalog.new.sqlite`; staging cleanup; promote staging → live | — |
+| `CatalogImporter` | `(manifest, taxonomyData, recipesData, destination)` → decode with existing decoders, reject if any row is skipped, create schema, insert everything in one transaction, run `PRAGMA foreign_key_check` + `integrity_check`. Verifies file hashes. Throws typed `CatalogError` | GRDB, existing JSON decoders |
+| `CatalogDatabase` | Opens the live DB **read-only**, checks `user_version`, loads everything into existing `[IngredientCategory]` / `[Recipe]` model types plus `catalog_meta`, then closes (the catalog lives in memory in `TaxonomyStore`, so no long-lived connection) | GRDB |
 | `CatalogBootstrap` | Launch-time decision (see §5 rows 11, 13–15, 17); always yields an open `CatalogDatabase` or an explicit unavailable state | Paths, Importer, Database |
 | `CatalogUpdater` | Background refresh (§5 rows 6–12): manifest → caps → download → hash → import to `catalog.new.sqlite` → atomic replace | injected `URLSession`, Importer, Paths |
 
@@ -180,7 +182,7 @@ CREATE INDEX recipe_tag_by_tag ON recipe_tag(tag);
 
 **Integration:** `TaxonomyStore` keeps its public API; its source switches from parsing bundled JSON to reading `CatalogDatabase`. Views, view models and `MatchingService` are unchanged. The DB is rebuilt on-device from the bundled JSON on first launch (~158 recipes; expected to take milliseconds), so no prebuilt `.sqlite` ships in the bundle.
 
-**Configuration:** the catalog base URL is a single `Info.plist` value. HTTPS enforced by App Transport Security defaults.
+**Configuration:** the catalog base URL (`https://martinloesethjensen.github.io/norse-catalog/`) is a single Swift constant in the app target (`CatalogConfig.baseURL`) — the project generates its Info.plist, which doesn't take arbitrary keys. HTTPS enforced by App Transport Security defaults. Downloads are held in memory (≤ 2 MB each), so there is no download temp directory.
 
 ---
 
@@ -188,17 +190,17 @@ CREATE INDEX recipe_tag_by_tag ON recipe_tag(tag);
 
 ### Launch (`CatalogBootstrap`)
 
-1. Delete leftover `catalog.new.sqlite` and download temp files.
+1. Delete leftover `catalog.new.sqlite`.
 2. Open `catalog.sqlite` read-only. If missing, unopenable, `user_version` ≠ expected, or its `generatedAt` is older than the bundled `manifest.json`'s → rebuild from bundled JSON via `CatalogImporter`, then swap in.
 3. Hand the open `CatalogDatabase` to `TaxonomyStore`.
 
 ### Background refresh (`CatalogUpdater`, after UI is up, every cold launch)
 
-1. `GET /v1/manifest.json` with `If-None-Match` (stored ETag). `304` or unchanged `contentVersion` → stop.
+1. `GET /v1/manifest.json` with `If-None-Match` (ETag stored in `catalog_meta`). `304`, unchanged `contentVersion`, or a `generatedAt` not newer than the current catalog's → stop (the last rule stops a CDN-stale manifest from downgrading a newer catalog).
 2. Reject if `schemaVersion` unsupported or either `bytes` > 2 MB.
 3. Download both files (cap enforced while streaming), verify SHA-256.
 4. `CatalogImporter` → `catalog.new.sqlite`.
-5. Atomically replace `catalog.sqlite` (`FileManager.replaceItemAt`); store the new ETag. Takes effect next cold launch — the current session's read-only connection keeps its already-loaded data.
+5. Atomically replace `catalog.sqlite` (`FileManager.replaceItemAt`); the new ETag is stored in the new DB's `catalog_meta`, so it can never disagree with the catalog it describes. Takes effect next cold launch — the current session's read-only connection keeps its already-loaded data.
 
 Any failure: log via `AppLog.catalog`, discard temp artifacts, keep the current catalog. No user-facing errors; the UI never waits on the network.
 
@@ -209,7 +211,7 @@ Each row has at least one test that injects the failure.
 | # | Failure | Behaviour | Test approach |
 |---|---|---|---|
 | 1 | Generator emits invalid data | `validate.py` fails PR / publish; nothing deploys | `validate.py` unit tests with broken fixtures |
-| 2 | CDN serves old manifest while new files are live | Last 3 versions' hashed files retained | `build.py` test: retention after 4 successive builds |
+| 2 | CDN serves old manifest while new files are live | Last 3 versions' hashed files retained; client ignores a manifest whose `generatedAt` isn't newer than its current catalog | `build.py` retention test after 4 builds; updater test with an older `generatedAt` |
 | 3 | Valid-but-wrong content published | Revert commit → republish; new `contentVersion` propagates | Runbook in repo README; covered by row-1/2 pipeline tests |
 | 4 | Pages down / repo gone | Current catalog kept; silent | `URLProtocol` stub: 404 / 5xx / DNS failure |
 | 5 | Account compromise → valid malicious content | Limited to catalog text with client bounds checks; 2FA + branch protection. **Accepted risk:** payload signing deferred | — |
@@ -224,7 +226,7 @@ Each row has at least one test that injects the failure.
 | 14 | App update changes DB schema | `user_version` mismatch → rebuild from bundled; next refresh fetches latest | Fixture DB with `user_version = 0` |
 | 15 | Bundled catalog newer than cached (post app update) | Newer `generatedAt` wins | Bootstrap test with older cached DB |
 | 16 | Update removes a style in the cabinet / a favourited recipe | Cabinet keeps its snapshot; favourite shows cached name + "no longer in catalog"; matching tolerates unknown style IDs without crashing | `MatchingService` tests with cabinet/recipe IDs absent from the index; favourites view-model test |
-| 17 | Bundled rebuild also fails | Explicit "catalog unavailable" state, no crash | Bootstrap with corrupt bundled fixture; plus a build-time unit test that the real bundled JSON imports cleanly |
+| 17 | Bundled rebuild also fails | Keep an older-but-valid live catalog if there is one; otherwise explicit "catalog unavailable" state, no crash | Bootstrap with corrupt bundled fixture; plus a build-time unit test that the real bundled JSON imports cleanly |
 
 Additional test: **round-trip** — bundled JSON → `CatalogImporter` → `CatalogDatabase` yields models equal to those from today's JSON loaders.
 
@@ -234,7 +236,7 @@ Additional test: **round-trip** — bundled JSON → `CatalogImporter` → `Cata
 
 **In scope**
 1. `norse-catalog` repo: `generate.py` (moved), `validate.py`, `build.py`, `check.yml`, `publish.yml`, Pages enabled, branch protection.
-2. App repo: `scripts/sync-catalog.sh`; bundled `manifest.json`; `seed-data/` removed.
+2. App repo: `scripts/sync-catalog.sh`; bundled `manifest.json`; `seed-data/generate.py` removed (`seed-data/` JSON kept as the synced snapshot).
 3. iOS: GRDB dependency; `Catalog/` components; `TaxonomyStore` switched to `CatalogDatabase`; bootstrap + updater wired into app launch.
 4. Tests for every failure row plus the round-trip test.
 
