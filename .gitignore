@@ -19,3 +19,9 @@ android/.idea/
 android/captures/
 android/.cxx/
 android/.kotlin/
+
+# Superpowers subagent-driven-development scratch workspace
+.superpowers/
+
+# Git worktrees created for isolated phase/feature work
+.worktrees/
