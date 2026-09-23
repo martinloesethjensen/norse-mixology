@@ -23,3 +23,33 @@ final class UserTasteProfileTests: XCTestCase {
         XCTAssertEqual(decoded, profile)
     }
 }
+
+final class TasteProfileStoreTests: XCTestCase {
+    private let suiteName = "TasteProfileStoreTests"
+    private var defaults: UserDefaults!
+
+    override func setUp() {
+        super.setUp()
+        defaults = UserDefaults(suiteName: suiteName)
+        defaults.removePersistentDomain(forName: suiteName)
+    }
+
+    override func tearDown() {
+        defaults.removePersistentDomain(forName: suiteName)
+        defaults = nil
+        super.tearDown()
+    }
+
+    func testLoadReturnsNeutralWhenNothingSaved() {
+        XCTAssertEqual(TasteProfileStore.load(defaults: defaults), .neutral)
+    }
+
+    func testSaveThenLoadRoundTrips() {
+        let profile = UserTasteProfile(
+            sweetness: 0.85, bitterness: 0.15, citrus: 0.5,
+            smokiness: 0.85, herbal: 0.15, hasCompletedOnboarding: true
+        )
+        TasteProfileStore.save(profile, defaults: defaults)
+        XCTAssertEqual(TasteProfileStore.load(defaults: defaults), profile)
+    }
+}
