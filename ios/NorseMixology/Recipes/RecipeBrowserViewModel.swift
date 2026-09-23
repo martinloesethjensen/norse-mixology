@@ -38,6 +38,7 @@ final class RecipeBrowserViewModel {
             taxonomyCategories: taxonomyStore.categories
         )
         grouped = GroupedMatchResults(results: results)
+        grouped = TasteRanking.reorder(grouped, toward: TasteProfileStore.load())
         cabinetStyleIds = Set(cabinet.map(\.ingredientStyleId))
 
         // A recipe can drop out of the results when the cabinet changes.
