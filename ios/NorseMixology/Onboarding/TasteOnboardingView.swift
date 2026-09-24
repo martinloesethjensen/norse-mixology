@@ -35,7 +35,7 @@ struct TasteOnboardingView: View {
                             .id(questions[currentIndex].id)
                             .transition(
                                 .asymmetric(
-                                    insertion: .move(edge: .trailing).combined(with: .opacity),
+                                    insertion: .move(edge: .bottom).combined(with: .opacity),
                                     removal: .move(edge: .leading).combined(with: .opacity)
                                 )
                             )
@@ -99,8 +99,7 @@ struct TasteOnboardingView: View {
         }
     }
 
-    private func answer(_ questionId: Int, _ choice: ThisOrThatCard.Choice) {
-        guard questionId == questions[currentIndex].id else { return }
+    private func answer(_ choice: ThisOrThatCard.Choice) {
         profile[keyPath: questions[currentIndex].axis] = choice == .left ? 0.85 : 0.15
         withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
             if currentIndex < questions.count - 1 {

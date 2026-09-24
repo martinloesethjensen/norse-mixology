@@ -1,18 +1,31 @@
 import SwiftUI
 
 /// One quiz question: a two-half card that responds to a left/right drag
-/// **and** exposes each half as an independently tappable, VoiceOver-
-/// focusable button — never gesture-only (Phase 6 hardening rule).
+/// **and** exposes each half as an independently VoiceOver-focusable
+/// element — never gesture-only (Phase 6 hardening rule).
+///
+/// A single `DragGesture(minimumDistance: 0)` owns all touch interaction —
+/// both a plain tap and a full swipe resolve through the same `onEnded`.
+/// This is deliberate: two earlier attempts used a `Button` per half
+/// alongside a separate drag gesture, and however they were combined
+/// (`.gesture` blocked taps entirely; `.simultaneousGesture` let both
+/// recognizers fire from one physical touch, sometimes reporting opposite
+/// choices for the same swipe). A single recognizer removes the race by
+/// construction — there is only ever one source of truth. VoiceOver
+/// bypasses touch entirely and invokes `accessibilityAction` directly, so
+/// each half is still a fully accessible, independently activatable
+/// element without needing a real `Button`.
 struct ThisOrThatCard: View {
     enum Choice { case left, right }
 
     let question: TasteQuizQuestion
-    let onChoose: (Int, Choice) -> Void
+    let onChoose: (Choice) -> Void
 
     @State private var dragOffset: CGFloat = 0
-    @State private var isDragging = false
+    @State private var cardWidth: CGFloat = 0
 
     private let dragCommitThreshold: CGFloat = 80
+    private let tapMovementThreshold: CGFloat = 10
 
     var body: some View {
         HStack(spacing: 1) {
@@ -20,6 +33,13 @@ struct ThisOrThatCard: View {
             choiceHalf(.right, label: question.rightLabel)
         }
         .frame(minHeight: 220)
+        .background(
+            GeometryReader { proxy in
+                Color.clear
+                    .onAppear { cardWidth = proxy.size.width }
+                    .onChange(of: proxy.size.width) { _, newWidth in cardWidth = newWidth }
+            }
+        )
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
@@ -27,19 +47,13 @@ struct ThisOrThatCard: View {
         )
         .offset(x: dragOffset)
         .rotationEffect(.degrees(dragOffset / 20))
-        .simultaneousGesture(
-            DragGesture()
+        .gesture(
+            DragGesture(minimumDistance: 0)
                 .onChanged { value in
-                    isDragging = true
                     dragOffset = value.translation.width
                 }
                 .onEnded { value in
-                    isDragging = false
-                    if value.translation.width > dragCommitThreshold {
-                        onChoose(question.id, .right)
-                    } else if value.translation.width < -dragCommitThreshold {
-                        onChoose(question.id, .left)
-                    }
+                    resolve(value)
                     withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
                         dragOffset = 0
                     }
@@ -48,27 +62,41 @@ struct ThisOrThatCard: View {
         .animation(.interactiveSpring(), value: dragOffset)
     }
 
+    /// The single decision point for what a completed touch means: a tap
+    /// resolves by which half it started in; a committed drag resolves by
+    /// direction; anything else (a drag that didn't clear the threshold)
+    /// is a cancelled gesture with no choice recorded.
+    private func resolve(_ value: DragGesture.Value) {
+        let translation = value.translation.width
+        if abs(translation) < tapMovementThreshold {
+            let choice: Choice = (cardWidth > 0 && value.startLocation.x > cardWidth / 2) ? .right : .left
+            onChoose(choice)
+        } else if translation > dragCommitThreshold {
+            onChoose(.right)
+        } else if translation < -dragCommitThreshold {
+            onChoose(.left)
+        }
+    }
+
     @ViewBuilder
     private func choiceHalf(_ choice: Choice, label: String) -> some View {
-        Button {
-            onChoose(question.id, choice)
-        } label: {
-            Text(label)
-                .dsText(.heading)
-                .foregroundStyle(DesignTokens.textPrimary)
-                .multilineTextAlignment(.center)
-                .padding(16)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(DesignTokens.surface)
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel(label)
-        .accessibilityHint("Double tap to choose")
+        Text(label)
+            .dsText(.heading)
+            .foregroundStyle(DesignTokens.textPrimary)
+            .multilineTextAlignment(.center)
+            .padding(16)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(DesignTokens.surface)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(label)
+            .accessibilityAddTraits(.isButton)
+            .accessibilityHint("Double tap to choose")
+            .accessibilityAction { onChoose(choice) }
     }
 }
 
 #Preview {
-    ThisOrThatCard(question: TasteQuizQuestion.all[0]) { _, _ in }
+    ThisOrThatCard(question: TasteQuizQuestion.all[0]) { _ in }
         .padding()
         .dsScreenBackground()
 }
