@@ -28,8 +28,18 @@ public struct CatalogPaths: Sendable {
         directory.appending(path: "\(Self.stagingPrefix).\(UUID().uuidString).sqlite")
     }
 
+    /// Creates the directory and excludes it from backups (best effort): the
+    /// catalog is always re-creatable from the bundle or the network.
     public func prepareDirectory() throws {
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        var values = URLResourceValues()
+        values.isExcludedFromBackup = true
+        var url = directory
+        do {
+            try url.setResourceValues(values)
+        } catch {
+            AppLog.catalog.warning("Could not exclude the catalog from backups: \(String(describing: error), privacy: .public)")
+        }
     }
 
     /// Removes one attempt's staging file and its SQLite sidecars.

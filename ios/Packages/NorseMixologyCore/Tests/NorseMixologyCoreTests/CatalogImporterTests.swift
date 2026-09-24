@@ -192,4 +192,10 @@ final class CatalogImporterTests: XCTestCase {
         XCTAssertEqual(try CatalogFixtures.stagingFiles(in: paths), [])
         XCTAssertNoThrow(try CatalogDatabase.load(from: paths.live))
     }
+
+    // The catalog is always re-creatable, so it must not bloat device backups.
+    func testCatalogDirectoryIsExcludedFromBackup() throws {
+        let fresh = URL(fileURLWithPath: paths.directory.path, isDirectory: true)
+        XCTAssertEqual(try fresh.resourceValues(forKeys: [.isExcludedFromBackupKey]).isExcludedFromBackup, true)
+    }
 }
