@@ -53,9 +53,18 @@ struct ThisOrThatCard: View {
                     dragOffset = value.translation.width
                 }
                 .onEnded { value in
-                    resolve(value)
-                    withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
-                        dragOffset = 0
+                    if let choice = resolve(value) {
+                        // Committed (tap or a swipe past the threshold): leave
+                        // `dragOffset` as-is rather than snapping it back to 0,
+                        // so the card keeps moving in the direction it was
+                        // swiped as `TasteOnboardingView` removes it — a plain
+                        // tap never moved `dragOffset` away from 0 anyway, so
+                        // this only visibly matters for a real swipe.
+                        onChoose(choice)
+                    } else {
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
+                            dragOffset = 0
+                        }
                     }
                 }
         )
@@ -65,17 +74,17 @@ struct ThisOrThatCard: View {
     /// The single decision point for what a completed touch means: a tap
     /// resolves by which half it started in; a committed drag resolves by
     /// direction; anything else (a drag that didn't clear the threshold)
-    /// is a cancelled gesture with no choice recorded.
-    private func resolve(_ value: DragGesture.Value) {
+    /// is a cancelled gesture — `nil` — and the card springs back to center.
+    private func resolve(_ value: DragGesture.Value) -> Choice? {
         let translation = value.translation.width
         if abs(translation) < tapMovementThreshold {
-            let choice: Choice = (cardWidth > 0 && value.startLocation.x > cardWidth / 2) ? .right : .left
-            onChoose(choice)
+            return (cardWidth > 0 && value.startLocation.x > cardWidth / 2) ? .right : .left
         } else if translation > dragCommitThreshold {
-            onChoose(.right)
+            return .right
         } else if translation < -dragCommitThreshold {
-            onChoose(.left)
+            return .left
         }
+        return nil
     }
 
     @ViewBuilder

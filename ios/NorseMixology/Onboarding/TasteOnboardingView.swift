@@ -15,6 +15,10 @@ struct TasteOnboardingView: View {
     @State private var profile = UserTasteProfile()
     @State private var currentIndex = 0
     @State private var showCelebration = false
+    /// Which edge the current card should exit toward, set right before
+    /// `currentIndex` advances so the removal transition continues in the
+    /// direction the user actually swiped rather than always sliding left.
+    @State private var exitEdge: Edge = .leading
 
     private let questions = TasteQuizQuestion.all
 
@@ -36,7 +40,7 @@ struct TasteOnboardingView: View {
                             .transition(
                                 .asymmetric(
                                     insertion: .move(edge: .bottom).combined(with: .opacity),
-                                    removal: .move(edge: .leading).combined(with: .opacity)
+                                    removal: .move(edge: exitEdge).combined(with: .opacity)
                                 )
                             )
                     }
@@ -100,6 +104,7 @@ struct TasteOnboardingView: View {
     }
 
     private func answer(_ choice: ThisOrThatCard.Choice) {
+        exitEdge = choice == .left ? .leading : .trailing
         profile[keyPath: questions[currentIndex].axis] = choice == .left ? 0.85 : 0.15
         withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
             if currentIndex < questions.count - 1 {
