@@ -40,17 +40,15 @@ struct FavouritesView: View {
     }
 
     private var favouritesList: some View {
-        let recipesById = Dictionary(taxonomyStore.recipes.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
-
-        return List {
-            ForEach(viewModel.favourites) { favourite in
-                row(for: favourite, recipe: recipesById[favourite.recipeId])
+        List {
+            ForEach(viewModel.entries(in: taxonomyStore.recipes)) { entry in
+                row(for: entry.favourite, recipe: entry.recipe)
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
                     .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
-                            viewModel.remove(favourite)
+                            viewModel.remove(entry.favourite)
                         } label: {
                             Label("Unfavourite", systemImage: "heart.slash")
                         }
