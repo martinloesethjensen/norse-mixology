@@ -1,10 +1,10 @@
 import Foundation
 import Observation
 
-/// In-memory cache of the bundled taxonomy, loaded once per app launch.
-/// The taxonomy itself is read-only reference data — it is never written
-/// into SwiftData; only `CabinetItem`s (copies of the fields a user picks)
-/// are persisted.
+/// In-memory cache of the catalog, loaded once per app launch from the
+/// on-device catalog database (see `CatalogBootstrap`). The taxonomy itself is
+/// read-only reference data — only `CabinetItem`s (copies of the fields a user
+/// picks) are persisted in SwiftData.
 @Observable
 public final class TaxonomyStore {
     public private(set) var categories: [IngredientCategory] = []
@@ -16,14 +16,32 @@ public final class TaxonomyStore {
     public private(set) var recipes: [Recipe] = []
     public private(set) var recipesLoaded = false
 
+    /// True when no catalog could be loaded at all (spec row 17).
+    public private(set) var isUnavailable = false
+
     public init() {}
 
+    /// No-op if already loaded.
+    public func load(categories: [IngredientCategory], recipes: [Recipe]) {
+        guard !isLoaded else { return }
+        apply(categories)
+        self.recipes = recipes
+        self.recipesLoaded = true
+    }
+
+    public func markUnavailable() {
+        isUnavailable = true
+    }
+
     /// No-op if already loaded — safe to call from multiple views without
-    /// re-parsing the bundled JSON.
+    /// re-parsing the JSON.
     public func load(taxonomyData: Data) {
         guard !isLoaded else { return }
         guard let categories = try? IngredientTaxonomy.loadCategories(from: taxonomyData) else { return }
+        apply(categories)
+    }
 
+    private func apply(_ categories: [IngredientCategory]) {
         var familyNames: [UUID: String] = [:]
         var categoryNames: [UUID: String] = [:]
         for category in categories {

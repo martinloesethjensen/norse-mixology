@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0564C983C15A5299DB930E97 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 79ED64A37D5930D4EB647C26 /* manifest.json */; };
 		0C467FB012237E42E0C85D6E /* AddIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F38AA75896B8A39D2016A7B /* AddIngredientView.swift */; };
 		0E45F9E74889980657C4C635 /* FlavorProfileIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40541440027B25657E6D218 /* FlavorProfileIndicatorView.swift */; };
 		1787323C2E036E7F1BF5E69A /* taxonomy.json in Resources */ = {isa = PBXBuildFile; fileRef = 5799D9FDE8CD9BA98424AB81 /* taxonomy.json */; };
@@ -22,6 +23,7 @@
 		8010047C72E957C914CD46A4 /* RecipeResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6323A9628A9113D0FC2473C /* RecipeResultsList.swift */; };
 		A2EF2F62113F2EC826DA6F04 /* AddIngredientConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02101A11D23B974EE6190E0C /* AddIngredientConfirmationView.swift */; };
 		A4C35A2A1344DBA6B56AB2D6 /* IngredientRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5523321FAE89E256CC5E9 /* IngredientRowView.swift */; };
+		A81E133F30E34E5D703D1EC6 /* CatalogLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E19A8EDDEE649A647565D /* CatalogLaunch.swift */; };
 		AFB0DFBFB9270A1E9E69ECDC /* BrowseTaxonomyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871FC8AF4B99B832AF1E9EB8 /* BrowseTaxonomyView.swift */; };
 		B2C6DEBC4B058D4B1EB27126 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 92778BA510F5F5EDE1FD96B8 /* Localizable.xcstrings */; };
 		B2C87521E5AFC04B2BD0CF30 /* RecipeBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B0530F9C757852122D3D7 /* RecipeBrowserView.swift */; };
@@ -41,8 +43,10 @@
 		540B0530F9C757852122D3D7 /* RecipeBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeBrowserView.swift; sourceTree = "<group>"; };
 		5799D9FDE8CD9BA98424AB81 /* taxonomy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taxonomy.json; sourceTree = "<group>"; };
 		5F38AA75896B8A39D2016A7B /* AddIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientView.swift; sourceTree = "<group>"; };
+		629E19A8EDDEE649A647565D /* CatalogLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogLaunch.swift; sourceTree = "<group>"; };
 		65E7FB6DFEDFA01C43B90C45 /* MatchBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchBadgeView.swift; sourceTree = "<group>"; };
 		75D19359C364DC1F5C2E3C12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		79ED64A37D5930D4EB647C26 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
 		85F1E0184AF6937E1E75B592 /* NorseMixology.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NorseMixology.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		871FC8AF4B99B832AF1E9EB8 /* BrowseTaxonomyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseTaxonomyView.swift; sourceTree = "<group>"; };
 		92778BA510F5F5EDE1FD96B8 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -73,6 +77,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		120D8F97F9284633BF65AC89 /* Catalog */ = {
+			isa = PBXGroup;
+			children = (
+				629E19A8EDDEE649A647565D /* CatalogLaunch.swift */,
+			);
+			path = Catalog;
+			sourceTree = "<group>";
+		};
 		17CC7444CC21AADF026E6AEB /* NorseMixology */ = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +93,7 @@
 				92778BA510F5F5EDE1FD96B8 /* Localizable.xcstrings */,
 				D40BFB481FBF6BE13016628E /* NorseMixologyApp.swift */,
 				5028564AB6C466E898F7931B /* Cabinet */,
+				120D8F97F9284633BF65AC89 /* Catalog */,
 				891043505758285A55EBCDA7 /* Components */,
 				EB0C049126F13EC575BDDFD2 /* Favourites */,
 				DBCD4C0934BF146A2B2CDCD5 /* Recipes */,
@@ -115,6 +128,7 @@
 		668DC00DF2C4302D0DD4E2E8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				79ED64A37D5930D4EB647C26 /* manifest.json */,
 				D24F6F076A0150460DDA4B19 /* recipes.json */,
 				5799D9FDE8CD9BA98424AB81 /* taxonomy.json */,
 			);
@@ -239,6 +253,7 @@
 			files = (
 				F650EC28DB369D60879B9AA0 /* Assets.xcassets in Resources */,
 				B2C6DEBC4B058D4B1EB27126 /* Localizable.xcstrings in Resources */,
+				0564C983C15A5299DB930E97 /* manifest.json in Resources */,
 				50606B2D570B3677D4FAAD32 /* recipes.json in Resources */,
 				1787323C2E036E7F1BF5E69A /* taxonomy.json in Resources */,
 			);
@@ -257,6 +272,7 @@
 				AFB0DFBFB9270A1E9E69ECDC /* BrowseTaxonomyView.swift in Sources */,
 				FD4147044D603BE2759792DD /* CabinetView.swift in Sources */,
 				2FD7E96A4C5E11F5D2797055 /* CabinetViewModel.swift in Sources */,
+				A81E133F30E34E5D703D1EC6 /* CatalogLaunch.swift in Sources */,
 				D1C3E3B4DDE8BB0444E0FFE3 /* ContentView.swift in Sources */,
 				C9785288354CA25531D0A048 /* DesignTokens.swift in Sources */,
 				303EE8CF7021F1D862698604 /* FavouritesView.swift in Sources */,
