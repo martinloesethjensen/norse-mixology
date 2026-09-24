@@ -21,15 +21,19 @@ public final class TaxonomyStore {
 
     public init() {}
 
-    /// No-op if already loaded.
+    /// No-op if already loaded. Clears an earlier `markUnavailable()`.
     public func load(categories: [IngredientCategory], recipes: [Recipe]) {
+        isUnavailable = false
         guard !isLoaded else { return }
         apply(categories)
         self.recipes = recipes
         self.recipesLoaded = true
     }
 
+    /// No-op once a catalog is loaded: a second, failing bootstrap must never
+    /// hide a catalog that is already on screen.
     public func markUnavailable() {
+        guard !isLoaded else { return }
         isUnavailable = true
     }
 

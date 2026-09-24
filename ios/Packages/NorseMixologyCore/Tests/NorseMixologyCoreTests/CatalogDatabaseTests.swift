@@ -16,9 +16,10 @@ final class CatalogDatabaseTests: XCTestCase {
     private func buildLive(source: CatalogSource = .bundled, etag: String? = nil) throws {
         let taxonomy = try CatalogFixtures.taxonomyData()
         let recipes = try CatalogFixtures.recipesData()
-        try CatalogImporter.build(at: paths.staging, manifest: CatalogFixtures.manifest(taxonomy: taxonomy, recipes: recipes),
+        let staging = paths.makeStaging()
+        try CatalogImporter.build(at: staging, manifest: CatalogFixtures.manifest(taxonomy: taxonomy, recipes: recipes),
                                   taxonomyData: taxonomy, recipesData: recipes, source: source, etag: etag)
-        try paths.promoteStaging()
+        try paths.promote(staging)
     }
 
     func testRoundTripEqualsTheJSONLoaders() throws {

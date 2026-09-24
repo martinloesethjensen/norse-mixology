@@ -16,13 +16,13 @@ public struct CatalogUpdater: Sendable {
     private let v1URL: URL
     private let session: URLSession
     private let paths: CatalogPaths
-    private let promote: @Sendable (CatalogPaths) throws -> Void
+    private let promote: @Sendable (CatalogPaths, URL) throws -> Void
 
     public init(
         baseURL: URL,
         session: URLSession = CatalogUpdater.makeSession(),
         paths: CatalogPaths,
-        promote: @escaping @Sendable (CatalogPaths) throws -> Void = { try $0.promoteStaging() }
+        promote: @escaping @Sendable (CatalogPaths, URL) throws -> Void = { try $0.promote($1) }
     ) {
         self.v1URL = baseURL.appending(path: "v1", directoryHint: .isDirectory)
         self.session = session
@@ -43,10 +43,11 @@ public struct CatalogUpdater: Sendable {
     }
 
     public func refresh(current: CatalogMeta) async -> CatalogUpdateOutcome {
+        let staging = paths.makeStaging()
         do {
-            return try await performRefresh(current: current)
+            return try await performRefresh(current: current, staging: staging)
         } catch {
-            paths.removeStaging()
+            paths.removeStaging(staging)
             if let catalogError = error as? CatalogError {
                 return .failed(catalogError)
             }
@@ -54,7 +55,7 @@ public struct CatalogUpdater: Sendable {
         }
     }
 
-    private func performRefresh(current: CatalogMeta) async throws -> CatalogUpdateOutcome {
+    private func performRefresh(current: CatalogMeta, staging: URL) async throws -> CatalogUpdateOutcome {
         var request = URLRequest(url: v1URL.appending(path: "manifest.json"))
         if let etag = current.etag {
             request.setValue(etag, forHTTPHeaderField: "If-None-Match")
@@ -75,7 +76,7 @@ public struct CatalogUpdater: Sendable {
         let taxonomyData = try await fetchFile(manifest.taxonomy)
         let recipesData = try await fetchFile(manifest.recipes)
         try CatalogImporter.build(
-            at: paths.staging,
+            at: staging,
             manifest: manifest,
             taxonomyData: taxonomyData,
             recipesData: recipesData,
@@ -83,7 +84,7 @@ public struct CatalogUpdater: Sendable {
             etag: response.value(forHTTPHeaderField: "ETag")
         )
         do {
-            try promote(paths)
+            try promote(paths, staging)
         } catch {
             throw CatalogError.fileSystem(String(describing: error))
         }

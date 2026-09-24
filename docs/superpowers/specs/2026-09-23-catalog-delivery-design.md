@@ -176,11 +176,11 @@ CREATE INDEX recipe_tag_by_tag ON recipe_tag(tag);
 
 | Unit | Responsibility | Depends on |
 |---|---|---|
-| `CatalogPaths` | Locations in Application Support: `catalog.sqlite`, `catalog.new.sqlite`; staging cleanup; promote staging → live | — |
+| `CatalogPaths` | Locations in Application Support: `catalog.sqlite`; per-attempt staging URL (`catalog.new.<uuid>.sqlite`); staging cleanup; promote staging → live | — |
 | `CatalogImporter` | `(manifest, taxonomyData, recipesData, destination)` → decode with existing decoders, reject if any row is skipped, create schema, insert everything in one transaction, run `PRAGMA foreign_key_check` + `integrity_check`. Verifies file hashes. Throws typed `CatalogError` | GRDB, existing JSON decoders |
 | `CatalogDatabase` | Opens the live DB **read-only**, checks `user_version`, loads everything into existing `[IngredientCategory]` / `[Recipe]` model types plus `catalog_meta`, then closes (the catalog lives in memory in `TaxonomyStore`, so no long-lived connection) | GRDB |
 | `CatalogBootstrap` | Launch-time decision (see §5 rows 11, 13–15, 17); always yields an open `CatalogDatabase` or an explicit unavailable state | Paths, Importer, Database |
-| `CatalogUpdater` | Background refresh (§5 rows 6–12): manifest → caps → download → hash → import to `catalog.new.sqlite` → atomic replace | injected `URLSession`, Importer, Paths |
+| `CatalogUpdater` | Background refresh (§5 rows 6–12): manifest → caps → download → hash → import to `catalog.new.<uuid>.sqlite` → atomic replace | injected `URLSession`, Importer, Paths |
 
 `CatalogImporter` is the **only** writer and the only path into the DB — used for both the first-launch bundled import and remote updates.
 
@@ -194,7 +194,7 @@ CREATE INDEX recipe_tag_by_tag ON recipe_tag(tag);
 
 ### Launch (`CatalogBootstrap`)
 
-1. Delete leftover `catalog.new.sqlite`.
+1. Delete leftover staging files (`catalog.new*`).
 2. Open `catalog.sqlite` read-only. If missing, unopenable, `user_version` ≠ expected, or its `generatedAt` is older than the bundled `manifest.json`'s → rebuild from bundled JSON via `CatalogImporter`, then swap in.
 3. Hand the open `CatalogDatabase` to `TaxonomyStore`.
 
@@ -203,7 +203,7 @@ CREATE INDEX recipe_tag_by_tag ON recipe_tag(tag);
 1. `GET /v1/manifest.json` with `If-None-Match` (ETag stored in `catalog_meta`). `304`, unchanged `contentVersion`, or a `generatedAt` not newer than the current catalog's → stop (the last rule stops a CDN-stale manifest from downgrading a newer catalog).
 2. Reject if `schemaVersion` unsupported or either `bytes` > 2 MB.
 3. Download both files (cap enforced while streaming), verify SHA-256.
-4. `CatalogImporter` → `catalog.new.sqlite`.
+4. `CatalogImporter` → `catalog.new.<uuid>.sqlite`.
 5. Atomically replace `catalog.sqlite` (`FileManager.replaceItemAt`); the new ETag is stored in the new DB's `catalog_meta`, so it can never disagree with the catalog it describes. Takes effect next cold launch — the current session's read-only connection keeps its already-loaded data.
 
 Any failure: log via `AppLog.catalog`, discard temp artifacts, keep the current catalog. No user-facing errors; the UI never waits on the network.
@@ -223,8 +223,8 @@ Each row has at least one test that injects the failure.
 | 7 | Captive portal returns HTML | Decode / hash fails → reject | Stub: `200` with HTML body |
 | 8 | Oversized response | 2 MB cap enforced during streaming | Stub: 3 MB body, and manifest `bytes` over cap |
 | 9 | Mismatched file versions | SHA-256 mismatch → reject | Stub: file body ≠ manifest hash |
-| 10 | Parse / validation / constraint failure (any skipped row) | Delete `catalog.new.sqlite`; keep current | Fixtures: malformed recipe, dangling style ref, flavour 1.5 |
-| 11 | App killed / disk full mid-import | Temp files removed next launch; live DB untouched | Leave partial `catalog.new.sqlite`, run bootstrap |
+| 10 | Parse / validation / constraint failure (any skipped row) | Delete `catalog.new.<uuid>.sqlite`; keep current | Fixtures: malformed recipe, dangling style ref, flavour 1.5 |
+| 11 | App killed / disk full mid-import | Temp files removed next launch; live DB untouched | Leave partial `catalog.new.<uuid>.sqlite` files, run bootstrap |
 | 12 | Swap fails | Old file remains (atomic replace) | Inject replace failure via `CatalogPaths` seam |
 | 13 | `catalog.sqlite` corrupt / unopenable | Delete; rebuild from bundled JSON | Fixture: truncated / garbage DB file |
 | 14 | App update changes DB schema | `user_version` mismatch → rebuild from bundled; next refresh fetches latest | Fixture DB with `user_version = 0` |

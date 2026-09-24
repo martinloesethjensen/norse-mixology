@@ -34,18 +34,18 @@ struct NorseMixologyApp: App {
 
     /// Opens (or rebuilds) the on-device catalog off the main thread, then
     /// checks for a newer one in the background — applied on the next launch.
+    /// Every scene calls this; `CatalogLaunch.load()` runs the work once per process.
     /// The taxonomy is read-only reference data — it is never written into
     /// SwiftData; only `CabinetItem`s and `FavouriteRecipe`s are persisted.
     @MainActor
     private func loadCatalog() async {
         guard !taxonomyStore.isLoaded else { return }
-        let result = await Task.detached(priority: .userInitiated) { CatalogLaunch.bootstrap() }.value
+        let result = await CatalogLaunch.load()
+        guard !taxonomyStore.isLoaded else { return }
         switch result {
         case .loaded(let catalog):
             taxonomyStore.load(categories: catalog.categories, recipes: catalog.recipes)
-            AppLog.catalog.info("Catalog \(catalog.meta.contentVersion, privacy: .public) (\(catalog.meta.source.rawValue, privacy: .public)): \(taxonomyStore.styleCount) styles, \(catalog.recipes.count) recipes")
-            let meta = catalog.meta
-            Task.detached(priority: .background) { await CatalogLaunch.refresh(current: meta) }
+            AppLog.catalog.info("Catalog \(catalog.meta.contentVersion, privacy: .public) (\(catalog.meta.source.rawValue, privacy: .public)) loaded: \(taxonomyStore.styleCount) styles, \(catalog.recipes.count) recipes")
         case .unavailable(let reason):
             AppLog.catalog.error("Catalog unavailable: \(reason, privacy: .public)")
             taxonomyStore.markUnavailable()

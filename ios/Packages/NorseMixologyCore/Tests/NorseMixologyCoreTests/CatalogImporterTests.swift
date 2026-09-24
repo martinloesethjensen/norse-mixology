@@ -4,9 +4,11 @@ import GRDB
 
 final class CatalogImporterTests: XCTestCase {
     private var paths: CatalogPaths!
+    private var staging: URL!
 
     override func setUpWithError() throws {
         paths = try CatalogFixtures.tempPaths()
+        staging = paths.makeStaging()
     }
 
     override func tearDownWithError() throws {
@@ -18,7 +20,7 @@ final class CatalogImporterTests: XCTestCase {
         let recipes = try recipes ?? CatalogFixtures.recipesData()
         let hashed = manifestFor ?? (taxonomy, recipes)
         try CatalogImporter.build(
-            at: paths.staging,
+            at: staging,
             manifest: CatalogFixtures.manifest(taxonomy: hashed.taxonomy, recipes: hashed.recipes),
             taxonomyData: taxonomy,
             recipesData: recipes,
@@ -28,12 +30,12 @@ final class CatalogImporterTests: XCTestCase {
     }
 
     private func assertNoStagingFile(file: StaticString = #filePath, line: UInt = #line) {
-        XCTAssertFalse(FileManager.default.fileExists(atPath: paths.staging.path), "failed import left a file", file: file, line: line)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: staging.path), "failed import left a file", file: file, line: line)
     }
 
     func testBuildsADatabaseWithEveryRowAndMeta() throws {
         try build()
-        let queue = try DatabaseQueue(path: paths.staging.path)
+        let queue = try DatabaseQueue(path: staging.path)
         defer { try? queue.close() }
         try queue.read { db in
             XCTAssertEqual(try Int.fetchOne(db, sql: "PRAGMA user_version"), CatalogSchema.version)
@@ -49,9 +51,9 @@ final class CatalogImporterTests: XCTestCase {
     }
 
     func testReplacesAnExistingFileAtTheDestination() throws {
-        try Data("garbage".utf8).write(to: paths.staging)
+        try Data("garbage".utf8).write(to: staging)
         try build()
-        let queue = try DatabaseQueue(path: paths.staging.path)
+        let queue = try DatabaseQueue(path: staging.path)
         defer { try? queue.close() }
         XCTAssertEqual(try queue.read { try Int.fetchOne($0, sql: "PRAGMA user_version") }, CatalogSchema.version)
     }
@@ -118,19 +120,48 @@ final class CatalogImporterTests: XCTestCase {
 
     func testPromoteMovesStagingToLiveAndReplacesAnExistingLive() throws {
         try build()
-        try paths.promoteStaging()
+        try paths.promote(staging)
         XCTAssertTrue(FileManager.default.fileExists(atPath: paths.live.path))
-        XCTAssertFalse(FileManager.default.fileExists(atPath: paths.staging.path))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: staging.path))
+        staging = paths.makeStaging()
         try build()
-        try paths.promoteStaging()
-        XCTAssertFalse(FileManager.default.fileExists(atPath: paths.staging.path))
+        try paths.promote(staging)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: staging.path))
     }
 
     func testRemoveStagingDeletesLeftovers() throws {
-        try Data("partial".utf8).write(to: paths.staging)
-        try Data("journal".utf8).write(to: URL(fileURLWithPath: paths.staging.path + "-journal"))
-        paths.removeStaging()
+        try Data("partial".utf8).write(to: staging)
+        try Data("journal".utf8).write(to: URL(fileURLWithPath: staging.path + "-journal"))
+        paths.removeStaging(staging)
         assertNoStagingFile()
-        XCTAssertFalse(FileManager.default.fileExists(atPath: paths.staging.path + "-journal"))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: staging.path + "-journal"))
+    }
+
+    // Two launches (or scenes) staging at once must never share a file.
+    func testEachStagingAttemptGetsItsOwnFile() throws {
+        let other = paths.makeStaging()
+        XCTAssertNotEqual(staging, other)
+        for url in [staging!, other] {
+            XCTAssertEqual(url.deletingLastPathComponent().standardizedFileURL, paths.directory.standardizedFileURL)
+            XCTAssertTrue(url.lastPathComponent.hasPrefix("catalog.new."))
+            XCTAssertEqual(url.pathExtension, "sqlite")
+        }
+        try build()
+        try Data("half-written by another attempt".utf8).write(to: other)
+        try paths.promote(staging)
+        XCTAssertNoThrow(try CatalogDatabase.load(from: paths.live))
+        XCTAssertEqual(try Data(contentsOf: other), Data("half-written by another attempt".utf8), "promoting one staging touched another")
+    }
+
+    func testRemoveAllStagingDeletesEveryLeftoverButNotLive() throws {
+        try CatalogFixtures.installLive(at: paths)
+        let leftovers = [paths.makeStaging(), paths.makeStaging(), paths.directory.appending(path: "catalog.new.sqlite")]
+        for url in leftovers {
+            try Data("partial".utf8).write(to: url)
+            try Data("journal".utf8).write(to: URL(fileURLWithPath: url.path + "-journal"))
+        }
+        paths.removeAllStaging()
+        XCTAssertEqual(try CatalogFixtures.stagingFiles(in: paths), [])
+        XCTAssertNoThrow(try CatalogDatabase.load(from: paths.live))
     }
 }

@@ -26,7 +26,7 @@ final class CatalogUpdaterTests: XCTestCase {
 
     // MARK: - Helpers
 
-    private func updater(promote: (@Sendable (CatalogPaths) throws -> Void)? = nil) -> CatalogUpdater {
+    private func updater(promote: (@Sendable (CatalogPaths, URL) throws -> Void)? = nil) -> CatalogUpdater {
         if let promote {
             return CatalogUpdater(baseURL: baseURL, session: StubURLProtocol.session(), paths: paths, promote: promote)
         }
@@ -61,7 +61,7 @@ final class CatalogUpdaterTests: XCTestCase {
 
     private func assertLiveUnchanged(file: StaticString = #filePath, line: UInt = #line) throws {
         XCTAssertEqual(try CatalogDatabase.load(from: paths.live).meta, current, file: file, line: line)
-        XCTAssertFalse(FileManager.default.fileExists(atPath: paths.staging.path), "staging left behind", file: file, line: line)
+        XCTAssertEqual(try CatalogFixtures.stagingFiles(in: paths), [], "staging left behind", file: file, line: line)
     }
 
     private func assertFailed(_ outcome: CatalogUpdateOutcome, file: StaticString = #filePath, line: UInt = #line,
@@ -82,7 +82,7 @@ final class CatalogUpdaterTests: XCTestCase {
         XCTAssertEqual(live.meta.source, .remote)
         XCTAssertEqual(live.meta.etag, "\"new\"")
         XCTAssertEqual(live.recipes.first?.name, "Remote Martini")
-        XCTAssertFalse(FileManager.default.fileExists(atPath: paths.staging.path))
+        XCTAssertEqual(try CatalogFixtures.stagingFiles(in: paths), [])
     }
 
     func testNotModifiedSendsTheStoredETag() async throws {
@@ -206,7 +206,7 @@ final class CatalogUpdaterTests: XCTestCase {
 
     func testFailedSwapLeavesTheLiveCatalogUntouched() async throws {
         try serve()
-        let outcome = await updater(promote: { _ in throw CocoaError(.fileWriteUnknown) }).refresh(current: current)
+        let outcome = await updater(promote: { _, _ in throw CocoaError(.fileWriteUnknown) }).refresh(current: current)
         assertFailed(outcome) { if case .fileSystem = $0 { return true }; return false }
         try assertLiveUnchanged()
     }

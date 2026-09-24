@@ -45,10 +45,15 @@ final class CatalogBootstrapTests: XCTestCase {
     }
 
     // Row 11
-    func testLeftoverStagingFileIsRemoved() throws {
-        try Data("half-written".utf8).write(to: paths.staging)
+    func testLeftoverStagingFilesAreRemoved() throws {
+        // Two per-attempt leftovers plus the fixed name used by earlier builds, each with a sidecar.
+        let leftovers = [paths.makeStaging(), paths.makeStaging(), paths.directory.appending(path: "catalog.new.sqlite")]
+        for url in leftovers {
+            try Data("half-written".utf8).write(to: url)
+            try Data("journal".utf8).write(to: URL(fileURLWithPath: url.path + "-journal"))
+        }
         _ = try loaded(CatalogBootstrap.run(paths: paths, bundled: bundled()))
-        XCTAssertFalse(FileManager.default.fileExists(atPath: paths.staging.path))
+        XCTAssertEqual(try CatalogFixtures.stagingFiles(in: paths), [])
     }
 
     // Row 13
@@ -91,7 +96,7 @@ final class CatalogBootstrapTests: XCTestCase {
         guard case .unavailable = CatalogBootstrap.run(paths: paths, bundled: bad) else {
             return XCTFail("expected .unavailable")
         }
-        XCTAssertFalse(FileManager.default.fileExists(atPath: paths.staging.path))
+        XCTAssertEqual(try CatalogFixtures.stagingFiles(in: paths), [])
     }
 
     // Row 17 — an older-but-valid live catalog beats "unavailable"

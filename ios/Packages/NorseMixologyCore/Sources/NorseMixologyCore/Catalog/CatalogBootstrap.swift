@@ -29,7 +29,7 @@ public enum CatalogBootstrap {
         } catch {
             return .unavailable(reason: "Catalog directory unavailable: \(error)")
         }
-        paths.removeStaging()
+        paths.removeAllStaging()
 
         let usableManifest: CatalogManifest?
         do {
@@ -59,19 +59,20 @@ public enum CatalogBootstrap {
             return .unavailable(reason: "No readable catalog database and the bundled catalog is unusable")
         }
 
+        let staging = paths.makeStaging()
         do {
             try CatalogImporter.build(
-                at: paths.staging,
+                at: staging,
                 manifest: bundledManifest,
                 taxonomyData: bundled.taxonomyData,
                 recipesData: bundled.recipesData,
                 source: .bundled,
                 etag: nil
             )
-            try paths.promoteStaging()
+            try paths.promote(staging)
             return .loaded(try CatalogDatabase.load(from: paths.live))
         } catch {
-            paths.removeStaging()
+            paths.removeStaging(staging)
             AppLog.catalog.error("Rebuilding from the bundled catalog failed: \(String(describing: error), privacy: .public)")
             if let existing {
                 return .loaded(existing)

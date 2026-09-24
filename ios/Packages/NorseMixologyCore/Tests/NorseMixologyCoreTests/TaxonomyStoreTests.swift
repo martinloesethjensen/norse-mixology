@@ -52,4 +52,21 @@ final class TaxonomyStoreTests: XCTestCase {
         XCTAssertTrue(store.isUnavailable)
         XCTAssertFalse(store.isLoaded)
     }
+
+    // A second, losing bootstrap must not overlay a catalog that is already showing.
+    func testMarkUnavailableIsIgnoredOnceLoaded() throws {
+        let store = TaxonomyStore()
+        store.load(categories: try IngredientTaxonomy.loadCategories(from: CatalogFixtures.taxonomyData()), recipes: [])
+        store.markUnavailable()
+        XCTAssertFalse(store.isUnavailable)
+        XCTAssertTrue(store.isLoaded)
+    }
+
+    func testLoadClearsAnEarlierUnavailable() throws {
+        let store = TaxonomyStore()
+        store.markUnavailable()
+        store.load(categories: try IngredientTaxonomy.loadCategories(from: CatalogFixtures.taxonomyData()), recipes: [])
+        XCTAssertFalse(store.isUnavailable)
+        XCTAssertTrue(store.isLoaded)
+    }
 }

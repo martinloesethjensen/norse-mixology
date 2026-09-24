@@ -64,6 +64,13 @@ enum CatalogFixtures {
         return paths
     }
 
+    /// Every staging file (and sidecar) currently in the catalog directory.
+    static func stagingFiles(in paths: CatalogPaths) throws -> [String] {
+        try FileManager.default.contentsOfDirectory(atPath: paths.directory.path)
+            .filter { $0.hasPrefix("catalog.new") }
+            .sorted()
+    }
+
     /// Builds a live catalog from the bundled fixture JSON and returns its meta.
     @discardableResult
     static func installLive(
@@ -75,15 +82,16 @@ enum CatalogFixtures {
     ) throws -> CatalogMeta {
         let taxonomy = try taxonomyData()
         let recipes = try recipesData()
+        let staging = paths.makeStaging()
         try CatalogImporter.build(
-            at: paths.staging,
+            at: staging,
             manifest: manifest(taxonomy: taxonomy, recipes: recipes, generatedAt: generatedAt, contentVersion: contentVersion),
             taxonomyData: taxonomy,
             recipesData: recipes,
             source: source,
             etag: etag
         )
-        try paths.promoteStaging()
+        try paths.promote(staging)
         return try CatalogDatabase.load(from: paths.live).meta
     }
 }
