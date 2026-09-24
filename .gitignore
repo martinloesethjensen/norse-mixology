@@ -23,3 +23,6 @@ android/.kotlin/
 
 # Superpowers subagent-driven-development scratch workspace
 .superpowers/
+
+# Local git worktrees
+.worktrees/
