@@ -82,6 +82,34 @@ final class CatalogImporterTests: XCTestCase {
         assertNoStagingFile()
     }
 
+    func testEmptyTaxonomyIsRejected() throws {
+        XCTAssertThrowsError(try build(taxonomy: Data("[]".utf8))) { error in
+            guard case CatalogError.malformedTaxonomy = error else { return XCTFail("got \(error)") }
+        }
+        assertNoStagingFile()
+    }
+
+    func testTaxonomyWithoutAnyStyleIsRejected() throws {
+        let taxonomy = try CatalogFixtures.taxonomyData { categories in
+            for c in categories.indices {
+                var families = categories[c]["families"] as! [[String: Any]]
+                for f in families.indices { families[f]["styles"] = [[String: Any]]() }
+                categories[c]["families"] = families
+            }
+        }
+        XCTAssertThrowsError(try build(taxonomy: taxonomy)) { error in
+            guard case CatalogError.malformedTaxonomy = error else { return XCTFail("got \(error)") }
+        }
+        assertNoStagingFile()
+    }
+
+    func testEmptyRecipeListIsRejected() throws {
+        XCTAssertThrowsError(try build(recipes: Data("[]".utf8))) { error in
+            guard case CatalogError.malformedRecipes = error else { return XCTFail("got \(error)") }
+        }
+        assertNoStagingFile()
+    }
+
     func testFamilyNestedUnderTheWrongCategoryIsRejected() throws {
         let taxonomy = try CatalogFixtures.taxonomyData { categories in
             var families = categories[0]["families"] as! [[String: Any]]

@@ -18,6 +18,7 @@ public enum CatalogImporter {
             try verify(recipesData, against: manifest.recipes, name: "recipes")
             let categories = try decodeCategories(taxonomyData)
             let recipes = try decodeRecipes(recipesData)
+            try checkNotEmpty(categories: categories, recipes: recipes)
             try checkNesting(categories)
             let meta = CatalogMeta(
                 schemaVersion: manifest.schemaVersion,
@@ -66,6 +67,20 @@ public enum CatalogImporter {
             throw CatalogError.malformedRecipes("\(result.skippedCount) recipe(s) could not be decoded")
         }
         return result.recipes
+    }
+
+    /// An empty catalog is never a valid update: it would leave the app with
+    /// nothing to show, which is worse than keeping the current catalog.
+    private static func checkNotEmpty(categories: [IngredientCategory], recipes: [Recipe]) throws {
+        guard !categories.isEmpty else {
+            throw CatalogError.malformedTaxonomy("no categories")
+        }
+        guard categories.contains(where: { $0.families.contains { !$0.styles.isEmpty } }) else {
+            throw CatalogError.malformedTaxonomy("no ingredient styles")
+        }
+        guard !recipes.isEmpty else {
+            throw CatalogError.malformedRecipes("no recipes")
+        }
     }
 
     private static func checkNesting(_ categories: [IngredientCategory]) throws {
