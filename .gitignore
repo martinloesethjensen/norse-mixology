@@ -6,6 +6,7 @@ ios/*.xcodeproj/xcuserdata/
 ios/*.xcodeproj/project.xcworkspace/xcuserdata/
 *.xcuserstate
 ios/.build/
+ios/build/
 ios/Packages/*/.build/
 ios/Packages/*/.swiftpm/
 

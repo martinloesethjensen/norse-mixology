@@ -141,11 +141,23 @@ Pure presentation logic lives in `NorseMixologyCore` (`RecipePresentation.swift`
 - **Localisation-ready:** iOS keeps UI strings in a String Catalog (`ios/NorseMixology/Localizable.xcstrings`; `ios/scripts/sync-strings.sh` refreshes it after a CLI build). Android uses `strings.xml`. Not yet localisable on iOS: strings produced by the core package (badge labels, glass/method/difficulty names, substitution notes assembled from English fragments) — see Future Improvements.
 - **Performance budget:** matching a 30-item cabinet against the full catalog (~158 recipes) must stay well under 100 ms (measured ~8 ms on a Mac debug build; a unit test enforces it).
 
+## Catalog delivery (iOS)
+
+- **Source:** `https://martinloeseth.dev/norse-catalog/v1/manifest.json` → content-hashed `taxonomy.<sha8>.json` / `recipes.<sha8>.json`. Spec: `docs/superpowers/specs/2026-09-23-catalog-delivery-design.md`.
+- **On device:** `Application Support/Catalog/catalog.sqlite` (GRDB, `STRICT` tables, foreign keys, 0–1 `CHECK`s, `user_version` = `CatalogSchema.version`). Built only by `CatalogImporter` from hash-verified JSON; read only by `CatalogDatabase` (read-only, then closed — `TaxonomyStore` holds the catalog in memory).
+- **Launch:** `CatalogBootstrap` removes staging leftovers, loads the live DB, and rebuilds from the bundled snapshot if it's missing, corrupt, a different schema version, or older than the bundle. If that fails it keeps an older valid DB, else the app shows "Catalog unavailable".
+- **Refresh:** `CatalogUpdater` runs after the UI is up on every cold launch: conditional GET with the stored ETag, 64 KB manifest cap, 2 MB file caps enforced while streaming, SHA-256 checks, import into `catalog.new.sqlite`, atomic replace. New content applies on the **next** launch. A manifest whose `generatedAt` isn't newer than the current catalog is ignored.
+- **Bump `CatalogSchema.version`** whenever the SQLite schema changes; the bootstrap rebuilds on mismatch.
+- **Remote updates reject the whole catalog on any malformed recipe** (unlike the tolerant bundled-era loader).
+- **Styles removed from the catalog** stay in cabinets as snapshots but never act as substitutes (`MatchingService.resolve`).
+- **Android parity:** the Kotlin matcher (paused) does not yet have these ghost-style guards; port both (accept override + family candidates) when Android adopts over-the-air catalog updates.
+- **Before an app release:** run `scripts/sync-catalog.sh` so the bundled fallback is current.
+
 ## Android data layer & seeding (Phase 7)
 
 - **Room 3, not Room 2.** Package is `androidx.room3`; type converters are `@ColumnTypeConverter` classes listed in `@ColumnTypeConverters`. `UUID` and enums use Room's *built-in* converters (enabled on the database), so only `Date` and `List<String>` need custom ones. Room 3 has no implicit driver: the app passes `AndroidSQLiteDriver()`.
 - **JVM unit tests run real Room** against an in-memory database using the host-JVM SQLite driver (`androidx.sqlite:sqlite-bundled-jvm` — the plain `sqlite-bundled` resolves to the Android variant, which ships phone ABIs only and can't load on a Mac). Fast and no emulator needed for repository, seeder and view-model tests.
-- **One catalog source of truth.** `/seed-data/*.json` feeds both apps. Android copies just `taxonomy.json` + `recipes.json` into generated assets at build time (`copySeedData` task), so the APK can't drift. A unit test also asserts that `ios/NorseMixology/Resources/*.json` is byte-identical to `/seed-data` — regenerate/copy both together.
+- **One catalog source of truth.** The catalog is authored in the public `norse-catalog` repo (`generate.py` → validated → published to GitHub Pages). `scripts/sync-catalog.sh` copies the published `manifest.json` + `taxonomy.json` + `recipes.json` into `/seed-data` and `ios/NorseMixology/Resources` (and the iOS core test resources). Android copies just `taxonomy.json` + `recipes.json` from `/seed-data` into generated assets at build time (`copySeedData` task). A unit test asserts that `ios/NorseMixology/Resources/*.json` is byte-identical to `/seed-data` — always update both via the sync script.
 - **Seeding.** `CatalogSeeder` runs on a background coroutine at app start and writes the catalog tables in atomic replaces; a DataStore integer flag (`CatalogSeeder.CATALOG_VERSION`) records what's loaded. **Bump `CATALOG_VERSION` whenever `/seed-data` changes.** Reseeding replaces taxonomy/recipe tables only — the user's cabinet and favourites are never touched, which is why `CabinetItem` is a snapshot with no foreign key to the taxonomy.
 - **Tolerant parsing** (same rule as iOS): a malformed recipe is skipped and counted, not fatal; a non-array file still fails.
 - **Cabinet uniqueness** is enforced by the database (unique index on `ingredientStyleId`), not just the UI. `CabinetRepository.add` returns `false` for a duplicate.
