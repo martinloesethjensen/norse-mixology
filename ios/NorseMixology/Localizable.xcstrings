@@ -50,6 +50,9 @@
     "Cancel" : {
 
     },
+    "Catalog unavailable" : {
+
+    },
     "Confirm" : {
 
     },
@@ -133,6 +136,9 @@
       }
     },
     "Substitutions" : {
+
+    },
+    "The recipe catalog couldn't be loaded. Reinstalling the app will restore it." : {
 
     },
     "This recipe is no longer available" : {

@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var selectedTab: AppTab = .recipes
     @State private var recipeBrowserViewModel = RecipeBrowserViewModel()
     @State private var showOnboarding: Bool
+    @Environment(TaxonomyStore.self) private var taxonomyStore
 
     init(showOnboardingInitially: Bool) {
         _showOnboarding = State(initialValue: showOnboardingInitially)
@@ -22,7 +23,13 @@ struct ContentView: View {
 
     var body: some View {
         Group {
-            if showOnboarding {
+            if taxonomyStore.isUnavailable {
+                ContentUnavailableView(
+                    "Catalog unavailable",
+                    systemImage: "exclamationmark.triangle",
+                    description: Text("The recipe catalog couldn't be loaded. Reinstalling the app will restore it.")
+                )
+            } else if showOnboarding {
                 TasteOnboardingView { _ in
                     withAnimation { showOnboarding = false }
                 }

@@ -222,4 +222,23 @@ final class FavouritesTests: XCTestCase {
         XCTAssertEqual(statusByName["Bitter Aperitif"], .unavailable)
         XCTAssertEqual(statusByName["Sweet/Rosso Vermouth"], .unavailable)
     }
+
+    // Spec row 16: a favourite whose recipe left the catalog keeps its cached
+    // name and has no recipe; the others pair with their catalog recipe.
+    func testEntriesPairFavouritesWithCatalogRecipesOrNil() throws {
+        let store = try makeStore()
+        let viewModel = FavouritesViewModel(modelContext: store.context)
+        let kept = makeRecipe("Negroni")
+        let removed = makeRecipe("Old House Special")
+        viewModel.toggle(removed, date: Date(timeIntervalSince1970: 1_000))
+        viewModel.toggle(kept, date: Date(timeIntervalSince1970: 2_000))
+
+        let entries = viewModel.entries(in: [kept, makeRecipe("Unrelated")])
+
+        XCTAssertEqual(entries.map(\.favourite.recipeName), ["Negroni", "Old House Special"])
+        XCTAssertEqual(entries[0].recipe, kept)
+        XCTAssertEqual(entries[0].id, kept.id)
+        XCTAssertNil(entries[1].recipe)
+        XCTAssertEqual(entries[1].favourite.recipeId, removed.id)
+    }
 }

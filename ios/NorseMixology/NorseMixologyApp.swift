@@ -29,7 +29,7 @@ struct NorseMixologyApp: App {
                 .environment(taxonomyStore)
                 .environment(favouritesViewModel)
                 .task {
-                    loadBundledTaxonomyAndLog()
+                    await loadCatalog()
                 }
         }
         .modelContainer(modelContainer)
@@ -51,28 +51,23 @@ struct NorseMixologyApp: App {
         return false
     }
 
-    /// Loads the bundled catalog into `taxonomyStore` (used by Cabinet/Add
-    /// Ingredient) and logs the counts the Phase 1 verification checklist
-    /// wants. The taxonomy itself is read-only reference data — it is never
-    /// written into SwiftData; only `CabinetItem`s (Phase 2) and
-    /// `FavouriteRecipe`s (Phase 5) are persisted.
-    private func loadBundledTaxonomyAndLog() {
-        guard
-            let taxonomyURL = Bundle.main.url(forResource: "taxonomy", withExtension: "json"),
-            let recipesURL = Bundle.main.url(forResource: "recipes", withExtension: "json")
-        else {
-            AppLog.catalog.error("Bundled taxonomy.json/recipes.json not found")
-            return
-        }
-        do {
-            let taxonomyData = try Data(contentsOf: taxonomyURL)
-            taxonomyStore.load(taxonomyData: taxonomyData)
-            AppLog.catalog.info("Taxonomy loaded: \(taxonomyStore.styleCount) styles")
-
-            taxonomyStore.loadRecipes(from: try Data(contentsOf: recipesURL))
-            AppLog.catalog.info("Recipes loaded: \(taxonomyStore.recipes.count) recipes")
-        } catch {
-            AppLog.catalog.error("Failed to load bundled taxonomy/recipes: \(error.localizedDescription)")
+    /// Opens (or rebuilds) the on-device catalog off the main thread, then
+    /// checks for a newer one in the background — applied on the next launch.
+    /// Every scene calls this; `CatalogLaunch.load()` runs the work once per process.
+    /// The taxonomy is read-only reference data — it is never written into
+    /// SwiftData; only `CabinetItem`s and `FavouriteRecipe`s are persisted.
+    @MainActor
+    private func loadCatalog() async {
+        guard !taxonomyStore.isLoaded else { return }
+        let result = await CatalogLaunch.load()
+        guard !taxonomyStore.isLoaded else { return }
+        switch result {
+        case .loaded(let catalog):
+            taxonomyStore.load(categories: catalog.categories, recipes: catalog.recipes)
+            AppLog.catalog.info("Catalog \(catalog.meta.contentVersion, privacy: .public) (\(catalog.meta.source.rawValue, privacy: .public)) loaded: \(taxonomyStore.styleCount) styles, \(catalog.recipes.count) recipes")
+        case .unavailable(let reason):
+            AppLog.catalog.error("Catalog unavailable: \(reason, privacy: .public)")
+            taxonomyStore.markUnavailable()
         }
     }
 }

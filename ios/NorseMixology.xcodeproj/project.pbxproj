@@ -7,21 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0564C983C15A5299DB930E97 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 79ED64A37D5930D4EB647C26 /* manifest.json */; };
 		0C467FB012237E42E0C85D6E /* AddIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F38AA75896B8A39D2016A7B /* AddIngredientView.swift */; };
 		0E45F9E74889980657C4C635 /* FlavorProfileIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40541440027B25657E6D218 /* FlavorProfileIndicatorView.swift */; };
 		1787323C2E036E7F1BF5E69A /* taxonomy.json in Resources */ = {isa = PBXBuildFile; fileRef = 5799D9FDE8CD9BA98424AB81 /* taxonomy.json */; };
 		189A5FFCF30CD1DE629AC740 /* RecipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D36E297D6879F46A4BAAB4 /* RecipeCardView.swift */; };
 		1F61758E55F372CF31DB782D /* MatchBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E7FB6DFEDFA01C43B90C45 /* MatchBadgeView.swift */; };
 		2054B1A2638A953550A5B15E /* NorseMixologyCore in Frameworks */ = {isa = PBXBuildFile; productRef = 76DB75D275C8F897141A9B75 /* NorseMixologyCore */; };
+		27AEEB76099E720C8F187309 /* ThisOrThatCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240BA3C4F5721C0439FA1FF2 /* ThisOrThatCard.swift */; };
 		2FD7E96A4C5E11F5D2797055 /* CabinetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3220C27E0E6E6FC75816A15E /* CabinetViewModel.swift */; };
 		303EE8CF7021F1D862698604 /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEF8DBACE716CAD2809A3D2 /* FavouritesView.swift */; };
 		3BE1756335CB3C5CB896BD6C /* IngredientRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EE292D0306D2037CBD407B /* IngredientRow.swift */; };
 		3FD609A620F528A8235BB7F6 /* NorseMixologyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40BFB481FBF6BE13016628E /* NorseMixologyApp.swift */; };
 		50606B2D570B3677D4FAAD32 /* recipes.json in Resources */ = {isa = PBXBuildFile; fileRef = D24F6F076A0150460DDA4B19 /* recipes.json */; };
+		50B592CA6EC88336DF0DE6C6 /* TasteOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E01D0DEEF970B9F9D4D99 /* TasteOnboardingView.swift */; };
 		68942B801ECE0BAAF6B982ED /* RecipeBrowserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B4A40E66B86CFA6F37205 /* RecipeBrowserViewModel.swift */; };
 		8010047C72E957C914CD46A4 /* RecipeResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6323A9628A9113D0FC2473C /* RecipeResultsList.swift */; };
 		A2EF2F62113F2EC826DA6F04 /* AddIngredientConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02101A11D23B974EE6190E0C /* AddIngredientConfirmationView.swift */; };
 		A4C35A2A1344DBA6B56AB2D6 /* IngredientRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D5523321FAE89E256CC5E9 /* IngredientRowView.swift */; };
+		A81E133F30E34E5D703D1EC6 /* CatalogLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629E19A8EDDEE649A647565D /* CatalogLaunch.swift */; };
+		AE26490B2BCE00C2191A0C8A /* TasteQuizQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23AC23B4519D188D6BAE00C /* TasteQuizQuestion.swift */; };
 		AFB0DFBFB9270A1E9E69ECDC /* BrowseTaxonomyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871FC8AF4B99B832AF1E9EB8 /* BrowseTaxonomyView.swift */; };
 		B2C6DEBC4B058D4B1EB27126 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 92778BA510F5F5EDE1FD96B8 /* Localizable.xcstrings */; };
 		B2C87521E5AFC04B2BD0CF30 /* RecipeBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B0530F9C757852122D3D7 /* RecipeBrowserView.swift */; };
@@ -29,24 +34,25 @@
 		C9785288354CA25531D0A048 /* DesignTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8690FC3511DF012245BEE1C /* DesignTokens.swift */; };
 		D11A4FF34C8FC0A1C08FB469 /* AddIngredientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB9F51908C3BBE04BA95C93 /* AddIngredientViewModel.swift */; };
 		D1C3E3B4DDE8BB0444E0FFE3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225F46BBEE893F2C52A5E369 /* ContentView.swift */; };
+		EF5D29F89FF88A90B85ADE9F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473AAF5A5DE39416F1FE4E0A /* SettingsView.swift */; };
 		F650EC28DB369D60879B9AA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75D19359C364DC1F5C2E3C12 /* Assets.xcassets */; };
 		FD4147044D603BE2759792DD /* CabinetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41F87FEDD57946CE12B9756 /* CabinetView.swift */; };
-		8FF284E6653EFEA4286F262A /* TasteQuizQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66FA3BB686AFFC5FEAF006E /* TasteQuizQuestion.swift */; };
-		1751BFDAAC7643E379AED455 /* ThisOrThatCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D2993B5A3AA7D503BCB9A /* ThisOrThatCard.swift */; };
-		2939CEB4AF639B1B6A0A2C39 /* TasteOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EF3AE0214C9F35512B8034 /* TasteOnboardingView.swift */; };
-		6F091E5F2397A314F6FC0C18 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED46F2C56FFE20F68C6BEFA /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		02101A11D23B974EE6190E0C /* AddIngredientConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientConfirmationView.swift; sourceTree = "<group>"; };
 		225F46BBEE893F2C52A5E369 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		240BA3C4F5721C0439FA1FF2 /* ThisOrThatCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThisOrThatCard.swift; sourceTree = "<group>"; };
 		3220C27E0E6E6FC75816A15E /* CabinetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetViewModel.swift; sourceTree = "<group>"; };
+		473AAF5A5DE39416F1FE4E0A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		509B4A40E66B86CFA6F37205 /* RecipeBrowserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeBrowserViewModel.swift; sourceTree = "<group>"; };
 		540B0530F9C757852122D3D7 /* RecipeBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeBrowserView.swift; sourceTree = "<group>"; };
 		5799D9FDE8CD9BA98424AB81 /* taxonomy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = taxonomy.json; sourceTree = "<group>"; };
 		5F38AA75896B8A39D2016A7B /* AddIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientView.swift; sourceTree = "<group>"; };
+		629E19A8EDDEE649A647565D /* CatalogLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogLaunch.swift; sourceTree = "<group>"; };
 		65E7FB6DFEDFA01C43B90C45 /* MatchBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchBadgeView.swift; sourceTree = "<group>"; };
 		75D19359C364DC1F5C2E3C12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		79ED64A37D5930D4EB647C26 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
 		85F1E0184AF6937E1E75B592 /* NorseMixology.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NorseMixology.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		871FC8AF4B99B832AF1E9EB8 /* BrowseTaxonomyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseTaxonomyView.swift; sourceTree = "<group>"; };
 		92778BA510F5F5EDE1FD96B8 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -57,16 +63,14 @@
 		AD92DFCDB0DBB7D772E13274 /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
 		B2EE292D0306D2037CBD407B /* IngredientRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientRow.swift; sourceTree = "<group>"; };
 		B41F87FEDD57946CE12B9756 /* CabinetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetView.swift; sourceTree = "<group>"; };
+		C23AC23B4519D188D6BAE00C /* TasteQuizQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteQuizQuestion.swift; sourceTree = "<group>"; };
+		C46E01D0DEEF970B9F9D4D99 /* TasteOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteOnboardingView.swift; sourceTree = "<group>"; };
 		C7D36E297D6879F46A4BAAB4 /* RecipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCardView.swift; sourceTree = "<group>"; };
 		D24F6F076A0150460DDA4B19 /* recipes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recipes.json; sourceTree = "<group>"; };
 		D40BFB481FBF6BE13016628E /* NorseMixologyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NorseMixologyApp.swift; sourceTree = "<group>"; };
 		E40541440027B25657E6D218 /* FlavorProfileIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlavorProfileIndicatorView.swift; sourceTree = "<group>"; };
 		EAB9F51908C3BBE04BA95C93 /* AddIngredientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientViewModel.swift; sourceTree = "<group>"; };
 		F1D5523321FAE89E256CC5E9 /* IngredientRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientRowView.swift; sourceTree = "<group>"; };
-		F66FA3BB686AFFC5FEAF006E /* TasteQuizQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteQuizQuestion.swift; sourceTree = "<group>"; };
-		545D2993B5A3AA7D503BCB9A /* ThisOrThatCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThisOrThatCard.swift; sourceTree = "<group>"; };
-		C7EF3AE0214C9F35512B8034 /* TasteOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteOnboardingView.swift; sourceTree = "<group>"; };
-		3ED46F2C56FFE20F68C6BEFA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05708490B55BCFA6113906BE /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				C46E01D0DEEF970B9F9D4D99 /* TasteOnboardingView.swift */,
+				C23AC23B4519D188D6BAE00C /* TasteQuizQuestion.swift */,
+				240BA3C4F5721C0439FA1FF2 /* ThisOrThatCard.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		120D8F97F9284633BF65AC89 /* Catalog */ = {
+			isa = PBXGroup;
+			children = (
+				629E19A8EDDEE649A647565D /* CatalogLaunch.swift */,
+			);
+			path = Catalog;
+			sourceTree = "<group>";
+		};
 		17CC7444CC21AADF026E6AEB /* NorseMixology */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,12 +111,13 @@
 				92778BA510F5F5EDE1FD96B8 /* Localizable.xcstrings */,
 				D40BFB481FBF6BE13016628E /* NorseMixologyApp.swift */,
 				5028564AB6C466E898F7931B /* Cabinet */,
+				120D8F97F9284633BF65AC89 /* Catalog */,
 				891043505758285A55EBCDA7 /* Components */,
 				EB0C049126F13EC575BDDFD2 /* Favourites */,
-				5928ABAF72136BEA651DF71D /* Onboarding */,
+				05708490B55BCFA6113906BE /* Onboarding */,
 				DBCD4C0934BF146A2B2CDCD5 /* Recipes */,
 				668DC00DF2C4302D0DD4E2E8 /* Resources */,
-				AEF50F445691EA20C2CAC007 /* Settings */,
+				3DBACEA89C5F42223DE593D3 /* Settings */,
 				9A54DD9B7DFB36F094294D8D /* Theme */,
 			);
 			path = NorseMixology;
@@ -106,6 +129,14 @@
 				A9E01A2459193DDA4C2AB0CC /* NorseMixologyCore */,
 			);
 			path = Packages;
+			sourceTree = "<group>";
+		};
+		3DBACEA89C5F42223DE593D3 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				473AAF5A5DE39416F1FE4E0A /* SettingsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		5028564AB6C466E898F7931B /* Cabinet */ = {
@@ -125,28 +156,11 @@
 		668DC00DF2C4302D0DD4E2E8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				79ED64A37D5930D4EB647C26 /* manifest.json */,
 				D24F6F076A0150460DDA4B19 /* recipes.json */,
 				5799D9FDE8CD9BA98424AB81 /* taxonomy.json */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		5928ABAF72136BEA651DF71D /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				C7EF3AE0214C9F35512B8034 /* TasteOnboardingView.swift */,
-				F66FA3BB686AFFC5FEAF006E /* TasteQuizQuestion.swift */,
-				545D2993B5A3AA7D503BCB9A /* ThisOrThatCard.swift */,
-			);
-			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		AEF50F445691EA20C2CAC007 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				3ED46F2C56FFE20F68C6BEFA /* SettingsView.swift */,
-			);
-			path = Settings;
 			sourceTree = "<group>";
 		};
 		891043505758285A55EBCDA7 /* Components */ = {
@@ -267,6 +281,7 @@
 			files = (
 				F650EC28DB369D60879B9AA0 /* Assets.xcassets in Resources */,
 				B2C6DEBC4B058D4B1EB27126 /* Localizable.xcstrings in Resources */,
+				0564C983C15A5299DB930E97 /* manifest.json in Resources */,
 				50606B2D570B3677D4FAAD32 /* recipes.json in Resources */,
 				1787323C2E036E7F1BF5E69A /* taxonomy.json in Resources */,
 			);
@@ -285,6 +300,7 @@
 				AFB0DFBFB9270A1E9E69ECDC /* BrowseTaxonomyView.swift in Sources */,
 				FD4147044D603BE2759792DD /* CabinetView.swift in Sources */,
 				2FD7E96A4C5E11F5D2797055 /* CabinetViewModel.swift in Sources */,
+				A81E133F30E34E5D703D1EC6 /* CatalogLaunch.swift in Sources */,
 				D1C3E3B4DDE8BB0444E0FFE3 /* ContentView.swift in Sources */,
 				C9785288354CA25531D0A048 /* DesignTokens.swift in Sources */,
 				303EE8CF7021F1D862698604 /* FavouritesView.swift in Sources */,
@@ -298,10 +314,10 @@
 				189A5FFCF30CD1DE629AC740 /* RecipeCardView.swift in Sources */,
 				C5940F6141D2AE1B297EAA12 /* RecipeDetailView.swift in Sources */,
 				8010047C72E957C914CD46A4 /* RecipeResultsList.swift in Sources */,
-				8FF284E6653EFEA4286F262A /* TasteQuizQuestion.swift in Sources */,
-				1751BFDAAC7643E379AED455 /* ThisOrThatCard.swift in Sources */,
-				2939CEB4AF639B1B6A0A2C39 /* TasteOnboardingView.swift in Sources */,
-				6F091E5F2397A314F6FC0C18 /* SettingsView.swift in Sources */,
+				EF5D29F89FF88A90B85ADE9F /* SettingsView.swift in Sources */,
+				50B592CA6EC88336DF0DE6C6 /* TasteOnboardingView.swift in Sources */,
+				AE26490B2BCE00C2191A0C8A /* TasteQuizQuestion.swift in Sources */,
+				27AEEB76099E720C8F187309 /* ThisOrThatCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

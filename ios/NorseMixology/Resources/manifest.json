@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "2823508e",
+  "generatedAt": "2026-09-23T17:59:47Z",
+  "taxonomy": {
+    "path": "taxonomy.1a4abe4c.json",
+    "sha256": "1a4abe4ce78f9e4b82c92688b440b80f0737bd97b868c8ba79a21b27ceaf432d",
+    "bytes": 84264
+  },
+  "recipes": {
+    "path": "recipes.4b210d6a.json",
+    "sha256": "4b210d6ad4fcd4292d20db4e0b5348967f5f8b5a0542da859f95d3b7b79a8012",
+    "bytes": 242179
+  }
+}
