@@ -6,6 +6,15 @@ import NorseMixologyCore
 /// (see Design System → match-status colours).
 struct MatchBadgeView: View {
     let state: MatchBadgeState
+    /// Plays a one-shot diagonal highlight sweep across the badge — reserved
+    /// for a recipe's first appearance as a Perfect Match (see
+    /// `RecipeCardView`). Never set for Almost There / Worth Exploring: there
+    /// is no numeric score on this badge to "fill," only a hero moment for
+    /// the one tier that represents "you can make this right now."
+    var playHeroSweep = false
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var sweepProgress: CGFloat = 0
 
     var body: some View {
         Text(state.label)
@@ -18,8 +27,34 @@ struct MatchBadgeView: View {
             .padding(.horizontal, 9)
             .padding(.vertical, 4)
             .background(Capsule().fill(state.color))
+            .overlay(sweepHighlight)
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(state == .exact ? "All ingredients in your cabinet" : state.label)
+            .onAppear(perform: startSweepIfNeeded)
+    }
+
+    @ViewBuilder
+    private var sweepHighlight: some View {
+        if playHeroSweep, !reduceMotion {
+            GeometryReader { proxy in
+                let width = proxy.size.width
+                LinearGradient(
+                    colors: [.clear, .white.opacity(0.55), .clear],
+                    startPoint: .leading, endPoint: .trailing
+                )
+                .frame(width: width * 0.6)
+                .offset(x: -width * 0.6 + sweepProgress * width * 1.6)
+            }
+            .mask(Capsule())
+            .allowsHitTesting(false)
+        }
+    }
+
+    private func startSweepIfNeeded() {
+        guard playHeroSweep, !reduceMotion else { return }
+        withAnimation(.easeOut(duration: 0.35)) {
+            sweepProgress = 1
+        }
     }
 }
 

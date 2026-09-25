@@ -28,9 +28,9 @@ struct RecipeResultsList: View {
         } else {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 12) {
-                    section("🍹 Perfect Match", subtitle: "You have everything", matches: grouped.perfect)
-                    section("🔄 Almost There", subtitle: "Missing 1 ingredient", matches: grouped.almost)
-                    section("🔍 Worth Exploring", subtitle: "Needs a few subs", matches: grouped.exploring)
+                    section("🍹 Perfect Match", subtitle: "You have everything", matches: grouped.perfect, tierDelay: 0)
+                    section("🔄 Almost There", subtitle: "Missing 1 ingredient", matches: grouped.almost, tierDelay: 0.08)
+                    section("🔍 Worth Exploring", subtitle: "Needs a few subs", matches: grouped.exploring, tierDelay: 0.16)
                 }
                 .padding(.horizontal, 16)
                 .padding(.bottom, 20)
@@ -40,12 +40,20 @@ struct RecipeResultsList: View {
         }
     }
 
+    /// Within a tier, only the first 6 cards stagger individually (~40ms
+    /// apart) — a long tier's remaining cards all arrive together at that
+    /// cap, so a 150-result list doesn't take visibly long to finish
+    /// revealing.
+    private let maxStaggeredIndex = 6
+    private let staggerStep = 0.04
+
     @ViewBuilder
-    private func section(_ title: LocalizedStringResource, subtitle: LocalizedStringResource, matches: [RecipeMatchResult]) -> some View {
+    private func section(_ title: LocalizedStringResource, subtitle: LocalizedStringResource, matches: [RecipeMatchResult], tierDelay: Double) -> some View {
         if !matches.isEmpty {
             Section {
-                ForEach(matches) { result in
-                    card(for: result)
+                ForEach(Array(matches.enumerated()), id: \.element.id) { index, result in
+                    let delay = tierDelay + Double(min(index, maxStaggeredIndex)) * staggerStep
+                    card(for: result, revealDelay: delay)
                 }
             } header: {
                 VStack(alignment: .leading, spacing: 2) {
@@ -65,18 +73,18 @@ struct RecipeResultsList: View {
     }
 
     @ViewBuilder
-    private func card(for result: RecipeMatchResult) -> some View {
+    private func card(for result: RecipeMatchResult, revealDelay: Double) -> some View {
         switch interaction {
         case .push:
             NavigationLink(value: result.id) {
-                RecipeCardView(result: result)
+                RecipeCardView(result: result, revealDelay: revealDelay)
             }
             .buttonStyle(.plain)
         case .select(let selectedID, let onSelect):
             Button {
                 onSelect(result.id)
             } label: {
-                RecipeCardView(result: result, isSelected: result.id == selectedID)
+                RecipeCardView(result: result, isSelected: result.id == selectedID, revealDelay: revealDelay)
             }
             .buttonStyle(.plain)
         }
