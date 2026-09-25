@@ -14,6 +14,10 @@ final class RecipeBrowserViewModel {
     /// Styles in the cabinet at the time of the last refresh — the detail
     /// screen uses these to tell "exact" from "unavailable" ingredients.
     private(set) var cabinetStyleIds: Set<UUID> = []
+    /// Recipe IDs that have already played their entrance/hero animation —
+    /// cleared only when the set of result IDs changes (a real re-match),
+    /// not on every `refresh()` call.
+    private(set) var revealedResultIds: Set<UUID> = []
     /// Drives the detail pane on regular-width (iPad) layouts.
     var selectedRecipeID: UUID?
 
@@ -32,11 +36,20 @@ final class RecipeBrowserViewModel {
     }
 
     func refresh(cabinet: [CabinetItem], taxonomyStore: TaxonomyStore) {
-        results = RecipeService.findRecipes(
+        let newResults = RecipeService.findRecipes(
             for: cabinet,
             recipes: taxonomyStore.recipes,
             taxonomyCategories: taxonomyStore.categories
         )
+
+        // Only a genuine change in which recipes matched should replay each
+        // card's entrance/hero animation — revisiting the Recipes tab with an
+        // unchanged cabinet must not re-animate cards already shown.
+        if Set(newResults.map(\.id)) != Set(results.map(\.id)) {
+            revealedResultIds.removeAll()
+        }
+
+        results = newResults
         grouped = GroupedMatchResults(results: results)
         grouped = TasteRanking.reorder(grouped, toward: TasteProfileStore.load())
         cabinetStyleIds = Set(cabinet.map(\.ingredientStyleId))
@@ -45,5 +58,18 @@ final class RecipeBrowserViewModel {
         if let selectedRecipeID, !results.contains(where: { $0.id == selectedRecipeID }) {
             self.selectedRecipeID = nil
         }
+    }
+
+    /// Whether `id` has already played its Recipe Browser entrance/hero
+    /// animation this "generation" of results — see `refresh`'s id-set check.
+    /// Used so `LazyVStack` recycling rows during scroll doesn't replay a
+    /// card's fade-in or the Perfect Match sweep every time it scrolls back
+    /// into view.
+    func hasBeenRevealed(_ id: UUID) -> Bool {
+        revealedResultIds.contains(id)
+    }
+
+    func markRevealed(_ id: UUID) {
+        revealedResultIds.insert(id)
     }
 }
