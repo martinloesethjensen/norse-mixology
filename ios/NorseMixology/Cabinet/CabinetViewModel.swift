@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import SwiftData
 import NorseMixologyCore
 
@@ -45,7 +46,9 @@ final class CabinetViewModel {
             flavorProfile: style.flavorProfile
         )
         CabinetService.add(item, context: modelContext)
-        refresh()
+        withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
+            refresh()
+        }
     }
 
     func remove(_ item: CabinetItem) {

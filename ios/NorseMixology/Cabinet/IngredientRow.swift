@@ -24,9 +24,11 @@ struct IngredientRow: View {
                 Image(systemName: "checkmark.circle.fill")
                     .foregroundStyle(DesignTokens.matchExact)
                     .accessibilityHidden(true)
+                    .transition(.scale(scale: 0.4).combined(with: .opacity))
             }
         }
         .opacity(isInCabinet ? 0.5 : 1.0)
+        .animation(.spring(response: 0.3, dampingFraction: 0.65), value: isInCabinet)
         .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
         .accessibilityValue(isInCabinet ? "Already in your cabinet" : "")

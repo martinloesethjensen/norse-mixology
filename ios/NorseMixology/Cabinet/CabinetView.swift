@@ -67,6 +67,10 @@ struct CabinetView: View {
                             ForEach(group.items) { item in
                                 CabinetItemRow(item: item)
                                     .listRowBackground(DesignTokens.surface)
+                                    .transition(.asymmetric(
+                                        insertion: .scale(scale: 0.9).combined(with: .opacity),
+                                        removal: .opacity
+                                    ))
                             }
                             .onDelete { offsets in
                                 for index in offsets {
