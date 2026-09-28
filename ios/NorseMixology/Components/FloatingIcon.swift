@@ -14,11 +14,7 @@ struct FloatingIcon: View {
     var body: some View {
         Image(systemName: systemName)
             .offset(y: reduceMotion ? 0 : (isFloating ? -2.5 : 2.5))
-            .onAppear {
-                guard !reduceMotion else { return }
-                withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
-                    isFloating = true
-                }
-            }
+            .animation(reduceMotion ? nil : .easeInOut(duration: 3).repeatForever(autoreverses: true), value: isFloating)
+            .onAppear { isFloating = true }
     }
 }

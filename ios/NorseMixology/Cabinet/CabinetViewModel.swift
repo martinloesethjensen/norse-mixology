@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import SwiftData
+import UIKit
 import NorseMixologyCore
 
 @Observable
@@ -46,7 +47,7 @@ final class CabinetViewModel {
             flavorProfile: style.flavorProfile
         )
         CabinetService.add(item, context: modelContext)
-        withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
+        withAnimation(UIAccessibility.isReduceMotionEnabled ? nil : .spring(response: 0.35, dampingFraction: 0.7)) {
             refresh()
         }
     }

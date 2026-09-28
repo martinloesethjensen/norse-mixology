@@ -6,6 +6,8 @@ struct IngredientRow: View {
     let familyName: String
     let isInCabinet: Bool
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
@@ -24,11 +26,11 @@ struct IngredientRow: View {
                 Image(systemName: "checkmark.circle.fill")
                     .foregroundStyle(DesignTokens.matchExact)
                     .accessibilityHidden(true)
-                    .transition(.scale(scale: 0.4).combined(with: .opacity))
+                    .transition(reduceMotion ? .opacity : .scale(scale: 0.4).combined(with: .opacity))
             }
         }
         .opacity(isInCabinet ? 0.5 : 1.0)
-        .animation(.spring(response: 0.3, dampingFraction: 0.65), value: isInCabinet)
+        .animation(reduceMotion ? nil : .spring(response: 0.3, dampingFraction: 0.65), value: isInCabinet)
         .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
         .accessibilityValue(isInCabinet ? "Already in your cabinet" : "")

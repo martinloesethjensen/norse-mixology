@@ -1,3 +1,4 @@
+import Foundation
 import SwiftUI
 import NorseMixologyCore
 
@@ -23,6 +24,7 @@ struct RecipeCardView: View {
     /// own mutation would otherwise retrigger this view's body and flip the
     /// badge's `playHeroSweep` back off mid-animation.
     @State private var playHeroSweep = false
+    @State private var sweepDelay: Double = 0
 
     private var recipe: Recipe { result.recipe }
     private var isPerfectMatch: Bool { result.matchType == .exact }
@@ -51,7 +53,7 @@ struct RecipeCardView: View {
                 OutlinePillView(text: recipe.difficulty.displayName)
             }
 
-            MatchBadgeView(state: MatchBadgeState(result: result), playHeroSweep: playHeroSweep, sweepDelay: revealDelay)
+            MatchBadgeView(state: MatchBadgeState(result: result), playHeroSweep: playHeroSweep, sweepDelay: sweepDelay)
 
             if let firstSubstitution = result.substitutions.first {
                 HStack(spacing: 8) {
@@ -87,19 +89,32 @@ struct RecipeCardView: View {
     }
 
     private func reveal() {
-        let wasAlreadyRevealed = browserViewModel.hasBeenRevealed(result.id)
-        browserViewModel.markRevealed(result.id)
+        let wasAlreadyRevealed = browserViewModel.hasBeenRevealed(result.id, isExactMatch: isPerfectMatch)
+        browserViewModel.markRevealed(result.id, isExactMatch: isPerfectMatch)
 
-        if isPerfectMatch && !wasAlreadyRevealed {
-            playHeroSweep = true
-        }
-
-        guard !reduceMotion, !wasAlreadyRevealed else {
+        // `!hasAppeared` guards against a second onAppear on the SAME still-mounted
+        // view instance (e.g. TabView re-firing onAppear when the Recipes tab is
+        // revisited) after a cabinet change cleared the shared reveal record —
+        // without this, an already-fully-shown card could get a stray pulse with
+        // no accompanying sweep, since its own state already sits at the fully
+        // revealed end state.
+        guard !reduceMotion, !wasAlreadyRevealed, !hasAppeared else {
             hasAppeared = true
             return
         }
 
-        withAnimation(.easeOut(duration: 0.3).delay(revealDelay)) {
+        // Only the initial screenful of a reveal "wave" gets the staggered delay —
+        // a card revealed later purely by scrolling a long LazyVStack shouldn't sit
+        // blank for up to ~0.4s before fading in.
+        let elapsedSinceWaveStart = Date().timeIntervalSince(browserViewModel.revealWaveStartedAt)
+        let effectiveDelay = elapsedSinceWaveStart < 0.6 ? revealDelay : 0
+
+        if isPerfectMatch {
+            playHeroSweep = true
+            sweepDelay = effectiveDelay
+        }
+
+        withAnimation(.easeOut(duration: 0.3).delay(effectiveDelay)) {
             hasAppeared = true
         }
 
@@ -107,7 +122,7 @@ struct RecipeCardView: View {
         // Not tied to the view's lifecycle — nothing cancels this Task, it
         // just runs the pulse once on its own clock after the sweep finishes.
         Task { @MainActor in
-            try? await Task.sleep(for: .milliseconds(Int((revealDelay + 0.35) * 1000)))
+            try? await Task.sleep(for: .milliseconds(Int((effectiveDelay + MatchBadgeView.sweepDuration) * 1000)))
             withAnimation(.easeOut(duration: 0.2)) { isPulsing = true }
             try? await Task.sleep(for: .milliseconds(200))
             withAnimation(.easeOut(duration: 0.2)) { isPulsing = false }

@@ -6,6 +6,7 @@ struct CabinetView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(TaxonomyStore.self) private var taxonomyStore
     @Environment(RecipeBrowserViewModel.self) private var recipeBrowserViewModel
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     /// Called after a fresh match has been run, so the host can show the results.
     let onFindRecipes: () -> Void
@@ -71,7 +72,7 @@ struct CabinetView: View {
                             ForEach(group.items) { item in
                                 CabinetItemRow(item: item)
                                     .listRowBackground(DesignTokens.surface)
-                                    .transition(.asymmetric(
+                                    .transition(reduceMotion ? .identity : .asymmetric(
                                         insertion: .scale(scale: 0.9).combined(with: .opacity),
                                         removal: .opacity
                                     ))

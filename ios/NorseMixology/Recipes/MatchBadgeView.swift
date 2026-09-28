@@ -17,6 +17,8 @@ struct MatchBadgeView: View {
     /// playing (and finishing) while the card is still transparent.
     var sweepDelay: Double = 0
 
+    static let sweepDuration: Double = 0.35
+
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var sweepProgress: CGFloat = 0
 
@@ -61,7 +63,7 @@ struct MatchBadgeView: View {
 
     private func startSweepIfNeeded() {
         guard playHeroSweep, !reduceMotion else { return }
-        withAnimation(.easeOut(duration: 0.35).delay(sweepDelay)) {
+        withAnimation(.easeOut(duration: Self.sweepDuration).delay(sweepDelay)) {
             sweepProgress = 1
         }
     }
