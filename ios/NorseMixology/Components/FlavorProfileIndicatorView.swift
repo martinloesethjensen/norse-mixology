@@ -8,22 +8,29 @@ import NorseMixologyCore
 struct FlavorProfileIndicatorView: View {
     let profile: FlavorProfile
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var hasAppeared = false
+
     private var values: [Double] {
         [profile.sweetness, profile.bitterness, profile.smokiness, profile.citrus, profile.herbal]
     }
 
     var body: some View {
         HStack(spacing: 4) {
-            ForEach(Array(values.enumerated()), id: \.offset) { _, value in
+            ForEach(Array(values.enumerated()), id: \.offset) { index, value in
                 Circle()
                     .fill(DesignTokens.accent.opacity(0.15 + value * 0.85))
                     .overlay(Circle().strokeBorder(DesignTokens.border, lineWidth: 0.5))
                     .frame(width: 8, height: 8)
+                    .scaleEffect(reduceMotion || hasAppeared ? 1 : 0.4)
+                    .opacity(reduceMotion || hasAppeared ? 1 : 0)
+                    .animation(reduceMotion ? nil : .easeOut(duration: 0.2).delay(Double(index) * 0.06), value: hasAppeared)
             }
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Flavour profile")
         .accessibilityValue(profile.accessibilitySummary)
+        .onAppear { hasAppeared = true }
     }
 }
 
