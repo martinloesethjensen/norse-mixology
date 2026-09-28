@@ -12,6 +12,10 @@ struct MatchBadgeView: View {
     /// is no numeric score on this badge to "fill," only a hero moment for
     /// the one tier that represents "you can make this right now."
     var playHeroSweep = false
+    /// Matches the owning `RecipeCardView`'s `revealDelay`, so the sweep
+    /// starts exactly as that card's own fade-in becomes visible instead of
+    /// playing (and finishing) while the card is still transparent.
+    var sweepDelay: Double = 0
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var sweepProgress: CGFloat = 0
@@ -31,6 +35,11 @@ struct MatchBadgeView: View {
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(state == .exact ? "All ingredients in your cabinet" : state.label)
             .onAppear(perform: startSweepIfNeeded)
+            .onChange(of: playHeroSweep) {
+                if playHeroSweep {
+                    startSweepIfNeeded()
+                }
+            }
     }
 
     @ViewBuilder
@@ -52,7 +61,7 @@ struct MatchBadgeView: View {
 
     private func startSweepIfNeeded() {
         guard playHeroSweep, !reduceMotion else { return }
-        withAnimation(.easeOut(duration: 0.35)) {
+        withAnimation(.easeOut(duration: 0.35).delay(sweepDelay)) {
             sweepProgress = 1
         }
     }

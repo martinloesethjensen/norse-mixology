@@ -17,10 +17,15 @@ struct RecipeCardView: View {
 
     @State private var hasAppeared = false
     @State private var isPulsing = false
+    /// Set once, from `reveal()`, based on a snapshot of `hasBeenRevealed`
+    /// taken *before* `markRevealed` mutates that same observed state — never
+    /// derived live from `browserViewModel` inside `body`, since `reveal()`'s
+    /// own mutation would otherwise retrigger this view's body and flip the
+    /// badge's `playHeroSweep` back off mid-animation.
+    @State private var playHeroSweep = false
 
     private var recipe: Recipe { result.recipe }
     private var isPerfectMatch: Bool { result.matchType == .exact }
-    private var isFirstReveal: Bool { !browserViewModel.hasBeenRevealed(result.id) }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -46,7 +51,7 @@ struct RecipeCardView: View {
                 OutlinePillView(text: recipe.difficulty.displayName)
             }
 
-            MatchBadgeView(state: MatchBadgeState(result: result), playHeroSweep: isPerfectMatch && isFirstReveal)
+            MatchBadgeView(state: MatchBadgeState(result: result), playHeroSweep: playHeroSweep, sweepDelay: revealDelay)
 
             if let firstSubstitution = result.substitutions.first {
                 HStack(spacing: 8) {
@@ -85,6 +90,10 @@ struct RecipeCardView: View {
         let wasAlreadyRevealed = browserViewModel.hasBeenRevealed(result.id)
         browserViewModel.markRevealed(result.id)
 
+        if isPerfectMatch && !wasAlreadyRevealed {
+            playHeroSweep = true
+        }
+
         guard !reduceMotion, !wasAlreadyRevealed else {
             hasAppeared = true
             return
@@ -95,9 +104,10 @@ struct RecipeCardView: View {
         }
 
         guard isPerfectMatch else { return }
+        // Not tied to the view's lifecycle — nothing cancels this Task, it
+        // just runs the pulse once on its own clock after the sweep finishes.
         Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(Int((revealDelay + 0.35) * 1000)))
-            guard !Task.isCancelled else { return }
             withAnimation(.easeOut(duration: 0.2)) { isPulsing = true }
             try? await Task.sleep(for: .milliseconds(200))
             withAnimation(.easeOut(duration: 0.2)) { isPulsing = false }
