@@ -51,7 +51,11 @@ struct CabinetView: View {
     private func content(viewModel: CabinetViewModel) -> some View {
         if viewModel.isEmpty {
             ContentUnavailableView {
-                Label("Your cabinet is empty", systemImage: "archivebox")
+                Label {
+                    Text("Your cabinet is empty")
+                } icon: {
+                    FloatingIcon(systemName: "archivebox")
+                }
             } description: {
                 Text("Add what's in your cabinet to get started")
             } actions: {

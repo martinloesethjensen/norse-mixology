@@ -14,11 +14,15 @@ struct FavouritesView: View {
         NavigationStack(path: $path) {
             Group {
                 if viewModel.isEmpty {
-                    ContentUnavailableView(
-                        "No Favourites Yet",
-                        systemImage: "heart",
-                        description: Text("Recipes you love will appear here")
-                    )
+                    ContentUnavailableView {
+                        Label {
+                            Text("No Favourites Yet")
+                        } icon: {
+                            FloatingIcon(systemName: "heart")
+                        }
+                    } description: {
+                        Text("Recipes you love will appear here")
+                    }
                 } else {
                     favouritesList
                 }

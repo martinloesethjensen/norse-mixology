@@ -19,11 +19,15 @@ struct RecipeResultsList: View {
 
     var body: some View {
         if grouped.isEmpty {
-            ContentUnavailableView(
-                "No Matching Recipes",
-                systemImage: "wineglass",
-                description: Text("Your cabinet didn't match any recipes. Try adding some base spirits like gin, rum, or vodka.")
-            )
+            ContentUnavailableView {
+                Label {
+                    Text("No Matching Recipes")
+                } icon: {
+                    FloatingIcon(systemName: "wineglass")
+                }
+            } description: {
+                Text("Your cabinet didn't match any recipes. Try adding some base spirits like gin, rum, or vodka.")
+            }
             .dsScreenBackground()
         } else {
             ScrollView {
