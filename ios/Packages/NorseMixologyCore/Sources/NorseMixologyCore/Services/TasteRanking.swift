@@ -25,21 +25,24 @@ public enum TasteRanking {
         return dot / (magA * magB)
     }
 
+    /// A neutral (all axes still 0.5) or uncompleted profile never changes any order.
+    public static func isActive(_ profile: UserTasteProfile) -> Bool {
+        let hasNeutralAxes = profile.sweetness == 0.5 && profile.bitterness == 0.5
+            && profile.citrus == 0.5 && profile.smokiness == 0.5 && profile.herbal == 0.5
+        return profile.hasCompletedOnboarding && !hasNeutralAxes
+    }
+
+    /// Stable sort by taste similarity, most similar first; a no-op for an inactive profile.
+    public static func sorted<T>(_ items: [T], toward profile: UserTasteProfile, flavor: (T) -> FlavorProfile) -> [T] {
+        guard isActive(profile) else { return items }
+        return items.sorted { similarity(profile, to: flavor($0)) > similarity(profile, to: flavor($1)) }
+    }
+
     /// A neutral (all axes still 0.5) or uncompleted profile is a no-op —
     /// the original matchScore-descending order is preserved.
     public static func reorder(_ grouped: GroupedMatchResults, toward profile: UserTasteProfile) -> GroupedMatchResults {
-        let hasNeutralAxes = profile.sweetness == 0.5 && profile.bitterness == 0.5
-            && profile.citrus == 0.5 && profile.smokiness == 0.5 && profile.herbal == 0.5
-        guard profile.hasCompletedOnboarding, !hasNeutralAxes else { return grouped }
-
-        func sortedByTaste(_ results: [RecipeMatchResult]) -> [RecipeMatchResult] {
-            results.sorted {
-                similarity(profile, to: $0.recipe.flavorProfile) > similarity(profile, to: $1.recipe.flavorProfile)
-            }
-        }
-
-        return GroupedMatchResults(
-            results: sortedByTaste(grouped.perfect) + sortedByTaste(grouped.almost) + sortedByTaste(grouped.exploring)
-        )
+        guard isActive(profile) else { return grouped }
+        let byTaste = { (results: [RecipeMatchResult]) in sorted(results, toward: profile) { $0.recipe.flavorProfile } }
+        return GroupedMatchResults(results: byTaste(grouped.perfect) + byTaste(grouped.almost) + byTaste(grouped.exploring))
     }
 }
