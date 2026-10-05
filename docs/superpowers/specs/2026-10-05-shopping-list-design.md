@@ -73,13 +73,10 @@ public final class ShoppingListViewModel {
     public func refresh()
 }
 
-public struct BoughtReceipt { styleId, styleName, createdCabinetItemId }
+public struct BoughtReceipt { let styleId: UUID; let styleName: String; let createdCabinetItemId: UUID? }
 ```
 
 Tick-off (`markBought`) and `undo` live in core, not the app layer, so they are unit-tested.
-
-```swift
-```
 
 ### `BuyNextRanking`
 
@@ -103,12 +100,13 @@ public enum BuyNextRanking {
 - Styles already on the list are excluded. Result is truncated to `limit`.
 - A style that is missing for one recipe may be substituted for another; only the recipes where it is in `missing` count.
 
-### Tick-off and undo (coordinated in the app layer, rules fixed here)
+### Tick-off and undo (in core: `ShoppingListViewModel`)
 
-1. Add the style to the cabinet (`CabinetViewModel.add`, no brand). If it is already there, that is a no-op.
-2. Remove the item from the list.
-3. Refresh the browser view model with the new cabinet.
-Undo: remove the cabinet item for that style if it still exists, then re-add the list item. If the cabinet item was already deleted by hand, skip step one and still re-add.
+1. `markBought` builds the cabinet item with `CabinetItem.make`, inserts it and saves. It skips the insert if the bottle is already owned, and records `createdCabinetItemId`.
+2. It removes the list item, which saves.
+3. The app then refreshes `CabinetViewModel` and the browser view model.
+
+Undo removes only the cabinet item the tick created (`createdCabinetItemId`), if it still exists, and saves explicitly. It then re-adds the list item (a no-op if it was already re-added). Ghost items: `markBought` returns nil.
 
 ---
 
