@@ -55,8 +55,8 @@ struct BrowseHeader: View {
             .foregroundStyle(DesignTokens.textPrimary)
             .padding(.horizontal, 12)
             .frame(minHeight: 32)
-            .background(Capsule().fill(DesignTokens.surfaceRaised))
-            .overlay(Capsule().strokeBorder(DesignTokens.border, lineWidth: 1))
+            .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(DesignTokens.surfaceRaised))
+            .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).strokeBorder(DesignTokens.border, lineWidth: 1))
             .frame(minHeight: 44)
             .contentShape(Rectangle())
         }
