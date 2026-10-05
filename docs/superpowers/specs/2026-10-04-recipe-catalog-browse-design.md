@@ -1,7 +1,7 @@
 # Recipe Catalog Browse — Design
 
 **Date:** 2026-10-04
-**Status:** Approved design, pending implementation plan
+**Status:** Implemented 2026-10-05
 **Scope:** iOS only (Android paused). Sub-project **A** of the post-MVP feature roadmap (§7).
 
 ---
@@ -52,12 +52,19 @@ public enum CatalogAvailability {
 
 public struct RecipeFilter: Equatable, Sendable {
     public var query: String
-    public var tags: Set<String>          // curated style tags (below)
-    public var strengths: Set<Strength>   // .noABV, .lowABV, .regular
-    public var baseFamilyIds: Set<UUID>
-    public var glassTypes: Set<String>
-    public var methods: Set<String>
-    public var difficulties: Set<String>
+    public var criteria: [Criterion]      // AND across kinds, OR within one kind
+    public enum Criterion: Hashable, Sendable {
+        case tag(String)                  // curated style tag
+        case strength(Strength)
+        case baseFamily(UUID)
+        case glass(GlassType)             // existing enums, not strings
+        case method(Method)
+        case difficulty(Difficulty)
+    }
+    public mutating func toggle(_ c: Criterion)
+    public mutating func remove(_ c: Criterion)
+    public func contains(_ c: Criterion) -> Bool
+    public mutating func clear()
     public var isEmpty: Bool { get }
     public func matches(_ recipe: Recipe, index: TaxonomyIndex) -> Bool
 }
@@ -103,7 +110,7 @@ Invariant guard: if a non-matched recipe ends up with `missing.isEmpty` (should 
 
 ### Recipes tab — `RecipeBrowserView` / `RecipeBrowserViewModel`
 
-- Segmented `Picker` (Can make | All recipes) under the title; `.searchable` search field; active-filter chip row plus a **Filters** button opening a sheet with every filter.
+- Segmented `Picker` (Can make | All recipes) under the title; `.searchable` search field; active-filter chip row plus a **Filters** button opening a sheet with every filter. Filter chips keep a 32 pt capsule with a 44 pt hit area.
 - `RecipeBrowserViewModel` gains `browseState: RecipeBrowseState`, `entries: [CatalogEntry]`, `groupedAvailability`. `refresh` computes both the existing match results and the catalog entries from one cabinet read.
 - Mode persists across launches via `@SceneStorage`; query and filters persist across tab switches (view model) but not relaunch.
 - **All recipes** renders a new `CatalogList`: sections Ready / Missing 1 / Missing 2 / Missing 3+ (empty sections hidden), compact rows (name, glass icon, status text: "Ready", "1 sub", the missing ingredient's name, or "Missing N"). No hero sweep or staggered entrance.
@@ -147,7 +154,7 @@ Invariant guard: if a non-matched recipe ends up with `missing.isEmpty` (should 
 
 - **Core unit tests (new `CatalogAvailabilityTests`, `RecipeFilterTests`):** parity, missing ordering, soft-ingredient exclusion, substitutions on non-makeable recipes, tiers, taste ordering within tiers, every filter kind, AND/OR semantics, query edge cases, `RecipeBrowseState` mode switch keeps filter, adding a style moves a recipe from Missing 1 → Ready.
 - **Performance:** extend the existing budget test.
-- **Simulator verification (no UI test target exists):** search "violette" → open Aviation → Add Crème de violette → Aviation shows Ready in All recipes and appears in Can make. Repeat at iPad width and with VoiceOver labels inspected.
+- **Simulator verification (no UI test target exists):** cabinet London Dry Gin + Lime Juice + Raspberry Liqueur → search "chartreuse" → open Last Word → Add Green Chartreuse → Last Word shows Ready in All recipes and appears in Can make. Repeat at iPad width and with VoiceOver labels inspected.
 
 ---
 

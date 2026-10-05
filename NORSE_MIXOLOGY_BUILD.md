@@ -194,6 +194,17 @@ Pure presentation logic lives in `NorseMixologyCore` (`RecipePresentation.swift`
 - **`project.pbxproj` is hand-maintained, not file-system-synchronized** — a new Swift file under `ios/NorseMixology/` needs an explicit group/build-file/Sources-phase entry or it silently compiles out of the app target with no build error (discovered when Phase 11's first two onboarding files were added without this and nothing ever actually type-checked them). Verify new files actually appear in a `SwiftCompile`/`SwiftPerFileCompile` build log line, not just that `xcodebuild` reports success.
 - **Large Dynamic Type accessibility support was descoped** for this phase by explicit user direction. A real truncation bug (`.frame(height:)` clipping quiz text) was fixed before the descoping decision and stays fixed; no further large-text polish was pursued.
 
+## Recipe catalog browse (iOS)
+
+- **Spec:** `docs/superpowers/specs/2026-10-04-recipe-catalog-browse-design.md`. Roadmap sub-project A.
+- **Additive only.** `CatalogAvailability.evaluate` takes "Ready" from `MatchingService.match` itself and, for every other recipe, reuses the engine's per-ingredient `resolve` (now `internal`, not `private` — the only engine change) to list `missing` (required, unresolvable, recipe order, de-duplicated) and the substitutions that already work. Invariant, unit-tested: Ready in All recipes ⇔ listed in Can make.
+- **Tiers:** Ready / Missing 1 / Missing 2 / Missing 3+ (`GroupedAvailability`). Ready ordered like the engine; Missing tiers by count then name; an active taste profile re-sorts within each tier (`TasteRanking.sorted`, same no-op rule as `reorder`).
+- **Search & filters (`RecipeFilter`)** apply to both modes. Query: trimmed, case- and diacritic-insensitive, matches recipe name then ingredient style/family names. Criteria: strength (`no-abv`/`low-abv` tags), base spirit (family of the `.base`-role ingredient), curated style tags, glass, method, difficulty; AND across kinds, OR within one. Can make is filtered without re-running the engine.
+- **Persistence:** mode in `@SceneStorage("recipes.browseMode")`; query and filters only for the session.
+- **Add to cabinet:** only rows in `entry.missing` get the ⊕ button (never optional/garnish rows). One `CabinetViewModel` is injected at the app root and shared by Cabinet and the recipe screen. Favourites' detail has no add buttons.
+- **Android parity:** not ported (Android paused). A port needs the same "Ready ⇔ engine result" rule.
+- Filter chips and rows keep ≥ 44 pt hit areas; the add button is 44×44.
+
 ## Design System — "Modern Neon Bar"
 
 Both platforms follow system light/dark appearance (never forced). Same tokens, mapped for each mode:
