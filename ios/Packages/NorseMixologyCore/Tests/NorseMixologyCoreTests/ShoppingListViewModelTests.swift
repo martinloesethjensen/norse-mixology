@@ -171,6 +171,26 @@ final class ShoppingListViewModelTests: XCTestCase {
         XCTAssertEqual(CabinetService.allItems(context: store.context).count, 1, "undo never removes a bottle the tick didn't add")
     }
 
+    func testUndoWhenTheItemWasReAddedStillSavesTheCabinetRemoval() throws {
+        let store = try makeStore()
+        let vm = ShoppingListViewModel(modelContext: store.context)
+        let chartreuse = try style("Green Chartreuse")
+        vm.add(chartreuse, cabinetStyleIds: [])
+        let receipt = try XCTUnwrap(vm.markBought(try XCTUnwrap(vm.items.first), index: index))
+
+        // Re-add the style (checked against the empty cabinet set passed in)
+        let result = vm.add(chartreuse, cabinetStyleIds: [])
+        XCTAssertEqual(result, .added)
+
+        // Undo must save the cabinet removal even though ShoppingService.add is a no-op
+        vm.undo(receipt)
+
+        // Verify persistence through a fresh context
+        let fresh = ModelContext(store.container)
+        XCTAssertTrue(CabinetService.allItems(context: fresh).isEmpty, "cabinet removal must be persisted")
+        XCTAssertEqual(ShoppingService.all(context: fresh).count, 1, "list item restored")
+    }
+
     // MARK: - Entries and ghosts
 
     func testEntriesPairItemsWithTheirStylesNewestFirst() throws {

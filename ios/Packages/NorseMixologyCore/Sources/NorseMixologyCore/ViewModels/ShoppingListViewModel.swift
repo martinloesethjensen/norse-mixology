@@ -117,8 +117,9 @@ public final class ShoppingListViewModel {
     public func undo(_ receipt: BoughtReceipt) {
         if let createdId = receipt.createdCabinetItemId {
             CabinetService.remove(id: createdId, context: modelContext)
+            try? modelContext.save()
         }
-        // ShoppingService.add saves the context, persisting the cabinet removal too.
+        // No-op if the item was already re-added; the cabinet removal above is saved either way.
         ShoppingService.add(styleId: receipt.styleId, styleName: receipt.styleName, context: modelContext)
         refresh()
     }
