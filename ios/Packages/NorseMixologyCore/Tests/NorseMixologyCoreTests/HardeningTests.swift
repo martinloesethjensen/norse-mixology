@@ -97,9 +97,12 @@ final class HardeningTests: XCTestCase {
         XCTAssertLessThan(elapsed, 0.1, "matched \(recipes.count) recipes in \(Int(elapsed * 1000))ms, \(results.count) results")
     }
 
-    func testEvaluatingTheWholeCatalogForA30ItemCabinetIsWellUnder100ms() throws {
+    /// The app's refresh does more than `evaluate`: engine pass, evaluation,
+    /// grouping with an active taste re-rank, filtering and filter options.
+    /// The whole chain must stay well under the 100 ms budget.
+    func testRefreshPipelineForA30ItemCabinetIsWellUnder100ms() throws {
         let categories = try IngredientTaxonomy.loadCategories(from: bundledData("taxonomy"))
-        let recipes = try IngredientTaxonomy.loadRecipes(from: bundledData("recipes"))
+        let recipes = Array(try IngredientTaxonomy.loadRecipes(from: bundledData("recipes")))
         let index = TaxonomyIndex(categories: categories)
 
         let cabinet = index.stylesById.values.sorted { $0.name < $1.name }.prefix(30).map { style in
@@ -110,12 +113,23 @@ final class HardeningTests: XCTestCase {
                 flavorProfile: style.flavorProfile
             )
         }
+        let profile = UserTasteProfile(sweetness: 0.9, bitterness: 0.2, citrus: 0.7, smokiness: 0.3, herbal: 0.4,
+                                       hasCompletedOnboarding: true)
+        let ginFamilyId = try XCTUnwrap(index.familyNamesById.first { $0.value == "Gin" }?.key)
+        var filter = RecipeFilter()
+        filter.query = "gin"
+        filter.toggle(.baseFamily(ginFamilyId))
 
         let start = CFAbsoluteTimeGetCurrent()
-        let entries = CatalogAvailability.evaluate(recipes: Array(recipes), cabinet: Array(cabinet), index: index)
+        _ = MatchingService.match(cabinet: Array(cabinet), recipes: recipes, index: index)
+        let entries = CatalogAvailability.evaluate(recipes: recipes, cabinet: Array(cabinet), index: index)
+        let grouped = GroupedAvailability(entries: entries, profile: profile)
+        let filtered = grouped.filtered(by: filter, index: index)
+        _ = RecipeFilterOptions(recipes: recipes, index: index)
         let elapsed = CFAbsoluteTimeGetCurrent() - start
 
         XCTAssertEqual(entries.count, recipes.count)
-        XCTAssertLessThan(elapsed, 0.1, "evaluated \(recipes.count) recipes in \(Int(elapsed * 1000))ms")
+        XCTAssertFalse(filtered.isEmpty)
+        XCTAssertLessThan(elapsed, 0.1, "refresh pipeline over \(recipes.count) recipes took \(Int(elapsed * 1000))ms")
     }
 }
