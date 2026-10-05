@@ -24,7 +24,11 @@ struct ShoppingListView: View {
         let suggestions = BuyNextRanking.rank(entries: browser.entries, listedStyleIds: shopping.listedStyleIds, profile: profile)
 
         Group {
-            if entries.isEmpty && suggestions.isEmpty {
+            if !taxonomyStore.recipesLoaded || (browser.entries.isEmpty && !taxonomyStore.recipes.isEmpty) {
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .dsScreenBackground()
+            } else if entries.isEmpty && suggestions.isEmpty {
                 ContentUnavailableView {
                     Label("Nothing to buy", systemImage: "cart")
                 } description: {
