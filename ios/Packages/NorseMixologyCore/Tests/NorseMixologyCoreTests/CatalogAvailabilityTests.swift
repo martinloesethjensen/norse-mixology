@@ -155,6 +155,19 @@ final class CatalogAvailabilityTests: XCTestCase {
         XCTAssertTrue(entries.allSatisfy { $0.missing.isEmpty })
     }
 
+    func testIngredientWhoseStyleIsNotInTheIndexIsSkippedNotListedAsMissing() throws {
+        let chartreuse = try style("Green Chartreuse")
+        let real = RecipeIngredient(ingredientStyleId: chartreuse.id, amount: "20ml", preparation: nil, isOptional: false, substituteNotes: nil)
+        let unknown = RecipeIngredient(ingredientStyleId: UUID(), amount: "20ml", preparation: nil, isOptional: false, substituteNotes: nil)
+        let crafted = Recipe(id: UUID(), name: "Dangling Style", description: "", glassType: .rocks, method: .stir,
+                             ingredients: [real, unknown], steps: [], flavorProfile: chartreuse.flavorProfile, tags: [],
+                             difficulty: .easy, imageURL: nil)
+        let entries = CatalogAvailability.evaluate(recipes: [crafted], cabinet: try cabinet("Lime Juice"), index: index)
+        XCTAssertNil(entries.first?.match)
+        XCTAssertEqual(entries.first?.missing.map(\.name), ["Green Chartreuse"])
+        XCTAssertEqual(entries.first?.tier, .missing1)
+    }
+
     func testTierFollowsMissingCount() throws {
         let recipe = recipes[0]
         let a = try style("London Dry Gin"), b = try style("Lime Juice"), c = try style("Green Chartreuse")
