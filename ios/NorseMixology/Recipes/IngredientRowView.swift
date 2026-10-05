@@ -8,6 +8,8 @@ struct IngredientRowView: View {
     let ingredient: RecipeIngredient
     let status: AvailabilityStatus
     let substitute: SubstitutionDetail?
+    /// Set only for a missing *required* ingredient: shows a trailing "add to cabinet" button.
+    var onAdd: (() -> Void)? = nil
 
     @State private var isExpanded = false
     @ScaledMetric(relativeTo: .headline) private var iconWidth: CGFloat = 22
@@ -26,6 +28,19 @@ struct IngredientRowView: View {
             }
             .buttonStyle(.plain)
             .accessibilityHint(isExpanded ? "Hides the substitution note" : "Shows the substitution note")
+        } else if let onAdd {
+            HStack(alignment: .top, spacing: 4) {
+                rowContent(substitute: nil)
+                Button(action: onAdd) {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.title3)
+                        .foregroundStyle(DesignTokens.accent)
+                        .frame(minWidth: 44, minHeight: 44)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(Text("Add \(name) to cabinet"))
+            }
         } else {
             rowContent(substitute: nil)
         }

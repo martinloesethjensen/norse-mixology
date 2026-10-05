@@ -76,10 +76,8 @@ struct RecipeBrowserView: View {
 
     @ViewBuilder
     private func detail(for id: UUID) -> some View {
-        if let result = viewModel.entry(for: id)?.match {
-            RecipeDetailView(result: result, cabinetStyleIds: viewModel.cabinetStyleIds)
-        } else if let entry = viewModel.entry(for: id) {
-            RecipeDetailView(recipe: entry.recipe, match: nil, cabinetStyleIds: viewModel.cabinetStyleIds)
+        if let entry = viewModel.entry(for: id) {
+            RecipeDetailView(entry: entry, cabinetStyleIds: viewModel.cabinetStyleIds)
         } else {
             ContentUnavailableView("This recipe is no longer available", systemImage: "wineglass")
         }

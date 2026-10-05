@@ -4,31 +4,49 @@ import NorseMixologyCore
 /// Full recipe: header, ingredients with cabinet availability, substitution
 /// notes, and method steps.
 ///
-/// `match` is `nil` for a recipe the current cabinet can't make (reachable from
-/// Favourites): ingredients are then simply in the cabinet or not, and there is
-/// no substitution callout.
+/// `match` is `nil` for a recipe the current cabinet can't make. From the Recipes tab its missing required ingredients get an "add to cabinet" button; from Favourites they don't.
 struct RecipeDetailView: View {
     let recipe: Recipe
     let match: RecipeMatchResult?
     let cabinetStyleIds: Set<UUID>
+    /// Substituted ingredients — from the match, or (for a recipe that isn't
+    /// makeable yet) from its `CatalogEntry`.
+    private let substitutions: [SubstitutionDetail]
+    /// Required ingredients nothing in the cabinet covers; these rows get an add button.
+    private let missingStyleIds: Set<UUID>
 
     @Environment(TaxonomyStore.self) private var taxonomyStore
     @Environment(FavouritesViewModel.self) private var favourites
+    @Environment(CabinetViewModel.self) private var cabinet
+    @Environment(RecipeBrowserViewModel.self) private var browser
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var heartIsPulsing = false
+    @State private var addingStyle: IngredientStyle?
+    @State private var addedCount = 0
     @ScaledMetric(relativeTo: .caption) private var stepBadgeSize: CGFloat = 22
 
+    /// Favourites: no add buttons (out of scope for this release).
     init(recipe: Recipe, match: RecipeMatchResult?, cabinetStyleIds: Set<UUID>) {
         self.recipe = recipe
         self.match = match
         self.cabinetStyleIds = cabinetStyleIds
+        self.substitutions = match?.substitutions ?? []
+        self.missingStyleIds = []
     }
 
     init(result: RecipeMatchResult, cabinetStyleIds: Set<UUID>) {
         self.init(recipe: result.recipe, match: result, cabinetStyleIds: cabinetStyleIds)
     }
 
-    private var substitutions: [SubstitutionDetail] { match?.substitutions ?? [] }
+    /// Recipes tab (both modes).
+    init(entry: CatalogEntry, cabinetStyleIds: Set<UUID>) {
+        self.recipe = entry.recipe
+        self.match = entry.match
+        self.cabinetStyleIds = cabinetStyleIds
+        self.substitutions = entry.substitutions
+        self.missingStyleIds = Set(entry.missing.map(\.id))
+    }
+
     private var isFavourite: Bool { favourites.isFavourited(recipe.id) }
 
     var body: some View {
@@ -69,6 +87,15 @@ struct RecipeDetailView: View {
                 .accessibilityLabel(isFavourite ? "Remove from favourites" : "Add to favourites")
             }
         }
+        .sheet(item: $addingStyle) { style in
+            AddIngredientConfirmationView(style: style, cabinetViewModel: cabinet, taxonomyStore: taxonomyStore) {
+                addingStyle = nil
+                browser.refresh(cabinet: cabinet.items, taxonomyStore: taxonomyStore)
+                addedCount += 1
+                AccessibilityNotification.Announcement(String(localized: "Added to cabinet")).post()
+            }
+        }
+        .sensoryFeedback(.success, trigger: addedCount)
     }
 
     private func toggleFavourite() {
@@ -123,11 +150,14 @@ struct RecipeDetailView: View {
             sectionHeading("Ingredients")
             VStack(alignment: .leading, spacing: 16) {
                 ForEach(RecipeAvailability.rows(for: recipe, substitutions: substitutions, cabinetStyleIds: cabinetStyleIds)) { row in
+                    let style = taxonomyStore.stylesById[row.ingredient.ingredientStyleId]
+                    let canAdd = row.status == .unavailable && style.map { missingStyleIds.contains($0.id) } == true
                     IngredientRowView(
-                        name: taxonomyStore.stylesById[row.ingredient.ingredientStyleId]?.name ?? "Unknown ingredient",
+                        name: style?.name ?? "Unknown ingredient",
                         ingredient: row.ingredient,
                         status: row.status,
-                        substitute: row.substitution
+                        substitute: row.substitution,
+                        onAdd: canAdd ? { addingStyle = style } : nil
                     )
                 }
             }
