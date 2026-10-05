@@ -57,7 +57,8 @@ struct BrowseHeader: View {
             .frame(minHeight: 32)
             .background(Capsule().fill(DesignTokens.surfaceRaised))
             .overlay(Capsule().strokeBorder(DesignTokens.border, lineWidth: 1))
-            .contentShape(Capsule())
+            .frame(minHeight: 44)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
         .accessibilityLabel(Text("Remove filter \(label)"))
