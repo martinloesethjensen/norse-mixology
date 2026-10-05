@@ -96,4 +96,26 @@ final class HardeningTests: XCTestCase {
         XCTAssertGreaterThan(recipes.count, 100, "budget is defined against a realistically sized catalog")
         XCTAssertLessThan(elapsed, 0.1, "matched \(recipes.count) recipes in \(Int(elapsed * 1000))ms, \(results.count) results")
     }
+
+    func testEvaluatingTheWholeCatalogForA30ItemCabinetIsWellUnder100ms() throws {
+        let categories = try IngredientTaxonomy.loadCategories(from: bundledData("taxonomy"))
+        let recipes = try IngredientTaxonomy.loadRecipes(from: bundledData("recipes"))
+        let index = TaxonomyIndex(categories: categories)
+
+        let cabinet = index.stylesById.values.sorted { $0.name < $1.name }.prefix(30).map { style in
+            CabinetItem(
+                ingredientStyleId: style.id, ingredientFamilyId: style.familyId, categoryId: style.categoryId,
+                displayName: style.name, brand: nil, style: style.name,
+                family: index.familyName(for: style), category: index.categoryName(for: style),
+                flavorProfile: style.flavorProfile
+            )
+        }
+
+        let start = CFAbsoluteTimeGetCurrent()
+        let entries = CatalogAvailability.evaluate(recipes: Array(recipes), cabinet: Array(cabinet), index: index)
+        let elapsed = CFAbsoluteTimeGetCurrent() - start
+
+        XCTAssertEqual(entries.count, recipes.count)
+        XCTAssertLessThan(elapsed, 0.1, "evaluated \(recipes.count) recipes in \(Int(elapsed * 1000))ms")
+    }
 }

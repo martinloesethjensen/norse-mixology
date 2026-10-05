@@ -54,7 +54,7 @@ public enum RoleDerivation {
 /// both platforms (see Data Model.md "Matching Score & Strictness"; the
 /// Android port in Phase 8 must reproduce this exactly).
 public enum MatchingService {
-    private enum Resolution {
+    enum Resolution {
         case unresolved
         /// `substituteStyle` is nil for an exact match (nothing to report);
         /// non-nil (and different from the required style) for a real substitution.
@@ -133,7 +133,8 @@ public enum MatchingService {
         return results
     }
 
-    private static func resolve(
+    /// Internal (not private) so `CatalogAvailability` reuses the exact same per-ingredient rule.
+    static func resolve(
         requiredStyle: IngredientStyle,
         cabinetByStyleId: [UUID: CabinetItem],
         cabinetByFamilyId: [UUID: [CabinetItem]],
