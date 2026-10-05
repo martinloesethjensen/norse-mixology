@@ -13,24 +13,60 @@ struct CabinetView: View {
 
     @Environment(CabinetViewModel.self) private var viewModel
     @State private var isPresentingAddSheet = false
+    @Environment(ShoppingListViewModel.self) private var shopping
+    /// Remembered across launches.
+    @SceneStorage("cabinet.segment") private var segmentRaw = CabinetSegment.cabinet.rawValue
+
+    private enum CabinetSegment: String {
+        case cabinet, shopping
+    }
+
+    private var segment: Binding<CabinetSegment> {
+        Binding(
+            get: { CabinetSegment(rawValue: segmentRaw) ?? .cabinet },
+            set: { segmentRaw = $0.rawValue }
+        )
+    }
 
     var body: some View {
         NavigationStack {
-            content(viewModel: viewModel)
+            VStack(spacing: 0) {
+                Picker("Show", selection: segment) {
+                    Text("Cabinet").tag(CabinetSegment.cabinet)
+                    Text("Shopping list (\(shopping.items.count))").tag(CabinetSegment.shopping)
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+
+                switch segment.wrappedValue {
+                case .cabinet:
+                    content(viewModel: viewModel)
+                case .shopping:
+                    ShoppingListView()
+                }
+            }
+            .frame(maxHeight: .infinity, alignment: .top)
             .dsScreenBackground()
             .navigationTitle("Cabinet")
             .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        isPresentingAddSheet = true
-                    } label: {
-                        Label("Add Ingredient", systemImage: "plus")
-                            .labelStyle(.iconOnly)
+                if segment.wrappedValue == .cabinet {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button {
+                            isPresentingAddSheet = true
+                        } label: {
+                            Label("Add Ingredient", systemImage: "plus")
+                                .labelStyle(.iconOnly)
+                        }
                     }
                 }
             }
         }
-        .onAppear { viewModel.refresh() }
+        .onAppear {
+            viewModel.refresh()
+            // Keeps the segment's count honest if a bottle reached the cabinet another way.
+            shopping.pruneOwned(cabinetStyleIds: Set(viewModel.items.map(\.ingredientStyleId)))
+        }
         .sheet(isPresented: $isPresentingAddSheet) {
             AddIngredientView(cabinetViewModel: viewModel, taxonomyStore: taxonomyStore)
         }
