@@ -155,7 +155,7 @@ Undo removes only the cabinet item the tick created (`createdCabinetItemId`), if
 | Nothing missing anywhere | Empty suggestions → "Nothing to buy" state | Unit test |
 | Identical scores | Stable order (name ascending) | Unit test |
 | Active taste profile | Breaks ties only; never overrides `readyNow`/`movesCloser` | Unit test |
-| Stale suggestions after a cabinet change | Shopping screen refreshes the browser view model on appear | View-model test |
+| Stale suggestions after a cabinet change | Shopping screen refreshes the browser view model on appear | Simulator check — passed (Buy next recomputed after tick and undo) |
 | Performance | Ranking 158 entries (30-item cabinet) < 100 ms | Extend the existing budget test |
 | New Swift file not compiled | `xcodegen generate`; verify each new file in a `SwiftCompile` build-log line | Build check |
 | Large text / Reduce Motion / VoiceOver | Buttons move below text; no slide animation; labels on every icon-only button; toast persistent under VoiceOver | Manual check (simulator) |
@@ -165,7 +165,7 @@ Undo removes only the cabinet item the tick created (`createdCabinetItemId`), if
 ## 5. Testing
 
 - **Core unit tests:** `ShoppingServiceTests`, `ShoppingListViewModelTests` (add/duplicate/owned/prune/addAll/entries/ghost/interrupted tick-off), `BuyNextRankingTests` (ordering keys, ties, taste tie-break, exclusion of listed styles, empty cabinet, nothing missing, limit), migration test, performance test.
-- **Simulator verification (not yet possible — access not granted):** add three Last Word ingredients from its recipe screen; tick one off and see it in the cabinet; undo; confirm Buy next counts update; repeat on iPad width; check VoiceOver, Reduce Motion and large text.
+- **Simulator verification (iPhone 17 Pro, iOS 26.5):** passed — Buy next with an empty cabinet; add from Buy next; tick-off with toast; undo within 8 s; recipe-screen cart buttons and "Add all missing"; pruning after ⊕. Not run: iPad layout, VoiceOver, accessibility text sizes, Reduce Motion.
 
 ---
 
