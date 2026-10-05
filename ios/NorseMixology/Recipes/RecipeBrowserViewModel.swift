@@ -36,14 +36,48 @@ final class RecipeBrowserViewModel {
     /// Drives the detail pane on regular-width (iPad) layouts.
     var selectedRecipeID: UUID?
 
+    /// Can make | All recipes, plus the search text and filters (shared by both modes).
+    var browseState = RecipeBrowseState()
+    /// Every catalog recipe evaluated against the cabinet at the last refresh.
+    private(set) var entries: [CatalogEntry] = []
+    private(set) var availability = GroupedAvailability.empty
+    private(set) var filterOptions = RecipeFilterOptions.empty
+    /// For filter chip labels (base spirit family names).
+    private(set) var familyNamesById: [UUID: String] = [:]
+    /// Replaced on every refresh together with `entries`, which is observed.
+    @ObservationIgnored private var index = TaxonomyIndex(categories: [])
+
+    /// The Can make groups with the current search/filters applied.
+    var visibleGrouped: GroupedMatchResults { grouped.filtered(by: browseState.filter, index: index) }
+    /// The All recipes groups with the current search/filters applied.
+    var visibleAvailability: GroupedAvailability { availability.filtered(by: browseState.filter, index: index) }
+
+    func entry(for id: UUID) -> CatalogEntry? {
+        entries.first { $0.id == id }
+    }
+
+    var selectedEntry: CatalogEntry? {
+        selectedRecipeID.flatMap(entry(for:))
+    }
+
+    /// Clears the iPad selection when it's no longer in the list on screen
+    /// (cabinet change, mode switch, or a filter that hides it).
+    func clearSelectionIfHidden() {
+        guard let selectedRecipeID else { return }
+        let visibleIds: [UUID]
+        switch browseState.mode {
+        case .canMake: visibleIds = (visibleGrouped.perfect + visibleGrouped.almost + visibleGrouped.exploring).map(\.id)
+        case .all: visibleIds = visibleAvailability.allIds
+        }
+        if !visibleIds.contains(selectedRecipeID) {
+            self.selectedRecipeID = nil
+        }
+    }
+
     var perfectMatches: [RecipeMatchResult] { grouped.perfect }
     var almostMatches: [RecipeMatchResult] { grouped.almost }
     var explorationMatches: [RecipeMatchResult] { grouped.exploring }
 
-    var selectedRecipe: RecipeMatchResult? {
-        guard let selectedRecipeID else { return nil }
-        return results.first { $0.id == selectedRecipeID }
-    }
 
     /// Re-runs the match against the cabinet currently in SwiftData.
     func refresh(context: ModelContext, taxonomyStore: TaxonomyStore) {
@@ -66,14 +100,19 @@ final class RecipeBrowserViewModel {
         }
 
         results = newResults
-        grouped = GroupedMatchResults(results: results)
-        grouped = TasteRanking.reorder(grouped, toward: TasteProfileStore.load())
+        let profile = TasteProfileStore.load()
+        grouped = TasteRanking.reorder(GroupedMatchResults(results: results), toward: profile)
         cabinetStyleIds = Set(cabinet.map(\.ingredientStyleId))
 
-        // A recipe can drop out of the results when the cabinet changes.
-        if let selectedRecipeID, !results.contains(where: { $0.id == selectedRecipeID }) {
-            self.selectedRecipeID = nil
-        }
+        let index = taxonomyStore.index
+        self.index = index
+        familyNamesById = taxonomyStore.familyNamesById
+        entries = CatalogAvailability.evaluate(recipes: taxonomyStore.recipes, cabinet: cabinet, index: index)
+        availability = GroupedAvailability(entries: entries, profile: profile)
+        filterOptions = RecipeFilterOptions(recipes: taxonomyStore.recipes, index: index)
+
+        // A recipe can drop out of the visible list when the cabinet changes.
+        clearSelectionIfHidden()
     }
 
     /// Whether `id` has already played its Recipe Browser entrance/hero

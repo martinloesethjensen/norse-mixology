@@ -52,7 +52,7 @@ struct RecipeBrowserView: View {
             )
             .navigationTitle("Recipes")
         } detail: {
-            if let result = viewModel.selectedRecipe {
+            if let result = viewModel.selectedEntry?.match {
                 RecipeDetailView(result: result, cabinetStyleIds: viewModel.cabinetStyleIds)
                     .id(result.id)
             } else {
