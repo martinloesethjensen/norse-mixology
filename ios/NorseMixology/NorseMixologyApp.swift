@@ -6,17 +6,19 @@ import NorseMixologyCore
 struct NorseMixologyApp: App {
     @State private var taxonomyStore = TaxonomyStore()
     @State private var favouritesViewModel: FavouritesViewModel
+    @State private var cabinetViewModel: CabinetViewModel
     private let modelContainer: ModelContainer
 
     @State private var showOnboardingInitially: Bool
 
     init() {
         // The container is built explicitly (rather than via `.modelContainer(for:)`)
-        // so the app-wide `FavouritesViewModel` can share its main context.
+        // so the app-wide FavouritesViewModel and CabinetViewModel can share its main context.
         do {
             let container = try ModelContainer(for: CabinetItem.self, FavouriteRecipe.self)
             modelContainer = container
             _favouritesViewModel = State(initialValue: FavouritesViewModel(modelContext: container.mainContext))
+            _cabinetViewModel = State(initialValue: CabinetViewModel(modelContext: container.mainContext))
             _showOnboardingInitially = State(initialValue: Self.resolveShowOnboarding(context: container.mainContext))
         } catch {
             fatalError("Failed to create the SwiftData container: \(error)")
@@ -28,6 +30,7 @@ struct NorseMixologyApp: App {
             ContentView(showOnboardingInitially: showOnboardingInitially)
                 .environment(taxonomyStore)
                 .environment(favouritesViewModel)
+                .environment(cabinetViewModel)
                 .task {
                     await loadCatalog()
                 }

@@ -11,18 +11,12 @@ struct CabinetView: View {
     /// Called after a fresh match has been run, so the host can show the results.
     let onFindRecipes: () -> Void
 
-    @State private var viewModel: CabinetViewModel?
+    @Environment(CabinetViewModel.self) private var viewModel
     @State private var isPresentingAddSheet = false
 
     var body: some View {
         NavigationStack {
-            Group {
-                if let viewModel {
-                    content(viewModel: viewModel)
-                } else {
-                    ProgressView()
-                }
-            }
+            content(viewModel: viewModel)
             .dsScreenBackground()
             .navigationTitle("Cabinet")
             .toolbar {
@@ -36,15 +30,9 @@ struct CabinetView: View {
                 }
             }
         }
-        .onAppear {
-            if viewModel == nil {
-                viewModel = CabinetViewModel(modelContext: modelContext)
-            }
-        }
+        .onAppear { viewModel.refresh() }
         .sheet(isPresented: $isPresentingAddSheet) {
-            if let viewModel {
-                AddIngredientView(cabinetViewModel: viewModel, taxonomyStore: taxonomyStore)
-            }
+            AddIngredientView(cabinetViewModel: viewModel, taxonomyStore: taxonomyStore)
         }
     }
 

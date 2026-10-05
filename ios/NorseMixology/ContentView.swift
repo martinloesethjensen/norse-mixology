@@ -69,6 +69,7 @@ struct ContentView: View {
         ContentView(showOnboardingInitially: false)
             .environment(TaxonomyStore())
             .environment(FavouritesViewModel(modelContext: container.mainContext))
+            .environment(CabinetViewModel(modelContext: container.mainContext))
             .modelContainer(container)
     } else {
         Text("Couldn't create the preview data container")
