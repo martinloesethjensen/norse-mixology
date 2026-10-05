@@ -164,10 +164,16 @@
     "Gets %lld recipes closer" : {
 
     },
+    "Gets 1 recipe closer" : {
+
+    },
     "Glass" : {
 
     },
     "Hides the substitution note" : {
+
+    },
+    "Loading recipes" : {
 
     },
     "Method" : {

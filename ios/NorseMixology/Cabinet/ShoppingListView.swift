@@ -26,6 +26,7 @@ struct ShoppingListView: View {
         Group {
             if !taxonomyStore.recipesLoaded || (browser.entries.isEmpty && !taxonomyStore.recipes.isEmpty) {
                 ProgressView()
+                    .accessibilityLabel("Loading recipes")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .dsScreenBackground()
             } else if entries.isEmpty && suggestions.isEmpty {
@@ -74,7 +75,7 @@ struct ShoppingListView: View {
                 .dsListBackground()
             }
         }
-        .overlay(alignment: .bottom) {
+        .safeAreaInset(edge: .bottom) {
             if let receipt = lastReceipt {
                 UndoToast(
                     message: Text("Moved \(receipt.styleName) to your cabinet"),

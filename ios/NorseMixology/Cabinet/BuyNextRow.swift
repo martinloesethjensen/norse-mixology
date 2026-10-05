@@ -33,7 +33,9 @@ struct BuyNextRow: View {
     /// "+3 ready now · Last Word, Alaska, +1" or "Gets 24 recipes closer".
     private var subtitle: Text {
         guard suggestion.readyNow > 0 else {
-            return Text("Gets \(suggestion.movesCloser) recipes closer")
+            return suggestion.movesCloser == 1
+                ? Text("Gets 1 recipe closer")
+                : Text("Gets \(suggestion.movesCloser) recipes closer")
         }
         let shown = suggestion.readyNowRecipeNames.prefix(2).joined(separator: ", ")
         let more = suggestion.readyNowRecipeNames.count - 2

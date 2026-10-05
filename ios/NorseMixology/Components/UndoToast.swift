@@ -13,10 +13,14 @@ struct UndoToast: View {
                 .dsText(.body)
                 .foregroundStyle(DesignTokens.textPrimary)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Button("Undo", action: onUndo)
-                .dsText(.heading)
-                .foregroundStyle(DesignTokens.accent)
-                .frame(minWidth: 44, minHeight: 44)
+            Button(action: onUndo) {
+                Text("Undo")
+                    .dsText(.heading)
+                    .foregroundStyle(DesignTokens.accent)
+                    .frame(minWidth: 44, minHeight: 44)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
             Button(action: onDismiss) {
                 Image(systemName: "xmark")
                     .foregroundStyle(DesignTokens.textSecondary)
