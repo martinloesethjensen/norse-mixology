@@ -19,6 +19,7 @@ struct RecipeDetailView: View {
     @Environment(FavouritesViewModel.self) private var favourites
     @Environment(CabinetViewModel.self) private var cabinet
     @Environment(RecipeBrowserViewModel.self) private var browser
+    @Environment(ShoppingListViewModel.self) private var shopping
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var heartIsPulsing = false
     @State private var addingStyle: IngredientStyle?
@@ -48,6 +49,24 @@ struct RecipeDetailView: View {
     }
 
     private var isFavourite: Bool { favourites.isFavourited(recipe.id) }
+
+    /// Missing required styles in recipe order, without duplicates.
+    private var missingStyles: [IngredientStyle] {
+        var seen: Set<UUID> = []
+        return recipe.ingredients.compactMap { ingredient -> IngredientStyle? in
+            guard missingStyleIds.contains(ingredient.ingredientStyleId),
+                  seen.insert(ingredient.ingredientStyleId).inserted else { return nil }
+            return taxonomyStore.stylesById[ingredient.ingredientStyleId]
+        }
+    }
+
+    private func toggleListed(_ style: IngredientStyle) {
+        if shopping.contains(styleId: style.id) {
+            shopping.remove(styleId: style.id)
+        } else {
+            shopping.add(style, cabinetStyleIds: cabinetStyleIds)
+        }
+    }
 
     var body: some View {
         ScrollView {
@@ -91,6 +110,7 @@ struct RecipeDetailView: View {
             AddIngredientConfirmationView(style: style, cabinetViewModel: cabinet, taxonomyStore: taxonomyStore) {
                 addingStyle = nil
                 browser.refresh(cabinet: cabinet.items, taxonomyStore: taxonomyStore)
+                shopping.pruneOwned(cabinetStyleIds: Set(cabinet.items.map(\.ingredientStyleId)))
                 addedCount += 1
                 AccessibilityNotification.Announcement(String(localized: "Added to cabinet")).post()
             }
@@ -148,6 +168,19 @@ struct RecipeDetailView: View {
     private var ingredientsSection: some View {
         VStack(alignment: .leading, spacing: 14) {
             sectionHeading("Ingredients")
+            if missingStyles.count >= 2 {
+                let unlisted = missingStyles.filter { !shopping.contains(styleId: $0.id) }
+                Button {
+                    shopping.addAll(unlisted, cabinetStyleIds: cabinetStyleIds)
+                } label: {
+                    Label("Add all missing to shopping list (\(missingStyles.count))", systemImage: "cart.badge.plus")
+                        .dsText(.body)
+                        .frame(minHeight: 44)
+                }
+                .buttonStyle(.bordered)
+                .tint(DesignTokens.accent)
+                .disabled(unlisted.isEmpty)
+            }
             VStack(alignment: .leading, spacing: 16) {
                 ForEach(RecipeAvailability.rows(for: recipe, substitutions: substitutions, cabinetStyleIds: cabinetStyleIds)) { row in
                     let style = taxonomyStore.stylesById[row.ingredient.ingredientStyleId]
@@ -157,7 +190,9 @@ struct RecipeDetailView: View {
                         ingredient: row.ingredient,
                         status: row.status,
                         substitute: row.substitution,
-                        onAdd: canAdd ? { addingStyle = style } : nil
+                        onAdd: canAdd ? { addingStyle = style } : nil,
+                        onAddToList: canAdd ? { if let style { toggleListed(style) } } : nil,
+                        isListed: style.map { shopping.contains(styleId: $0.id) } ?? false
                     )
                 }
             }
