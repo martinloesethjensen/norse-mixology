@@ -1,7 +1,7 @@
 # Shopping List & "What to Buy Next" — Design
 
 **Date:** 2026-10-05
-**Status:** Approved design, pending implementation plan
+**Status:** Implemented 2026-10-06
 **Scope:** iOS only (Android paused). Sub-project **B** of the post-MVP roadmap (see `2026-10-04-recipe-catalog-browse-design.md` §7). Builds on **A** (catalog browse), which is merged.
 
 ---
@@ -40,9 +40,13 @@ Rejected: marking shopping items as "wanted" `CabinetItem`s (the engine reads ev
 public enum ShoppingService {            // thin SwiftData access, like FavouritesService
     static func all(context:) -> [ShoppingItem]          // newest first
     static func contains(styleId:, context:) -> Bool
-    static func add(style:, date:, context:)
+    static func add(styleId:, styleName:, context:, date:)   // takes id+name, not IngredientStyle: undo re-adds from a receipt
     static func remove(styleId:, context:)
 }
+
+// Also added: CabinetService.remove(id:context:) and
+// CabinetItem.make(from:index:brand:date:) (the single way to build a cabinet item;
+// used by CabinetViewModel.add and by tick-off).
 ```
 
 One item per `ingredientStyleId`. Every change is saved immediately (as favourites are).
@@ -62,9 +66,19 @@ public final class ShoppingListViewModel {
     public func remove(_ item: ShoppingItem)
     public func remove(styleId: UUID)
     public func pruneOwned(cabinetStyleIds: Set<UUID>)       // drops items now in the cabinet
+    public var listedStyleIds: Set<UUID> { get }
+    public func markBought(_ item: ShoppingItem, index: TaxonomyIndex, date: Date) -> BoughtReceipt?
+    public func undo(_ receipt: BoughtReceipt)   // saves the cabinet removal itself (explicit save), so it persists even if the item was already re-added to the list
     public func entries(in index: TaxonomyIndex) -> [ShoppingEntry]   // ShoppingEntry { item, style? } — style nil = left the catalog
     public func refresh()
 }
+
+public struct BoughtReceipt { styleId, styleName, createdCabinetItemId }
+```
+
+Tick-off (`markBought`) and `undo` live in core, not the app layer, so they are unit-tested.
+
+```swift
 ```
 
 ### `BuyNextRanking`
@@ -109,9 +123,10 @@ Undo: remove the cabinet item for that style if it still exists, then re-add the
 
 - `onAppear`: `pruneOwned`, then `browser.refresh(cabinet:taxonomyStore:)` so suggestions use the current cabinet.
 - **Buy next** (≤ 5 rows, `BuyNextRow`): name; subtitle "+3 ready now · Last Word, Alaska, +1", or "Gets N recipes closer" when `readyNow` is 0; trailing 44 pt `cart.badge.plus` button labelled "Add ‹name› to shopping list".
-- **Your list (N)** (`ShoppingItemRow`): leading 44 pt checkbox (`circle` → `checkmark.circle.fill`) labelled "Bought ‹name›, move to cabinet"; name and family; swipe to delete. A ghost item (style left the catalog) is dimmed, reads "No longer in the catalog", has a disabled checkbox, and can still be deleted.
+- **Your list (N)** (`ShoppingItemRow`): leading 44 pt checkbox (`circle` only; the row leaves on tick, so there is no filled state) labelled "Bought ‹name›, move to cabinet"; name and family; swipe to delete. A ghost item (style left the catalog) is dimmed, reads "No longer in the catalog", has a disabled checkbox, and can still be deleted.
+- **Loading:** while the catalog is loading (or recipe entries haven't been computed yet) the screen shows a progress view instead of the "Nothing to buy" state.
 - **Empty states:** empty list + suggestions → only Buy next; nothing to suggest and empty list → "Nothing to buy — your cabinet covers every recipe"; empty cabinet still shows suggestions (ranked by `movesCloser`).
-- **Undo toast** (`UndoToast`): "Moved ‹name› to your cabinet · Undo", 8 s, not auto-dismissed while VoiceOver is running; a new tick replaces it. Success haptic on tick. Rows slide out unless Reduce Motion is on.
+- **Undo toast** (`UndoToast`): "Moved ‹name› to your cabinet · Undo", 8 s, not auto-dismissed while VoiceOver is running; a new tick replaces it. The toast has a Dismiss (✕) button, which is how VoiceOver users close it; ticking also posts a VoiceOver announcement. Success haptic on tick. Rows slide out unless Reduce Motion is on.
 
 ### Recipe screen — `RecipeDetailView` / `IngredientRowView`
 

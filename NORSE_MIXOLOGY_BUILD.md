@@ -205,6 +205,18 @@ Pure presentation logic lives in `NorseMixologyCore` (`RecipePresentation.swift`
 - **Android parity:** not ported (Android paused). A port needs the same "Ready ⇔ engine result" rule.
 - Filter chips and rows keep ≥ 44 pt hit areas; the add button is 44×44.
 
+## Shopping list (iOS)
+
+- **Spec:** `docs/superpowers/specs/2026-10-05-shopping-list-design.md`. Roadmap sub-project B.
+- **Storage:** SwiftData `ShoppingItem` (one per `ingredientStyleId`, cached `styleName`) in the same container as `CabinetItem`/`FavouriteRecipe`; added as a lightweight migration (tested against an on-disk two-model store). Every change saved immediately.
+- **Rules live in core:** `ShoppingListViewModel` (injected at the app root) — `add` refuses owned or listed styles, `addAll` counts what it added, `pruneOwned` drops listed styles now in the cabinet (run on Cabinet/Shopping appear and after a recipe-screen add).
+- **Tick-off ordering:** `markBought` saves the cabinet insert *before* removing the list item, so an interruption leaves the bottle on both (repaired by `pruneOwned`), never on neither. `BoughtReceipt.createdCabinetItemId` makes undo remove only the cabinet item the tick created. Ghost items (style left the catalog) can't be ticked but can be deleted.
+- **One way to build a cabinet item:** `CabinetItem.make(from:index:brand:date:)` — used by `CabinetViewModel.add` and by tick-off.
+- **Buy next (`BuyNextRanking`)** reads `CatalogEntry.missing` only: ready-now count, then moves-closer count, then summed taste fit (only for an active profile), then name. Listed styles excluded; top 5. Covered by the refresh-pipeline budget test (< 100 ms).
+- **UI:** Cabinet tab segment `Cabinet | Shopping list (N)` (`@SceneStorage("cabinet.segment")`). Undo toast for 8 s, or until Undo/Dismiss while VoiceOver runs. Recipe screen: cart button beside ⊕ on missing required ingredients, and "Add all missing" for ≥ 2.
+- **Android parity:** not ported (Android paused).
+- **Loading:** the Shopping list shows a progress view until recipes are loaded and evaluated, so it never claims "nothing to buy" from empty data.
+
 ## Design System — "Modern Neon Bar"
 
 Both platforms follow system light/dark appearance (never forced). Same tokens, mapped for each mode:

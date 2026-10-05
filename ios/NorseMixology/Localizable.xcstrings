@@ -36,10 +36,36 @@
     "+%lld more" : {
 
     },
+    "+%lld ready now · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "+%1$lld ready now · %2$@"
+          }
+        }
+      }
+    },
+    "+%lld ready now · %@, +%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "+%1$lld ready now · %2$@, +%3$lld"
+          }
+        }
+      }
+    },
     "Add %@ to cabinet" : {
 
     },
+    "Add %@ to shopping list" : {
+
+    },
     "Add Ingredient" : {
+
+    },
+    "Add all missing to shopping list (%lld)" : {
 
     },
     "Add to Cabinet" : {
@@ -66,10 +92,16 @@
     "Based on your taste quiz answers." : {
 
     },
+    "Bought %@, move to cabinet" : {
+
+    },
     "Brand (optional)" : {
 
     },
     "Browse" : {
+
+    },
+    "Buy next" : {
 
     },
     "Cabinet" : {
@@ -99,6 +131,9 @@
     "Difficulty" : {
 
     },
+    "Dismiss" : {
+
+    },
     "Done" : {
 
     },
@@ -124,6 +159,9 @@
 
     },
     "Flavour profile" : {
+
+    },
+    "Gets %lld recipes closer" : {
 
     },
     "Glass" : {
@@ -153,6 +191,9 @@
     "Mode" : {
 
     },
+    "Moved %@ to your cabinet" : {
+
+    },
     "Needs %@" : {
 
     },
@@ -165,10 +206,16 @@
     "No Matching Recipes" : {
 
     },
+    "No longer in the catalog" : {
+
+    },
     "No recipes match" : {
 
     },
     "None active" : {
+
+    },
+    "Nothing to buy" : {
 
     },
     "One bottle away" : {
@@ -198,6 +245,9 @@
     "Recipes you love will appear here" : {
 
     },
+    "Remove %@ from shopping list" : {
+
+    },
     "Remove filter %@" : {
 
     },
@@ -220,6 +270,9 @@
 
     },
     "Settings" : {
+
+    },
+    "Shopping list (%lld)" : {
 
     },
     "Show" : {
@@ -271,6 +324,9 @@
     "Unavailable" : {
 
     },
+    "Undo" : {
+
+    },
     "Unfavourite" : {
 
     },
@@ -308,10 +364,16 @@
     "Your Taste" : {
 
     },
+    "Your cabinet covers every recipe." : {
+
+    },
     "Your cabinet didn't match any recipes. Try adding some base spirits like gin, rum, or vodka." : {
 
     },
     "Your cabinet is empty" : {
+
+    },
+    "Your list (%lld)" : {
 
     },
     "e.g. Hendrick's" : {
