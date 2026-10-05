@@ -67,6 +67,9 @@ struct CabinetView: View {
             // Keeps the segment's count honest if a bottle reached the cabinet another way.
             shopping.pruneOwned(cabinetStyleIds: Set(viewModel.items.map(\.ingredientStyleId)))
         }
+        .onChange(of: Set(viewModel.items.map(\.ingredientStyleId))) { _, owned in
+            shopping.pruneOwned(cabinetStyleIds: owned)
+        }
         .sheet(isPresented: $isPresentingAddSheet) {
             AddIngredientView(cabinetViewModel: viewModel, taxonomyStore: taxonomyStore)
         }

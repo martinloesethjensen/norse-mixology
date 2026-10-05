@@ -146,7 +146,7 @@ Undo removes only the cabinet item the tick created (`createdCabinetItemId`), if
 | Existing store (cabinet + favourites) opened with the new schema | Lightweight migration; cabinet and favourites intact | Build an on-disk store with the old two-model schema, reopen with three, assert contents |
 | Add the same style twice | `.alreadyListed`, no duplicate | Unit test |
 | Add a style that is in the cabinet | `.alreadyOwned`, nothing stored | Unit test |
-| Style enters the cabinet by another route | Removed by `pruneOwned` on next Cabinet/Shopping appear and after a recipe-screen add | Unit test |
+| Style enters the cabinet by another route | Removed by `pruneOwned` on next Cabinet/Shopping appear after a recipe-screen add, and the Cabinet tab's own add sheet (pruned on any change to the cabinet's styles) | Unit test |
 | App killed between "cabinet add" and "list remove" | Item on both; `pruneOwned` clears it; nothing lost | Unit test simulating the interrupted state |
 | Style leaves the catalog | Ghost row: dimmed, not tickable, removable; excluded from ranking | Unit test on `entries(in:)` |
 | Undo after the cabinet item was deleted by hand | Skips cabinet removal, still re-adds to list | View-model test |
