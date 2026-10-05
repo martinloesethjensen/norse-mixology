@@ -4,8 +4,7 @@ import SwiftData
 /// SwiftData access layer for `ShoppingItem` — the caller owns the
 /// `ModelContext`, like `CabinetService` and `FavouritesService`.
 ///
-/// Every mutation is saved immediately: `save()` also flushes any pending
-/// cabinet insert in the same context, which the tick-off ordering relies on.
+/// Every mutation is saved immediately.
 public enum ShoppingService {
     /// No-op if the style is already listed, so there is never a duplicate.
     public static func add(styleId: UUID, styleName: String, context: ModelContext, date: Date = Date()) {

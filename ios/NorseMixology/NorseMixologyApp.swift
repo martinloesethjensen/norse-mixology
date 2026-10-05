@@ -61,7 +61,7 @@ struct NorseMixologyApp: App {
     /// checks for a newer one in the background — applied on the next launch.
     /// Every scene calls this; `CatalogLaunch.load()` runs the work once per process.
     /// The taxonomy is read-only reference data — it is never written into
-    /// SwiftData; only `CabinetItem`s and `FavouriteRecipe`s are persisted.
+    /// SwiftData; only `CabinetItem`s, `FavouriteRecipe`s and `ShoppingItem`s are persisted.
     @MainActor
     private func loadCatalog() async {
         guard !taxonomyStore.isLoaded else { return }

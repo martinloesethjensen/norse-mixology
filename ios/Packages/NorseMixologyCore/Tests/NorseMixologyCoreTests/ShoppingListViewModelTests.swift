@@ -171,6 +171,19 @@ final class ShoppingListViewModelTests: XCTestCase {
         XCTAssertEqual(CabinetService.allItems(context: store.context).count, 1, "undo never removes a bottle the tick didn't add")
     }
 
+    func testMarkBoughtPersistsTheCabinetItemAndTheListRemoval() throws {
+        let store = try makeStore()
+        let vm = ShoppingListViewModel(modelContext: store.context)
+        let chartreuse = try style("Green Chartreuse")
+        vm.add(chartreuse, cabinetStyleIds: [])
+
+        _ = try XCTUnwrap(vm.markBought(try XCTUnwrap(vm.items.first), index: index))
+
+        let fresh = ModelContext(store.container)
+        XCTAssertEqual(CabinetService.allItems(context: fresh).map(\.ingredientStyleId), [chartreuse.id])
+        XCTAssertTrue(ShoppingService.all(context: fresh).isEmpty)
+    }
+
     func testUndoWhenTheItemWasReAddedStillSavesTheCabinetRemoval() throws {
         let store = try makeStore()
         let vm = ShoppingListViewModel(modelContext: store.context)
