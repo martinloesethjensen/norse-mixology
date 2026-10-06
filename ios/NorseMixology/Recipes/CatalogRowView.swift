@@ -7,6 +7,7 @@ struct CatalogRowView: View {
     var isSelected = false
 
     @Environment(FavouritesViewModel.self) private var favourites
+    @Environment(RecipeBrowserViewModel.self) private var browser
 
     var body: some View {
         HStack(alignment: .firstTextBaseline, spacing: 10) {
@@ -20,6 +21,8 @@ struct CatalogRowView: View {
                 statusText
                     .dsText(.body)
                     .foregroundStyle(statusColor)
+                FlavorNoteChips(profile: browser.noteProfile(for: entry.recipe), taste: browser.tasteProfile)
+                    .padding(.top, 4)
             }
             Spacer(minLength: 8)
             if favourites.isFavourited(entry.recipe.id) {

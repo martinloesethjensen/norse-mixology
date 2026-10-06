@@ -53,6 +53,8 @@ struct RecipeCardView: View {
                 OutlinePillView(text: recipe.difficulty.displayName)
             }
 
+            FlavorNoteChips(profile: browserViewModel.noteProfile(for: recipe), taste: browserViewModel.tasteProfile)
+
             MatchBadgeView(state: MatchBadgeState(result: result), playHeroSweep: playHeroSweep, sweepDelay: sweepDelay)
 
             if let firstSubstitution = result.substitutions.first {

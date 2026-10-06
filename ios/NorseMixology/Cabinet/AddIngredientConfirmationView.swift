@@ -14,13 +14,11 @@ struct AddIngredientConfirmationView: View {
         NavigationStack {
             Form {
                 Section {
-                    HStack {
-                        Text(style.name)
-                            .dsText(.heading)
-                            .foregroundStyle(DesignTokens.textPrimary)
-                        Spacer()
-                        FlavorProfileIndicatorView(profile: style.flavorProfile)
-                    }
+                    Text(style.name)
+                        .dsText(.heading)
+                        .foregroundStyle(DesignTokens.textPrimary)
+                    FlavorBarsView(profile: style.flavorProfile, taste: TasteProfileStore.load())
+                        .padding(.vertical, 6)
                     if !style.exampleBrands.isEmpty {
                         Text("Example brands: \(style.exampleBrands.joined(separator: ", "))")
                             .dsText(.body)

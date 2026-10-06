@@ -217,6 +217,18 @@ Pure presentation logic lives in `NorseMixologyCore` (`RecipePresentation.swift`
 - **Android parity:** not ported (Android paused).
 - **Loading:** the Shopping list shows a progress view until recipes are loaded and evaluated, so it never claims "nothing to buy" from empty data.
 
+## Flavour notes (iOS)
+
+Replaces the five unlabelled "tasting dots". Design canvas: "Tasting Dots" (Claude Design artifact); rules below are what was built.
+
+- **Five axes, one vocabulary:** `FlavorAxis` (Sweet, Bitter, Smoky, Citrus, Herbal — the taste quiz's axes, in the old dots' order). `FlavorNotes` turns a 0…1 `FlavorProfile` into words: a **note chip** at a score ≥ 0.5, strongest first, two at most; ≥ 0.67 is *strong* (tinted fill), 0.5–0.67 *mild* (outline); nothing ≥ 0.5 reads **Neutral**. Level words reuse `FlavorLevel` (Low < 0.34 ≤ Medium < 0.67 ≤ High) plus **None** below 0.05.
+- **Recipes use their own scale.** A recipe's profile is a blend, so its scores run low (at 0.5 only 44 of 158 recipes would show a note; bitterness tops out at 0.44). `RecipeFlavorScale` divides each axis by the highest score any catalog recipe has on it (floor 0.2), then the same rules apply. It is rebuilt from the loaded catalog on every `RecipeBrowserViewModel.refresh`, so catalog updates re-calibrate it. Tests pin Negroni → Bitter + Herbal, Margarita → Citrus, and that between 5% and 35% of recipes read Neutral.
+- **"You" is a diamond** (`YouMarker`), everywhere: on a recipe chip when the quiz says you lean toward that flavour (`TasteFit.axesLeaningToward`: answer ≥ 0.67), on each bar of the ingredient detail, and on the Settings lines. Nothing "you" is shown unless `TasteRanking.isActive` — an unfinished, skipped or all-0.5 quiz shows no diamonds on recipes/bars, and Settings shows dimmed diamonds at the centre with "No preference yet".
+- **Where it appears:** note chips on Cabinet rows, the Add Ingredient picker, and recipe cards/rows (both Recipes modes); tapping a Cabinet row opens `IngredientDetailView` (headline, quiet notes, the "suits you" sentence from `TasteFit.summary`, then five labelled `FlavorBarsView` bars); the add-ingredient confirm sheet shows the bars directly; Settings → Your Taste is five `TasteLinesView` lines between the quiz's two answers.
+- **Fit sentence:** the axis with the largest gap between ingredient and your answer (axes you have no opinion on are ignored); a gap under 0.35 reads "Close to your taste." It sits above the bars so it is visible at the sheet's default height.
+- **Accessibility:** each chip is one element (label = flavour, value = "Strong" / "Mild", plus "matches your taste"); each bar reads "Bitter, High. You: low". At accessibility text sizes the bar rows and the legend stack (checked at the largest size) and the diamond grows to at most 1.6×.
+- **Retired:** `FlavorProfileIndicatorView` (the dots). `FlavorProfile.accessibilitySummary` stays (still tested) but is no longer used by a view.
+
 ## Design System — "Modern Neon Bar"
 
 Both platforms follow system light/dark appearance (never forced). Same tokens, mapped for each mode:

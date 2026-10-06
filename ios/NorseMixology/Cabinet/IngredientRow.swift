@@ -19,9 +19,10 @@ struct IngredientRow: View {
                         .dsText(.body)
                         .foregroundStyle(DesignTokens.textSecondary)
                 }
+                FlavorNoteChips(profile: style.flavorProfile)
+                    .padding(.top, 4)
             }
             Spacer()
-            FlavorProfileIndicatorView(profile: style.flavorProfile)
             if isInCabinet {
                 Image(systemName: "checkmark.circle.fill")
                     .foregroundStyle(DesignTokens.matchExact)

@@ -92,6 +92,9 @@
     "Based on your taste quiz answers." : {
 
     },
+    "Based on your taste quiz." : {
+
+    },
     "Bought %@, move to cabinet" : {
 
     },
@@ -179,6 +182,12 @@
     "Method" : {
 
     },
+    "Mild" : {
+
+    },
+    "Mild, matches your taste" : {
+
+    },
     "Missing %lld" : {
 
     },
@@ -204,6 +213,9 @@
 
     },
     "Needs a few subs" : {
+
+    },
+    "Neutral" : {
 
     },
     "No Favourites Yet" : {
@@ -284,6 +296,9 @@
     "Show" : {
 
     },
+    "Shows the full flavour profile" : {
+
+    },
     "Shows the substitution note" : {
 
     },
@@ -306,13 +321,28 @@
     "Strength" : {
 
     },
+    "Strong" : {
+
+    },
+    "Strong, matches your taste" : {
+
+    },
     "Style" : {
 
     },
     "Substitutions" : {
 
     },
+    "Take the taste quiz in Settings to see how this suits you." : {
+
+    },
+    "The biggest gap is %@. Based on your taste quiz." : {
+
+    },
     "The recipe catalog couldn't be loaded. Reinstalling the app will restore it." : {
+
+    },
+    "This ingredient" : {
 
     },
     "This recipe is no longer available" : {
@@ -365,6 +395,9 @@
 
     },
     "You're all set!" : {
+
+    },
+    "You, from your quiz" : {
 
     },
     "Your Taste" : {

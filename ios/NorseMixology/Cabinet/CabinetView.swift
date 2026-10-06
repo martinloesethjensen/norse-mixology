@@ -13,6 +13,7 @@ struct CabinetView: View {
 
     @Environment(CabinetViewModel.self) private var viewModel
     @State private var isPresentingAddSheet = false
+    @State private var detailItem: CabinetItem?
     @Environment(ShoppingListViewModel.self) private var shopping
     /// Remembered across launches.
     @SceneStorage("cabinet.segment") private var segmentRaw = CabinetSegment.cabinet.rawValue
@@ -70,6 +71,9 @@ struct CabinetView: View {
         .onChange(of: Set(viewModel.items.map(\.ingredientStyleId))) { _, owned in
             shopping.pruneOwned(cabinetStyleIds: owned)
         }
+        .sheet(item: $detailItem) { item in
+            IngredientDetailView(title: item.displayName, subtitle: item.family, profile: item.flavorProfile)
+        }
         .sheet(isPresented: $isPresentingAddSheet) {
             AddIngredientView(cabinetViewModel: viewModel, taxonomyStore: taxonomyStore)
         }
@@ -97,8 +101,11 @@ struct CabinetView: View {
                     ForEach(viewModel.groupedItems, id: \.category) { group in
                         Section {
                             ForEach(group.items) { item in
-                                CabinetItemRow(item: item)
-                                    .listRowBackground(DesignTokens.surface)
+                                Button { detailItem = item } label: {
+                                    CabinetItemRow(item: item)
+                                }
+                                .buttonStyle(.plain)
+                                .listRowBackground(DesignTokens.surface)
                                     .transition(reduceMotion ? .identity : .asymmetric(
                                         insertion: .scale(scale: 0.9).combined(with: .opacity),
                                         removal: .opacity
@@ -143,18 +150,23 @@ private struct CabinetItemRow: View {
     let item: CabinetItem
 
     var body: some View {
-        HStack {
+        VStack(alignment: .leading, spacing: 8) {
             VStack(alignment: .leading, spacing: 2) {
                 Text(item.displayName)
                     .dsText(.heading)
                     .foregroundStyle(DesignTokens.textPrimary)
-                Text(item.style)
-                    .dsText(.body)
-                    .foregroundStyle(DesignTokens.textSecondary)
+                if item.style != item.displayName {
+                    Text(item.style)
+                        .dsText(.body)
+                        .foregroundStyle(DesignTokens.textSecondary)
+                }
             }
-            Spacer()
-            FlavorProfileIndicatorView(profile: item.flavorProfile)
+            FlavorNoteChips(profile: item.flavorProfile)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityHint("Shows the full flavour profile")
     }
 }
