@@ -20,6 +20,13 @@ enum DesignTokens {
     static let matchSubstituted = Color(hex: 0xF0B93D)
     static let matchUnavailable = Color.adaptive(dark: 0x4A5160, light: 0xA6AEBA)
 
+    // Flavour notes (Tasting Dots): strong = tinted fill, mild = outline only.
+    static let noteStrongText = Color.adaptive(dark: 0x8FE388, light: 0x1F6B2A)
+    static let noteStrongFill = Color.adaptive(dark: 0x1B2A21, light: 0xE3F5E1)
+    static let noteStrongBorder = Color.adaptive(dark: 0x4E9A5C, light: 0x2F8A3A)
+    static let noteMildBorder = Color.adaptive(dark: 0x6B7585, light: 0x7A8493)
+    static let noteBar = Color.adaptive(dark: 0x8FE388, light: 0x2F8A3A)
+
     /// Text on the filled lime/gold badges — dark in both modes for contrast.
     static let onBadge = Color(hex: 0x0D0F14)
 }

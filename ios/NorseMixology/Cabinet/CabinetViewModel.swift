@@ -33,19 +33,7 @@ final class CabinetViewModel {
 
     func add(_ style: IngredientStyle, taxonomyStore: TaxonomyStore, brand: String? = nil) {
         guard !contains(styleId: style.id) else { return }
-        let trimmedBrand = brand?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let brandValue = (trimmedBrand?.isEmpty ?? true) ? nil : trimmedBrand
-        let item = CabinetItem(
-            ingredientStyleId: style.id,
-            ingredientFamilyId: style.familyId,
-            categoryId: style.categoryId,
-            displayName: brandValue.map { "\($0) \(style.name)" } ?? style.name,
-            brand: brandValue,
-            style: style.name,
-            family: taxonomyStore.familyNamesById[style.familyId] ?? "",
-            category: taxonomyStore.categoryNamesById[style.categoryId] ?? "",
-            flavorProfile: style.flavorProfile
-        )
+        let item = CabinetItem.make(from: style, index: taxonomyStore.index, brand: brand)
         CabinetService.add(item, context: modelContext)
         withAnimation(UIAccessibility.isReduceMotionEnabled ? nil : .spring(response: 0.35, dampingFraction: 0.7)) {
             refresh()

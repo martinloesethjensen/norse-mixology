@@ -10,7 +10,11 @@ struct IngredientRowView: View {
     let substitute: SubstitutionDetail?
     /// Set only for a missing *required* ingredient: shows a trailing "add to cabinet" button.
     var onAdd: (() -> Void)? = nil
+    /// Set only for a missing *required* ingredient: toggles it on the shopping list.
+    var onAddToList: (() -> Void)? = nil
+    var isListed = false
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var isExpanded = false
     @ScaledMetric(relativeTo: .headline) private var iconWidth: CGFloat = 22
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -28,21 +32,48 @@ struct IngredientRowView: View {
             }
             .buttonStyle(.plain)
             .accessibilityHint(isExpanded ? "Hides the substitution note" : "Shows the substitution note")
-        } else if let onAdd {
-            HStack(alignment: .top, spacing: 4) {
-                rowContent(substitute: nil)
-                Button(action: onAdd) {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.title3)
-                        .foregroundStyle(DesignTokens.accent)
-                        .frame(minWidth: 44, minHeight: 44)
-                        .contentShape(Rectangle())
+        } else if onAdd != nil || onAddToList != nil {
+            if dynamicTypeSize.isAccessibilitySize {
+                // Large text: keep the name readable and put the buttons underneath.
+                VStack(alignment: .leading, spacing: 4) {
+                    rowContent(substitute: nil)
+                    HStack(spacing: 4) { actionButtons }
+                        .padding(.leading, iconWidth + 12)
                 }
-                .buttonStyle(.plain)
-                .accessibilityLabel(Text("Add \(name) to cabinet"))
+            } else {
+                HStack(alignment: .top, spacing: 4) {
+                    rowContent(substitute: nil)
+                    actionButtons
+                }
             }
         } else {
             rowContent(substitute: nil)
+        }
+    }
+
+    @ViewBuilder
+    private var actionButtons: some View {
+        if let onAdd {
+            Button(action: onAdd) {
+                Image(systemName: "plus.circle.fill")
+                    .font(.title3)
+                    .foregroundStyle(DesignTokens.accent)
+                    .frame(minWidth: 44, minHeight: 44)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel(Text("Add \(name) to cabinet"))
+        }
+        if let onAddToList {
+            Button(action: onAddToList) {
+                Image(systemName: isListed ? "cart.fill" : "cart.badge.plus")
+                    .font(.title3)
+                    .foregroundStyle(isListed ? DesignTokens.accent : DesignTokens.textSecondary)
+                    .frame(minWidth: 44, minHeight: 44)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel(isListed ? Text("Remove \(name) from shopping list") : Text("Add \(name) to shopping list"))
         }
     }
 

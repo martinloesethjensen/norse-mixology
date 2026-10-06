@@ -17,6 +17,28 @@
     "%@ glass" : {
 
     },
+    "%@, mild" : {
+
+    },
+    "%@, mild, matches your taste" : {
+
+    },
+    "%@, strong" : {
+
+    },
+    "%@, strong, matches your taste" : {
+
+    },
+    "%@. You: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@. You: %2$@"
+          }
+        }
+      }
+    },
     "%lld" : {
 
     },
@@ -36,10 +58,36 @@
     "+%lld more" : {
 
     },
+    "+%lld ready now · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "+%1$lld ready now · %2$@"
+          }
+        }
+      }
+    },
+    "+%lld ready now · %@, +%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "+%1$lld ready now · %2$@, +%3$lld"
+          }
+        }
+      }
+    },
     "Add %@ to cabinet" : {
 
     },
+    "Add %@ to shopping list" : {
+
+    },
     "Add Ingredient" : {
+
+    },
+    "Add all missing to shopping list (%lld)" : {
 
     },
     "Add to Cabinet" : {
@@ -66,10 +114,19 @@
     "Based on your taste quiz answers." : {
 
     },
+    "Based on your taste quiz." : {
+
+    },
+    "Bought %@, move to cabinet" : {
+
+    },
     "Brand (optional)" : {
 
     },
     "Browse" : {
+
+    },
+    "Buy next" : {
 
     },
     "Cabinet" : {
@@ -99,6 +156,9 @@
     "Difficulty" : {
 
     },
+    "Dismiss" : {
+
+    },
     "Done" : {
 
     },
@@ -126,10 +186,19 @@
     "Flavour profile" : {
 
     },
+    "Gets %lld recipes closer" : {
+
+    },
+    "Gets 1 recipe closer" : {
+
+    },
     "Glass" : {
 
     },
     "Hides the substitution note" : {
+
+    },
+    "Loading recipes" : {
 
     },
     "Method" : {
@@ -153,10 +222,16 @@
     "Mode" : {
 
     },
+    "Moved %@ to your cabinet" : {
+
+    },
     "Needs %@" : {
 
     },
     "Needs a few subs" : {
+
+    },
+    "Neutral" : {
 
     },
     "No Favourites Yet" : {
@@ -165,10 +240,22 @@
     "No Matching Recipes" : {
 
     },
+    "No longer in the catalog" : {
+
+    },
+    "No preference yet" : {
+
+    },
+    "No preference yet. Retake the quiz to set yours." : {
+
+    },
     "No recipes match" : {
 
     },
     "None active" : {
+
+    },
+    "Nothing to buy" : {
 
     },
     "One bottle away" : {
@@ -198,6 +285,9 @@
     "Recipes you love will appear here" : {
 
     },
+    "Remove %@ from shopping list" : {
+
+    },
     "Remove filter %@" : {
 
     },
@@ -222,7 +312,13 @@
     "Settings" : {
 
     },
+    "Shopping list (%lld)" : {
+
+    },
     "Show" : {
+
+    },
+    "Shows the full flavour profile" : {
 
     },
     "Shows the substitution note" : {
@@ -253,7 +349,16 @@
     "Substitutions" : {
 
     },
+    "Take the taste quiz in Settings to see how this suits you." : {
+
+    },
+    "The biggest gap is %@. Based on your taste quiz." : {
+
+    },
     "The recipe catalog couldn't be loaded. Reinstalling the app will restore it." : {
+
+    },
+    "This ingredient" : {
 
     },
     "This recipe is no longer available" : {
@@ -269,6 +374,9 @@
 
     },
     "Unavailable" : {
+
+    },
+    "Undo" : {
 
     },
     "Unfavourite" : {
@@ -305,13 +413,22 @@
     "You're all set!" : {
 
     },
+    "You, from your quiz" : {
+
+    },
     "Your Taste" : {
+
+    },
+    "Your cabinet covers every recipe." : {
 
     },
     "Your cabinet didn't match any recipes. Try adding some base spirits like gin, rum, or vodka." : {
 
     },
     "Your cabinet is empty" : {
+
+    },
+    "Your list (%lld)" : {
 
     },
     "e.g. Hendrick's" : {

@@ -8,6 +8,14 @@
 
 A mixology app where you tell it what's in your cabinet and it finds the cocktails you can make — with smart substitution for what you're missing, computed entirely on-device.
 
+## Platform status
+
+**Android is parked until after the iOS launch** (decided 2026-10-06, [#3](https://github.com/martinloesethjensen/norse-mixology/issues/3)). Until it resumes:
+
+- New work is iOS-only. Don't port features to Kotlin or keep the Kotlin matcher in sync. The "Swift and Kotlin must match exactly" rules below describe the target for when Android resumes, not current work.
+- Keep the Android build green on what already exists: `scripts/sync-catalog.sh` still updates `/seed-data`, and `SeedDataTest` still checks it against the iOS bundle. Bump `CatalogSeeder.CATALOG_VERSION` whenever `/seed-data` changes.
+- Record parity debt in #3 (and #2 for the matching engine), not as per-phase notes in this file.
+
 ## MVP Scope
 
 - ✅ Local-first: cabinet + favourites + recipe catalog all on-device (SwiftData on iOS, Room on Android)
@@ -136,7 +144,7 @@ Pure presentation logic lives in `NorseMixologyCore` (`RecipePresentation.swift`
 - **Duplicate ingredient:** tapping an ingredient already in the cabinet shows a transient "Already in your cabinet" notice (~2 s, announced to the screen reader). Ingredient rows are real buttons, not tap gestures, so assistive tech can activate them.
 - **Empty results:** "Your cabinet didn't match any recipes. Try adding some base spirits like gin, rum, or vodka."
 - **Unavailable favourite:** "This recipe is no longer available".
-- **Flavour indicator:** five dots (sweetness, bitterness, smokiness, citrus, herbal) in the accent colour, strength = value. Read aloud as one element: "Sweetness: high, Bitterness: low, …" with low < 0.34 ≤ medium < 0.67 ≤ high.
+- **Flavour indicator:** superseded by flavour notes — see "Flavour notes (iOS)" below (the five dots were retired).
 - **Design tokens everywhere:** no screen defines its own colour or font size. Match-status colours are used identically on cards, badges and ingredient rows.
 - **Large text:** header pills stack rather than wrap mid-word; icon slots and step badges scale with the text; buttons grow with their label (min 44 pt).
 - **Logging:** structured logging only (`os.Logger` on iOS, `Log` on Android) — no `print`.
@@ -206,6 +214,30 @@ Pure presentation logic lives in `NorseMixologyCore` (`RecipePresentation.swift`
 - **Add to cabinet:** only rows in `entry.missing` get the ⊕ button (never optional/garnish rows). One `CabinetViewModel` is injected at the app root and shared by Cabinet and the recipe screen. Favourites' detail has no add buttons.
 - **Android parity:** not ported (Android paused). A port needs the same "Ready ⇔ engine result" rule.
 - Filter chips and rows keep ≥ 44 pt hit areas; the add button is 44×44.
+
+## Shopping list (iOS)
+
+- **Spec:** `docs/superpowers/specs/2026-10-05-shopping-list-design.md`. Roadmap sub-project B.
+- **Storage:** SwiftData `ShoppingItem` (one per `ingredientStyleId`, cached `styleName`) in the same container as `CabinetItem`/`FavouriteRecipe`; added as a lightweight migration (tested against an on-disk two-model store). Every change saved immediately.
+- **Rules live in core:** `ShoppingListViewModel` (injected at the app root) — `add` refuses owned or listed styles, `addAll` counts what it added, `pruneOwned` drops listed styles now in the cabinet (run on Cabinet/Shopping appear and after a recipe-screen add).
+- **Tick-off ordering:** `markBought` saves the cabinet insert *before* removing the list item, so an interruption leaves the bottle on both (repaired by `pruneOwned`), never on neither. `BoughtReceipt.createdCabinetItemId` makes undo remove only the cabinet item the tick created. Ghost items (style left the catalog) can't be ticked but can be deleted.
+- **One way to build a cabinet item:** `CabinetItem.make(from:index:brand:date:)` — used by `CabinetViewModel.add` and by tick-off.
+- **Buy next (`BuyNextRanking`)** reads `CatalogEntry.missing` only: ready-now count, then moves-closer count, then summed taste fit (only for an active profile), then name. Listed styles excluded; top 5. Covered by the refresh-pipeline budget test (< 100 ms).
+- **UI:** Cabinet tab segment `Cabinet | Shopping list (N)` (`@SceneStorage("cabinet.segment")`). Undo toast for 8 s, or until Undo/Dismiss while VoiceOver runs. Recipe screen: cart button beside ⊕ on missing required ingredients, and "Add all missing" for ≥ 2.
+- **Android parity:** not ported (Android paused).
+- **Loading:** the Shopping list shows a progress view until recipes are loaded and evaluated, so it never claims "nothing to buy" from empty data.
+
+## Flavour notes (iOS)
+
+Replaces the five unlabelled "tasting dots". Design canvas: "Tasting Dots" (Claude Design artifact); rules below are what was built.
+
+- **Five axes, one vocabulary:** `FlavorAxis` (Sweet, Bitter, Smoky, Citrus, Herbal — the taste quiz's axes, in the old dots' order). `FlavorNotes` turns a 0…1 `FlavorProfile` into words: a **note chip** at a score ≥ 0.5, strongest first, two at most; ≥ 0.67 is *strong* (tinted fill), 0.5–0.67 *mild* (outline); nothing ≥ 0.5 reads **Neutral**. Level words reuse `FlavorLevel` (Low < 0.34 ≤ Medium < 0.67 ≤ High) plus **None** below 0.05.
+- **Recipes use their own scale.** A recipe's profile is a blend, so its scores run low (at 0.5 only 44 of 158 recipes would show a note; bitterness tops out at 0.44). `RecipeFlavorScale` divides each axis by the highest score any catalog recipe has on it (floor 0.2), then the same rules apply. It is rebuilt from the loaded catalog on every `RecipeBrowserViewModel.refresh`, so catalog updates re-calibrate it. Tests pin Negroni → Bitter + Herbal, Margarita → Citrus, and that between 5% and 35% of recipes read Neutral.
+- **"You" is a diamond** (`YouMarker`), everywhere: on a recipe chip when the quiz says you lean toward that flavour (`TasteFit.axesLeaningToward`: answer ≥ 0.67), on each bar of the ingredient detail, and on the Settings lines. Nothing "you" is shown unless `TasteRanking.isActive` — an unfinished, skipped or all-0.5 quiz shows no diamonds on recipes/bars, and Settings shows dimmed diamonds at the centre with "No preference yet".
+- **Where it appears:** note chips on Cabinet rows, the Add Ingredient picker, and recipe cards/rows (both Recipes modes); tapping a Cabinet row opens `IngredientDetailView` (headline, quiet notes, the "suits you" sentence from `TasteFit.summary`, then five labelled `FlavorBarsView` bars); the add-ingredient confirm sheet shows the bars directly; Settings → Your Taste is five `TasteLinesView` lines between the quiz's two answers.
+- **Fit sentence:** the axis with the largest gap between ingredient and your answer (axes you have no opinion on are ignored); a gap under 0.35 reads "Close to your taste." It sits above the bars so it is visible at the sheet's default height.
+- **Accessibility:** each chip's label is one whole phrase ("Bitter, strong", "Herbal, mild, matches your taste") so a row that combines its children never separates a strength from its flavour; each bar reads "Bitter, High. You: low". At accessibility text sizes the bar rows and the legend stack (checked at the largest size) and the diamond grows to at most 1.6×.
+- **Retired:** `FlavorProfileIndicatorView` (the dots). `FlavorProfile.accessibilitySummary` stays (still tested) but is no longer used by a view.
 
 ## Design System — "Modern Neon Bar"
 

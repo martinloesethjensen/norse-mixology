@@ -42,6 +42,15 @@ final class RecipeBrowserViewModel {
     private(set) var entries: [CatalogEntry] = []
     private(set) var availability = GroupedAvailability.empty
     private(set) var filterOptions = RecipeFilterOptions.empty
+    /// The user's quiz answers as of the last refresh — drives the "you" diamond on recipe chips.
+    private(set) var tasteProfile = UserTasteProfile.neutral
+    /// Recipe scores are blends, so notes are read against the catalog's own extremes.
+    private(set) var flavorScale = RecipeFlavorScale(recipes: [])
+
+    /// The profile recipe chips are drawn from.
+    func noteProfile(for recipe: Recipe) -> FlavorProfile {
+        flavorScale.relative(recipe.flavorProfile)
+    }
     /// For filter chip labels (base spirit family names).
     private(set) var familyNamesById: [UUID: String] = [:]
     /// Replaced on every refresh together with `entries`, which is observed.
@@ -101,6 +110,8 @@ final class RecipeBrowserViewModel {
 
         results = newResults
         let profile = TasteProfileStore.load()
+        tasteProfile = profile
+        flavorScale = RecipeFlavorScale(recipes: taxonomyStore.recipes)
         grouped = TasteRanking.reorder(GroupedMatchResults(results: results), toward: profile)
         cabinetStyleIds = Set(cabinet.map(\.ingredientStyleId))
 

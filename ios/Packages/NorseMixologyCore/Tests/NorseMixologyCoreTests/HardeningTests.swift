@@ -126,10 +126,12 @@ final class HardeningTests: XCTestCase {
         let grouped = GroupedAvailability(entries: entries, profile: profile)
         let filtered = grouped.filtered(by: filter, index: index)
         _ = RecipeFilterOptions(recipes: recipes, index: index)
+        let suggestions = BuyNextRanking.rank(entries: entries, listedStyleIds: [], profile: profile)
         let elapsed = CFAbsoluteTimeGetCurrent() - start
 
         XCTAssertEqual(entries.count, recipes.count)
         XCTAssertFalse(filtered.isEmpty)
+        XCTAssertFalse(suggestions.isEmpty)
         XCTAssertLessThan(elapsed, 0.1, "refresh pipeline over \(recipes.count) recipes took \(Int(elapsed * 1000))ms")
     }
 }

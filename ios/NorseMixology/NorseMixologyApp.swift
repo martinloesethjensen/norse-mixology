@@ -7,18 +7,20 @@ struct NorseMixologyApp: App {
     @State private var taxonomyStore = TaxonomyStore()
     @State private var favouritesViewModel: FavouritesViewModel
     @State private var cabinetViewModel: CabinetViewModel
+    @State private var shoppingListViewModel: ShoppingListViewModel
     private let modelContainer: ModelContainer
 
     @State private var showOnboardingInitially: Bool
 
     init() {
         // The container is built explicitly (rather than via `.modelContainer(for:)`)
-        // so the app-wide FavouritesViewModel and CabinetViewModel can share its main context.
+        // so the app-wide Favourites, Cabinet and ShoppingList view models can share its main context.
         do {
-            let container = try ModelContainer(for: CabinetItem.self, FavouriteRecipe.self)
+            let container = try ModelContainer(for: CabinetItem.self, FavouriteRecipe.self, ShoppingItem.self)
             modelContainer = container
             _favouritesViewModel = State(initialValue: FavouritesViewModel(modelContext: container.mainContext))
             _cabinetViewModel = State(initialValue: CabinetViewModel(modelContext: container.mainContext))
+            _shoppingListViewModel = State(initialValue: ShoppingListViewModel(modelContext: container.mainContext))
             _showOnboardingInitially = State(initialValue: Self.resolveShowOnboarding(context: container.mainContext))
         } catch {
             fatalError("Failed to create the SwiftData container: \(error)")
@@ -31,6 +33,7 @@ struct NorseMixologyApp: App {
                 .environment(taxonomyStore)
                 .environment(favouritesViewModel)
                 .environment(cabinetViewModel)
+                .environment(shoppingListViewModel)
                 .task {
                     await loadCatalog()
                 }
@@ -58,7 +61,7 @@ struct NorseMixologyApp: App {
     /// checks for a newer one in the background — applied on the next launch.
     /// Every scene calls this; `CatalogLaunch.load()` runs the work once per process.
     /// The taxonomy is read-only reference data — it is never written into
-    /// SwiftData; only `CabinetItem`s and `FavouriteRecipe`s are persisted.
+    /// SwiftData; only `CabinetItem`s, `FavouriteRecipe`s and `ShoppingItem`s are persisted.
     @MainActor
     private func loadCatalog() async {
         guard !taxonomyStore.isLoaded else { return }

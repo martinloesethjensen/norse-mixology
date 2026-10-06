@@ -14,8 +14,8 @@ struct SettingsView: View {
             Form {
                 Section("Your Taste") {
                     VStack(alignment: .leading, spacing: 8) {
-                        FlavorProfileIndicatorView(profile: displayFlavorProfile)
-                        Text(profile.hasCompletedOnboarding ? "Based on your taste quiz answers." : "You haven't taken the taste quiz yet.")
+                        TasteLinesView(profile: profile)
+                        Text(captionText)
                             .dsText(.body)
                             .foregroundStyle(DesignTokens.textSecondary)
                     }
@@ -40,17 +40,9 @@ struct SettingsView: View {
         }
     }
 
-    /// `FlavorProfileIndicatorView` only ever reads sweetness/bitterness/
-    /// smokiness/citrus/herbal (see its `values` and `FlavorProfile.
-    /// accessibilitySummary`), so the un-quizzed fields below are filler
-    /// that is never displayed — this is display-only reuse, not a
-    /// comparison, so it doesn't violate the "never default and compare
-    /// un-quizzed axes" rule.
-    private var displayFlavorProfile: FlavorProfile {
-        FlavorProfile(
-            sweetness: profile.sweetness, bitterness: profile.bitterness, smokiness: profile.smokiness,
-            citrus: profile.citrus, floral: 0, spice: 0, herbal: profile.herbal, fruity: 0, oaky: 0, abv: 0
-        )
+    private var captionText: LocalizedStringKey {
+        if !profile.hasCompletedOnboarding { return "You haven't taken the taste quiz yet." }
+        return TasteRanking.isActive(profile) ? "Based on your taste quiz answers." : "No preference yet. Retake the quiz to set yours."
     }
 }
 

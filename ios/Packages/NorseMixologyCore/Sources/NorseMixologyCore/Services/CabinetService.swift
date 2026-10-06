@@ -12,6 +12,14 @@ public enum CabinetService {
         context.delete(item)
     }
 
+    /// Deletes the cabinet item with this id, if it still exists (used by shopping-list undo). Does not save; the caller saves.
+    public static func remove(id: UUID, context: ModelContext) {
+        let descriptor = FetchDescriptor<CabinetItem>(predicate: #Predicate { $0.id == id })
+        for item in (try? context.fetch(descriptor)) ?? [] {
+            context.delete(item)
+        }
+    }
+
     public static func allItems(context: ModelContext) -> [CabinetItem] {
         let descriptor = FetchDescriptor<CabinetItem>(
             sortBy: [SortDescriptor(\.category), SortDescriptor(\.displayName)]

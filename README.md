@@ -7,7 +7,9 @@ A mixology app where you tell it what's in your cabinet and it finds the cocktai
 | Platform | Location | Stack |
 |---|---|---|
 | iOS / iPadOS | [`ios/`](ios/) | Swift, SwiftUI, SwiftData, min iOS 17 |
-| Android | [`android/`](android/) | Kotlin, Jetpack Compose, Room, min API 26 |
+| Android (**parked**) | [`android/`](android/) | Kotlin, Jetpack Compose, Room, min API 26 |
+
+**Android is parked** until after the iOS launch ([#3](https://github.com/martinloesethjensen/norse-mixology/issues/3)). The code stays in the repo and still builds, but new features are iOS-only and aren't ported. The parity backlog is tracked in #3 and #2.
 
 ## Architecture
 
