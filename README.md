@@ -13,7 +13,7 @@ A mixology app where you tell it what's in your cabinet and it finds the cocktai
 
 ## Architecture
 
-Fully local-first — no backend, no network calls in the MVP. The bundled ingredient taxonomy and recipe catalog (`taxonomy.json` / `recipes.json`) seed each platform's local database on first launch, and the recipe-matching/substitution engine runs entirely on-device. A Rust backend for sync and shared content updates is planned for a later release; see `NORSE_MIXOLOGY_BUILD.md` at the repo root for the full architecture reference.
+Local-first with no backend. The ingredient taxonomy and recipe catalog (`taxonomy.json` / `recipes.json`) ship in the app, and the recipe-matching/substitution engine runs entirely on-device. On iOS the catalog also refreshes from a static, hash-verified copy published by the [`norse-catalog`](https://github.com/martinloesethjensen/norse-catalog) repo. The refresh is a plain download: no cabinet, favourites or other user data is sent. A Rust backend for sync and shared content updates is planned for a later release; see `NORSE_MIXOLOGY_BUILD.md` at the repo root for the full architecture reference.
 
 ## Local development
 
