@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "4cbd2f51",
-  "generatedAt": "2026-10-06T09:22:56Z",
+  "contentVersion": "06da3e43",
+  "generatedAt": "2026-10-06T20:14:17Z",
   "taxonomy": {
     "path": "taxonomy.3c609ab5.json",
     "sha256": "3c609ab590dfc93d00f59fcf5414aa985c651f3af7947646d56be3d6a13f7992",
     "bytes": 103423
   },
   "recipes": {
-    "path": "recipes.7cd4ac4e.json",
-    "sha256": "7cd4ac4ec52f9f891eed9e21e3fa812aa7fdaf674b4946c355845340e05ae1fc",
-    "bytes": 242861
+    "path": "recipes.ce880b94.json",
+    "sha256": "ce880b9427573be27bd90826e5ac66a19d4251406171b26744ce36763ec9a1d4",
+    "bytes": 242864
   }
 }

@@ -897,15 +897,15 @@
       "Garnish with a pineapple wedge and a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.519,
-      "bitterness": 0.062,
+      "sweetness": 0.522,
+      "bitterness": 0.056,
       "smokiness": 0.0,
-      "citrus": 0.255,
-      "floral": 0.11,
-      "spice": 0.047,
-      "herbal": 0.128,
-      "fruity": 0.531,
-      "oaky": 0.013,
+      "citrus": 0.257,
+      "floral": 0.111,
+      "spice": 0.044,
+      "herbal": 0.126,
+      "fruity": 0.535,
+      "oaky": 0.012,
       "abv": 8.02
     },
     "tags": [
@@ -964,14 +964,14 @@
       "Double strain into a chilled coupe rinsed with absinthe."
     ],
     "flavorProfile": {
-      "sweetness": 0.373,
-      "bitterness": 0.151,
+      "sweetness": 0.372,
+      "bitterness": 0.153,
       "smokiness": 0.0,
-      "citrus": 0.595,
-      "floral": 0.15,
-      "spice": 0.027,
-      "herbal": 0.231,
-      "fruity": 0.248,
+      "citrus": 0.589,
+      "floral": 0.151,
+      "spice": 0.028,
+      "herbal": 0.237,
+      "fruity": 0.246,
       "oaky": 0.0,
       "abv": 15.61
     },
@@ -1154,14 +1154,14 @@
       "Garnish with an orange twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.503,
-      "bitterness": 0.238,
+      "sweetness": 0.515,
+      "bitterness": 0.22,
       "smokiness": 0.0,
-      "citrus": 0.142,
-      "floral": 0.199,
-      "spice": 0.158,
-      "herbal": 0.457,
-      "fruity": 0.196,
+      "citrus": 0.146,
+      "floral": 0.205,
+      "spice": 0.15,
+      "herbal": 0.461,
+      "fruity": 0.202,
       "oaky": 0.092,
       "abv": 20.92
     },
@@ -1214,14 +1214,14 @@
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.184,
-      "bitterness": 0.216,
+      "sweetness": 0.187,
+      "bitterness": 0.201,
       "smokiness": 0.0,
-      "citrus": 0.3,
-      "floral": 0.235,
+      "citrus": 0.288,
+      "floral": 0.236,
       "spice": 0.114,
-      "herbal": 0.62,
-      "fruity": 0.079,
+      "herbal": 0.64,
+      "fruity": 0.078,
       "oaky": 0.0,
       "abv": 27.74
     },
@@ -1280,15 +1280,15 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.271,
-      "bitterness": 0.179,
+      "sweetness": 0.277,
+      "bitterness": 0.16,
       "smokiness": 0.0,
-      "citrus": 0.522,
-      "floral": 0.133,
-      "spice": 0.072,
-      "herbal": 0.368,
-      "fruity": 0.161,
-      "oaky": 0.004,
+      "citrus": 0.53,
+      "floral": 0.135,
+      "spice": 0.066,
+      "herbal": 0.374,
+      "fruity": 0.165,
+      "oaky": 0.003,
       "abv": 20.35
     },
     "tags": [
@@ -1416,14 +1416,14 @@
       "Garnish with a lemon twist and a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.163,
-      "bitterness": 0.265,
+      "sweetness": 0.165,
+      "bitterness": 0.255,
       "smokiness": 0.0,
-      "citrus": 0.228,
-      "floral": 0.256,
+      "citrus": 0.216,
+      "floral": 0.258,
       "spice": 0.093,
-      "herbal": 0.571,
-      "fruity": 0.115,
+      "herbal": 0.586,
+      "fruity": 0.116,
       "oaky": 0.0,
       "abv": 20.57
     },
@@ -1477,15 +1477,15 @@
       "Express an orange twist over the glass and drop it in."
     ],
     "flavorProfile": {
-      "sweetness": 0.555,
-      "bitterness": 0.162,
-      "smokiness": 0.076,
-      "citrus": 0.019,
-      "floral": 0.084,
-      "spice": 0.28,
-      "herbal": 0.107,
-      "fruity": 0.157,
-      "oaky": 0.488,
+      "sweetness": 0.574,
+      "bitterness": 0.135,
+      "smokiness": 0.08,
+      "citrus": 0.02,
+      "floral": 0.088,
+      "spice": 0.275,
+      "herbal": 0.099,
+      "fruity": 0.163,
+      "oaky": 0.504,
       "abv": 33.43
     },
     "tags": [
@@ -1538,15 +1538,15 @@
       "Garnish with a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.379,
-      "bitterness": 0.274,
-      "smokiness": 0.059,
-      "citrus": 0.03,
-      "floral": 0.062,
-      "spice": 0.507,
+      "sweetness": 0.388,
+      "bitterness": 0.257,
+      "smokiness": 0.061,
+      "citrus": 0.031,
+      "floral": 0.064,
+      "spice": 0.51,
       "herbal": 0.291,
-      "fruity": 0.169,
-      "oaky": 0.335,
+      "fruity": 0.175,
+      "oaky": 0.342,
       "abv": 24.13
     },
     "tags": [
@@ -1789,15 +1789,15 @@
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.301,
-      "bitterness": 0.259,
-      "smokiness": 0.074,
-      "citrus": 0.033,
-      "floral": 0.054,
-      "spice": 0.566,
-      "herbal": 0.187,
-      "fruity": 0.089,
-      "oaky": 0.371,
+      "sweetness": 0.313,
+      "bitterness": 0.232,
+      "smokiness": 0.078,
+      "citrus": 0.029,
+      "floral": 0.04,
+      "spice": 0.579,
+      "herbal": 0.194,
+      "fruity": 0.088,
+      "oaky": 0.391,
       "abv": 27.48
     },
     "tags": [
@@ -2093,15 +2093,15 @@
       "Garnish with a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.379,
-      "bitterness": 0.215,
-      "smokiness": 0.119,
-      "citrus": 0.03,
-      "floral": 0.122,
-      "spice": 0.15,
-      "herbal": 0.232,
-      "fruity": 0.229,
-      "oaky": 0.275,
+      "sweetness": 0.388,
+      "bitterness": 0.196,
+      "smokiness": 0.123,
+      "citrus": 0.031,
+      "floral": 0.126,
+      "spice": 0.142,
+      "herbal": 0.229,
+      "fruity": 0.236,
+      "oaky": 0.281,
       "abv": 22.13
     },
     "tags": [
@@ -2228,15 +2228,15 @@
       "Garnish with a candied ginger piece."
     ],
     "flavorProfile": {
-      "sweetness": 0.381,
-      "bitterness": 0.082,
-      "smokiness": 0.158,
-      "citrus": 0.209,
-      "floral": 0.09,
-      "spice": 0.131,
-      "herbal": 0.053,
-      "fruity": 0.142,
-      "oaky": 0.219,
+      "sweetness": 0.362,
+      "bitterness": 0.091,
+      "smokiness": 0.21,
+      "citrus": 0.194,
+      "floral": 0.084,
+      "spice": 0.136,
+      "herbal": 0.056,
+      "fruity": 0.139,
+      "oaky": 0.238,
       "abv": 14.25
     },
     "tags": [
@@ -2400,15 +2400,15 @@
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.381,
-      "bitterness": 0.252,
-      "smokiness": 0.027,
+      "sweetness": 0.394,
+      "bitterness": 0.23,
+      "smokiness": 0.029,
       "citrus": 0.069,
-      "floral": 0.152,
+      "floral": 0.15,
       "spice": 0.331,
-      "herbal": 0.258,
-      "fruity": 0.233,
-      "oaky": 0.257,
+      "herbal": 0.26,
+      "fruity": 0.241,
+      "oaky": 0.267,
       "abv": 24.05
     },
     "tags": [
@@ -2460,15 +2460,15 @@
       "Float red wine on top over the back of a spoon."
     ],
     "flavorProfile": {
-      "sweetness": 0.489,
-      "bitterness": 0.104,
-      "smokiness": 0.051,
-      "citrus": 0.169,
-      "floral": 0.068,
-      "spice": 0.171,
-      "herbal": 0.051,
-      "fruity": 0.26,
-      "oaky": 0.359,
+      "sweetness": 0.447,
+      "bitterness": 0.118,
+      "smokiness": 0.044,
+      "citrus": 0.145,
+      "floral": 0.073,
+      "spice": 0.161,
+      "herbal": 0.044,
+      "fruity": 0.324,
+      "oaky": 0.35,
       "abv": 16.42
     },
     "tags": [
@@ -2751,15 +2751,15 @@
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.305,
-      "bitterness": 0.274,
-      "smokiness": 0.059,
-      "citrus": 0.045,
-      "floral": 0.08,
-      "spice": 0.492,
+      "sweetness": 0.312,
+      "bitterness": 0.257,
+      "smokiness": 0.061,
+      "citrus": 0.046,
+      "floral": 0.083,
+      "spice": 0.495,
       "herbal": 0.306,
-      "fruity": 0.119,
-      "oaky": 0.32,
+      "fruity": 0.123,
+      "oaky": 0.327,
       "abv": 24.13
     },
     "tags": [
@@ -2928,15 +2928,15 @@
       "Garnish with a lime wedge."
     ],
     "flavorProfile": {
-      "sweetness": 0.422,
-      "bitterness": 0.031,
-      "smokiness": 0.029,
-      "citrus": 0.08,
+      "sweetness": 0.439,
+      "bitterness": 0.046,
+      "smokiness": 0.045,
+      "citrus": 0.062,
       "floral": 0.0,
-      "spice": 0.543,
+      "spice": 0.466,
       "herbal": 0.0,
-      "fruity": 0.158,
-      "oaky": 0.145,
+      "fruity": 0.19,
+      "oaky": 0.224,
       "abv": 10.68
     },
     "tags": [
@@ -3288,15 +3288,15 @@
       "Garnish with a mint sprig."
     ],
     "flavorProfile": {
-      "sweetness": 0.423,
-      "bitterness": 0.081,
-      "smokiness": 0.021,
-      "citrus": 0.194,
-      "floral": 0.067,
-      "spice": 0.16,
-      "herbal": 0.019,
-      "fruity": 0.287,
-      "oaky": 0.194,
+      "sweetness": 0.426,
+      "bitterness": 0.073,
+      "smokiness": 0.022,
+      "citrus": 0.196,
+      "floral": 0.068,
+      "spice": 0.158,
+      "herbal": 0.016,
+      "fruity": 0.29,
+      "oaky": 0.195,
       "abv": 17.13
     },
     "tags": [
@@ -3597,15 +3597,15 @@
       "Garnish with an orange twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.478,
-      "bitterness": 0.162,
-      "smokiness": 0.076,
-      "citrus": 0.019,
+      "sweetness": 0.494,
+      "bitterness": 0.135,
+      "smokiness": 0.08,
+      "citrus": 0.02,
       "floral": 0.008,
-      "spice": 0.203,
-      "herbal": 0.031,
-      "fruity": 0.233,
-      "oaky": 0.411,
+      "spice": 0.195,
+      "herbal": 0.019,
+      "fruity": 0.243,
+      "oaky": 0.425,
       "abv": 31.62
     },
     "tags": [
@@ -3845,15 +3845,15 @@
       "Flame an orange twist over the glass."
     ],
     "flavorProfile": {
-      "sweetness": 0.23,
-      "bitterness": 0.181,
-      "smokiness": 0.153,
-      "citrus": 0.096,
-      "floral": 0.161,
-      "spice": 0.203,
-      "herbal": 0.279,
-      "fruity": 0.138,
-      "oaky": 0.22,
+      "sweetness": 0.235,
+      "bitterness": 0.155,
+      "smokiness": 0.159,
+      "citrus": 0.1,
+      "floral": 0.167,
+      "spice": 0.195,
+      "herbal": 0.278,
+      "fruity": 0.143,
+      "oaky": 0.225,
       "abv": 29.72
     },
     "tags": [
@@ -4151,15 +4151,15 @@
       "Garnish with an orange twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.249,
-      "bitterness": 0.162,
+      "sweetness": 0.255,
+      "bitterness": 0.135,
       "smokiness": 0.0,
-      "citrus": 0.096,
-      "floral": 0.161,
-      "spice": 0.203,
-      "herbal": 0.26,
-      "fruity": 0.157,
-      "oaky": 0.259,
+      "citrus": 0.1,
+      "floral": 0.167,
+      "spice": 0.195,
+      "herbal": 0.258,
+      "fruity": 0.163,
+      "oaky": 0.265,
       "abv": 29.08
     },
     "tags": [
@@ -4384,15 +4384,15 @@
       "Float cream on top."
     ],
     "flavorProfile": {
-      "sweetness": 0.256,
-      "bitterness": 0.067,
+      "sweetness": 0.245,
+      "bitterness": 0.055,
       "smokiness": 0.0,
       "citrus": 0.0,
-      "floral": 0.056,
-      "spice": 0.022,
+      "floral": 0.045,
+      "spice": 0.018,
       "herbal": 0.0,
       "fruity": 0.0,
-      "oaky": 0.022,
+      "oaky": 0.018,
       "abv": 23.16
     },
     "tags": [
@@ -4512,14 +4512,14 @@
       "Garnish with a celery stalk and lemon wedge."
     ],
     "flavorProfile": {
-      "sweetness": 0.156,
-      "bitterness": 0.06,
-      "smokiness": 0.009,
-      "citrus": 0.134,
-      "floral": 0.026,
-      "spice": 0.139,
-      "herbal": 0.07,
-      "fruity": 0.13,
+      "sweetness": 0.158,
+      "bitterness": 0.064,
+      "smokiness": 0.006,
+      "citrus": 0.14,
+      "floral": 0.027,
+      "spice": 0.11,
+      "herbal": 0.066,
+      "fruity": 0.134,
       "oaky": 0.0,
       "abv": 9.8
     },
@@ -4936,14 +4936,14 @@
       "Float Galliano on top."
     ],
     "flavorProfile": {
-      "sweetness": 0.4,
+      "sweetness": 0.427,
       "bitterness": 0.0,
       "smokiness": 0.0,
-      "citrus": 0.43,
-      "floral": 0.11,
-      "spice": 0.03,
-      "herbal": 0.06,
-      "fruity": 0.3,
+      "citrus": 0.4,
+      "floral": 0.118,
+      "spice": 0.055,
+      "herbal": 0.109,
+      "fruity": 0.273,
       "oaky": 0.0,
       "abv": 13.25
     },
@@ -5262,14 +5262,14 @@
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.226,
-      "bitterness": 0.174,
+      "sweetness": 0.232,
+      "bitterness": 0.144,
       "smokiness": 0.0,
-      "citrus": 0.168,
-      "floral": 0.168,
-      "spice": 0.045,
-      "herbal": 0.034,
-      "fruity": 0.252,
+      "citrus": 0.176,
+      "floral": 0.176,
+      "spice": 0.028,
+      "herbal": 0.021,
+      "fruity": 0.264,
       "oaky": 0.095,
       "abv": 10.6
     },
@@ -5651,15 +5651,15 @@
       "Garnish with bitters drops on the foam."
     ],
     "flavorProfile": {
-      "sweetness": 0.25,
-      "bitterness": 0.072,
+      "sweetness": 0.254,
+      "bitterness": 0.052,
       "smokiness": 0.0,
-      "citrus": 0.265,
-      "floral": 0.2,
-      "spice": 0.077,
-      "herbal": 0.07,
-      "fruity": 0.187,
-      "oaky": 0.007,
+      "citrus": 0.272,
+      "floral": 0.205,
+      "spice": 0.068,
+      "herbal": 0.064,
+      "fruity": 0.192,
+      "oaky": 0.004,
       "abv": 15.31
     },
     "tags": [
@@ -5816,15 +5816,15 @@
       "Garnish with an orange twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.424,
-      "bitterness": 0.226,
+      "sweetness": 0.436,
+      "bitterness": 0.204,
       "smokiness": 0.0,
-      "citrus": 0.085,
-      "floral": 0.17,
-      "spice": 0.156,
-      "herbal": 0.198,
-      "fruity": 0.307,
-      "oaky": 0.197,
+      "citrus": 0.088,
+      "floral": 0.177,
+      "spice": 0.146,
+      "herbal": 0.194,
+      "fruity": 0.318,
+      "oaky": 0.2,
       "abv": 20.65
     },
     "tags": [
@@ -7020,15 +7020,15 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.253,
-      "bitterness": 0.249,
+      "sweetness": 0.258,
+      "bitterness": 0.23,
       "smokiness": 0.0,
-      "citrus": 0.276,
-      "floral": 0.184,
-      "spice": 0.124,
-      "herbal": 0.514,
-      "fruity": 0.184,
-      "oaky": 0.023,
+      "citrus": 0.285,
+      "floral": 0.19,
+      "spice": 0.115,
+      "herbal": 0.522,
+      "fruity": 0.19,
+      "oaky": 0.021,
       "abv": 17.29
     },
     "tags": [
@@ -7093,15 +7093,15 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.245,
-      "bitterness": 0.257,
+      "sweetness": 0.25,
+      "bitterness": 0.238,
       "smokiness": 0.0,
-      "citrus": 0.298,
-      "floral": 0.176,
-      "spice": 0.124,
-      "herbal": 0.514,
-      "fruity": 0.145,
-      "oaky": 0.023,
+      "citrus": 0.309,
+      "floral": 0.182,
+      "spice": 0.115,
+      "herbal": 0.522,
+      "fruity": 0.15,
+      "oaky": 0.021,
       "abv": 18.83
     },
     "tags": [
@@ -7286,15 +7286,15 @@
       "Garnish with a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.425,
-      "bitterness": 0.155,
+      "sweetness": 0.44,
+      "bitterness": 0.134,
       "smokiness": 0.0,
-      "citrus": 0.295,
-      "floral": 0.21,
+      "citrus": 0.281,
+      "floral": 0.211,
       "spice": 0.079,
-      "herbal": 0.374,
-      "fruity": 0.151,
-      "oaky": 0.068,
+      "herbal": 0.387,
+      "fruity": 0.154,
+      "oaky": 0.072,
       "abv": 22.62
     },
     "tags": [
@@ -7407,15 +7407,15 @@
       "Garnish with a mint sprig and cucumber."
     ],
     "flavorProfile": {
-      "sweetness": 0.316,
-      "bitterness": 0.078,
+      "sweetness": 0.32,
+      "bitterness": 0.065,
       "smokiness": 0.0,
-      "citrus": 0.183,
-      "floral": 0.047,
-      "spice": 0.49,
-      "herbal": 0.095,
-      "fruity": 0.139,
-      "oaky": 0.04,
+      "citrus": 0.187,
+      "floral": 0.048,
+      "spice": 0.491,
+      "herbal": 0.092,
+      "fruity": 0.141,
+      "oaky": 0.039,
       "abv": 9.06
     },
     "tags": [
@@ -7626,15 +7626,15 @@
       "Garnish with a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.379,
-      "bitterness": 0.385,
-      "smokiness": 0.059,
-      "citrus": 0.083,
-      "floral": 0.011,
-      "spice": 0.525,
-      "herbal": 0.283,
-      "fruity": 0.114,
-      "oaky": 0.36,
+      "sweetness": 0.388,
+      "bitterness": 0.375,
+      "smokiness": 0.061,
+      "citrus": 0.076,
+      "floral": 0.008,
+      "spice": 0.534,
+      "herbal": 0.286,
+      "fruity": 0.116,
+      "oaky": 0.371,
       "abv": 26.85
     },
     "tags": [
@@ -7695,15 +7695,15 @@
       "Garnish with a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.424,
-      "bitterness": 0.214,
-      "smokiness": 0.065,
+      "sweetness": 0.422,
+      "bitterness": 0.215,
+      "smokiness": 0.064,
       "citrus": 0.024,
-      "floral": 0.049,
-      "spice": 0.523,
-      "herbal": 0.256,
-      "fruity": 0.222,
-      "oaky": 0.358,
+      "floral": 0.05,
+      "spice": 0.521,
+      "herbal": 0.261,
+      "fruity": 0.22,
+      "oaky": 0.355,
       "abv": 25.35
     },
     "tags": [
@@ -7754,15 +7754,15 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.165,
-      "bitterness": 0.652,
-      "smokiness": 0.005,
-      "citrus": 0.07,
-      "floral": 0.023,
-      "spice": 0.354,
-      "herbal": 0.248,
-      "fruity": 0.029,
-      "oaky": 0.106,
+      "sweetness": 0.195,
+      "bitterness": 0.584,
+      "smokiness": 0.008,
+      "citrus": 0.102,
+      "floral": 0.034,
+      "spice": 0.332,
+      "herbal": 0.224,
+      "fruity": 0.042,
+      "oaky": 0.108,
       "abv": 16.68
     },
     "tags": [
@@ -7867,15 +7867,15 @@
       "Stir briefly."
     ],
     "flavorProfile": {
-      "sweetness": 0.471,
-      "bitterness": 0.144,
-      "smokiness": 0.065,
-      "citrus": 0.145,
-      "floral": 0.016,
-      "spice": 0.228,
-      "herbal": 0.042,
-      "fruity": 0.247,
-      "oaky": 0.331,
+      "sweetness": 0.484,
+      "bitterness": 0.121,
+      "smokiness": 0.067,
+      "citrus": 0.15,
+      "floral": 0.017,
+      "spice": 0.222,
+      "herbal": 0.033,
+      "fruity": 0.256,
+      "oaky": 0.339,
       "abv": 26.32
     },
     "tags": [
@@ -9139,15 +9139,15 @@
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.146,
-      "bitterness": 0.279,
+      "sweetness": 0.147,
+      "bitterness": 0.268,
       "smokiness": 0.0,
-      "citrus": 0.187,
+      "citrus": 0.173,
       "floral": 0.2,
-      "spice": 0.054,
-      "herbal": 0.421,
+      "spice": 0.053,
+      "herbal": 0.432,
       "fruity": 0.1,
-      "oaky": 0.046,
+      "oaky": 0.047,
       "abv": 12.16
     },
     "tags": [
@@ -9193,15 +9193,15 @@
       "Garnish with an orange twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.281,
-      "bitterness": 0.275,
+      "sweetness": 0.288,
+      "bitterness": 0.262,
       "smokiness": 0.0,
-      "citrus": 0.202,
-      "floral": 0.146,
-      "spice": 0.082,
-      "herbal": 0.353,
-      "fruity": 0.172,
-      "oaky": 0.09,
+      "citrus": 0.186,
+      "floral": 0.144,
+      "spice": 0.081,
+      "herbal": 0.363,
+      "fruity": 0.175,
+      "oaky": 0.094,
       "abv": 12.09
     },
     "tags": [
@@ -9253,15 +9253,15 @@
       "Strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.42,
-      "bitterness": 0.158,
+      "sweetness": 0.43,
+      "bitterness": 0.136,
       "smokiness": 0.0,
-      "citrus": 0.045,
-      "floral": 0.205,
-      "spice": 0.239,
+      "citrus": 0.047,
+      "floral": 0.212,
+      "spice": 0.234,
       "herbal": 0.32,
-      "fruity": 0.301,
-      "oaky": 0.17,
+      "fruity": 0.311,
+      "oaky": 0.172,
       "abv": 27.88
     },
     "tags": [
