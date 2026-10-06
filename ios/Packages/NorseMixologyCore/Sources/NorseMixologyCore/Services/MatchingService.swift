@@ -75,6 +75,7 @@ public enum MatchingService {
             cabinetByFamilyId[item.ingredientFamilyId, default: []].append(item)
         }
         let curatedTable = CuratedSubstitutions.table(index: index)
+        let groups = SubstitutionGroups.table(index: index)
 
         var results: [RecipeMatchResult] = []
 
@@ -99,6 +100,7 @@ public enum MatchingService {
                     cabinetByFamilyId: cabinetByFamilyId,
                     stylesById: index.stylesById,
                     curatedTable: curatedTable,
+                    groups: groups,
                     prefs: prefs
                 )
 
@@ -140,6 +142,7 @@ public enum MatchingService {
         cabinetByFamilyId: [UUID: [CabinetItem]],
         stylesById: [UUID: IngredientStyle],
         curatedTable: [UUID: [(substituteId: UUID, baseQuality: Double)]],
+        groups: [UUID: Int],
         prefs: MatchPreferences
     ) -> Resolution {
         // 1. User accept override.
@@ -165,11 +168,12 @@ public enum MatchingService {
             }
         }
 
-        // 4. Best same-family cabinet item by cosine similarity.
+        // 4. Best same-family cabinet item by cosine similarity, within its substitution group.
         let familyCandidates = (cabinetByFamilyId[requiredStyle.familyId] ?? [])
             .filter {
                 $0.ingredientStyleId != requiredStyle.id
                     && stylesById[$0.ingredientStyleId] != nil // ghost cabinet items never substitute
+                    && SubstitutionGroups.compatible(requiredStyle.id, $0.ingredientStyleId, groups: groups)
                     && !prefs.isRejected(substituteId: $0.ingredientStyleId, for: requiredStyle.id)
             }
 

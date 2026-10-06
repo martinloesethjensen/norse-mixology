@@ -21,6 +21,9 @@ public enum FlavorSimilarity {
 /// which the same-family cosine fallback would never surface on its own.
 /// Looked up by style name (stable across regenerations of the taxonomy's
 /// deterministic ids) and resolved against the loaded taxonomy at match time.
+/// Rules are one-way: orgeat can be replaced by amaretto, but amaretto (the
+/// base of an Amaretto Sour) must never be replaced by a non-alcoholic syrup.
+/// A swap that works both ways is listed twice.
 public struct CuratedSubstitutionRule: Sendable {
     public let requiredStyleName: String
     public let substituteStyleName: String
@@ -30,23 +33,70 @@ public struct CuratedSubstitutionRule: Sendable {
 public enum CuratedSubstitutions {
     public static let all: [CuratedSubstitutionRule] = [
         .init(requiredStyleName: "Dry Vermouth", substituteStyleName: "Fino Sherry", baseQuality: 0.6),
+        .init(requiredStyleName: "Fino Sherry", substituteStyleName: "Dry Vermouth", baseQuality: 0.6),
         .init(requiredStyleName: "Sweet/Rosso Vermouth", substituteStyleName: "Ruby Port", baseQuality: 0.55),
         .init(requiredStyleName: "Orgeat", substituteStyleName: "Amaretto", baseQuality: 0.55),
         .init(requiredStyleName: "Coffee Liqueur", substituteStyleName: "Hazelnut Liqueur", baseQuality: 0.5),
         .init(requiredStyleName: "Mezcal", substituteStyleName: "Scotch Single Malt (Islay)", baseQuality: 0.5),
+        .init(requiredStyleName: "Scotch Single Malt (Islay)", substituteStyleName: "Mezcal", baseQuality: 0.5),
+        // Squeezing the fruit is how you get the juice: fresh citrus (Fruit) stands in
+        // for bottled juice (Mixer), which no same-family rule could ever connect.
+        .init(requiredStyleName: "Lime Juice", substituteStyleName: "Fresh Lime", baseQuality: 1.0),
+        .init(requiredStyleName: "Lime Juice", substituteStyleName: "Fresh Lemon", baseQuality: 0.9),
+        .init(requiredStyleName: "Lemon Juice", substituteStyleName: "Fresh Lemon", baseQuality: 1.0),
+        .init(requiredStyleName: "Lemon Juice", substituteStyleName: "Fresh Lime", baseQuality: 0.9),
+        .init(requiredStyleName: "Orange Juice", substituteStyleName: "Fresh Orange", baseQuality: 1.0),
+        .init(requiredStyleName: "Grapefruit Juice", substituteStyleName: "Fresh Grapefruit", baseQuality: 1.0),
     ]
 
-    /// Bidirectional table keyed by required style id, candidates in rule order.
+    /// Table keyed by required style id, candidates in rule order.
     public static func table(index: TaxonomyIndex) -> [UUID: [(substituteId: UUID, baseQuality: Double)]] {
-        let stylesByName = Dictionary(uniqueKeysWithValues: index.stylesById.values.map { ($0.name, $0) })
+        let stylesByName = Dictionary(index.stylesById.values.map { ($0.name, $0) }, uniquingKeysWith: { first, _ in first })
         var result: [UUID: [(UUID, Double)]] = [:]
         for rule in all {
             guard let required = stylesByName[rule.requiredStyleName],
                   let substitute = stylesByName[rule.substituteStyleName] else { continue }
             result[required.id, default: []].append((substitute.id, rule.baseQuality))
-            result[substitute.id, default: []].append((required.id, rule.baseQuality))
         }
         return result
+    }
+}
+
+/// Limits the same-family cosine fallback (Tier 4) to swaps a bartender would make.
+/// Flavour vectors can't tell a souring agent from a sweet juice (lime and orange
+/// juice score 0.84) or a savoury mixer from a fruity one (tomato and pineapple
+/// score 0.85), so styles listed here only stand in for styles in the same group.
+/// Styles in no group form one shared pool, which keeps today's behaviour for
+/// families such as Gin, Rum or Whiskey.
+public enum SubstitutionGroups {
+    public static let all: [[String]] = [
+        ["Lime Juice", "Lemon Juice"], ["Tomato Juice"],
+        ["Fresh Mint", "Fresh Basil"], ["Fresh Rosemary"],
+        ["Dry Vermouth", "Blanc Vermouth", "Blanc Aperitif Wine"], ["Sweet/Rosso Vermouth"],
+        ["Ginger Beer", "Ginger Ale"], ["Cola"], ["Lemon-Lime Soda"], ["Tonic Water"], ["Club Soda"],
+        ["Simple Syrup", "Demerara Syrup", "Honey Syrup"], ["Grenadine"], ["Orgeat"], ["Falernum"],
+        ["Passion Fruit Syrup"], ["Ginger Syrup"], ["Raspberry Syrup"],
+        ["Raspberry Liqueur", "Crème de Cassis", "Blackberry Liqueur"], ["Peach Schnapps"], ["Cherry Liqueur"],
+        ["Green Chartreuse", "Yellow Chartreuse"], ["Bénédictine"], ["Galliano"],
+        ["Heavy Cream"], ["Coconut Cream"], ["Butter"], ["Egg White"],
+        ["Absinthe"], ["Aquavit"], ["Cachaça"],
+    ]
+
+    /// Group number per style id. Names missing from the loaded taxonomy are skipped.
+    public static func table(index: TaxonomyIndex) -> [UUID: Int] {
+        let stylesByName = Dictionary(index.stylesById.values.map { ($0.name, $0) }, uniquingKeysWith: { first, _ in first })
+        var result: [UUID: Int] = [:]
+        for (group, names) in all.enumerated() {
+            for name in names {
+                if let style = stylesByName[name] { result[style.id] = group }
+            }
+        }
+        return result
+    }
+
+    /// Whether two styles may substitute for each other by flavour similarity.
+    static func compatible(_ a: UUID, _ b: UUID, groups: [UUID: Int]) -> Bool {
+        groups[a] == groups[b]
     }
 }
 

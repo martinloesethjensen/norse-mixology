@@ -71,7 +71,7 @@ resolve(required, cabinet, prefs):
   if user rule .accept(required → X)      → quality = 1.0        (user overrides math)
   if exact style in cabinet               → quality = 1.0
   if enabled curated rule covers it       → quality = rule.baseQuality
-  else best same-family cabinet item:
+  else best same-family cabinet item in the same substitution group:
       sim = cosineSimilarity(required.profile, candidate.profile)
       if sim >= threshold(prefs.strictness) → quality = sim
       else                                  → UNRESOLVED
@@ -79,6 +79,8 @@ resolve(required, cabinet, prefs):
 
 A recipe with any `UNRESOLVED` required ingredient is dropped from results.
 
+- **Curated rules are one-way** (`required → substitute`); a swap that works both ways is listed twice. They also connect fresh citrus (Fruit) to bottled juice (Mixer): Lime/Lemon/Orange/Grapefruit Juice ← the fresh fruit at 1.0, and lime ↔ lemon fruit at 0.9. Table: `CuratedSubstitutions` in `SubstitutionService.swift`.
+- **Substitution groups** limit the cosine fallback: a style listed in a `SubstitutionGroups` group only stands in for styles in the same group (lime ↔ lemon juice, ginger beer ↔ ginger ale, simple ↔ demerara ↔ honey syrup, dry ↔ blanc vermouth, …), and a style in a single-member group (tomato juice, sweet vermouth, cola, grenadine, rosemary, …) never substitutes by similarity. Unlisted styles share one pool, so Gin/Rum/Whiskey behave as before. Flavour vectors alone can't tell a souring agent from a sweet juice — that is what the groups encode.
 - **Cosine similarity** is computed over the 9 flavour dimensions (excludes `abv`). Substitute-display threshold: similarity ≥ 0.55.
 - **Strictness → threshold:** `threshold = 0.45 + strictness * 0.40` (strictness `0`…`1` → threshold `0.45`…`0.85`).
 - **matchScore** (recipe-level, weighted by ingredient role):
@@ -150,7 +152,7 @@ Pure presentation logic lives in `NorseMixologyCore` (`RecipePresentation.swift`
 - **Bump `CatalogSchema.version`** whenever the SQLite schema changes; the bootstrap rebuilds on mismatch.
 - **Remote updates reject the whole catalog on any malformed recipe** (unlike the tolerant bundled-era loader).
 - **Styles removed from the catalog** stay in cabinets as snapshots but never act as substitutes (`MatchingService.resolve`).
-- **Android parity:** the Kotlin matcher (paused) does not yet have these ghost-style guards; port both (accept override + family candidates) when Android adopts over-the-air catalog updates.
+- **Android parity:** the Kotlin matcher (paused) does not yet have these ghost-style guards; port both (accept override + family candidates) when Android adopts over-the-air catalog updates. It also still has the old bidirectional curated table and no substitution groups — port `CuratedSubstitutions`/`SubstitutionGroups` as listed in `SubstitutionService.swift` when Android resumes.
 - **Before an app release:** run `scripts/sync-catalog.sh` so the bundled fallback is current.
 
 ## Android data layer & seeding (Phase 7)

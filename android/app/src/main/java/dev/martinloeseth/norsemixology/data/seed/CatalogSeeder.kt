@@ -40,6 +40,6 @@ class CatalogSeeder(
     }
 
     companion object {
-        const val CATALOG_VERSION = 1
+        const val CATALOG_VERSION = 2
     }
 }
