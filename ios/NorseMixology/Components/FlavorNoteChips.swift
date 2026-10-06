@@ -26,13 +26,16 @@ struct FlavorNoteChips: View {
         }
     }
 
-    /// Whole phrases, so each can be translated as a unit.
-    private func spokenStrength(_ note: FlavorNote, matchesYou: Bool) -> LocalizedStringKey {
+    /// One phrase per chip, flavour and strength together: rows combine their
+    /// children, which would otherwise gather every label first and every value
+    /// after, separating "Herbal" from "mild". Whole phrases can be translated as units.
+    private func spoken(_ note: FlavorNote, matchesYou: Bool) -> LocalizedStringKey {
+        let name = note.axis.displayName
         switch (note.isStrong, matchesYou) {
-        case (true, true): return "Strong, matches your taste"
-        case (true, false): return "Strong"
-        case (false, true): return "Mild, matches your taste"
-        case (false, false): return "Mild"
+        case (true, true): return "\(name), strong, matches your taste"
+        case (true, false): return "\(name), strong"
+        case (false, true): return "\(name), mild, matches your taste"
+        case (false, false): return "\(name), mild"
         }
     }
 
@@ -41,7 +44,7 @@ struct FlavorNoteChips: View {
             if matchesYou { YouMarker(size: 6) }
             Text(note.axis.displayName)
                 .dsText(.body)
-                .fontWeight(.semibold)
+                .fontWeight(note.isStrong ? .semibold : .regular)
         }
         .foregroundStyle(note.isStrong ? DesignTokens.noteStrongText : DesignTokens.textPrimary)
         .padding(.horizontal, 11)
@@ -50,7 +53,6 @@ struct FlavorNoteChips: View {
         .background(Capsule().fill(note.isStrong ? DesignTokens.noteStrongFill : Color.clear))
         .overlay(Capsule().strokeBorder(note.isStrong ? DesignTokens.noteStrongBorder : DesignTokens.noteMildBorder, lineWidth: 1))
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(note.axis.displayName)
-        .accessibilityValue(spokenStrength(note, matchesYou: matchesYou))
+        .accessibilityLabel(spoken(note, matchesYou: matchesYou))
     }
 }

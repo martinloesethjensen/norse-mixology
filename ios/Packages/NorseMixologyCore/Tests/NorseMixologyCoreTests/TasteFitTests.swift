@@ -74,19 +74,40 @@ final class TasteFitTests: XCTestCase {
             .citrus: "Richer and less citrusy than you usually go.",
             .herbal: "Simpler and less herbal than you usually go.",
         ]
-        let allMiddle = UserTasteProfile(sweetness: 0.15, bitterness: 0.85, citrus: 0.15, smokiness: 0.85, herbal: 0.15,
-                                         hasCompletedOnboarding: true)
-        for axis in FlavorAxis.allCases {
-            // Only this axis is far from the user's answer.
-            var values: [FlavorAxis: Double] = [.sweet: 0.15, .bitter: 0.85, .smoky: 0.85, .citrus: 0.15, .herbal: 0.15]
-            values[axis] = 1.0 - values[axis]!
-            let probe = flavor(sweet: values[.sweet]!, bitter: values[.bitter]!, smoky: values[.smoky]!,
-                               citrus: values[.citrus]!, herbal: values[.herbal]!)
-            let fit = TasteFit.summary(for: probe, taste: allMiddle)
-            let wantsHigher = axis.value(in: probe) > axis.value(in: allMiddle)
-            XCTAssertEqual(fit?.headline, wantsHigher ? expectedHigher[axis] : expectedLower[axis], "\(axis)")
-            XCTAssertEqual(fit?.axis, axis)
+        // Run both ways: a user at 0.15/0.85 (flavour flipped up or down), and the mirror-image user.
+        let users = [
+            (taste: UserTasteProfile(sweetness: 0.15, bitterness: 0.85, citrus: 0.15, smokiness: 0.85, herbal: 0.15,
+                                     hasCompletedOnboarding: true),
+             base: [FlavorAxis.sweet: 0.15, .bitter: 0.85, .smoky: 0.85, .citrus: 0.15, .herbal: 0.15]),
+            (taste: UserTasteProfile(sweetness: 0.85, bitterness: 0.15, citrus: 0.85, smokiness: 0.15, herbal: 0.85,
+                                     hasCompletedOnboarding: true),
+             base: [FlavorAxis.sweet: 0.85, .bitter: 0.15, .smoky: 0.15, .citrus: 0.85, .herbal: 0.85]),
+        ]
+        var seen: Set<String> = []
+        for user in users {
+            for axis in FlavorAxis.allCases {
+                // Only this axis is far from the user's answer.
+                var values = user.base
+                values[axis] = 1.0 - values[axis]!
+                let probe = flavor(sweet: values[.sweet]!, bitter: values[.bitter]!, smoky: values[.smoky]!,
+                                   citrus: values[.citrus]!, herbal: values[.herbal]!)
+                let fit = TasteFit.summary(for: probe, taste: user.taste)
+                let wantsHigher = axis.value(in: probe) > axis.value(in: user.taste)
+                let expected = wantsHigher ? expectedHigher[axis] : expectedLower[axis]
+                XCTAssertEqual(fit?.headline, expected, "\(axis)")
+                XCTAssertEqual(fit?.axis, axis)
+                if let headline = fit?.headline { seen.insert(headline) }
+            }
         }
+        XCTAssertEqual(seen.count, 10, "every one of the ten phrases was produced")
+    }
+
+    func testTheGapThresholdAtTheRealQuizAnswers() {
+        // The quiz only ever stores 0.15 or 0.85, so 0.5 against either is exactly 0.35 away.
+        let user = UserTasteProfile(sweetness: 0.85, bitterness: 0.5, citrus: 0.5, smokiness: 0.5, herbal: 0.5,
+                                    hasCompletedOnboarding: true)
+        XCTAssertEqual(TasteFit.summary(for: flavor(sweet: 0.5), taste: user)?.headline, "Drier than you usually go.")
+        XCTAssertEqual(TasteFit.summary(for: flavor(sweet: 0.51), taste: user)?.headline, "Close to your taste.")
     }
 
     func testSmallGapsReadCloseToYourTaste() {

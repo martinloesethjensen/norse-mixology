@@ -40,7 +40,7 @@ struct SettingsView: View {
         }
     }
 
-    private var captionText: String {
+    private var captionText: LocalizedStringKey {
         if !profile.hasCompletedOnboarding { return "You haven't taken the taste quiz yet." }
         return TasteRanking.isActive(profile) ? "Based on your taste quiz answers." : "No preference yet. Retake the quiz to set yours."
     }

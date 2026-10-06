@@ -17,6 +17,28 @@
     "%@ glass" : {
 
     },
+    "%@, mild" : {
+
+    },
+    "%@, mild, matches your taste" : {
+
+    },
+    "%@, strong" : {
+
+    },
+    "%@, strong, matches your taste" : {
+
+    },
+    "%@. You: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@. You: %2$@"
+          }
+        }
+      }
+    },
     "%lld" : {
 
     },
@@ -182,12 +204,6 @@
     "Method" : {
 
     },
-    "Mild" : {
-
-    },
-    "Mild, matches your taste" : {
-
-    },
     "Missing %lld" : {
 
     },
@@ -225,6 +241,12 @@
 
     },
     "No longer in the catalog" : {
+
+    },
+    "No preference yet" : {
+
+    },
+    "No preference yet. Retake the quiz to set yours." : {
 
     },
     "No recipes match" : {
@@ -319,12 +341,6 @@
       }
     },
     "Strength" : {
-
-    },
-    "Strong" : {
-
-    },
-    "Strong, matches your taste" : {
 
     },
     "Style" : {

@@ -166,7 +166,6 @@ private struct CabinetItemRow: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
-        .accessibilityAddTraits(.isButton)
         .accessibilityHint("Shows the full flavour profile")
     }
 }

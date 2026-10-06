@@ -9,6 +9,7 @@ struct AddIngredientConfirmationView: View {
 
     @Environment(\.dismiss) private var dismiss
     @State private var brandText: String = ""
+    @State private var taste = TasteProfileStore.load()
 
     var body: some View {
         NavigationStack {
@@ -17,7 +18,7 @@ struct AddIngredientConfirmationView: View {
                     Text(style.name)
                         .dsText(.heading)
                         .foregroundStyle(DesignTokens.textPrimary)
-                    FlavorBarsView(profile: style.flavorProfile, taste: TasteProfileStore.load())
+                    FlavorBarsView(profile: style.flavorProfile, taste: taste)
                         .padding(.vertical, 6)
                     if !style.exampleBrands.isEmpty {
                         Text("Example brands: \(style.exampleBrands.joined(separator: ", "))")

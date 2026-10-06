@@ -120,7 +120,8 @@ public enum FlavorNotes {
         if !mild.isEmpty {
             return "Mildly \(names(mild))."
         }
-        return "Neutral. Little flavour of its own."
+        // With quieter notes still to mention, "little flavour" would contradict the line under it.
+        return background(for: profile) == nil ? "Neutral. Little flavour of its own." : "Neutral."
     }
 
     /// "Herbal in the background." — medium notes the headline didn't already name.

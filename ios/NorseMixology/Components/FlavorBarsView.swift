@@ -68,9 +68,13 @@ struct FlavorBarsView: View {
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(axis.displayName)
-        .accessibilityValue(
-            you.map { "\(word). You: \(FlavorNotes.levelWord($0).lowercased())" } ?? word
-        )
+        .accessibilityValue(spokenValue(word: word, you: you))
+    }
+
+    private func spokenValue(word: String, you: Double?) -> LocalizedStringKey {
+        guard let you else { return LocalizedStringKey(word) }
+        let yourWord = FlavorNotes.levelWord(you).lowercased()
+        return "\(word). You: \(yourWord)"
     }
 
     private func track(value: Double, you: Double?) -> some View {

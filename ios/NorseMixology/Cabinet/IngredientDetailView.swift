@@ -63,6 +63,12 @@ struct IngredientDetailView: View {
         .presentationDetents([.medium, .large])
     }
 
+    private func gapCaption(_ axis: FlavorAxis?) -> LocalizedStringKey {
+        guard let axis else { return "Based on your taste quiz." }
+        let name = axis.settingsTitle.lowercased()
+        return "The biggest gap is \(name). Based on your taste quiz."
+    }
+
     @ViewBuilder
     private var fitPanel: some View {
         if let fit = TasteFit.summary(for: profile, taste: taste) {
@@ -70,7 +76,7 @@ struct IngredientDetailView: View {
                 Text(fit.headline)
                     .dsText(.heading)
                     .foregroundStyle(DesignTokens.textPrimary)
-                Text(fit.axis.map { "The biggest gap is \($0.settingsTitle.lowercased()). Based on your taste quiz." } ?? "Based on your taste quiz.")
+                Text(gapCaption(fit.axis))
                     .dsText(.body)
                     .foregroundStyle(DesignTokens.textSecondary)
             }

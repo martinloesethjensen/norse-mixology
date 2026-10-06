@@ -86,6 +86,7 @@ final class FlavorNotesTests: XCTestCase {
     func testLevelWordsFollowTheScreenReaderLevelsPlusNone() {
         XCTAssertEqual(FlavorNotes.levelWord(0), "None")
         XCTAssertEqual(FlavorNotes.levelWord(0.04), "None")
+        XCTAssertEqual(FlavorNotes.levelWord(0.05), "Low")
         XCTAssertEqual(FlavorNotes.levelWord(0.1), "Low")
         XCTAssertEqual(FlavorNotes.levelWord(0.33), "Low")
         XCTAssertEqual(FlavorNotes.levelWord(0.34), "Medium")
@@ -113,6 +114,23 @@ final class FlavorNotesTests: XCTestCase {
         XCTAssertEqual(FlavorNotes.background(for: greenChartreuse), "Sweet in the background.")
         XCTAssertEqual(FlavorNotes.background(for: profile(sweet: 0.4, bitter: 0.9, herbal: 0.45)),
                        "Sweet and herbal in the background.")
+    }
+
+    func testNeutralHeadlineDoesNotClaimLittleFlavourWhenQuieterNotesFollow() {
+        let quiet = profile(sweet: 0.4, herbal: 0.36)
+        XCTAssertEqual(FlavorNotes.headline(for: quiet), "Neutral.")
+        XCTAssertEqual(FlavorNotes.background(for: quiet), "Sweet and herbal in the background.")
+    }
+
+    func testMentionThresholdIsInclusiveAt034() {
+        XCTAssertEqual(FlavorNotes.background(for: profile(sweet: 0.34)), "Sweet in the background.")
+        XCTAssertNil(FlavorNotes.background(for: profile(sweet: 0.33)))
+    }
+
+    func testAThirdMildNoteFallsToTheBackgroundLine() {
+        let three = profile(sweet: 0.62, bitter: 0.6, smoky: 0.55)
+        XCTAssertEqual(FlavorNotes.headline(for: three), "Mildly sweet and bitter.")
+        XCTAssertEqual(FlavorNotes.background(for: three), "Smoky in the background.")
     }
 
     func testBackgroundIsAbsentWhenThereIsNothingLeftToSay() {

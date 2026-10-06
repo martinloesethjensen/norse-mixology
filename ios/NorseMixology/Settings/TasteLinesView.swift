@@ -66,6 +66,6 @@ struct TasteLinesView: View {
         .padding(.vertical, 14)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(axis.settingsTitle)
-        .accessibilityValue(answer ?? "No preference yet")
+        .accessibilityValue(answer.map { Text(verbatim: $0) } ?? Text("No preference yet"))
     }
 }
