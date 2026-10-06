@@ -12,21 +12,29 @@ public enum CatalogUpdateOutcome: Equatable, Sendable {
 /// throws: whatever goes wrong, the live catalog is left exactly as it was.
 public struct CatalogUpdater: Sendable {
     public static let manifestByteLimit = 65_536
+    /// How far past the device clock a manifest's `generatedAt` may be.
+    public static let maxClockSkew: TimeInterval = 24 * 60 * 60
 
     private let v1URL: URL
+    private let signingKeys: CatalogSigningKeys
     private let session: URLSession
     private let paths: CatalogPaths
+    private let now: @Sendable () -> Date
     private let promote: @Sendable (CatalogPaths, URL) throws -> Void
 
     public init(
         baseURL: URL,
+        signingKeys: CatalogSigningKeys,
         session: URLSession = CatalogUpdater.makeSession(),
         paths: CatalogPaths,
+        now: @escaping @Sendable () -> Date = { Date() },
         promote: @escaping @Sendable (CatalogPaths, URL) throws -> Void = { try $0.promote($1) }
     ) {
         self.v1URL = baseURL.appending(path: "v1", directoryHint: .isDirectory)
+        self.signingKeys = signingKeys
         self.session = session
         self.paths = paths
+        self.now = now
         self.promote = promote
     }
 
@@ -67,7 +75,13 @@ public struct CatalogUpdater: Sendable {
         guard response.statusCode == 200 else {
             throw CatalogError.http(status: response.statusCode)
         }
+        try await verifySignature(of: manifestData)
         let manifest = try CatalogManifest.decode(from: manifestData)
+        // A future-dated manifest would pin the device to it: every correctly
+        // dated manifest after it would look older and be ignored below.
+        guard manifest.generatedAt <= now().addingTimeInterval(Self.maxClockSkew) else {
+            throw CatalogError.invalidManifest("generatedAt \(CatalogDate.format(manifest.generatedAt)) is in the future")
+        }
         // A CDN edge can still serve an older manifest after we applied a newer one.
         guard manifest.contentVersion != current.contentVersion, manifest.generatedAt > current.generatedAt else {
             return .upToDate
@@ -89,6 +103,18 @@ public struct CatalogUpdater: Sendable {
             throw CatalogError.fileSystem(String(describing: error))
         }
         return .updated(contentVersion: manifest.contentVersion)
+    }
+
+    /// The manifest is trusted only once `manifest.json.sig` verifies against
+    /// one of the app's signing keys — the file hashes it lists come from the
+    /// same host, so on their own they prove nothing about who published it.
+    private func verifySignature(of manifestData: Data) async throws {
+        let request = URLRequest(url: v1URL.appending(path: "manifest.json.sig"))
+        let (response, signature) = try await fetch(request, limit: CatalogSigningKeys.signatureByteLimit)
+        guard response.statusCode == 200 else {
+            throw CatalogError.http(status: response.statusCode)
+        }
+        try signingKeys.verify(manifestData, signatureFile: signature)
     }
 
     private func fetchFile(_ entry: CatalogManifest.FileEntry) async throws -> Data {

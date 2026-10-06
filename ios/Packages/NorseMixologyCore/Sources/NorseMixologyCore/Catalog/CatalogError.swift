@@ -9,6 +9,10 @@ public enum CatalogError: Error, Equatable, Sendable {
     case fileTooLarge(String, Int)
     /// "taxonomy" or "recipes".
     case hashMismatch(String)
+    /// `manifest.json.sig` is malformed or not from a trusted signing key.
+    case invalidSignature
+    /// A configured signing key isn't a base64 raw Ed25519 public key.
+    case invalidSigningKey(String)
     case malformedTaxonomy(String)
     case malformedRecipes(String)
     /// A family/style whose parent ids disagree with where it is nested.

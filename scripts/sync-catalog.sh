@@ -1,18 +1,46 @@
 #!/usr/bin/env bash
 # Pulls the published catalog (manifest + content-hashed files) into the app repo's
 # bundled snapshot: seed-data/ (read by the Android build), the iOS app resources,
-# and the core package's test resources. Verifies every hash before writing anything.
+# and the core package's test resources. Verifies the manifest signature against the
+# app's trusted keys (CatalogConfig.signingKeys) and every hash before writing anything.
 #
 # Usage: scripts/sync-catalog.sh [BASE_URL]
 #   BASE_URL defaults to https://martinloeseth.dev/norse-catalog
+#   Needs OpenSSL 3 for Ed25519 (macOS: brew install openssl@3, then set OPENSSL to its path).
 set -euo pipefail
 
 BASE="${1:-https://martinloeseth.dev/norse-catalog}/v1"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+OPENSSL="${OPENSSL:-openssl}"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
+"$OPENSSL" version | grep -q '^OpenSSL 3' || { echo "Needs OpenSSL 3; set OPENSSL to its path." >&2; exit 1; }
+
 curl -fsSL "$BASE/manifest.json" -o "$TMP/manifest.json"
+curl -fsSL "$BASE/manifest.json.sig" -o "$TMP/manifest.json.sig"
+
+# Each trusted key is a raw Ed25519 public key; the fixed SPKI header turns it into a DER key for openssl.
+python3 - "$ROOT/ios/NorseMixology/Catalog/CatalogLaunch.swift" "$TMP" <<'PY'
+import base64, re, sys
+swift, tmp = sys.argv[1], sys.argv[2]
+line = re.search(r"static let signingKeys = \[(.*)\]", open(swift).read()).group(1)
+try:
+    keys = [base64.b64decode(k, validate=True) for k in re.findall(r'"([^"]+)"', line)]
+except ValueError:
+    keys = []
+assert keys and all(len(k) == 32 for k in keys), "CatalogConfig.signingKeys holds no valid Ed25519 key"
+for i, key in enumerate(keys):
+    open(f"{tmp}/key{i}.der", "wb").write(bytes.fromhex("302a300506032b6570032100") + key)
+open(f"{tmp}/sig.bin", "wb").write(base64.b64decode(open(f"{tmp}/manifest.json.sig").read().strip(), validate=True))
+PY
+VERIFIED=0
+for key in "$TMP"/key*.der; do
+  if "$OPENSSL" pkeyutl -verify -pubin -keyform DER -inkey "$key" -rawin -in "$TMP/manifest.json" -sigfile "$TMP/sig.bin" >/dev/null 2>&1; then
+    VERIFIED=1
+  fi
+done
+[ "$VERIFIED" = 1 ] || { echo "manifest.json signature does not verify against CatalogConfig.signingKeys" >&2; exit 1; }
 
 read -r TAX_PATH TAX_SHA REC_PATH REC_SHA < <(python3 - "$TMP/manifest.json" <<'EOF'
 import json, re, sys

@@ -3,6 +3,11 @@ import NorseMixologyCore
 
 enum CatalogConfig {
     static let baseURL = URL(string: "https://martinloeseth.dev/norse-catalog/")!
+    /// Ed25519 public keys (raw, base64) trusted to sign the catalog manifest —
+    /// the "App key" printed by norse-catalog's `scripts/new-signing-key.sh`.
+    /// To rotate, add the new key in a release before the catalog switches to it.
+    /// Keep this on one line: `scripts/sync-catalog.sh` reads the keys from it.
+    static let signingKeys = ["REPLACE_WITH_CATALOG_SIGNING_PUBLIC_KEY"]
 }
 
 /// Connects the core catalog pipeline to this app: its bundle, its
@@ -45,7 +50,14 @@ enum CatalogLaunch {
 
     private static func refresh(current: CatalogMeta) async {
         guard let paths = try? CatalogPaths.applicationSupport() else { return }
-        let outcome = await CatalogUpdater(baseURL: CatalogConfig.baseURL, paths: paths).refresh(current: current)
+        let signingKeys: CatalogSigningKeys
+        do {
+            signingKeys = try CatalogSigningKeys(base64Keys: CatalogConfig.signingKeys)
+        } catch {
+            AppLog.catalog.error("Catalog signing keys unusable; skipping refresh: \(String(describing: error), privacy: .public)")
+            return
+        }
+        let outcome = await CatalogUpdater(baseURL: CatalogConfig.baseURL, signingKeys: signingKeys, paths: paths).refresh(current: current)
         switch outcome {
         case .failed(let error):
             AppLog.catalog.error("Catalog refresh failed: \(String(describing: error), privacy: .public)")
