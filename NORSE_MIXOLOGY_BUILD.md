@@ -239,6 +239,13 @@ Replaces the five unlabelled "tasting dots". Design canvas: "Tasting Dots" (Clau
 - **Accessibility:** each chip's label is one whole phrase ("Bitter, strong", "Herbal, mild, matches your taste") so a row that combines its children never separates a strength from its flavour; each bar reads "Bitter, High. You: low". At accessibility text sizes the bar rows and the legend stack (checked at the largest size) and the diamond grows to at most 1.6×.
 - **Retired:** `FlavorProfileIndicatorView` (the dots). `FlavorProfile.accessibilitySummary` stays (still tested) but is no longer used by a view.
 
+## Pantry staples (iOS)
+
+- **Spec:** `docs/superpowers/specs/2026-10-06-pantry-staples-design.md`. Issue #5.
+- **A setting, not inventory.** `PantryStore` keeps the chosen `PantryStaple`s in `UserDefaults`. Nothing is stored as a `CabinetItem`, so the Cabinet screen, the shopping list and the SwiftData schema are untouched.
+- **Additive.** `Pantry.effectiveCabinet` appends an unsaved `CabinetItem` per covered style, and `RecipeBrowserViewModel.refresh(cabinet:)` and the Favourites detail match against that. The engine, `CatalogAvailability` and `BuyNextRanking` don't change; Buy next can't suggest a staple because staples are never `missing`.
+- **Any new matching entry point must go through `Pantry.effectiveCabinet`**, or pantry users will see recipes disagree between screens.
+
 ## Design System — "Modern Neon Bar"
 
 Both platforms follow system light/dark appearance (never forced). Same tokens, mapped for each mode:
