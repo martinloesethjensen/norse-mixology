@@ -164,14 +164,17 @@ Shopping list, "what to buy next" (B); bottle scanning; notes/ratings/photos/log
 
 ---
 
-## 7. Roadmap context (agreed 2026-10-04)
+## 7. Roadmap context (agreed 2026-10-04, revised 2026-10-06)
 
 Each item gets its own spec → plan → implementation cycle.
 
-1. **A — Browse catalog** (this spec)
-2. **B — Shopping list + "what to buy next"** (single bottle that unlocks the most recipes)
-3. **Bottle scan** — VisionKit label/barcode → cabinet or list
-4. **C — Notes, ratings, photos + "made it" log** (overlay keyed by `recipeId`, SwiftData; photos via `PhotosPicker`, stored on device)
-5. **D — Custom ingredients and recipes**, incl. "make my version" of a catalog recipe (matching engine must accept user recipes; custom ingredients need family + flavour profile)
-6. **E — Backup** — export/import file + optional iCloud sync; ships with or right after D
-7. **F — On-device AI** (Foundation Models, iOS 26 + Apple Intelligence, gated; min iOS stays 17): natural-language search, twist suggestions, recipe/ingredient drafting with guided generation constrained to catalog ids. **Spike first:** whether the model's guardrails handle alcohol content.
+1. **A — Browse catalog** (this spec). Implemented.
+2. **B — Shopping list + "what to buy next"** (single bottle that unlocks the most recipes). Implemented, see `2026-10-05-shopping-list-design.md`.
+3. **Pantry staples** (#5) — sugar, eggs, soda water, citrus and so on count as owned without being cabinet items. Added 2026-10-06.
+4. **Bottle scan** — VisionKit label/barcode → cabinet or list
+5. **C — Notes, ratings, photos + "made it" log**, shipped **together with E's export/import file** (overlay keyed by `recipeId`, SwiftData; photos via `PhotosPicker`, stored on device). C creates the first data a user can't recreate, so it never ships without a way to back it up. Decide early whether the export embeds photos or references them.
+6. **D — Custom ingredients and recipes**, incl. "make my version" of a catalog recipe (matching engine must accept user recipes; custom ingredients need family + flavour profile). The export format gains custom recipes in the same release.
+7. **E — iCloud sync** (the rest of E). Follows D, which adds the most complex user data.
+8. **F — On-device AI** (Foundation Models, iOS 26 + Apple Intelligence, gated; min iOS stays 17): natural-language search, twist suggestions, recipe/ingredient drafting with guided generation constrained to catalog ids. **Spike first:** whether the model's guardrails handle alcohol content.
+
+Revision 2026-10-06 (#6): backup export/import moved forward to ship with C instead of after D; pantry staples added after B. Android is parked (#3), so every item is iOS-only.
