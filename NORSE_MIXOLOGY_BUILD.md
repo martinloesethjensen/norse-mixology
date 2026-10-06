@@ -8,6 +8,14 @@
 
 A mixology app where you tell it what's in your cabinet and it finds the cocktails you can make — with smart substitution for what you're missing, computed entirely on-device.
 
+## Platform status
+
+**Android is parked until after the iOS launch** (decided 2026-10-06, [#3](https://github.com/martinloesethjensen/norse-mixology/issues/3)). Until it resumes:
+
+- New work is iOS-only. Don't port features to Kotlin or keep the Kotlin matcher in sync. The "Swift and Kotlin must match exactly" rules below describe the target for when Android resumes, not current work.
+- Keep the Android build green on what already exists: `scripts/sync-catalog.sh` still updates `/seed-data`, and `SeedDataTest` still checks it against the iOS bundle. Bump `CatalogSeeder.CATALOG_VERSION` whenever `/seed-data` changes.
+- Record parity debt in #3 (and #2 for the matching engine), not as per-phase notes in this file.
+
 ## MVP Scope
 
 - ✅ Local-first: cabinet + favourites + recipe catalog all on-device (SwiftData on iOS, Room on Android)
