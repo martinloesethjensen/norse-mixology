@@ -154,7 +154,7 @@ Invariant guard: if a non-matched recipe ends up with `missing.isEmpty` (should 
 
 - **Core unit tests (new `CatalogAvailabilityTests`, `RecipeFilterTests`):** parity, missing ordering, soft-ingredient exclusion, substitutions on non-makeable recipes, tiers, taste ordering within tiers, every filter kind, AND/OR semantics, query edge cases, `RecipeBrowseState` mode switch keeps filter, adding a style moves a recipe from Missing 1 → Ready.
 - **Performance:** extend the existing budget test.
-- **Simulator verification (no UI test target exists):** cabinet London Dry Gin + Lime Juice + Raspberry Liqueur → search "chartreuse" → open Last Word → Add Green Chartreuse → Last Word shows Ready in All recipes and appears in Can make. Repeat at iPad width and with VoiceOver labels inspected.
+- **Simulator verification (no UI test target exists):** cabinet London Dry Gin + Lime Juice + Maraschino Liqueur → search "chartreuse" → open Last Word → Add Green Chartreuse → Last Word shows Ready in All recipes and appears in Can make. Repeat at iPad width and with VoiceOver labels inspected.
 
 ---
 

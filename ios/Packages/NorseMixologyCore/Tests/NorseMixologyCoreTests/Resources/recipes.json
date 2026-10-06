@@ -41,16 +41,16 @@
       "Garnish with a lemon twist or olive."
     ],
     "flavorProfile": {
-      "sweetness": 0.137,
-      "bitterness": 0.237,
+      "sweetness": 0.114,
+      "bitterness": 0.214,
       "smokiness": 0.0,
-      "citrus": 0.225,
-      "floral": 0.237,
+      "citrus": 0.271,
+      "floral": 0.214,
       "spice": 0.1,
-      "herbal": 0.662,
+      "herbal": 0.686,
       "fruity": 0.1,
       "oaky": 0.0,
-      "abv": 32.59
+      "abv": 26.68
     },
     "tags": [
       "classic",
@@ -82,11 +82,11 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "0ebf95c1-e0d3-5ccc-ba45-d2bafa4a2956",
+        "ingredientStyleId": "7bd5cfbd-e42d-5d82-b67b-fa20af8d3227",
         "amount": "7.5ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": null
+        "substituteNotes": "Fleming specified Kina Lillet; Cocchi Americano is closest to its original bitterness."
       },
       {
         "ingredientStyleId": "b428fcdb-90f5-5934-a4de-04a5f02a02f2",
@@ -102,16 +102,16 @@
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.182,
-      "bitterness": 0.122,
+      "sweetness": 0.138,
+      "bitterness": 0.164,
       "smokiness": 0.0,
-      "citrus": 0.158,
-      "floral": 0.207,
-      "spice": 0.058,
-      "herbal": 0.342,
-      "fruity": 0.08,
+      "citrus": 0.255,
+      "floral": 0.189,
+      "spice": 0.064,
+      "herbal": 0.468,
+      "fruity": 0.106,
       "oaky": 0.0,
-      "abv": 33.16
+      "abv": 25.68
     },
     "tags": [
       "classic",
@@ -162,16 +162,16 @@
       "Garnish with an orange wheel."
     ],
     "flavorProfile": {
-      "sweetness": 0.286,
-      "bitterness": 0.412,
+      "sweetness": 0.329,
+      "bitterness": 0.452,
       "smokiness": 0.0,
-      "citrus": 0.257,
+      "citrus": 0.239,
       "floral": 0.165,
-      "spice": 0.118,
-      "herbal": 0.522,
-      "fruity": 0.19,
-      "oaky": 0.024,
-      "abv": 28.21
+      "spice": 0.129,
+      "herbal": 0.516,
+      "fruity": 0.203,
+      "oaky": 0.032,
+      "abv": 23.28
     },
     "tags": [
       "classic",
@@ -231,16 +231,16 @@
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.261,
-      "bitterness": 0.104,
+      "sweetness": 0.106,
+      "bitterness": 0.056,
       "smokiness": 0.0,
-      "citrus": 0.3,
-      "floral": 0.094,
-      "spice": 0.041,
-      "herbal": 0.286,
-      "fruity": 0.073,
+      "citrus": 0.17,
+      "floral": 0.047,
+      "spice": 0.022,
+      "herbal": 0.154,
+      "fruity": 0.043,
       "oaky": 0.0,
-      "abv": 17.24
+      "abv": 7.64
     },
     "tags": [
       "classic",
@@ -285,16 +285,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.389,
-      "bitterness": 0.074,
+      "sweetness": 0.301,
+      "bitterness": 0.085,
       "smokiness": 0.0,
-      "citrus": 0.4,
-      "floral": 0.316,
-      "spice": 0.053,
-      "herbal": 0.263,
-      "fruity": 0.2,
+      "citrus": 0.452,
+      "floral": 0.371,
+      "spice": 0.062,
+      "herbal": 0.309,
+      "fruity": 0.231,
       "oaky": 0.0,
-      "abv": 22.11
+      "abv": 16.76
     },
     "tags": [
       "classic",
@@ -346,16 +346,16 @@
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.311,
-      "bitterness": 0.126,
+      "sweetness": 0.257,
+      "bitterness": 0.139,
       "smokiness": 0.0,
-      "citrus": 0.347,
-      "floral": 0.184,
-      "spice": 0.053,
-      "herbal": 0.368,
-      "fruity": 0.095,
+      "citrus": 0.371,
+      "floral": 0.176,
+      "spice": 0.059,
+      "herbal": 0.412,
+      "fruity": 0.102,
       "oaky": 0.0,
-      "abv": 22.24
+      "abv": 16.15
     },
     "tags": [
       "classic",
@@ -380,18 +380,25 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "71154da0-8b20-5d0f-99c4-250d2222b018",
+        "ingredientStyleId": "8674f226-6a00-5c6a-bb09-b5c49af96c34",
         "amount": "15ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "ff7d96ed-4f20-5b3f-a100-644f9d4d5188",
-        "amount": "7.5ml",
+        "ingredientStyleId": "6ce79edd-1f05-5576-8f10-26a45161485c",
+        "amount": "5ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally maraschino + crème de violette; raspberry liqueur is a workable single-bottle substitute for flavour balance."
+        "substituteNotes": null
+      },
+      {
+        "ingredientStyleId": "71154da0-8b20-5d0f-99c4-250d2222b018",
+        "amount": "15ml",
+        "preparation": null,
+        "isOptional": false,
+        "substituteNotes": null
       },
       {
         "ingredientStyleId": "36cde6cf-df3c-537f-a4d4-b3b78cd470ca",
@@ -407,16 +414,16 @@
       "Garnish with a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.36,
-      "bitterness": 0.112,
+      "sweetness": 0.241,
+      "bitterness": 0.148,
       "smokiness": 0.0,
-      "citrus": 0.264,
-      "floral": 0.124,
-      "spice": 0.04,
-      "herbal": 0.28,
-      "fruity": 0.408,
+      "citrus": 0.325,
+      "floral": 0.257,
+      "spice": 0.054,
+      "herbal": 0.416,
+      "fruity": 0.218,
       "oaky": 0.0,
-      "abv": 21.52
+      "abv": 18.81
     },
     "tags": [
       "classic",
@@ -475,16 +482,16 @@
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.304,
-      "bitterness": 0.12,
+      "sweetness": 0.224,
+      "bitterness": 0.114,
       "smokiness": 0.0,
-      "citrus": 0.312,
-      "floral": 0.128,
-      "spice": 0.04,
-      "herbal": 0.28,
-      "fruity": 0.144,
-      "oaky": 0.024,
-      "abv": 19.78
+      "citrus": 0.279,
+      "floral": 0.166,
+      "spice": 0.021,
+      "herbal": 0.145,
+      "fruity": 0.228,
+      "oaky": 0.062,
+      "abv": 12.94
     },
     "tags": [
       "classic",
@@ -544,16 +551,16 @@
       "Top with club soda."
     ],
     "flavorProfile": {
-      "sweetness": 0.237,
-      "bitterness": 0.089,
+      "sweetness": 0.1,
+      "bitterness": 0.052,
       "smokiness": 0.0,
-      "citrus": 0.244,
-      "floral": 0.074,
-      "spice": 0.037,
-      "herbal": 0.259,
-      "fruity": 0.067,
+      "citrus": 0.153,
+      "floral": 0.041,
+      "spice": 0.021,
+      "herbal": 0.145,
+      "fruity": 0.041,
       "oaky": 0.0,
-      "abv": 15.65
+      "abv": 7.2
     },
     "tags": [
       "classic",
@@ -572,28 +579,28 @@
     "ingredients": [
       {
         "ingredientStyleId": "b70a6068-f6c9-5209-b599-dd300cafcb1e",
-        "amount": "20ml",
+        "amount": "22ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
         "ingredientStyleId": "592d0b00-9ec2-56f4-b492-d13ac359fe2f",
-        "amount": "20ml",
+        "amount": "22ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "ff7d96ed-4f20-5b3f-a100-644f9d4d5188",
-        "amount": "20ml",
+        "ingredientStyleId": "8674f226-6a00-5c6a-bb09-b5c49af96c34",
+        "amount": "22ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally maraschino liqueur; raspberry liqueur substitutes for sweetness/fruit, though the flavour profile is less almond-cherry."
+        "substituteNotes": null
       },
       {
         "ingredientStyleId": "45d5c156-3564-584b-a716-7a2c1e9c6949",
-        "amount": "20ml",
+        "amount": "22ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
@@ -604,16 +611,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.35,
-      "bitterness": 0.161,
+      "sweetness": 0.3,
+      "bitterness": 0.175,
       "smokiness": 0.0,
-      "citrus": 0.261,
-      "floral": 0.171,
-      "spice": 0.086,
-      "herbal": 0.475,
-      "fruity": 0.264,
+      "citrus": 0.325,
+      "floral": 0.25,
+      "spice": 0.075,
+      "herbal": 0.45,
+      "fruity": 0.2,
       "oaky": 0.0,
-      "abv": 32.96
+      "abv": 20.17
     },
     "tags": [
       "classic",
@@ -645,15 +652,8 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "ff7d96ed-4f20-5b3f-a100-644f9d4d5188",
+        "ingredientStyleId": "98c30480-eb30-54e0-ab0f-21af47a98005",
         "amount": "15ml",
-        "preparation": null,
-        "isOptional": false,
-        "substituteNotes": null
-      },
-      {
-        "ingredientStyleId": "b3f73a20-e8ea-5251-8dfd-d6ccb6f0f155",
-        "amount": "7.5ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
@@ -664,24 +664,32 @@
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
+      },
+      {
+        "ingredientStyleId": "e29961a5-ad13-5375-9901-16a884074ee0",
+        "amount": "1",
+        "preparation": null,
+        "isOptional": true,
+        "substituteNotes": null
       }
     ],
     "steps": [
       "Dry shake all ingredients without ice.",
       "Shake again with ice.",
-      "Double strain into a chilled coupe."
+      "Double strain into a chilled coupe.",
+      "Garnish with a raspberry."
     ],
     "flavorProfile": {
-      "sweetness": 0.4,
-      "bitterness": 0.08,
+      "sweetness": 0.217,
+      "bitterness": 0.117,
       "smokiness": 0.0,
-      "citrus": 0.22,
-      "floral": 0.09,
-      "spice": 0.033,
-      "herbal": 0.233,
-      "fruity": 0.247,
+      "citrus": 0.3,
+      "floral": 0.117,
+      "spice": 0.05,
+      "herbal": 0.35,
+      "fruity": 0.2,
       "oaky": 0.0,
-      "abv": 17.93
+      "abv": 14.07
     },
     "tags": [
       "classic",
@@ -707,50 +715,50 @@
       },
       {
         "ingredientStyleId": "71154da0-8b20-5d0f-99c4-250d2222b018",
-        "amount": "20ml",
+        "amount": "25ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
         "ingredientStyleId": "b3f73a20-e8ea-5251-8dfd-d6ccb6f0f155",
-        "amount": "10ml",
+        "amount": "12.5ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "ff7d96ed-4f20-5b3f-a100-644f9d4d5188",
+        "ingredientStyleId": "f5cfb2dc-5cdc-5ae0-a043-169ca697c948",
         "amount": "15ml",
-        "preparation": null,
+        "preparation": "drizzled",
         "isOptional": false,
-        "substituteNotes": "Traditionally crème de mûre (blackberry); raspberry liqueur is the nearest bottled substitute."
+        "substituteNotes": null
       },
       {
         "ingredientStyleId": "30a1240b-3b75-5c94-a9d7-618f3f1cb4b5",
         "amount": "1",
-        "preparation": "wedge",
-        "isOptional": false,
+        "preparation": "slice",
+        "isOptional": true,
         "substituteNotes": null
       }
     ],
     "steps": [
       "Shake gin, lemon juice, and simple syrup with ice.",
       "Strain over crushed ice in a rocks glass.",
-      "Drizzle raspberry liqueur over the top.",
-      "Garnish with a lemon wedge."
+      "Drizzle crème de mûre over the top.",
+      "Garnish with a lemon slice and a blackberry."
     ],
     "flavorProfile": {
-      "sweetness": 0.413,
-      "bitterness": 0.093,
+      "sweetness": 0.312,
+      "bitterness": 0.137,
       "smokiness": 0.0,
-      "citrus": 0.34,
-      "floral": 0.09,
-      "spice": 0.033,
-      "herbal": 0.233,
-      "fruity": 0.273,
+      "citrus": 0.366,
+      "floral": 0.112,
+      "spice": 0.049,
+      "herbal": 0.341,
+      "fruity": 0.215,
       "oaky": 0.0,
-      "abv": 17.93
+      "abv": 20.08
     },
     "tags": [
       "modern-classic",
@@ -793,16 +801,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.333,
-      "bitterness": 0.114,
+      "sweetness": 0.273,
+      "bitterness": 0.126,
       "smokiness": 0.0,
-      "citrus": 0.581,
-      "floral": 0.129,
-      "spice": 0.048,
-      "herbal": 0.333,
-      "fruity": 0.186,
+      "citrus": 0.572,
+      "floral": 0.126,
+      "spice": 0.051,
+      "herbal": 0.354,
+      "fruity": 0.174,
       "oaky": 0.0,
-      "abv": 31.79
+      "abv": 18.94
     },
     "tags": [
       "classic",
@@ -826,14 +834,21 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "ff7d96ed-4f20-5b3f-a100-644f9d4d5188",
+        "ingredientStyleId": "8c5ffae1-1f2d-584a-9201-6ea1704ecd36",
         "amount": "15ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally Cherry Heering; raspberry liqueur is a rough single-bottle substitute for colour and fruit sweetness."
+        "substituteNotes": null
       },
       {
-        "ingredientStyleId": "5edefd1a-ebb5-537e-a096-5f4e28cb32a3",
+        "ingredientStyleId": "13c41771-5eea-5e26-b66b-8758781b8920",
+        "amount": "7.5ml",
+        "preparation": null,
+        "isOptional": false,
+        "substituteNotes": null
+      },
+      {
+        "ingredientStyleId": "591ce96e-b449-5553-a0cc-fbd19f98a1a1",
         "amount": "7.5ml",
         "preparation": null,
         "isOptional": false,
@@ -871,27 +886,27 @@
         "ingredientStyleId": "24394714-b20f-51bf-bea7-bea175c4a3c2",
         "amount": "top",
         "preparation": null,
-        "isOptional": false,
+        "isOptional": true,
         "substituteNotes": null
       }
     ],
     "steps": [
-      "Shake gin, cherry, orange liqueur, pineapple juice, lime juice, grenadine, and bitters with ice.",
+      "Shake gin, cherry liqueur, Cointreau, Bénédictine, pineapple juice, lime juice, grenadine, and bitters with ice.",
       "Strain into a hurricane glass over ice.",
-      "Top with club soda.",
-      "Garnish with a pineapple wedge."
+      "Top with a splash of club soda.",
+      "Garnish with a pineapple wedge and a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.446,
-      "bitterness": 0.101,
+      "sweetness": 0.522,
+      "bitterness": 0.056,
       "smokiness": 0.0,
-      "citrus": 0.289,
-      "floral": 0.113,
-      "spice": 0.054,
-      "herbal": 0.175,
-      "fruity": 0.36,
-      "oaky": 0.036,
-      "abv": 20.82
+      "citrus": 0.257,
+      "floral": 0.111,
+      "spice": 0.044,
+      "herbal": 0.126,
+      "fruity": 0.535,
+      "oaky": 0.012,
+      "abv": 8.02
     },
     "tags": [
       "classic",
@@ -923,11 +938,11 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "57c32c4b-98c0-50da-bfa0-48ac54bc0f92",
+        "ingredientStyleId": "7bd5cfbd-e42d-5d82-b67b-fa20af8d3227",
         "amount": "22ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally Lillet Blanc; dry vermouth is the nearest fortified-wine substitute."
+        "substituteNotes": null
       },
       {
         "ingredientStyleId": "71154da0-8b20-5d0f-99c4-250d2222b018",
@@ -949,16 +964,16 @@
       "Double strain into a chilled coupe rinsed with absinthe."
     ],
     "flavorProfile": {
-      "sweetness": 0.276,
-      "bitterness": 0.195,
+      "sweetness": 0.372,
+      "bitterness": 0.153,
       "smokiness": 0.0,
-      "citrus": 0.346,
-      "floral": 0.176,
-      "spice": 0.097,
-      "herbal": 0.53,
-      "fruity": 0.122,
+      "citrus": 0.589,
+      "floral": 0.151,
+      "spice": 0.028,
+      "herbal": 0.237,
+      "fruity": 0.246,
       "oaky": 0.0,
-      "abv": 38.15
+      "abv": 15.61
     },
     "tags": [
       "classic",
@@ -1010,16 +1025,16 @@
       "Garnish with a mint sprig."
     ],
     "flavorProfile": {
-      "sweetness": 0.278,
-      "bitterness": 0.122,
+      "sweetness": 0.169,
+      "bitterness": 0.133,
       "smokiness": 0.0,
-      "citrus": 0.287,
-      "floral": 0.104,
-      "spice": 0.061,
-      "herbal": 0.461,
-      "fruity": 0.078,
+      "citrus": 0.276,
+      "floral": 0.117,
+      "spice": 0.073,
+      "herbal": 0.569,
+      "fruity": 0.076,
       "oaky": 0.0,
-      "abv": 18.37
+      "abv": 15.76
     },
     "tags": [
       "classic",
@@ -1071,16 +1086,16 @@
       "Garnish with a lime wedge."
     ],
     "flavorProfile": {
-      "sweetness": 0.072,
-      "bitterness": 0.131,
+      "sweetness": 0.033,
+      "bitterness": 0.059,
       "smokiness": 0.0,
-      "citrus": 0.385,
-      "floral": 0.103,
-      "spice": 0.051,
-      "herbal": 0.359,
-      "fruity": 0.1,
+      "citrus": 0.157,
+      "floral": 0.049,
+      "spice": 0.025,
+      "herbal": 0.172,
+      "fruity": 0.043,
       "oaky": 0.0,
-      "abv": 21.67
+      "abv": 9.03
     },
     "tags": [
       "classic",
@@ -1112,14 +1127,74 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "ff7d96ed-4f20-5b3f-a100-644f9d4d5188",
+        "ingredientStyleId": "8674f226-6a00-5c6a-bb09-b5c49af96c34",
         "amount": "5ml",
         "preparation": null,
-        "isOptional": true,
-        "substituteNotes": "Traditionally a dash of maraschino; raspberry liqueur is optional here and can be omitted."
+        "isOptional": false,
+        "substituteNotes": null
       },
       {
         "ingredientStyleId": "1b52af40-1b6e-5b2c-958f-ef23948aaca7",
+        "amount": "2 dash",
+        "preparation": null,
+        "isOptional": false,
+        "substituteNotes": null
+      },
+      {
+        "ingredientStyleId": "f368345e-72f1-5aa7-8ba3-40f57499cab9",
+        "amount": "1",
+        "preparation": null,
+        "isOptional": false,
+        "substituteNotes": null
+      }
+    ],
+    "steps": [
+      "Stir all ingredients with ice.",
+      "Strain into a chilled coupe.",
+      "Garnish with an orange twist."
+    ],
+    "flavorProfile": {
+      "sweetness": 0.515,
+      "bitterness": 0.22,
+      "smokiness": 0.0,
+      "citrus": 0.146,
+      "floral": 0.205,
+      "spice": 0.15,
+      "herbal": 0.461,
+      "fruity": 0.202,
+      "oaky": 0.092,
+      "abv": 20.92
+    },
+    "tags": [
+      "classic",
+      "spirit-forward"
+    ],
+    "difficulty": "medium",
+    "imageURL": null
+  },
+  {
+    "id": "8f67cb31-38d3-5d14-ae82-cf72393c6eb9",
+    "name": "Alaska",
+    "description": "A Martini variant sweetened with yellow Chartreuse.",
+    "glassType": "coupe",
+    "method": "stir",
+    "ingredients": [
+      {
+        "ingredientStyleId": "b70a6068-f6c9-5209-b599-dd300cafcb1e",
+        "amount": "60ml",
+        "preparation": null,
+        "isOptional": false,
+        "substituteNotes": null
+      },
+      {
+        "ingredientStyleId": "c808c931-c073-51e9-9066-3dab22040a64",
+        "amount": "15ml",
+        "preparation": null,
+        "isOptional": false,
+        "substituteNotes": null
+      },
+      {
+        "ingredientStyleId": "2814b41f-8673-551b-8ef3-1813fd398959",
         "amount": "2 dash",
         "preparation": null,
         "isOptional": false,
@@ -1134,81 +1209,21 @@
       }
     ],
     "steps": [
-      "Stir all ingredients with ice.",
+      "Stir gin, Chartreuse, and bitters with ice.",
       "Strain into a chilled coupe.",
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.461,
-      "bitterness": 0.218,
+      "sweetness": 0.187,
+      "bitterness": 0.201,
       "smokiness": 0.0,
-      "citrus": 0.176,
-      "floral": 0.184,
-      "spice": 0.147,
-      "herbal": 0.445,
-      "fruity": 0.147,
-      "oaky": 0.092,
-      "abv": 31.63
-    },
-    "tags": [
-      "classic",
-      "spirit-forward"
-    ],
-    "difficulty": "medium",
-    "imageURL": null
-  },
-  {
-    "id": "8f67cb31-38d3-5d14-ae82-cf72393c6eb9",
-    "name": "Alaska",
-    "description": "A Martini variant sweetened with Chartreuse.",
-    "glassType": "coupe",
-    "method": "stir",
-    "ingredients": [
-      {
-        "ingredientStyleId": "b70a6068-f6c9-5209-b599-dd300cafcb1e",
-        "amount": "50ml",
-        "preparation": null,
-        "isOptional": false,
-        "substituteNotes": null
-      },
-      {
-        "ingredientStyleId": "592d0b00-9ec2-56f4-b492-d13ac359fe2f",
-        "amount": "20ml",
-        "preparation": null,
-        "isOptional": false,
-        "substituteNotes": null
-      },
-      {
-        "ingredientStyleId": "2814b41f-8673-551b-8ef3-1813fd398959",
-        "amount": "1 dash",
-        "preparation": null,
-        "isOptional": true,
-        "substituteNotes": null
-      },
-      {
-        "ingredientStyleId": "b428fcdb-90f5-5934-a4de-04a5f02a02f2",
-        "amount": "1",
-        "preparation": null,
-        "isOptional": false,
-        "substituteNotes": null
-      }
-    ],
-    "steps": [
-      "Stir gin and Chartreuse with ice.",
-      "Strain into a chilled coupe.",
-      "Garnish with a lemon twist."
-    ],
-    "flavorProfile": {
-      "sweetness": 0.205,
-      "bitterness": 0.23,
-      "smokiness": 0.0,
-      "citrus": 0.241,
-      "floral": 0.238,
-      "spice": 0.13,
-      "herbal": 0.719,
-      "fruity": 0.054,
+      "citrus": 0.288,
+      "floral": 0.236,
+      "spice": 0.114,
+      "herbal": 0.64,
+      "fruity": 0.078,
       "oaky": 0.0,
-      "abv": 43.65
+      "abv": 27.74
     },
     "tags": [
       "classic",
@@ -1265,16 +1280,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.304,
-      "bitterness": 0.188,
+      "sweetness": 0.277,
+      "bitterness": 0.16,
       "smokiness": 0.0,
-      "citrus": 0.546,
-      "floral": 0.125,
-      "spice": 0.073,
-      "herbal": 0.317,
-      "fruity": 0.169,
-      "oaky": 0.006,
-      "abv": 32.36
+      "citrus": 0.53,
+      "floral": 0.135,
+      "spice": 0.066,
+      "herbal": 0.374,
+      "fruity": 0.165,
+      "oaky": 0.003,
+      "abv": 20.35
     },
     "tags": [
       "classic",
@@ -1326,16 +1341,16 @@
       "Garnish with a basil sprig."
     ],
     "flavorProfile": {
-      "sweetness": 0.322,
-      "bitterness": 0.078,
+      "sweetness": 0.189,
+      "bitterness": 0.089,
       "smokiness": 0.0,
-      "citrus": 0.33,
-      "floral": 0.296,
-      "spice": 0.061,
-      "herbal": 0.357,
-      "fruity": 0.165,
+      "citrus": 0.276,
+      "floral": 0.276,
+      "spice": 0.073,
+      "herbal": 0.486,
+      "fruity": 0.13,
       "oaky": 0.0,
-      "abv": 18.26
+      "abv": 13.53
     },
     "tags": [
       "modern-classic",
@@ -1367,11 +1382,11 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "ff7d96ed-4f20-5b3f-a100-644f9d4d5188",
+        "ingredientStyleId": "8674f226-6a00-5c6a-bb09-b5c49af96c34",
         "amount": "5ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally maraschino liqueur; raspberry liqueur is a rough substitute."
+        "substituteNotes": null
       },
       {
         "ingredientStyleId": "08f95f71-3777-5180-80b8-ea5babae1c85",
@@ -1382,7 +1397,7 @@
       },
       {
         "ingredientStyleId": "2814b41f-8673-551b-8ef3-1813fd398959",
-        "amount": "1 dash",
+        "amount": "2 dash",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
@@ -1398,19 +1413,19 @@
     "steps": [
       "Stir all ingredients with ice.",
       "Strain into a chilled coupe.",
-      "Garnish with a lemon twist."
+      "Garnish with a lemon twist and a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.276,
-      "bitterness": 0.218,
+      "sweetness": 0.165,
+      "bitterness": 0.255,
       "smokiness": 0.0,
-      "citrus": 0.146,
-      "floral": 0.197,
-      "spice": 0.104,
-      "herbal": 0.549,
-      "fruity": 0.204,
+      "citrus": 0.216,
+      "floral": 0.258,
+      "spice": 0.093,
+      "herbal": 0.586,
+      "fruity": 0.116,
       "oaky": 0.0,
-      "abv": 36.78
+      "abv": 20.57
     },
     "tags": [
       "classic",
@@ -1448,7 +1463,7 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "de10dd0f-345c-5add-bf13-da77ddd2d713",
+        "ingredientStyleId": "f368345e-72f1-5aa7-8ba3-40f57499cab9",
         "amount": "1",
         "preparation": null,
         "isOptional": false,
@@ -1456,22 +1471,22 @@
       }
     ],
     "steps": [
-      "Muddle sugar cube with bitters and a splash of water in a rocks glass.",
+      "Stir demerara syrup and bitters in a rocks glass.",
       "Add bourbon and a large ice cube.",
       "Stir until chilled.",
-      "Garnish with an orange twist."
+      "Express an orange twist over the glass and drop it in."
     ],
     "flavorProfile": {
-      "sweetness": 0.608,
-      "bitterness": 0.122,
-      "smokiness": 0.056,
-      "citrus": 0.033,
-      "floral": 0.064,
-      "spice": 0.228,
-      "herbal": 0.081,
-      "fruity": 0.136,
-      "oaky": 0.397,
-      "abv": 28.73
+      "sweetness": 0.574,
+      "bitterness": 0.135,
+      "smokiness": 0.08,
+      "citrus": 0.02,
+      "floral": 0.088,
+      "spice": 0.275,
+      "herbal": 0.099,
+      "fruity": 0.163,
+      "oaky": 0.504,
+      "abv": 33.43
     },
     "tags": [
       "classic",
@@ -1523,16 +1538,16 @@
       "Garnish with a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.407,
-      "bitterness": 0.251,
-      "smokiness": 0.047,
-      "citrus": 0.028,
-      "floral": 0.074,
-      "spice": 0.409,
-      "herbal": 0.253,
-      "fruity": 0.26,
-      "oaky": 0.267,
-      "abv": 28.65
+      "sweetness": 0.388,
+      "bitterness": 0.257,
+      "smokiness": 0.061,
+      "citrus": 0.031,
+      "floral": 0.064,
+      "spice": 0.51,
+      "herbal": 0.291,
+      "fruity": 0.175,
+      "oaky": 0.342,
+      "abv": 24.13
     },
     "tags": [
       "classic",
@@ -1591,16 +1606,16 @@
       "Garnish with an orange wheel and cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.6,
-      "bitterness": 0.074,
-      "smokiness": 0.053,
-      "citrus": 0.189,
-      "floral": 0.053,
-      "spice": 0.158,
-      "herbal": 0.053,
-      "fruity": 0.147,
-      "oaky": 0.316,
-      "abv": 23.68
+      "sweetness": 0.548,
+      "bitterness": 0.085,
+      "smokiness": 0.062,
+      "citrus": 0.204,
+      "floral": 0.062,
+      "spice": 0.186,
+      "herbal": 0.062,
+      "fruity": 0.169,
+      "oaky": 0.371,
+      "abv": 17.77
     },
     "tags": [
       "classic",
@@ -1646,16 +1661,16 @@
       "Garnish with a mint sprig."
     ],
     "flavorProfile": {
-      "sweetness": 0.553,
-      "bitterness": 0.074,
-      "smokiness": 0.053,
+      "sweetness": 0.375,
+      "bitterness": 0.092,
+      "smokiness": 0.05,
       "citrus": 0.0,
-      "floral": 0.074,
-      "spice": 0.205,
-      "herbal": 0.242,
-      "fruity": 0.105,
-      "oaky": 0.368,
-      "abv": 23.68
+      "floral": 0.092,
+      "spice": 0.2,
+      "herbal": 0.425,
+      "fruity": 0.1,
+      "oaky": 0.317,
+      "abv": 29.35
     },
     "tags": [
       "classic",
@@ -1687,11 +1702,11 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "c7fa273b-1617-5671-a123-36cbaa9416d4",
+        "ingredientStyleId": "66756560-7e7a-5615-aaf1-f42317fd8aa9",
         "amount": "22ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally Amaro Nonino; a bitter aperitif substitutes with a sharper, more bitter edge."
+        "substituteNotes": "Amaro Nonino is the original; Montenegro is the usual stand-in."
       },
       {
         "ingredientStyleId": "71154da0-8b20-5d0f-99c4-250d2222b018",
@@ -1706,16 +1721,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.429,
-      "bitterness": 0.4,
-      "smokiness": 0.036,
-      "citrus": 0.329,
-      "floral": 0.111,
-      "spice": 0.157,
-      "herbal": 0.211,
+      "sweetness": 0.425,
+      "bitterness": 0.3,
+      "smokiness": 0.025,
+      "citrus": 0.425,
+      "floral": 0.125,
+      "spice": 0.175,
+      "herbal": 0.225,
       "fruity": 0.225,
-      "oaky": 0.214,
-      "abv": 24.88
+      "oaky": 0.2,
+      "abv": 14.14
     },
     "tags": [
       "modern-classic",
@@ -1774,16 +1789,16 @@
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.363,
-      "bitterness": 0.221,
-      "smokiness": 0.036,
-      "citrus": 0.032,
-      "floral": 0.098,
-      "spice": 0.338,
-      "herbal": 0.404,
-      "fruity": 0.041,
-      "oaky": 0.179,
-      "abv": 40.98
+      "sweetness": 0.313,
+      "bitterness": 0.232,
+      "smokiness": 0.078,
+      "citrus": 0.029,
+      "floral": 0.04,
+      "spice": 0.579,
+      "herbal": 0.194,
+      "fruity": 0.088,
+      "oaky": 0.391,
+      "abv": 27.48
     },
     "tags": [
       "classic",
@@ -1822,7 +1837,7 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "de10dd0f-345c-5add-bf13-da77ddd2d713",
+        "ingredientStyleId": "f368345e-72f1-5aa7-8ba3-40f57499cab9",
         "amount": "1",
         "preparation": null,
         "isOptional": false,
@@ -1835,16 +1850,16 @@
       "Garnish with an orange twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.49,
-      "bitterness": 0.371,
-      "smokiness": 0.041,
-      "citrus": 0.135,
-      "floral": 0.124,
-      "spice": 0.2,
-      "herbal": 0.278,
-      "fruity": 0.231,
-      "oaky": 0.269,
-      "abv": 29.34
+      "sweetness": 0.484,
+      "bitterness": 0.423,
+      "smokiness": 0.032,
+      "citrus": 0.145,
+      "floral": 0.135,
+      "spice": 0.194,
+      "herbal": 0.323,
+      "fruity": 0.229,
+      "oaky": 0.226,
+      "abv": 19.8
     },
     "tags": [
       "classic",
@@ -1897,16 +1912,16 @@
       "Garnish with a mint sprig."
     ],
     "flavorProfile": {
-      "sweetness": 0.496,
-      "bitterness": 0.078,
-      "smokiness": 0.043,
-      "citrus": 0.157,
-      "floral": 0.061,
-      "spice": 0.148,
-      "herbal": 0.2,
-      "fruity": 0.122,
-      "oaky": 0.261,
-      "abv": 19.57
+      "sweetness": 0.372,
+      "bitterness": 0.09,
+      "smokiness": 0.041,
+      "citrus": 0.186,
+      "floral": 0.069,
+      "spice": 0.152,
+      "herbal": 0.29,
+      "fruity": 0.124,
+      "oaky": 0.248,
+      "abv": 15.62
     },
     "tags": [
       "modern-classic",
@@ -1925,21 +1940,21 @@
     "ingredients": [
       {
         "ingredientStyleId": "c6de9336-0e79-58b7-b970-9defb5379214",
-        "amount": "45ml",
+        "amount": "40ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "f1c74917-accc-56ef-9ca3-0e5e2ca9ec2d",
-        "amount": "150ml",
+        "ingredientStyleId": "76ca3369-d768-50c7-90c8-d12c20e02c0b",
+        "amount": "120ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Recipe calls for hot brewed coffee; cold brew is the nearest catalogued coffee ingredient — heat before using."
+        "substituteNotes": null
       },
       {
         "ingredientStyleId": "784a3e64-7803-511b-8979-02a60c76f60f",
-        "amount": "10ml",
+        "amount": "15ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
@@ -1953,20 +1968,21 @@
       }
     ],
     "steps": [
-      "Stir Irish whiskey and demerara syrup into hot coffee in a warmed mug.",
+      "Warm the glass with hot water, then discard.",
+      "Stir Irish whiskey and demerara syrup into hot coffee.",
       "Gently float lightly whipped cream on top."
     ],
     "flavorProfile": {
-      "sweetness": 0.378,
-      "bitterness": 0.13,
-      "smokiness": 0.017,
+      "sweetness": 0.212,
+      "bitterness": 0.312,
+      "smokiness": 0.059,
       "citrus": 0.0,
-      "floral": 0.043,
-      "spice": 0.065,
-      "herbal": 0.043,
-      "fruity": 0.087,
-      "oaky": 0.174,
-      "abv": 17.39
+      "floral": 0.02,
+      "spice": 0.027,
+      "herbal": 0.02,
+      "fruity": 0.039,
+      "oaky": 0.073,
+      "abv": 7.8
     },
     "tags": [
       "warm",
@@ -2017,16 +2033,16 @@
       "Garnish with a lemon wheel and cinnamon stick."
     ],
     "flavorProfile": {
-      "sweetness": 0.574,
-      "bitterness": 0.074,
-      "smokiness": 0.053,
-      "citrus": 0.189,
-      "floral": 0.132,
-      "spice": 0.158,
-      "herbal": 0.053,
-      "fruity": 0.147,
-      "oaky": 0.316,
-      "abv": 23.68
+      "sweetness": 0.56,
+      "bitterness": 0.08,
+      "smokiness": 0.06,
+      "citrus": 0.18,
+      "floral": 0.12,
+      "spice": 0.18,
+      "herbal": 0.06,
+      "fruity": 0.16,
+      "oaky": 0.36,
+      "abv": 12.27
     },
     "tags": [
       "warm",
@@ -2077,16 +2093,16 @@
       "Garnish with a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.407,
-      "bitterness": 0.205,
-      "smokiness": 0.093,
-      "citrus": 0.028,
-      "floral": 0.121,
-      "spice": 0.13,
-      "herbal": 0.207,
-      "fruity": 0.307,
-      "oaky": 0.221,
-      "abv": 26.33
+      "sweetness": 0.388,
+      "bitterness": 0.196,
+      "smokiness": 0.123,
+      "citrus": 0.031,
+      "floral": 0.126,
+      "spice": 0.142,
+      "herbal": 0.229,
+      "fruity": 0.236,
+      "oaky": 0.281,
+      "abv": 22.13
     },
     "tags": [
       "classic",
@@ -2104,48 +2120,56 @@
     "ingredients": [
       {
         "ingredientStyleId": "f9a02830-dc19-566f-bd01-c3bed88d619b",
-        "amount": "20ml",
+        "amount": "22ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "ff7d96ed-4f20-5b3f-a100-644f9d4d5188",
-        "amount": "20ml",
+        "ingredientStyleId": "8c5ffae1-1f2d-584a-9201-6ea1704ecd36",
+        "amount": "22ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally Cherry Heering; raspberry liqueur substitutes for colour and fruit."
+        "substituteNotes": null
       },
       {
         "ingredientStyleId": "ba07b5f0-9235-54b7-83e3-e9c49b7adce2",
-        "amount": "20ml",
+        "amount": "22ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
         "ingredientStyleId": "7ac9da98-ef4c-5dee-a5f9-d197889841b5",
-        "amount": "20ml",
+        "amount": "22ml",
         "preparation": null,
         "isOptional": false,
+        "substituteNotes": null
+      },
+      {
+        "ingredientStyleId": "f368345e-72f1-5aa7-8ba3-40f57499cab9",
+        "amount": "1",
+        "preparation": null,
+        "isOptional": true,
         "substituteNotes": null
       }
     ],
     "steps": [
       "Shake all ingredients with ice.",
-      "Double strain into a chilled coupe."
+      "Double strain into a chilled coupe.",
+      "Garnish with an orange twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.526,
-      "bitterness": 0.104,
-      "smokiness": 0.074,
-      "citrus": 0.126,
-      "floral": 0.122,
-      "spice": 0.081,
-      "herbal": 0.148,
-      "fruity": 0.422,
-      "oaky": 0.17,
-      "abv": 22.76
+      "sweetness": 0.55,
+      "bitterness": 0.125,
+      "smokiness": 0.05,
+      "citrus": 0.2,
+      "floral": 0.1,
+      "spice": 0.125,
+      "herbal": 0.15,
+      "fruity": 0.45,
+      "oaky": 0.15,
+      "abv": 13.93
     },
     "tags": [
       "classic",
@@ -2204,16 +2228,16 @@
       "Garnish with a candied ginger piece."
     ],
     "flavorProfile": {
-      "sweetness": 0.379,
-      "bitterness": 0.1,
-      "smokiness": 0.324,
-      "citrus": 0.121,
-      "floral": 0.074,
-      "spice": 0.191,
-      "herbal": 0.059,
-      "fruity": 0.112,
-      "oaky": 0.265,
-      "abv": 24.85
+      "sweetness": 0.362,
+      "bitterness": 0.091,
+      "smokiness": 0.21,
+      "citrus": 0.194,
+      "floral": 0.084,
+      "spice": 0.136,
+      "herbal": 0.056,
+      "fruity": 0.139,
+      "oaky": 0.238,
+      "abv": 14.25
     },
     "tags": [
       "modern-classic",
@@ -2249,16 +2273,16 @@
       "Top with club soda and stir gently."
     ],
     "flavorProfile": {
-      "sweetness": 0.214,
-      "bitterness": 0.071,
-      "smokiness": 0.143,
+      "sweetness": 0.082,
+      "bitterness": 0.027,
+      "smokiness": 0.055,
       "citrus": 0.0,
-      "floral": 0.071,
-      "spice": 0.071,
-      "herbal": 0.071,
-      "fruity": 0.143,
-      "oaky": 0.286,
-      "abv": 28.57
+      "floral": 0.027,
+      "spice": 0.027,
+      "herbal": 0.027,
+      "fruity": 0.055,
+      "oaky": 0.109,
+      "abv": 9.49
     },
     "tags": [
       "classic",
@@ -2302,16 +2326,16 @@
       "Strain over fresh ice in a rocks glass."
     ],
     "flavorProfile": {
-      "sweetness": 0.574,
-      "bitterness": 0.074,
-      "smokiness": 0.053,
-      "citrus": 0.189,
-      "floral": 0.132,
-      "spice": 0.158,
-      "herbal": 0.053,
-      "fruity": 0.147,
-      "oaky": 0.316,
-      "abv": 23.68
+      "sweetness": 0.558,
+      "bitterness": 0.079,
+      "smokiness": 0.058,
+      "citrus": 0.19,
+      "floral": 0.121,
+      "spice": 0.173,
+      "herbal": 0.058,
+      "fruity": 0.158,
+      "oaky": 0.346,
+      "abv": 16.75
     },
     "tags": [
       "modern-classic",
@@ -2376,16 +2400,16 @@
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.392,
-      "bitterness": 0.215,
-      "smokiness": 0.028,
-      "citrus": 0.068,
-      "floral": 0.16,
-      "spice": 0.343,
-      "herbal": 0.276,
-      "fruity": 0.212,
-      "oaky": 0.263,
-      "abv": 37.46
+      "sweetness": 0.394,
+      "bitterness": 0.23,
+      "smokiness": 0.029,
+      "citrus": 0.069,
+      "floral": 0.15,
+      "spice": 0.331,
+      "herbal": 0.26,
+      "fruity": 0.241,
+      "oaky": 0.267,
+      "abv": 24.05
     },
     "tags": [
       "classic",
@@ -2423,29 +2447,29 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "1cde3598-0195-5acd-9cf9-3d9d761e712d",
+        "ingredientStyleId": "06284f95-df68-5f0f-ac06-a6e67b98da46",
         "amount": "20ml",
         "preparation": "float",
         "isOptional": false,
-        "substituteNotes": "Traditionally a dry red wine float; ruby port is the nearest catalogued wine and reads sweeter."
+        "substituteNotes": null
       }
     ],
     "steps": [
       "Shake bourbon, lemon juice, and simple syrup with ice.",
       "Strain over fresh ice in a rocks glass.",
-      "Float red wine on top."
+      "Float red wine on top over the back of a spoon."
     ],
     "flavorProfile": {
-      "sweetness": 0.648,
-      "bitterness": 0.08,
-      "smokiness": 0.04,
-      "citrus": 0.144,
-      "floral": 0.064,
-      "spice": 0.168,
-      "herbal": 0.04,
-      "fruity": 0.28,
-      "oaky": 0.288,
-      "abv": 22.68
+      "sweetness": 0.447,
+      "bitterness": 0.118,
+      "smokiness": 0.044,
+      "citrus": 0.145,
+      "floral": 0.073,
+      "spice": 0.161,
+      "herbal": 0.044,
+      "fruity": 0.324,
+      "oaky": 0.35,
+      "abv": 16.42
     },
     "tags": [
       "modern-classic",
@@ -2495,16 +2519,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.43,
-      "bitterness": 0.104,
-      "smokiness": 0.043,
-      "citrus": 0.278,
-      "floral": 0.061,
-      "spice": 0.304,
-      "herbal": 0.087,
-      "fruity": 0.296,
-      "oaky": 0.217,
-      "abv": 19.57
+      "sweetness": 0.36,
+      "bitterness": 0.135,
+      "smokiness": 0.06,
+      "citrus": 0.24,
+      "floral": 0.035,
+      "spice": 0.42,
+      "herbal": 0.12,
+      "fruity": 0.225,
+      "oaky": 0.3,
+      "abv": 17.32
     },
     "tags": [
       "classic",
@@ -2547,16 +2571,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.33,
-      "bitterness": 0.19,
-      "smokiness": 0.05,
-      "citrus": 0.07,
-      "floral": 0.11,
-      "spice": 0.38,
-      "herbal": 0.28,
-      "fruity": 0.22,
-      "oaky": 0.25,
-      "abv": 27.45
+      "sweetness": 0.349,
+      "bitterness": 0.175,
+      "smokiness": 0.051,
+      "citrus": 0.074,
+      "floral": 0.099,
+      "spice": 0.379,
+      "herbal": 0.249,
+      "fruity": 0.248,
+      "oaky": 0.253,
+      "abv": 17.23
     },
     "tags": [
       "classic",
@@ -2599,16 +2623,16 @@
       "Strain over fresh ice in a rocks glass."
     ],
     "flavorProfile": {
-      "sweetness": 0.616,
-      "bitterness": 0.116,
-      "smokiness": 0.053,
-      "citrus": 0.168,
-      "floral": 0.132,
-      "spice": 0.158,
-      "herbal": 0.053,
-      "fruity": 0.168,
-      "oaky": 0.316,
-      "abv": 23.68
+      "sweetness": 0.557,
+      "bitterness": 0.143,
+      "smokiness": 0.057,
+      "citrus": 0.229,
+      "floral": 0.1,
+      "spice": 0.171,
+      "herbal": 0.057,
+      "fruity": 0.2,
+      "oaky": 0.343,
+      "abv": 16.62
     },
     "tags": [
       "modern-classic",
@@ -2659,16 +2683,16 @@
       "Garnish with a lime wedge."
     ],
     "flavorProfile": {
-      "sweetness": 0.41,
-      "bitterness": 0.079,
-      "smokiness": 0.051,
-      "citrus": 0.251,
-      "floral": 0.051,
-      "spice": 0.297,
-      "herbal": 0.051,
-      "fruity": 0.172,
-      "oaky": 0.308,
-      "abv": 23.08
+      "sweetness": 0.418,
+      "bitterness": 0.034,
+      "smokiness": 0.025,
+      "citrus": 0.149,
+      "floral": 0.025,
+      "spice": 0.533,
+      "herbal": 0.025,
+      "fruity": 0.133,
+      "oaky": 0.148,
+      "abv": 9.62
     },
     "tags": [
       "modern-classic",
@@ -2727,16 +2751,16 @@
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.318,
-      "bitterness": 0.278,
-      "smokiness": 0.04,
-      "citrus": 0.078,
-      "floral": 0.132,
-      "spice": 0.376,
-      "herbal": 0.362,
-      "fruity": 0.136,
-      "oaky": 0.23,
-      "abv": 28.6
+      "sweetness": 0.312,
+      "bitterness": 0.257,
+      "smokiness": 0.061,
+      "citrus": 0.046,
+      "floral": 0.083,
+      "spice": 0.495,
+      "herbal": 0.306,
+      "fruity": 0.123,
+      "oaky": 0.327,
+      "abv": 24.13
     },
     "tags": [
       "classic",
@@ -2779,16 +2803,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.442,
-      "bitterness": 0.021,
+      "sweetness": 0.363,
+      "bitterness": 0.023,
       "smokiness": 0.0,
-      "citrus": 0.242,
-      "floral": 0.053,
-      "spice": 0.053,
+      "citrus": 0.266,
+      "floral": 0.062,
+      "spice": 0.062,
       "herbal": 0.0,
-      "fruity": 0.2,
+      "fruity": 0.231,
       "oaky": 0.0,
-      "abv": 20.39
+      "abv": 15.66
     },
     "tags": [
       "classic",
@@ -2848,16 +2872,16 @@
       "Garnish with a mint sprig."
     ],
     "flavorProfile": {
-      "sweetness": 0.311,
-      "bitterness": 0.03,
+      "sweetness": 0.132,
+      "bitterness": 0.027,
       "smokiness": 0.0,
-      "citrus": 0.17,
-      "floral": 0.052,
-      "spice": 0.052,
-      "herbal": 0.133,
-      "fruity": 0.141,
+      "citrus": 0.097,
+      "floral": 0.041,
+      "spice": 0.041,
+      "herbal": 0.169,
+      "fruity": 0.084,
       "oaky": 0.0,
-      "abv": 14.35
+      "abv": 8.91
     },
     "tags": [
       "classic",
@@ -2904,16 +2928,16 @@
       "Garnish with a lime wedge."
     ],
     "flavorProfile": {
-      "sweetness": 0.426,
-      "bitterness": 0.074,
-      "smokiness": 0.065,
-      "citrus": 0.084,
+      "sweetness": 0.439,
+      "bitterness": 0.046,
+      "smokiness": 0.045,
+      "citrus": 0.062,
       "floral": 0.0,
-      "spice": 0.31,
+      "spice": 0.466,
       "herbal": 0.0,
-      "fruity": 0.229,
-      "oaky": 0.323,
-      "abv": 27.42
+      "fruity": 0.19,
+      "oaky": 0.224,
+      "abv": 10.68
     },
     "tags": [
       "classic",
@@ -2979,16 +3003,16 @@
       "Garnish with mint and a lime shell."
     ],
     "flavorProfile": {
-      "sweetness": 0.425,
-      "bitterness": 0.058,
+      "sweetness": 0.381,
+      "bitterness": 0.06,
       "smokiness": 0.0,
-      "citrus": 0.264,
-      "floral": 0.144,
-      "spice": 0.131,
-      "herbal": 0.083,
-      "fruity": 0.261,
-      "oaky": 0.178,
-      "abv": 31.39
+      "citrus": 0.297,
+      "floral": 0.134,
+      "spice": 0.121,
+      "herbal": 0.08,
+      "fruity": 0.254,
+      "oaky": 0.161,
+      "abv": 17.93
     },
     "tags": [
       "classic",
@@ -3040,16 +3064,16 @@
       "Garnish with a pineapple wedge and cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.433,
+      "sweetness": 0.5,
       "bitterness": 0.0,
       "smokiness": 0.0,
-      "citrus": 0.1,
-      "floral": 0.078,
-      "spice": 0.056,
+      "citrus": 0.133,
+      "floral": 0.083,
+      "spice": 0.033,
       "herbal": 0.0,
-      "fruity": 0.389,
+      "fruity": 0.5,
       "oaky": 0.0,
-      "abv": 21.53
+      "abv": 8.61
     },
     "tags": [
       "classic",
@@ -3115,16 +3139,16 @@
       "Garnish with an orange wheel and cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.497,
-      "bitterness": 0.037,
+      "sweetness": 0.489,
+      "bitterness": 0.034,
       "smokiness": 0.026,
-      "citrus": 0.208,
+      "citrus": 0.24,
       "floral": 0.089,
-      "spice": 0.079,
+      "spice": 0.077,
       "herbal": 0.0,
-      "fruity": 0.416,
-      "oaky": 0.132,
-      "abv": 21.38
+      "fruity": 0.429,
+      "oaky": 0.129,
+      "abv": 13.94
     },
     "tags": [
       "classic",
@@ -3183,16 +3207,16 @@
       "Garnish with an orange wheel."
     ],
     "flavorProfile": {
-      "sweetness": 0.493,
-      "bitterness": 0.052,
+      "sweetness": 0.492,
+      "bitterness": 0.042,
       "smokiness": 0.0,
-      "citrus": 0.267,
-      "floral": 0.104,
-      "spice": 0.074,
+      "citrus": 0.3,
+      "floral": 0.1,
+      "spice": 0.067,
       "herbal": 0.0,
-      "fruity": 0.43,
-      "oaky": 0.148,
-      "abv": 14.81
+      "fruity": 0.467,
+      "oaky": 0.133,
+      "abv": 9.47
     },
     "tags": [
       "tropical",
@@ -3264,16 +3288,16 @@
       "Garnish with a mint sprig."
     ],
     "flavorProfile": {
-      "sweetness": 0.463,
-      "bitterness": 0.079,
+      "sweetness": 0.426,
+      "bitterness": 0.073,
       "smokiness": 0.022,
-      "citrus": 0.134,
-      "floral": 0.077,
-      "spice": 0.167,
-      "herbal": 0.021,
-      "fruity": 0.303,
-      "oaky": 0.201,
-      "abv": 28.12
+      "citrus": 0.196,
+      "floral": 0.068,
+      "spice": 0.158,
+      "herbal": 0.016,
+      "fruity": 0.29,
+      "oaky": 0.195,
+      "abv": 17.13
     },
     "tags": [
       "classic",
@@ -3325,16 +3349,16 @@
       "Garnish with grated nutmeg."
     ],
     "flavorProfile": {
-      "sweetness": 0.536,
-      "bitterness": 0.045,
-      "smokiness": 0.045,
-      "citrus": 0.164,
-      "floral": 0.036,
-      "spice": 0.091,
+      "sweetness": 0.55,
+      "bitterness": 0.033,
+      "smokiness": 0.033,
+      "citrus": 0.183,
+      "floral": 0.05,
+      "spice": 0.067,
       "herbal": 0.0,
-      "fruity": 0.409,
-      "oaky": 0.227,
-      "abv": 19.32
+      "fruity": 0.467,
+      "oaky": 0.167,
+      "abv": 9.99
     },
     "tags": [
       "tiki",
@@ -3392,16 +3416,16 @@
       "Garnish with a pineapple wedge."
     ],
     "flavorProfile": {
-      "sweetness": 0.497,
-      "bitterness": 0.257,
+      "sweetness": 0.493,
+      "bitterness": 0.188,
       "smokiness": 0.033,
-      "citrus": 0.217,
-      "floral": 0.037,
-      "spice": 0.09,
-      "herbal": 0.093,
-      "fruity": 0.267,
-      "oaky": 0.167,
-      "abv": 19.82
+      "citrus": 0.212,
+      "floral": 0.049,
+      "spice": 0.082,
+      "herbal": 0.064,
+      "fruity": 0.382,
+      "oaky": 0.164,
+      "abv": 12.19
     },
     "tags": [
       "modern-classic",
@@ -3426,15 +3450,15 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "ff7d96ed-4f20-5b3f-a100-644f9d4d5188",
+        "ingredientStyleId": "8674f226-6a00-5c6a-bb09-b5c49af96c34",
         "amount": "15ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally maraschino liqueur; raspberry liqueur substitutes with a fruitier profile."
+        "substituteNotes": null
       },
       {
         "ingredientStyleId": "bf2a1540-c496-5930-ab93-3a8817f021c1",
-        "amount": "22ml",
+        "amount": "30ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
@@ -3452,16 +3476,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.408,
-      "bitterness": 0.064,
+      "sweetness": 0.312,
+      "bitterness": 0.1,
       "smokiness": 0.0,
-      "citrus": 0.312,
-      "floral": 0.068,
-      "spice": 0.04,
-      "herbal": 0.0,
-      "fruity": 0.424,
+      "citrus": 0.362,
+      "floral": 0.113,
+      "spice": 0.05,
+      "herbal": 0.025,
+      "fruity": 0.312,
       "oaky": 0.0,
-      "abv": 20.12
+      "abv": 15.33
     },
     "tags": [
       "modern-classic",
@@ -3512,16 +3536,16 @@
       "Garnish with an orange twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.55,
-      "bitterness": 0.068,
+      "sweetness": 0.439,
+      "bitterness": 0.066,
       "smokiness": 0.0,
-      "citrus": 0.232,
-      "floral": 0.182,
-      "spice": 0.082,
-      "herbal": 0.086,
-      "fruity": 0.332,
-      "oaky": 0.05,
-      "abv": 27.48
+      "citrus": 0.167,
+      "floral": 0.187,
+      "spice": 0.094,
+      "herbal": 0.107,
+      "fruity": 0.291,
+      "oaky": 0.024,
+      "abv": 21.72
     },
     "tags": [
       "classic",
@@ -3559,7 +3583,7 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "de10dd0f-345c-5add-bf13-da77ddd2d713",
+        "ingredientStyleId": "f368345e-72f1-5aa7-8ba3-40f57499cab9",
         "amount": "1",
         "preparation": null,
         "isOptional": false,
@@ -3567,22 +3591,22 @@
       }
     ],
     "steps": [
-      "Muddle demerara syrup with bitters in a rocks glass.",
+      "Stir demerara syrup and bitters in a rocks glass.",
       "Add rum and a large ice cube.",
       "Stir until chilled.",
       "Garnish with an orange twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.553,
-      "bitterness": 0.122,
-      "smokiness": 0.056,
-      "citrus": 0.033,
+      "sweetness": 0.494,
+      "bitterness": 0.135,
+      "smokiness": 0.08,
+      "citrus": 0.02,
       "floral": 0.008,
-      "spice": 0.172,
-      "herbal": 0.025,
-      "fruity": 0.192,
-      "oaky": 0.342,
-      "abv": 27.34
+      "spice": 0.195,
+      "herbal": 0.019,
+      "fruity": 0.243,
+      "oaky": 0.425,
+      "abv": 31.62
     },
     "tags": [
       "modern-classic",
@@ -3632,16 +3656,16 @@
       "Strain over fresh ice in a salt-rimmed rocks glass."
     ],
     "flavorProfile": {
-      "sweetness": 0.333,
-      "bitterness": 0.067,
+      "sweetness": 0.256,
+      "bitterness": 0.078,
       "smokiness": 0.0,
-      "citrus": 0.533,
-      "floral": 0.176,
-      "spice": 0.095,
-      "herbal": 0.19,
-      "fruity": 0.233,
+      "citrus": 0.489,
+      "floral": 0.189,
+      "spice": 0.111,
+      "herbal": 0.222,
+      "fruity": 0.222,
       "oaky": 0.0,
-      "abv": 30.24
+      "abv": 18.63
     },
     "tags": [
       "classic",
@@ -3700,16 +3724,16 @@
       "Garnish with a lime wheel."
     ],
     "flavorProfile": {
-      "sweetness": 0.118,
-      "bitterness": 0.118,
+      "sweetness": 0.1,
+      "bitterness": 0.1,
       "smokiness": 0.0,
-      "citrus": 0.4,
-      "floral": 0.136,
-      "spice": 0.091,
-      "herbal": 0.182,
-      "fruity": 0.182,
+      "citrus": 0.292,
+      "floral": 0.061,
+      "spice": 0.041,
+      "herbal": 0.082,
+      "fruity": 0.127,
       "oaky": 0.0,
-      "abv": 17.73
+      "abv": 6.92
     },
     "tags": [
       "classic",
@@ -3753,16 +3777,16 @@
       "Strain over fresh ice in a rocks glass."
     ],
     "flavorProfile": {
-      "sweetness": 0.337,
-      "bitterness": 0.074,
+      "sweetness": 0.239,
+      "bitterness": 0.085,
       "smokiness": 0.0,
-      "citrus": 0.295,
-      "floral": 0.158,
-      "spice": 0.105,
-      "herbal": 0.211,
-      "fruity": 0.147,
+      "citrus": 0.328,
+      "floral": 0.186,
+      "spice": 0.124,
+      "herbal": 0.247,
+      "fruity": 0.169,
       "oaky": 0.0,
-      "abv": 20.53
+      "abv": 15.75
     },
     "tags": [
       "modern-classic",
@@ -3807,30 +3831,30 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "de10dd0f-345c-5add-bf13-da77ddd2d713",
+        "ingredientStyleId": "f368345e-72f1-5aa7-8ba3-40f57499cab9",
         "amount": "1",
-        "preparation": null,
+        "preparation": "flamed",
         "isOptional": false,
         "substituteNotes": null
       }
     ],
     "steps": [
-      "Muddle agave syrup with bitters in a rocks glass.",
+      "Stir agave syrup and bitters in a rocks glass.",
       "Add tequila and mezcal with a large ice cube.",
       "Stir until chilled.",
-      "Garnish with an orange twist."
+      "Flame an orange twist over the glass."
     ],
     "flavorProfile": {
-      "sweetness": 0.284,
-      "bitterness": 0.15,
-      "smokiness": 0.286,
-      "citrus": 0.093,
-      "floral": 0.148,
-      "spice": 0.182,
-      "herbal": 0.266,
-      "fruity": 0.123,
-      "oaky": 0.184,
-      "abv": 31.5
+      "sweetness": 0.235,
+      "bitterness": 0.155,
+      "smokiness": 0.159,
+      "citrus": 0.1,
+      "floral": 0.167,
+      "spice": 0.195,
+      "herbal": 0.278,
+      "fruity": 0.143,
+      "oaky": 0.225,
+      "abv": 29.72
     },
     "tags": [
       "modern-classic",
@@ -3882,16 +3906,16 @@
       "Garnish with an orange wheel and cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.395,
-      "bitterness": 0.053,
+      "sweetness": 0.42,
+      "bitterness": 0.03,
       "smokiness": 0.0,
-      "citrus": 0.253,
-      "floral": 0.232,
-      "spice": 0.105,
-      "herbal": 0.211,
-      "fruity": 0.368,
+      "citrus": 0.48,
+      "floral": 0.17,
+      "spice": 0.06,
+      "herbal": 0.12,
+      "fruity": 0.42,
       "oaky": 0.0,
-      "abv": 20.53
+      "abv": 10.17
     },
     "tags": [
       "classic",
@@ -3943,16 +3967,16 @@
       "Garnish with an orange wheel."
     ],
     "flavorProfile": {
-      "sweetness": 0.286,
-      "bitterness": 0.412,
-      "smokiness": 0.327,
-      "citrus": 0.176,
+      "sweetness": 0.329,
+      "bitterness": 0.452,
+      "smokiness": 0.258,
+      "citrus": 0.174,
       "floral": 0.165,
-      "spice": 0.159,
-      "herbal": 0.4,
-      "fruity": 0.19,
+      "spice": 0.161,
+      "herbal": 0.419,
+      "fruity": 0.203,
       "oaky": 0.065,
-      "abv": 28.32
+      "abv": 23.35
     },
     "tags": [
       "modern-classic",
@@ -3977,11 +4001,11 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "ff7d96ed-4f20-5b3f-a100-644f9d4d5188",
+        "ingredientStyleId": "0cdae766-cd5e-59cf-aa3e-5650d6b4f59c",
         "amount": "15ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally crème de cassis; raspberry liqueur substitutes with a similar dark-berry sweetness."
+        "substituteNotes": null
       },
       {
         "ingredientStyleId": "45d5c156-3564-584b-a716-7a2c1e9c6949",
@@ -3999,21 +4023,22 @@
       }
     ],
     "steps": [
-      "Build tequila, cassis, and lime juice over ice in a highball glass.",
+      "Build tequila and lime juice over ice in a highball glass.",
       "Top with ginger beer.",
+      "Drizzle crème de cassis over the top.",
       "Garnish with a lime wheel."
     ],
     "flavorProfile": {
-      "sweetness": 0.344,
-      "bitterness": 0.056,
+      "sweetness": 0.338,
+      "bitterness": 0.038,
       "smokiness": 0.0,
-      "citrus": 0.24,
-      "floral": 0.148,
-      "spice": 0.192,
-      "herbal": 0.16,
-      "fruity": 0.352,
+      "citrus": 0.177,
+      "floral": 0.077,
+      "spice": 0.477,
+      "herbal": 0.092,
+      "fruity": 0.192,
       "oaky": 0.0,
-      "abv": 20.22
+      "abv": 9.0
     },
     "tags": [
       "modern-classic",
@@ -4045,7 +4070,7 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "592d0b00-9ec2-56f4-b492-d13ac359fe2f",
+        "ingredientStyleId": "c808c931-c073-51e9-9066-3dab22040a64",
         "amount": "22ml",
         "preparation": null,
         "isOptional": false,
@@ -4064,16 +4089,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.275,
-      "bitterness": 0.286,
-      "smokiness": 0.286,
-      "citrus": 0.314,
-      "floral": 0.196,
-      "spice": 0.146,
-      "herbal": 0.443,
-      "fruity": 0.139,
-      "oaky": 0.036,
-      "abv": 31.68
+      "sweetness": 0.325,
+      "bitterness": 0.225,
+      "smokiness": 0.2,
+      "citrus": 0.4,
+      "floral": 0.2,
+      "spice": 0.125,
+      "herbal": 0.35,
+      "fruity": 0.15,
+      "oaky": 0.025,
+      "abv": 15.54
     },
     "tags": [
       "modern-classic",
@@ -4102,7 +4127,7 @@
         "amount": "7.5ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": null
+        "substituteNotes": "Traditionally agave syrup; demerara syrup is the nearest catalogued sweetener."
       },
       {
         "ingredientStyleId": "1b52af40-1b6e-5b2c-958f-ef23948aaca7",
@@ -4112,7 +4137,7 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "de10dd0f-345c-5add-bf13-da77ddd2d713",
+        "ingredientStyleId": "f368345e-72f1-5aa7-8ba3-40f57499cab9",
         "amount": "1",
         "preparation": null,
         "isOptional": false,
@@ -4120,22 +4145,22 @@
       }
     ],
     "steps": [
-      "Muddle agave syrup with bitters in a rocks glass.",
+      "Stir agave syrup and bitters in a rocks glass.",
       "Add tequila and a large ice cube.",
       "Stir until chilled.",
       "Garnish with an orange twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.386,
-      "bitterness": 0.122,
+      "sweetness": 0.255,
+      "bitterness": 0.135,
       "smokiness": 0.0,
-      "citrus": 0.089,
-      "floral": 0.119,
-      "spice": 0.172,
-      "herbal": 0.192,
-      "fruity": 0.136,
-      "oaky": 0.231,
-      "abv": 25.39
+      "citrus": 0.1,
+      "floral": 0.167,
+      "spice": 0.195,
+      "herbal": 0.258,
+      "fruity": 0.163,
+      "oaky": 0.265,
+      "abv": 29.08
     },
     "tags": [
       "modern-classic",
@@ -4160,21 +4185,21 @@
       },
       {
         "ingredientStyleId": "81cef8fb-0552-5c3d-8ddc-0eeb96763d00",
-        "amount": "30ml",
+        "amount": "15ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "f1c74917-accc-56ef-9ca3-0e5e2ca9ec2d",
+        "ingredientStyleId": "6b34bfc7-79ae-5dbe-baae-412ed72d1421",
         "amount": "30ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": null
+        "substituteNotes": "Fresh espresso gives the foam; strong cold brew works but foams less."
       },
       {
         "ingredientStyleId": "b3f73a20-e8ea-5251-8dfd-d6ccb6f0f155",
-        "amount": "5ml",
+        "amount": "10ml",
         "preparation": null,
         "isOptional": true,
         "substituteNotes": null
@@ -4186,16 +4211,16 @@
       "Garnish with three coffee beans."
     ],
     "flavorProfile": {
-      "sweetness": 0.3,
-      "bitterness": 0.195,
-      "smokiness": 0.019,
+      "sweetness": 0.2,
+      "bitterness": 0.283,
+      "smokiness": 0.067,
       "citrus": 0.0,
-      "floral": 0.048,
-      "spice": 0.033,
+      "floral": 0.05,
+      "spice": 0.017,
       "herbal": 0.0,
       "fruity": 0.0,
-      "oaky": 0.033,
-      "abv": 26.12
+      "oaky": 0.017,
+      "abv": 15.24
     },
     "tags": [
       "modern-classic",
@@ -4246,16 +4271,16 @@
       "Garnish with a lime wedge."
     ],
     "flavorProfile": {
-      "sweetness": 0.154,
-      "bitterness": 0.028,
+      "sweetness": 0.295,
+      "bitterness": 0.01,
       "smokiness": 0.0,
-      "citrus": 0.251,
-      "floral": 0.051,
-      "spice": 0.144,
+      "citrus": 0.149,
+      "floral": 0.025,
+      "spice": 0.459,
       "herbal": 0.0,
-      "fruity": 0.069,
+      "fruity": 0.084,
       "oaky": 0.0,
-      "abv": 19.87
+      "abv": 8.29
     },
     "tags": [
       "classic",
@@ -4307,16 +4332,16 @@
       "Garnish with an orange twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.328,
-      "bitterness": 0.048,
+      "sweetness": 0.257,
+      "bitterness": 0.071,
       "smokiness": 0.0,
-      "citrus": 0.656,
-      "floral": 0.068,
+      "citrus": 0.586,
+      "floral": 0.057,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.276,
+      "fruity": 0.3,
       "oaky": 0.0,
-      "abv": 24.8
+      "abv": 14.04
     },
     "tags": [
       "classic",
@@ -4359,16 +4384,16 @@
       "Float cream on top."
     ],
     "flavorProfile": {
-      "sweetness": 0.319,
-      "bitterness": 0.1,
+      "sweetness": 0.245,
+      "bitterness": 0.055,
       "smokiness": 0.0,
       "citrus": 0.0,
-      "floral": 0.048,
-      "spice": 0.033,
+      "floral": 0.045,
+      "spice": 0.018,
       "herbal": 0.0,
       "fruity": 0.0,
-      "oaky": 0.033,
-      "abv": 26.12
+      "oaky": 0.018,
+      "abv": 23.16
     },
     "tags": [
       "classic",
@@ -4412,16 +4437,16 @@
       "Garnish with a lemon twist or olive."
     ],
     "flavorProfile": {
-      "sweetness": 0.137,
-      "bitterness": 0.112,
+      "sweetness": 0.114,
+      "bitterness": 0.043,
       "smokiness": 0.0,
-      "citrus": 0.037,
-      "floral": 0.175,
-      "spice": 0.037,
-      "herbal": 0.225,
-      "fruity": 0.037,
+      "citrus": 0.014,
+      "floral": 0.129,
+      "spice": 0.014,
+      "herbal": 0.086,
+      "fruity": 0.014,
       "oaky": 0.0,
-      "abv": 30.41
+      "abv": 24.79
     },
     "tags": [
       "classic",
@@ -4446,42 +4471,57 @@
       },
       {
         "ingredientStyleId": "987e125c-bc8d-5757-90b5-bde532212596",
-        "amount": "120ml",
+        "amount": "90ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "45d5c156-3564-584b-a716-7a2c1e9c6949",
+        "ingredientStyleId": "71154da0-8b20-5d0f-99c4-250d2222b018",
         "amount": "15ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "1b52af40-1b6e-5b2c-958f-ef23948aaca7",
+        "ingredientStyleId": "e5bea1b6-40d8-52d0-8bd4-33949b7de6f2",
+        "amount": "4 dash",
+        "preparation": null,
+        "isOptional": false,
+        "substituteNotes": null
+      },
+      {
+        "ingredientStyleId": "0984ad62-9d63-5a69-acc3-42d4d4b24a06",
         "amount": "2 dash",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
+      },
+      {
+        "ingredientStyleId": "af32f996-b977-5b6c-ae29-ebe33df5fa64",
+        "amount": "1 pinch",
+        "preparation": null,
+        "isOptional": true,
+        "substituteNotes": null
       }
     ],
     "steps": [
-      "Build all ingredients over ice in a highball glass.",
-      "Stir well.",
-      "Garnish with a celery stalk and lime wedge."
+      "Roll vodka, tomato juice, lemon juice, Worcestershire, and hot sauce between two shakers with ice.",
+      "Season with celery salt and black pepper.",
+      "Pour into a highball glass over fresh ice.",
+      "Garnish with a celery stalk and lemon wedge."
     ],
     "flavorProfile": {
-      "sweetness": 0.121,
-      "bitterness": 0.103,
-      "smokiness": 0.0,
-      "citrus": 0.205,
-      "floral": 0.051,
-      "spice": 0.051,
-      "herbal": 0.044,
-      "fruity": 0.082,
-      "oaky": 0.008,
-      "abv": 23.31
+      "sweetness": 0.158,
+      "bitterness": 0.064,
+      "smokiness": 0.006,
+      "citrus": 0.14,
+      "floral": 0.027,
+      "spice": 0.11,
+      "herbal": 0.066,
+      "fruity": 0.134,
+      "oaky": 0.0,
+      "abv": 9.8
     },
     "tags": [
       "classic",
@@ -4525,16 +4565,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.337,
-      "bitterness": 0.021,
+      "sweetness": 0.239,
+      "bitterness": 0.023,
       "smokiness": 0.0,
-      "citrus": 0.189,
-      "floral": 0.053,
+      "citrus": 0.204,
+      "floral": 0.062,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.042,
+      "fruity": 0.045,
       "oaky": 0.0,
-      "abv": 20.39
+      "abv": 15.66
     },
     "tags": [
       "classic",
@@ -4585,16 +4625,16 @@
       "Garnish with a lime wedge."
     ],
     "flavorProfile": {
-      "sweetness": 0.189,
-      "bitterness": 0.111,
+      "sweetness": 0.245,
+      "bitterness": 0.164,
       "smokiness": 0.0,
-      "citrus": 0.244,
-      "floral": 0.056,
+      "citrus": 0.309,
+      "floral": 0.027,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.178,
+      "fruity": 0.327,
       "oaky": 0.0,
-      "abv": 21.53
+      "abv": 9.19
     },
     "tags": [
       "classic",
@@ -4631,16 +4671,16 @@
       "Stir briefly."
     ],
     "flavorProfile": {
-      "sweetness": 0.347,
-      "bitterness": 0.124,
+      "sweetness": 0.271,
+      "bitterness": 0.086,
       "smokiness": 0.0,
       "citrus": 0.0,
-      "floral": 0.059,
-      "spice": 0.041,
+      "floral": 0.071,
+      "spice": 0.029,
       "herbal": 0.0,
       "fruity": 0.0,
-      "oaky": 0.041,
-      "abv": 32.26
+      "oaky": 0.029,
+      "abv": 29.78
     },
     "tags": [
       "classic",
@@ -4683,16 +4723,16 @@
       "Stir gently."
     ],
     "flavorProfile": {
-      "sweetness": 0.142,
-      "bitterness": 0.077,
+      "sweetness": 0.241,
+      "bitterness": 0.214,
       "smokiness": 0.0,
-      "citrus": 0.206,
-      "floral": 0.065,
-      "spice": 0.01,
+      "citrus": 0.571,
+      "floral": 0.027,
+      "spice": 0.002,
       "herbal": 0.0,
-      "fruity": 0.077,
+      "fruity": 0.214,
       "oaky": 0.0,
-      "abv": 25.0
+      "abv": 9.03
     },
     "tags": [
       "classic",
@@ -4729,16 +4769,16 @@
       "Stir gently."
     ],
     "flavorProfile": {
-      "sweetness": 0.214,
+      "sweetness": 0.391,
       "bitterness": 0.0,
       "smokiness": 0.0,
-      "citrus": 0.2,
+      "citrus": 0.509,
       "floral": 0.1,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.143,
+      "fruity": 0.364,
       "oaky": 0.0,
-      "abv": 27.68
+      "abv": 9.19
     },
     "tags": [
       "classic",
@@ -4791,16 +4831,16 @@
       "Garnish with a lemon wheel."
     ],
     "flavorProfile": {
-      "sweetness": 0.278,
-      "bitterness": 0.017,
+      "sweetness": 0.107,
+      "bitterness": 0.011,
       "smokiness": 0.0,
-      "citrus": 0.157,
-      "floral": 0.043,
+      "citrus": 0.098,
+      "floral": 0.022,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.035,
+      "fruity": 0.022,
       "oaky": 0.0,
-      "abv": 16.85
+      "abv": 7.17
     },
     "tags": [
       "classic",
@@ -4845,15 +4885,15 @@
     ],
     "flavorProfile": {
       "sweetness": 0.333,
-      "bitterness": 0.019,
+      "bitterness": 0.033,
       "smokiness": 0.0,
-      "citrus": 0.438,
-      "floral": 0.081,
+      "citrus": 0.567,
+      "floral": 0.067,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.138,
+      "fruity": 0.167,
       "oaky": 0.0,
-      "abv": 30.12
+      "abv": 16.0
     },
     "tags": [
       "classic",
@@ -4865,7 +4905,7 @@
   {
     "id": "bc931af7-f528-531a-8278-e9ab5cd9374a",
     "name": "Harvey Wallbanger",
-    "description": "A Screwdriver topped with a herbal liqueur float.",
+    "description": "A Screwdriver topped with a Galliano float.",
     "glassType": "highball",
     "method": "build",
     "ingredients": [
@@ -4878,34 +4918,34 @@
       },
       {
         "ingredientStyleId": "7ac9da98-ef4c-5dee-a5f9-d197889841b5",
-        "amount": "120ml",
+        "amount": "90ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "591ce96e-b449-5553-a0cc-fbd19f98a1a1",
+        "ingredientStyleId": "f0d2acbe-18d4-5d1a-81bb-eb33783e8749",
         "amount": "15ml",
         "preparation": "float",
         "isOptional": false,
-        "substituteNotes": "Traditionally Galliano; Bénédictine is the nearest catalogued herbal liqueur."
+        "substituteNotes": null
       }
     ],
     "steps": [
       "Build vodka and orange juice over ice in a highball glass.",
-      "Float Bénédictine on top."
+      "Float Galliano on top."
     ],
     "flavorProfile": {
-      "sweetness": 0.343,
-      "bitterness": 0.033,
+      "sweetness": 0.427,
+      "bitterness": 0.0,
       "smokiness": 0.0,
-      "citrus": 0.167,
-      "floral": 0.167,
-      "spice": 0.1,
-      "herbal": 0.2,
-      "fruity": 0.129,
-      "oaky": 0.033,
-      "abv": 31.79
+      "citrus": 0.4,
+      "floral": 0.118,
+      "spice": 0.055,
+      "herbal": 0.109,
+      "fruity": 0.273,
+      "oaky": 0.0,
+      "abv": 13.25
     },
     "tags": [
       "classic",
@@ -4957,16 +4997,16 @@
       "Garnish with an orange wheel."
     ],
     "flavorProfile": {
-      "sweetness": 0.303,
-      "bitterness": 0.189,
+      "sweetness": 0.315,
+      "bitterness": 0.164,
       "smokiness": 0.0,
-      "citrus": 0.286,
-      "floral": 0.149,
-      "spice": 0.038,
-      "herbal": 0.114,
-      "fruity": 0.268,
+      "citrus": 0.269,
+      "floral": 0.166,
+      "spice": 0.033,
+      "herbal": 0.098,
+      "fruity": 0.3,
       "oaky": 0.0,
-      "abv": 7.73
+      "abv": 7.84
     },
     "tags": [
       "classic",
@@ -4984,11 +5024,11 @@
     "method": "build",
     "ingredients": [
       {
-        "ingredientStyleId": "ff7d96ed-4f20-5b3f-a100-644f9d4d5188",
+        "ingredientStyleId": "0cdae766-cd5e-59cf-aa3e-5650d6b4f59c",
         "amount": "10ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally crème de cassis; raspberry liqueur substitutes with a similar berry sweetness."
+        "substituteNotes": null
       },
       {
         "ingredientStyleId": "fa55f33b-0c09-56b9-9c8e-637d4574f096",
@@ -4999,24 +5039,25 @@
       }
     ],
     "steps": [
-      "Add cassis-style liqueur to a chilled flute.",
+      "Add crème de cassis to a chilled flute.",
       "Top with Champagne."
     ],
     "flavorProfile": {
-      "sweetness": 0.523,
-      "bitterness": 0.046,
+      "sweetness": 0.26,
+      "bitterness": 0.1,
       "smokiness": 0.0,
-      "citrus": 0.092,
-      "floral": 0.146,
+      "citrus": 0.18,
+      "floral": 0.19,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.569,
-      "oaky": 0.046,
-      "abv": 14.42
+      "fruity": 0.36,
+      "oaky": 0.09,
+      "abv": 10.91
     },
     "tags": [
       "classic",
-      "sparkling"
+      "sparkling",
+      "low-abv"
     ],
     "difficulty": "easy",
     "imageURL": null
@@ -5024,20 +5065,20 @@
   {
     "id": "77eb0355-35b9-51cb-b0de-5034cc6aad89",
     "name": "Bellini",
-    "description": "Peach purée and Prosecco.",
+    "description": "White peach purée and Prosecco.",
     "glassType": "flute",
     "method": "build",
     "ingredients": [
       {
         "ingredientStyleId": "6f64f35f-ad15-51c2-ae2c-49ba744625b7",
-        "amount": "1",
+        "amount": "50ml",
         "preparation": "puréed",
         "isOptional": false,
         "substituteNotes": null
       },
       {
         "ingredientStyleId": "d4f9cbd1-d466-5bd8-a8c0-c0ac4236c7ec",
-        "amount": "top",
+        "amount": "100ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
@@ -5049,22 +5090,23 @@
       "Stir gently."
     ],
     "flavorProfile": {
-      "sweetness": 0.42,
+      "sweetness": 0.4,
       "bitterness": 0.0,
       "smokiness": 0.0,
-      "citrus": 0.12,
+      "citrus": 0.133,
       "floral": 0.2,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.52,
+      "fruity": 0.5,
       "oaky": 0.0,
-      "abv": 6.6
+      "abv": 6.38
     },
     "tags": [
       "classic",
       "sparkling",
       "brunch",
-      "iba-official"
+      "iba-official",
+      "low-abv"
     ],
     "difficulty": "easy",
     "imageURL": null
@@ -5105,12 +5147,13 @@
       "herbal": 0.0,
       "fruity": 0.38,
       "oaky": 0.06,
-      "abv": 7.2
+      "abv": 6.26
     },
     "tags": [
       "classic",
       "sparkling",
-      "brunch"
+      "brunch",
+      "low-abv"
     ],
     "difficulty": "easy",
     "imageURL": null
@@ -5157,16 +5200,16 @@
       "Garnish with an orange wheel."
     ],
     "flavorProfile": {
-      "sweetness": 0.324,
-      "bitterness": 0.438,
+      "sweetness": 0.151,
+      "bitterness": 0.197,
       "smokiness": 0.0,
-      "citrus": 0.178,
-      "floral": 0.111,
-      "spice": 0.103,
-      "herbal": 0.314,
-      "fruity": 0.197,
-      "oaky": 0.032,
-      "abv": 14.53
+      "citrus": 0.072,
+      "floral": 0.051,
+      "spice": 0.049,
+      "herbal": 0.148,
+      "fruity": 0.087,
+      "oaky": 0.016,
+      "abv": 5.81
     },
     "tags": [
       "classic",
@@ -5219,20 +5262,21 @@
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.508,
+      "sweetness": 0.232,
       "bitterness": 0.144,
       "smokiness": 0.0,
-      "citrus": 0.096,
-      "floral": 0.096,
-      "spice": 0.048,
-      "herbal": 0.036,
-      "fruity": 0.144,
-      "oaky": 0.06,
-      "abv": 11.12
+      "citrus": 0.176,
+      "floral": 0.176,
+      "spice": 0.028,
+      "herbal": 0.021,
+      "fruity": 0.264,
+      "oaky": 0.095,
+      "abv": 10.6
     },
     "tags": [
       "classic",
-      "sparkling"
+      "sparkling",
+      "low-abv"
     ],
     "difficulty": "easy",
     "imageURL": null
@@ -5246,14 +5290,14 @@
     "ingredients": [
       {
         "ingredientStyleId": "910d655d-1ad3-50bd-9bb4-7c28e488f3d2",
-        "amount": "3",
+        "amount": "50ml",
         "preparation": "puréed",
         "isOptional": false,
         "substituteNotes": null
       },
       {
         "ingredientStyleId": "d4f9cbd1-d466-5bd8-a8c0-c0ac4236c7ec",
-        "amount": "top",
+        "amount": "100ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
@@ -5265,21 +5309,22 @@
       "Stir gently."
     ],
     "flavorProfile": {
-      "sweetness": 0.42,
+      "sweetness": 0.4,
       "bitterness": 0.0,
       "smokiness": 0.0,
-      "citrus": 0.12,
-      "floral": 0.16,
+      "citrus": 0.133,
+      "floral": 0.167,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.52,
+      "fruity": 0.5,
       "oaky": 0.0,
-      "abv": 6.6
+      "abv": 6.38
     },
     "tags": [
       "modern-classic",
       "sparkling",
-      "brunch"
+      "brunch",
+      "low-abv"
     ],
     "difficulty": "easy",
     "imageURL": null
@@ -5318,16 +5363,16 @@
       "Top with Champagne."
     ],
     "flavorProfile": {
-      "sweetness": 0.471,
-      "bitterness": 0.082,
+      "sweetness": 0.272,
+      "bitterness": 0.124,
       "smokiness": 0.0,
-      "citrus": 0.471,
-      "floral": 0.112,
+      "citrus": 0.272,
+      "floral": 0.131,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.347,
-      "oaky": 0.035,
-      "abv": 18.65
+      "fruity": 0.362,
+      "oaky": 0.062,
+      "abv": 8.58
     },
     "tags": [
       "modern-classic",
@@ -5352,11 +5397,11 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "b7828d04-afc0-5bd3-8079-0d47d3a76931",
+        "ingredientStyleId": "1e3d284b-8b70-5406-a485-f369a82d02f0",
         "amount": "75ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally stout beer; cola is the nearest catalogued carbonated mixer and changes the flavour significantly — best treated as a stand-in until a beer ingredient exists."
+        "substituteNotes": null
       }
     ],
     "steps": [
@@ -5364,20 +5409,21 @@
       "Top slowly with stout, layering gently."
     ],
     "flavorProfile": {
-      "sweetness": 0.44,
-      "bitterness": 0.1,
-      "smokiness": 0.0,
-      "citrus": 0.12,
-      "floral": 0.12,
-      "spice": 0.08,
-      "herbal": 0.04,
-      "fruity": 0.22,
-      "oaky": 0.06,
-      "abv": 7.2
+      "sweetness": 0.2,
+      "bitterness": 0.3,
+      "smokiness": 0.15,
+      "citrus": 0.1,
+      "floral": 0.1,
+      "spice": 0.0,
+      "herbal": 0.0,
+      "fruity": 0.15,
+      "oaky": 0.15,
+      "abv": 7.76
     },
     "tags": [
       "classic",
-      "sparkling"
+      "sparkling",
+      "low-abv"
     ],
     "difficulty": "easy",
     "imageURL": null
@@ -5423,16 +5469,16 @@
       "Double strain into a sugar-rimmed chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.429,
-      "bitterness": 0.067,
+      "sweetness": 0.367,
+      "bitterness": 0.078,
       "smokiness": 0.0,
-      "citrus": 0.486,
-      "floral": 0.129,
-      "spice": 0.048,
+      "citrus": 0.433,
+      "floral": 0.133,
+      "spice": 0.056,
       "herbal": 0.0,
-      "fruity": 0.329,
-      "oaky": 0.143,
-      "abv": 30.71
+      "fruity": 0.333,
+      "oaky": 0.167,
+      "abv": 18.93
     },
     "tags": [
       "classic",
@@ -5457,11 +5503,11 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "186a5771-0cb5-5c09-a43a-848effa0cae2",
+        "ingredientStyleId": "7156c9d0-b18b-5c2a-a14a-6b4cd60542a6",
         "amount": "30ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally crème de cacao; hazelnut liqueur substitutes with a nuttier sweetness."
+        "substituteNotes": "Dark crème de cacao is traditional."
       },
       {
         "ingredientStyleId": "6d14fddf-dcf2-545f-9a0d-ff4d9eda5c29",
@@ -5477,16 +5523,16 @@
       "Garnish with grated nutmeg."
     ],
     "flavorProfile": {
-      "sweetness": 0.448,
-      "bitterness": 0.081,
+      "sweetness": 0.433,
+      "bitterness": 0.1,
       "smokiness": 0.0,
-      "citrus": 0.048,
-      "floral": 0.129,
-      "spice": 0.048,
+      "citrus": 0.033,
+      "floral": 0.067,
+      "spice": 0.067,
       "herbal": 0.0,
-      "fruity": 0.224,
-      "oaky": 0.176,
-      "abv": 26.38
+      "fruity": 0.133,
+      "oaky": 0.133,
+      "abv": 13.91
     },
     "tags": [
       "classic",
@@ -5537,16 +5583,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.387,
-      "bitterness": 0.045,
+      "sweetness": 0.399,
+      "bitterness": 0.046,
       "smokiness": 0.0,
-      "citrus": 0.361,
-      "floral": 0.119,
-      "spice": 0.065,
+      "citrus": 0.438,
+      "floral": 0.109,
+      "spice": 0.054,
       "herbal": 0.0,
-      "fruity": 0.319,
-      "oaky": 0.097,
-      "abv": 33.31
+      "fruity": 0.309,
+      "oaky": 0.081,
+      "abv": 19.41
     },
     "tags": [
       "classic",
@@ -5605,16 +5651,16 @@
       "Garnish with bitters drops on the foam."
     ],
     "flavorProfile": {
-      "sweetness": 0.308,
-      "bitterness": 0.065,
+      "sweetness": 0.254,
+      "bitterness": 0.052,
       "smokiness": 0.0,
-      "citrus": 0.229,
-      "floral": 0.163,
-      "spice": 0.065,
-      "herbal": 0.059,
-      "fruity": 0.155,
-      "oaky": 0.006,
-      "abv": 20.29
+      "citrus": 0.272,
+      "floral": 0.205,
+      "spice": 0.068,
+      "herbal": 0.064,
+      "fruity": 0.192,
+      "oaky": 0.004,
+      "abv": 15.31
     },
     "tags": [
       "classic",
@@ -5651,16 +5697,16 @@
       "Stir briefly."
     ],
     "flavorProfile": {
-      "sweetness": 0.506,
+      "sweetness": 0.464,
       "bitterness": 0.1,
       "smokiness": 0.0,
-      "citrus": 0.059,
-      "floral": 0.159,
+      "citrus": 0.067,
+      "floral": 0.167,
       "spice": 0.1,
       "herbal": 0.0,
-      "fruity": 0.318,
-      "oaky": 0.176,
-      "abv": 34.24
+      "fruity": 0.334,
+      "oaky": 0.201,
+      "abv": 30.79
     },
     "tags": [
       "classic",
@@ -5703,16 +5749,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.416,
-      "bitterness": 0.074,
+      "sweetness": 0.347,
+      "bitterness": 0.085,
       "smokiness": 0.0,
-      "citrus": 0.189,
-      "floral": 0.105,
-      "spice": 0.105,
+      "citrus": 0.204,
+      "floral": 0.093,
+      "spice": 0.124,
       "herbal": 0.0,
-      "fruity": 0.516,
-      "oaky": 0.158,
-      "abv": 21.05
+      "fruity": 0.509,
+      "oaky": 0.186,
+      "abv": 16.09
     },
     "tags": [
       "classic",
@@ -5724,9 +5770,9 @@
   {
     "id": "a9086568-9fbb-51dd-b5fd-c021670fce8f",
     "name": "Metropolitan",
-    "description": "A brandy Cosmopolitan variant.",
+    "description": "A 19th-century brandy Manhattan, sweetened and bittered.",
     "glassType": "coupe",
-    "method": "shake",
+    "method": "stir",
     "ingredients": [
       {
         "ingredientStyleId": "72c3af9c-5169-5399-bd00-9e4e5064ff7f",
@@ -5736,46 +5782,54 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "ff7d96ed-4f20-5b3f-a100-644f9d4d5188",
-        "amount": "15ml",
-        "preparation": null,
-        "isOptional": false,
-        "substituteNotes": null
-      },
-      {
-        "ingredientStyleId": "45d5c156-3564-584b-a716-7a2c1e9c6949",
-        "amount": "15ml",
+        "ingredientStyleId": "ba07b5f0-9235-54b7-83e3-e9c49b7adce2",
+        "amount": "30ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
         "ingredientStyleId": "b3f73a20-e8ea-5251-8dfd-d6ccb6f0f155",
-        "amount": "10ml",
+        "amount": "5ml",
         "preparation": null,
         "isOptional": false,
+        "substituteNotes": null
+      },
+      {
+        "ingredientStyleId": "1b52af40-1b6e-5b2c-958f-ef23948aaca7",
+        "amount": "2 dash",
+        "preparation": null,
+        "isOptional": false,
+        "substituteNotes": null
+      },
+      {
+        "ingredientStyleId": "f368345e-72f1-5aa7-8ba3-40f57499cab9",
+        "amount": "1",
+        "preparation": null,
+        "isOptional": true,
         "substituteNotes": null
       }
     ],
     "steps": [
-      "Shake all ingredients with ice.",
-      "Double strain into a chilled coupe."
+      "Stir all ingredients with ice.",
+      "Strain into a chilled coupe.",
+      "Garnish with an orange twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.538,
-      "bitterness": 0.054,
+      "sweetness": 0.436,
+      "bitterness": 0.204,
       "smokiness": 0.0,
-      "citrus": 0.177,
-      "floral": 0.104,
-      "spice": 0.038,
-      "herbal": 0.0,
-      "fruity": 0.4,
-      "oaky": 0.115,
-      "abv": 19.83
+      "citrus": 0.088,
+      "floral": 0.177,
+      "spice": 0.146,
+      "herbal": 0.194,
+      "fruity": 0.318,
+      "oaky": 0.2,
+      "abv": 20.65
     },
     "tags": [
-      "modern-classic",
-      "sour"
+      "classic",
+      "spirit-forward"
     ],
     "difficulty": "medium",
     "imageURL": null
@@ -5829,16 +5883,16 @@
       "Garnish with a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.688,
-      "bitterness": 0.069,
+      "sweetness": 0.654,
+      "bitterness": 0.089,
       "smokiness": 0.0,
-      "citrus": 0.225,
-      "floral": 0.044,
-      "spice": 0.044,
+      "citrus": 0.215,
+      "floral": 0.065,
+      "spice": 0.065,
       "herbal": 0.0,
-      "fruity": 0.137,
+      "fruity": 0.178,
       "oaky": 0.0,
-      "abv": 11.37
+      "abv": 11.67
     },
     "tags": [
       "classic",
@@ -5855,18 +5909,18 @@
     "method": "shake",
     "ingredients": [
       {
-        "ingredientStyleId": "592d0b00-9ec2-56f4-b492-d13ac359fe2f",
+        "ingredientStyleId": "48aa8375-e307-5f44-bf16-5054a348fc1b",
         "amount": "22ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally crème de menthe; green Chartreuse substitutes with a stronger herbal intensity — use less to taste."
+        "substituteNotes": "Green crème de menthe gives the classic colour."
       },
       {
-        "ingredientStyleId": "186a5771-0cb5-5c09-a43a-848effa0cae2",
+        "ingredientStyleId": "7156c9d0-b18b-5c2a-a14a-6b4cd60542a6",
         "amount": "22ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally white crème de cacao; hazelnut liqueur substitutes with a nuttier sweetness."
+        "substituteNotes": "White crème de cacao keeps the colour bright."
       },
       {
         "ingredientStyleId": "6d14fddf-dcf2-545f-9a0d-ff4d9eda5c29",
@@ -5881,16 +5935,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.511,
-      "bitterness": 0.156,
+      "sweetness": 0.6,
+      "bitterness": 0.067,
       "smokiness": 0.0,
-      "citrus": 0.039,
-      "floral": 0.156,
-      "spice": 0.078,
-      "herbal": 0.35,
-      "fruity": 0.039,
-      "oaky": 0.039,
-      "abv": 29.94
+      "citrus": 0.0,
+      "floral": 0.0,
+      "spice": 0.067,
+      "herbal": 0.3,
+      "fruity": 0.0,
+      "oaky": 0.033,
+      "abv": 11.2
     },
     "tags": [
       "classic",
@@ -5927,16 +5981,16 @@
       "Stir briefly."
     ],
     "flavorProfile": {
-      "sweetness": 0.506,
+      "sweetness": 0.464,
       "bitterness": 0.1,
-      "smokiness": 0.118,
+      "smokiness": 0.134,
       "citrus": 0.0,
       "floral": 0.1,
       "spice": 0.1,
-      "herbal": 0.059,
+      "herbal": 0.067,
       "fruity": 0.2,
-      "oaky": 0.235,
-      "abv": 34.24
+      "oaky": 0.269,
+      "abv": 30.79
     },
     "tags": [
       "classic",
@@ -5972,16 +6026,16 @@
       "Stir briefly."
     ],
     "flavorProfile": {
-      "sweetness": 0.388,
-      "bitterness": 0.041,
+      "sweetness": 0.33,
+      "bitterness": 0.033,
       "smokiness": 0.0,
       "citrus": 0.0,
       "floral": 0.1,
-      "spice": 0.041,
+      "spice": 0.033,
       "herbal": 0.0,
-      "fruity": 0.082,
+      "fruity": 0.066,
       "oaky": 0.0,
-      "abv": 33.5
+      "abv": 30.06
     },
     "tags": [
       "classic",
@@ -6032,16 +6086,16 @@
       "Garnish with an orange wheel."
     ],
     "flavorProfile": {
-      "sweetness": 0.38,
-      "bitterness": 0.395,
+      "sweetness": 0.394,
+      "bitterness": 0.387,
       "smokiness": 0.0,
-      "citrus": 0.22,
-      "floral": 0.159,
-      "spice": 0.093,
-      "herbal": 0.283,
-      "fruity": 0.295,
-      "oaky": 0.029,
-      "abv": 16.33
+      "citrus": 0.206,
+      "floral": 0.165,
+      "spice": 0.097,
+      "herbal": 0.29,
+      "fruity": 0.3,
+      "oaky": 0.032,
+      "abv": 14.52
     },
     "tags": [
       "modern-classic",
@@ -6085,16 +6139,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.429,
+      "sweetness": 0.383,
       "bitterness": 0.0,
       "smokiness": 0.0,
-      "citrus": 0.038,
+      "citrus": 0.067,
       "floral": 0.1,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.4,
+      "fruity": 0.367,
       "oaky": 0.0,
-      "abv": 23.95
+      "abv": 14.64
     },
     "tags": [
       "modern-classic",
@@ -6106,23 +6160,23 @@
   {
     "id": "610a1f94-e5b3-5389-83a8-d608dc153b40",
     "name": "Golden Cadillac",
-    "description": "A dessert-style cream cocktail with orange liqueur and cream.",
+    "description": "A dessert-style cream cocktail with Galliano and cacao.",
     "glassType": "coupe",
     "method": "shake",
     "ingredients": [
       {
-        "ingredientStyleId": "186a5771-0cb5-5c09-a43a-848effa0cae2",
-        "amount": "22ml",
-        "preparation": null,
-        "isOptional": false,
-        "substituteNotes": "Traditionally Galliano; hazelnut liqueur is the nearest catalogued sweet herbal-adjacent liqueur."
-      },
-      {
-        "ingredientStyleId": "5edefd1a-ebb5-537e-a096-5f4e28cb32a3",
+        "ingredientStyleId": "f0d2acbe-18d4-5d1a-81bb-eb33783e8749",
         "amount": "22ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
+      },
+      {
+        "ingredientStyleId": "7156c9d0-b18b-5c2a-a14a-6b4cd60542a6",
+        "amount": "22ml",
+        "preparation": null,
+        "isOptional": false,
+        "substituteNotes": "White crème de cacao keeps the colour golden."
       },
       {
         "ingredientStyleId": "6d14fddf-dcf2-545f-9a0d-ff4d9eda5c29",
@@ -6137,16 +6191,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.628,
-      "bitterness": 0.078,
+      "sweetness": 0.567,
+      "bitterness": 0.067,
       "smokiness": 0.0,
-      "citrus": 0.272,
-      "floral": 0.078,
-      "spice": 0.039,
-      "herbal": 0.0,
-      "fruity": 0.156,
-      "oaky": 0.117,
-      "abv": 24.11
+      "citrus": 0.033,
+      "floral": 0.067,
+      "spice": 0.133,
+      "herbal": 0.2,
+      "fruity": 0.0,
+      "oaky": 0.033,
+      "abv": 13.18
     },
     "tags": [
       "classic",
@@ -6190,16 +6244,16 @@
       "Strain over fresh ice in a rocks glass."
     ],
     "flavorProfile": {
-      "sweetness": 0.628,
-      "bitterness": 0.156,
+      "sweetness": 0.567,
+      "bitterness": 0.133,
       "smokiness": 0.0,
       "citrus": 0.0,
-      "floral": 0.039,
-      "spice": 0.078,
+      "floral": 0.033,
+      "spice": 0.067,
       "herbal": 0.0,
-      "fruity": 0.078,
-      "oaky": 0.039,
-      "abv": 19.06
+      "fruity": 0.067,
+      "oaky": 0.033,
+      "abv": 11.3
     },
     "tags": [
       "classic",
@@ -6224,28 +6278,28 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "592d0b00-9ec2-56f4-b492-d13ac359fe2f",
+        "ingredientStyleId": "48aa8375-e307-5f44-bf16-5054a348fc1b",
         "amount": "22ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally white crème de menthe; green Chartreuse substitutes with far more herbal intensity — use less to taste."
+        "substituteNotes": "White crème de menthe is traditional."
       }
     ],
     "steps": [
       "Stir both ingredients with ice.",
-      "Strain over fresh ice in a rocks glass."
+      "Strain over crushed ice in a rocks glass."
     ],
     "flavorProfile": {
-      "sweetness": 0.341,
-      "bitterness": 0.182,
+      "sweetness": 0.434,
+      "bitterness": 0.073,
       "smokiness": 0.0,
-      "citrus": 0.1,
-      "floral": 0.241,
-      "spice": 0.141,
-      "herbal": 0.371,
-      "fruity": 0.235,
-      "oaky": 0.176,
-      "abv": 46.18
+      "citrus": 0.073,
+      "floral": 0.146,
+      "spice": 0.1,
+      "herbal": 0.241,
+      "fruity": 0.293,
+      "oaky": 0.22,
+      "abv": 25.21
     },
     "tags": [
       "classic",
@@ -6297,14 +6351,14 @@
       "Garnish with a mint sprig."
     ],
     "flavorProfile": {
-      "sweetness": 0.318,
-      "bitterness": 0.047,
+      "sweetness": 0.083,
+      "bitterness": 0.035,
       "smokiness": 0.0,
-      "citrus": 0.212,
+      "citrus": 0.096,
       "floral": 0.024,
       "spice": 0.024,
-      "herbal": 0.212,
-      "fruity": 0.047,
+      "herbal": 0.217,
+      "fruity": 0.021,
       "oaky": 0.0,
       "abv": 0.0
     },
@@ -6352,14 +6406,14 @@
       "Garnish with a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.654,
-      "bitterness": 0.031,
+      "sweetness": 0.543,
+      "bitterness": 0.002,
       "smokiness": 0.0,
-      "citrus": 0.031,
-      "floral": 0.108,
-      "spice": 0.123,
+      "citrus": 0.087,
+      "floral": 0.024,
+      "spice": 0.348,
       "herbal": 0.0,
-      "fruity": 0.477,
+      "fruity": 0.167,
       "oaky": 0.0,
       "abv": 0.0
     },
@@ -6379,28 +6433,28 @@
     "method": "build",
     "ingredients": [
       {
-        "ingredientStyleId": "f1c74917-accc-56ef-9ca3-0e5e2ca9ec2d",
-        "amount": "60ml",
-        "preparation": null,
+        "ingredientStyleId": "d5f738bc-3958-5d2f-8e6b-fbb3c560f58b",
+        "amount": "90ml",
+        "preparation": "brewed and chilled",
         "isOptional": false,
-        "substituteNotes": "Traditionally iced black tea; cold brew coffee is the nearest catalogued cold infused base — swap for brewed iced tea if preferred."
+        "substituteNotes": null
       },
       {
         "ingredientStyleId": "71154da0-8b20-5d0f-99c4-250d2222b018",
-        "amount": "15ml",
+        "amount": "25ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
         "ingredientStyleId": "b3f73a20-e8ea-5251-8dfd-d6ccb6f0f155",
-        "amount": "10ml",
+        "amount": "20ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "d58e56f5-d764-5320-9812-93fb94f42868",
+        "ingredientStyleId": "24394714-b20f-51bf-bea7-bea175c4a3c2",
         "amount": "top",
         "preparation": null,
         "isOptional": false,
@@ -6409,20 +6463,20 @@
     ],
     "steps": [
       "Fill a highball glass with ice.",
-      "Add cold brew and lemon juice with simple syrup.",
-      "Top with lemon-lime soda.",
-      "Stir gently."
+      "Add chilled black tea, lemon juice, and simple syrup.",
+      "Top with club soda.",
+      "Stir gently and garnish with a lemon wedge."
     ],
     "flavorProfile": {
-      "sweetness": 0.506,
-      "bitterness": 0.141,
-      "smokiness": 0.024,
-      "citrus": 0.329,
-      "floral": 0.0,
+      "sweetness": 0.088,
+      "bitterness": 0.116,
+      "smokiness": 0.0,
+      "citrus": 0.088,
+      "floral": 0.071,
       "spice": 0.0,
-      "herbal": 0.0,
-      "fruity": 0.071,
-      "oaky": 0.0,
+      "herbal": 0.071,
+      "fruity": 0.02,
+      "oaky": 0.035,
       "abv": 0.0
     },
     "tags": [
@@ -6468,14 +6522,14 @@
       "Garnish with a lime wedge."
     ],
     "flavorProfile": {
-      "sweetness": 0.211,
-      "bitterness": 0.058,
+      "sweetness": 0.359,
+      "bitterness": 0.013,
       "smokiness": 0.0,
-      "citrus": 0.516,
+      "citrus": 0.198,
       "floral": 0.0,
-      "spice": 0.295,
+      "spice": 0.609,
       "herbal": 0.0,
-      "fruity": 0.142,
+      "fruity": 0.111,
       "oaky": 0.0,
       "abv": 0.0
     },
@@ -6530,14 +6584,14 @@
       "Top with club soda."
     ],
     "flavorProfile": {
-      "sweetness": 0.341,
-      "bitterness": 0.024,
+      "sweetness": 0.084,
+      "bitterness": 0.008,
       "smokiness": 0.0,
-      "citrus": 0.212,
-      "floral": 0.024,
+      "citrus": 0.073,
+      "floral": 0.022,
       "spice": 0.0,
-      "herbal": 0.071,
-      "fruity": 0.071,
+      "herbal": 0.065,
+      "fruity": 0.038,
       "oaky": 0.0,
       "abv": 0.0
     },
@@ -6588,11 +6642,11 @@
       "sweetness": 0.6,
       "bitterness": 0.0,
       "smokiness": 0.0,
-      "citrus": 0.1,
-      "floral": 0.05,
+      "citrus": 0.145,
+      "floral": 0.073,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.5,
+      "fruity": 0.591,
       "oaky": 0.0,
       "abv": 0.0
     },
@@ -6639,14 +6693,14 @@
       "Garnish with a lime wheel."
     ],
     "flavorProfile": {
-      "sweetness": 0.338,
-      "bitterness": 0.031,
+      "sweetness": 0.192,
+      "bitterness": 0.008,
       "smokiness": 0.0,
-      "citrus": 0.315,
-      "floral": 0.077,
+      "citrus": 0.092,
+      "floral": 0.046,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.369,
+      "fruity": 0.2,
       "oaky": 0.0,
       "abv": 0.0
     },
@@ -6666,15 +6720,22 @@
     "method": "build",
     "ingredients": [
       {
-        "ingredientStyleId": "1cde3598-0195-5acd-9cf9-3d9d761e712d",
+        "ingredientStyleId": "06284f95-df68-5f0f-ac06-a6e67b98da46",
         "amount": "150ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally still red wine gently mulled; ruby port is the nearest catalogued red wine and is noticeably sweeter/stronger — dilute with water to taste."
+        "substituteNotes": null
+      },
+      {
+        "ingredientStyleId": "1cde3598-0195-5acd-9cf9-3d9d761e712d",
+        "amount": "15ml",
+        "preparation": null,
+        "isOptional": true,
+        "substituteNotes": null
       },
       {
         "ingredientStyleId": "784a3e64-7803-511b-8979-02a60c76f60f",
-        "amount": "10ml",
+        "amount": "15ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
@@ -6696,25 +6757,27 @@
     ],
     "steps": [
       "Warm red wine gently with demerara syrup, cinnamon, and orange in a saucepan (do not boil).",
+      "Stir in the port, if using.",
       "Ladle into a warmed mug.",
       "Garnish with a cinnamon stick."
     ],
     "flavorProfile": {
-      "sweetness": 0.707,
-      "bitterness": 0.043,
+      "sweetness": 0.261,
+      "bitterness": 0.175,
       "smokiness": 0.0,
-      "citrus": 0.043,
-      "floral": 0.054,
-      "spice": 0.207,
-      "herbal": 0.011,
-      "fruity": 0.332,
-      "oaky": 0.157,
-      "abv": 8.36
+      "citrus": 0.007,
+      "floral": 0.089,
+      "spice": 0.111,
+      "herbal": 0.002,
+      "fruity": 0.619,
+      "oaky": 0.281,
+      "abv": 11.62
     },
     "tags": [
       "warm",
       "classic",
-      "seasonal"
+      "seasonal",
+      "low-abv"
     ],
     "difficulty": "easy",
     "imageURL": null
@@ -6741,6 +6804,13 @@
         "substituteNotes": null
       },
       {
+        "ingredientStyleId": "1f7a4622-c271-5846-adf2-4db6b8395c15",
+        "amount": "1 tsp",
+        "preparation": null,
+        "isOptional": false,
+        "substituteNotes": null
+      },
+      {
         "ingredientStyleId": "5a8df8d2-cf2f-5000-98a5-a827c2ab279a",
         "amount": "1",
         "preparation": null,
@@ -6751,20 +6821,20 @@
     "steps": [
       "Combine dark rum and demerara syrup in a warmed mug.",
       "Top with hot water.",
-      "Stir in a small pat of butter.",
+      "Stir in the butter until melted.",
       "Garnish with a cinnamon stick."
     ],
     "flavorProfile": {
-      "sweetness": 0.594,
-      "bitterness": 0.061,
-      "smokiness": 0.061,
+      "sweetness": 0.546,
+      "bitterness": 0.066,
+      "smokiness": 0.066,
       "citrus": 0.0,
       "floral": 0.0,
-      "spice": 0.224,
-      "herbal": 0.009,
-      "fruity": 0.182,
-      "oaky": 0.364,
-      "abv": 25.76
+      "spice": 0.19,
+      "herbal": 0.004,
+      "fruity": 0.199,
+      "oaky": 0.375,
+      "abv": 10.17
     },
     "tags": [
       "warm",
@@ -6824,16 +6894,16 @@
       "Garnish with grated nutmeg."
     ],
     "flavorProfile": {
-      "sweetness": 0.418,
-      "bitterness": 0.061,
-      "smokiness": 0.03,
-      "citrus": 0.03,
-      "floral": 0.061,
-      "spice": 0.091,
+      "sweetness": 0.317,
+      "bitterness": 0.041,
+      "smokiness": 0.021,
+      "citrus": 0.021,
+      "floral": 0.041,
+      "spice": 0.062,
       "herbal": 0.0,
-      "fruity": 0.212,
-      "oaky": 0.242,
-      "abv": 25.0
+      "fruity": 0.145,
+      "oaky": 0.166,
+      "abv": 17.07
     },
     "tags": [
       "warm",
@@ -6884,16 +6954,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.3,
-      "bitterness": 0.215,
+      "sweetness": 0.267,
+      "bitterness": 0.2,
       "smokiness": 0.0,
-      "citrus": 0.269,
-      "floral": 0.208,
-      "spice": 0.108,
-      "herbal": 0.523,
-      "fruity": 0.208,
-      "oaky": 0.023,
-      "abv": 23.87
+      "citrus": 0.3,
+      "floral": 0.2,
+      "spice": 0.1,
+      "herbal": 0.533,
+      "fruity": 0.2,
+      "oaky": 0.017,
+      "abv": 17.11
     },
     "tags": [
       "classic",
@@ -6950,16 +7020,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.289,
-      "bitterness": 0.247,
+      "sweetness": 0.258,
+      "bitterness": 0.23,
       "smokiness": 0.0,
-      "citrus": 0.255,
-      "floral": 0.196,
-      "spice": 0.124,
-      "herbal": 0.511,
-      "fruity": 0.196,
-      "oaky": 0.027,
-      "abv": 25.0
+      "citrus": 0.285,
+      "floral": 0.19,
+      "spice": 0.115,
+      "herbal": 0.522,
+      "fruity": 0.19,
+      "oaky": 0.021,
+      "abv": 17.29
     },
     "tags": [
       "classic",
@@ -7023,16 +7093,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.346,
-      "bitterness": 0.209,
+      "sweetness": 0.25,
+      "bitterness": 0.238,
       "smokiness": 0.0,
-      "citrus": 0.388,
-      "floral": 0.165,
-      "spice": 0.099,
-      "herbal": 0.407,
-      "fruity": 0.183,
-      "oaky": 0.022,
-      "abv": 27.03
+      "citrus": 0.309,
+      "floral": 0.182,
+      "spice": 0.115,
+      "herbal": 0.522,
+      "fruity": 0.15,
+      "oaky": 0.021,
+      "abv": 18.83
     },
     "tags": [
       "classic",
@@ -7082,16 +7152,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.328,
-      "bitterness": 0.172,
+      "sweetness": 0.259,
+      "bitterness": 0.135,
       "smokiness": 0.0,
-      "citrus": 0.2,
-      "floral": 0.186,
-      "spice": 0.103,
-      "herbal": 0.552,
-      "fruity": 0.207,
+      "citrus": 0.383,
+      "floral": 0.174,
+      "spice": 0.068,
+      "herbal": 0.471,
+      "fruity": 0.237,
       "oaky": 0.0,
-      "abv": 36.81
+      "abv": 18.15
     },
     "tags": [
       "classic",
@@ -7149,16 +7219,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.27,
-      "bitterness": 0.103,
+      "sweetness": 0.195,
+      "bitterness": 0.12,
       "smokiness": 0.0,
-      "citrus": 0.2,
-      "floral": 0.121,
-      "spice": 0.091,
-      "herbal": 0.212,
-      "fruity": 0.327,
-      "oaky": 0.091,
-      "abv": 24.92
+      "citrus": 0.27,
+      "floral": 0.125,
+      "spice": 0.075,
+      "herbal": 0.315,
+      "fruity": 0.225,
+      "oaky": 0.045,
+      "abv": 16.23
     },
     "tags": [
       "classic",
@@ -7175,18 +7245,18 @@
     "method": "shake",
     "ingredients": [
       {
-        "ingredientStyleId": "b70a6068-f6c9-5209-b599-dd300cafcb1e",
+        "ingredientStyleId": "31ce3057-2a31-5685-8b81-2312c2cff184",
         "amount": "50ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": null
+        "substituteNotes": "Old Tom is traditional; London Dry makes it drier."
       },
       {
-        "ingredientStyleId": "ff7d96ed-4f20-5b3f-a100-644f9d4d5188",
-        "amount": "5ml",
+        "ingredientStyleId": "8674f226-6a00-5c6a-bb09-b5c49af96c34",
+        "amount": "7.5ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally maraschino liqueur; raspberry liqueur is a rough substitute."
+        "substituteNotes": null
       },
       {
         "ingredientStyleId": "2814b41f-8673-551b-8ef3-1813fd398959",
@@ -7197,27 +7267,35 @@
       },
       {
         "ingredientStyleId": "71154da0-8b20-5d0f-99c4-250d2222b018",
-        "amount": "5ml",
+        "amount": "7.5ml",
         "preparation": null,
         "isOptional": false,
+        "substituteNotes": null
+      },
+      {
+        "ingredientStyleId": "36cde6cf-df3c-537f-a4d4-b3b78cd470ca",
+        "amount": "1",
+        "preparation": null,
+        "isOptional": true,
         "substituteNotes": null
       }
     ],
     "steps": [
       "Shake all ingredients with ice.",
-      "Double strain into a chilled coupe."
+      "Double strain into a chilled coupe.",
+      "Garnish with a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.318,
-      "bitterness": 0.147,
+      "sweetness": 0.44,
+      "bitterness": 0.134,
       "smokiness": 0.0,
-      "citrus": 0.333,
-      "floral": 0.133,
-      "spice": 0.051,
-      "herbal": 0.318,
-      "fruity": 0.336,
-      "oaky": 0.0,
-      "abv": 25.78
+      "citrus": 0.281,
+      "floral": 0.211,
+      "spice": 0.079,
+      "herbal": 0.387,
+      "fruity": 0.154,
+      "oaky": 0.072,
+      "abv": 22.62
     },
     "tags": [
       "classic",
@@ -7241,11 +7319,11 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "186a5771-0cb5-5c09-a43a-848effa0cae2",
+        "ingredientStyleId": "7156c9d0-b18b-5c2a-a14a-6b4cd60542a6",
         "amount": "30ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally crème de cacao; hazelnut liqueur substitutes with a nuttier sweetness."
+        "substituteNotes": "White crème de cacao is traditional."
       },
       {
         "ingredientStyleId": "6d14fddf-dcf2-545f-9a0d-ff4d9eda5c29",
@@ -7261,16 +7339,16 @@
       "Garnish with grated nutmeg."
     ],
     "flavorProfile": {
-      "sweetness": 0.352,
-      "bitterness": 0.129,
+      "sweetness": 0.367,
+      "bitterness": 0.133,
       "smokiness": 0.0,
-      "citrus": 0.143,
-      "floral": 0.129,
-      "spice": 0.048,
-      "herbal": 0.333,
-      "fruity": 0.081,
+      "citrus": 0.1,
+      "floral": 0.067,
+      "spice": 0.067,
+      "herbal": 0.233,
+      "fruity": 0.033,
       "oaky": 0.033,
-      "abv": 27.45
+      "abv": 14.33
     },
     "tags": [
       "classic",
@@ -7329,16 +7407,16 @@
       "Garnish with a mint sprig and cucumber."
     ],
     "flavorProfile": {
-      "sweetness": 0.208,
-      "bitterness": 0.156,
+      "sweetness": 0.32,
+      "bitterness": 0.065,
       "smokiness": 0.0,
-      "citrus": 0.271,
-      "floral": 0.136,
-      "spice": 0.183,
-      "herbal": 0.253,
-      "fruity": 0.21,
-      "oaky": 0.107,
-      "abv": 30.15
+      "citrus": 0.187,
+      "floral": 0.048,
+      "spice": 0.491,
+      "herbal": 0.092,
+      "fruity": 0.141,
+      "oaky": 0.039,
+      "abv": 9.06
     },
     "tags": [
       "classic",
@@ -7382,16 +7460,16 @@
       "Top with equal parts ginger ale and club soda."
     ],
     "flavorProfile": {
-      "sweetness": 0.444,
-      "bitterness": 0.056,
-      "smokiness": 0.056,
-      "citrus": 0.022,
-      "floral": 0.056,
-      "spice": 0.256,
-      "herbal": 0.056,
-      "fruity": 0.133,
-      "oaky": 0.333,
-      "abv": 25.0
+      "sweetness": 0.345,
+      "bitterness": 0.027,
+      "smokiness": 0.027,
+      "citrus": 0.036,
+      "floral": 0.027,
+      "spice": 0.227,
+      "herbal": 0.027,
+      "fruity": 0.091,
+      "oaky": 0.164,
+      "abv": 10.67
     },
     "tags": [
       "classic",
@@ -7436,16 +7514,16 @@
       "Top with ginger ale."
     ],
     "flavorProfile": {
-      "sweetness": 0.516,
-      "bitterness": 0.074,
-      "smokiness": 0.065,
-      "citrus": 0.074,
-      "floral": 0.084,
-      "spice": 0.297,
-      "herbal": 0.065,
-      "fruity": 0.155,
-      "oaky": 0.387,
-      "abv": 29.03
+      "sweetness": 0.518,
+      "bitterness": 0.029,
+      "smokiness": 0.027,
+      "citrus": 0.08,
+      "floral": 0.03,
+      "spice": 0.366,
+      "herbal": 0.027,
+      "fruity": 0.125,
+      "oaky": 0.161,
+      "abv": 10.48
     },
     "tags": [
       "classic",
@@ -7481,16 +7559,16 @@
       "Top with ginger ale."
     ],
     "flavorProfile": {
-      "sweetness": 0.571,
-      "bitterness": 0.071,
-      "smokiness": 0.071,
-      "citrus": 0.029,
-      "floral": 0.071,
-      "spice": 0.329,
-      "herbal": 0.071,
-      "fruity": 0.171,
-      "oaky": 0.429,
-      "abv": 32.14
+      "sweetness": 0.527,
+      "bitterness": 0.027,
+      "smokiness": 0.027,
+      "citrus": 0.073,
+      "floral": 0.027,
+      "spice": 0.373,
+      "herbal": 0.027,
+      "fruity": 0.127,
+      "oaky": 0.164,
+      "abv": 10.67
     },
     "tags": [
       "classic",
@@ -7502,7 +7580,7 @@
   {
     "id": "c18ba9f8-5d79-579b-b942-48e5477597ce",
     "name": "Black Manhattan",
-    "description": "A Manhattan made bittersweet with a bitter aperitif.",
+    "description": "A Manhattan made bittersweet with Averna in place of vermouth.",
     "glassType": "coupe",
     "method": "stir",
     "ingredients": [
@@ -7514,15 +7592,22 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "c7fa273b-1617-5671-a123-36cbaa9416d4",
+        "ingredientStyleId": "db167e3f-7f61-58ba-96b3-d20a0be98079",
         "amount": "30ml",
+        "preparation": null,
+        "isOptional": false,
+        "substituteNotes": "Averna is the original."
+      },
+      {
+        "ingredientStyleId": "1b52af40-1b6e-5b2c-958f-ef23948aaca7",
+        "amount": "1 dash",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "1b52af40-1b6e-5b2c-958f-ef23948aaca7",
-        "amount": "2 dash",
+        "ingredientStyleId": "2814b41f-8673-551b-8ef3-1813fd398959",
+        "amount": "1 dash",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
@@ -7541,16 +7626,16 @@
       "Garnish with a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.322,
-      "bitterness": 0.44,
-      "smokiness": 0.044,
-      "citrus": 0.093,
-      "floral": 0.049,
-      "spice": 0.369,
-      "herbal": 0.233,
-      "fruity": 0.231,
-      "oaky": 0.229,
-      "abv": 30.52
+      "sweetness": 0.388,
+      "bitterness": 0.375,
+      "smokiness": 0.061,
+      "citrus": 0.076,
+      "floral": 0.008,
+      "spice": 0.534,
+      "herbal": 0.286,
+      "fruity": 0.116,
+      "oaky": 0.371,
+      "abv": 26.85
     },
     "tags": [
       "modern-classic",
@@ -7563,7 +7648,7 @@
   {
     "id": "5691b494-71d1-575c-a095-b3c312fbaa53",
     "name": "Remember the Maine",
-    "description": "A smoky, cherry-tinged rye Manhattan variant.",
+    "description": "A cherry-tinged rye Manhattan variant with an absinthe rinse.",
     "glassType": "coupe",
     "method": "stir",
     "ingredients": [
@@ -7576,47 +7661,54 @@
       },
       {
         "ingredientStyleId": "ba07b5f0-9235-54b7-83e3-e9c49b7adce2",
-        "amount": "30ml",
+        "amount": "22ml",
         "preparation": null,
         "isOptional": false,
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "ff7d96ed-4f20-5b3f-a100-644f9d4d5188",
-        "amount": "7.5ml",
+        "ingredientStyleId": "8c5ffae1-1f2d-584a-9201-6ea1704ecd36",
+        "amount": "10ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally cherry brandy; raspberry liqueur is the nearest catalogued substitute."
+        "substituteNotes": null
       },
       {
         "ingredientStyleId": "08f95f71-3777-5180-80b8-ea5babae1c85",
         "amount": "1 dash",
-        "preparation": null,
+        "preparation": "rinse",
         "isOptional": false,
+        "substituteNotes": null
+      },
+      {
+        "ingredientStyleId": "36cde6cf-df3c-537f-a4d4-b3b78cd470ca",
+        "amount": "1",
+        "preparation": null,
+        "isOptional": true,
         "substituteNotes": null
       }
     ],
     "steps": [
-      "Stir all ingredients with ice.",
-      "Strain into a chilled coupe.",
+      "Rinse a chilled coupe with absinthe.",
+      "Stir the remaining ingredients with ice.",
+      "Strain into the coupe.",
       "Garnish with a cherry."
     ],
     "flavorProfile": {
-      "sweetness": 0.43,
-      "bitterness": 0.206,
-      "smokiness": 0.03,
-      "citrus": 0.018,
-      "floral": 0.118,
-      "spice": 0.309,
-      "herbal": 0.424,
-      "fruity": 0.255,
-      "oaky": 0.17,
-      "abv": 39.68
+      "sweetness": 0.422,
+      "bitterness": 0.215,
+      "smokiness": 0.064,
+      "citrus": 0.024,
+      "floral": 0.05,
+      "spice": 0.521,
+      "herbal": 0.261,
+      "fruity": 0.22,
+      "oaky": 0.355,
+      "abv": 25.35
     },
     "tags": [
       "classic",
-      "spirit-forward",
-      "smoky"
+      "spirit-forward"
     ],
     "difficulty": "medium",
     "imageURL": null
@@ -7662,16 +7754,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.368,
-      "bitterness": 0.176,
-      "smokiness": 0.049,
-      "citrus": 0.176,
-      "floral": 0.073,
-      "spice": 0.371,
-      "herbal": 0.12,
-      "fruity": 0.112,
-      "oaky": 0.251,
-      "abv": 25.22
+      "sweetness": 0.195,
+      "bitterness": 0.584,
+      "smokiness": 0.008,
+      "citrus": 0.102,
+      "floral": 0.034,
+      "spice": 0.332,
+      "herbal": 0.224,
+      "fruity": 0.042,
+      "oaky": 0.108,
+      "abv": 16.68
     },
     "tags": [
       "modern-classic",
@@ -7715,16 +7807,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.416,
-      "bitterness": 0.021,
+      "sweetness": 0.317,
+      "bitterness": 0.024,
       "smokiness": 0.0,
-      "citrus": 0.242,
-      "floral": 0.105,
-      "spice": 0.053,
+      "citrus": 0.28,
+      "floral": 0.087,
+      "spice": 0.065,
       "herbal": 0.0,
-      "fruity": 0.358,
+      "fruity": 0.309,
       "oaky": 0.0,
-      "abv": 20.39
+      "abv": 16.38
     },
     "tags": [
       "classic",
@@ -7775,16 +7867,16 @@
       "Stir briefly."
     ],
     "flavorProfile": {
-      "sweetness": 0.466,
-      "bitterness": 0.127,
-      "smokiness": 0.049,
-      "citrus": 0.249,
-      "floral": 0.024,
-      "spice": 0.224,
-      "herbal": 0.046,
-      "fruity": 0.234,
-      "oaky": 0.251,
-      "abv": 24.0
+      "sweetness": 0.484,
+      "bitterness": 0.121,
+      "smokiness": 0.067,
+      "citrus": 0.15,
+      "floral": 0.017,
+      "spice": 0.222,
+      "herbal": 0.033,
+      "fruity": 0.256,
+      "oaky": 0.339,
+      "abv": 26.32
     },
     "tags": [
       "classic",
@@ -7828,16 +7920,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.437,
+      "sweetness": 0.4,
       "bitterness": 0.0,
       "smokiness": 0.0,
-      "citrus": 0.053,
-      "floral": 0.132,
-      "spice": 0.053,
+      "citrus": 0.06,
+      "floral": 0.12,
+      "spice": 0.06,
       "herbal": 0.0,
-      "fruity": 0.158,
+      "fruity": 0.18,
       "oaky": 0.0,
-      "abv": 20.39
+      "abv": 15.26
     },
     "tags": [
       "classic",
@@ -7896,16 +7988,16 @@
       "Garnish with a mint sprig."
     ],
     "flavorProfile": {
-      "sweetness": 0.376,
-      "bitterness": 0.042,
+      "sweetness": 0.385,
+      "bitterness": 0.026,
       "smokiness": 0.0,
-      "citrus": 0.255,
-      "floral": 0.148,
-      "spice": 0.061,
+      "citrus": 0.404,
+      "floral": 0.116,
+      "spice": 0.042,
       "herbal": 0.0,
-      "fruity": 0.312,
-      "oaky": 0.091,
-      "abv": 23.86
+      "fruity": 0.337,
+      "oaky": 0.032,
+      "abv": 11.4
     },
     "tags": [
       "classic",
@@ -7969,16 +8061,16 @@
       "Strain over crushed ice in a hurricane glass."
     ],
     "flavorProfile": {
-      "sweetness": 0.421,
-      "bitterness": 0.084,
-      "smokiness": 0.023,
-      "citrus": 0.181,
-      "floral": 0.081,
-      "spice": 0.116,
+      "sweetness": 0.414,
+      "bitterness": 0.094,
+      "smokiness": 0.02,
+      "citrus": 0.25,
+      "floral": 0.08,
+      "spice": 0.099,
       "herbal": 0.0,
-      "fruity": 0.256,
-      "oaky": 0.209,
-      "abv": 28.2
+      "fruity": 0.246,
+      "oaky": 0.178,
+      "abv": 15.7
     },
     "tags": [
       "classic",
@@ -8029,16 +8121,16 @@
       "Garnish with an orange wheel."
     ],
     "flavorProfile": {
-      "sweetness": 0.449,
-      "bitterness": 0.371,
-      "smokiness": 0.041,
-      "citrus": 0.135,
-      "floral": 0.084,
-      "spice": 0.159,
-      "herbal": 0.237,
-      "fruity": 0.271,
-      "oaky": 0.229,
-      "abv": 28.32
+      "sweetness": 0.458,
+      "bitterness": 0.419,
+      "smokiness": 0.032,
+      "citrus": 0.142,
+      "floral": 0.1,
+      "spice": 0.161,
+      "herbal": 0.29,
+      "fruity": 0.268,
+      "oaky": 0.194,
+      "abv": 23.35
     },
     "tags": [
       "modern-classic",
@@ -8089,16 +8181,16 @@
       "Top with Champagne."
     ],
     "flavorProfile": {
-      "sweetness": 0.404,
-      "bitterness": 0.08,
+      "sweetness": 0.309,
+      "bitterness": 0.091,
       "smokiness": 0.0,
-      "citrus": 0.192,
-      "floral": 0.148,
-      "spice": 0.08,
+      "citrus": 0.191,
+      "floral": 0.164,
+      "spice": 0.055,
       "herbal": 0.0,
-      "fruity": 0.224,
-      "oaky": 0.184,
-      "abv": 18.88
+      "fruity": 0.264,
+      "oaky": 0.164,
+      "abv": 13.52
     },
     "tags": [
       "classic",
@@ -8141,16 +8233,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.211,
-      "bitterness": 0.078,
+      "sweetness": 0.314,
+      "bitterness": 0.057,
       "smokiness": 0.0,
-      "citrus": 0.356,
-      "floral": 0.189,
-      "spice": 0.111,
-      "herbal": 0.222,
-      "fruity": 0.311,
+      "citrus": 0.3,
+      "floral": 0.171,
+      "spice": 0.086,
+      "herbal": 0.171,
+      "fruity": 0.414,
       "oaky": 0.0,
-      "abv": 21.67
+      "abv": 11.52
     },
     "tags": [
       "modern-classic",
@@ -8186,16 +8278,16 @@
       "Stir briefly."
     ],
     "flavorProfile": {
-      "sweetness": 0.347,
-      "bitterness": 0.182,
+      "sweetness": 0.297,
+      "bitterness": 0.166,
       "smokiness": 0.0,
-      "citrus": 0.118,
-      "floral": 0.176,
-      "spice": 0.159,
-      "herbal": 0.235,
-      "fruity": 0.118,
-      "oaky": 0.041,
-      "abv": 32.41
+      "citrus": 0.134,
+      "floral": 0.201,
+      "spice": 0.167,
+      "herbal": 0.269,
+      "fruity": 0.134,
+      "oaky": 0.033,
+      "abv": 29.34
     },
     "tags": [
       "classic",
@@ -8239,16 +8331,16 @@
       "Strain over fresh ice in a rocks glass."
     ],
     "flavorProfile": {
-      "sweetness": 0.319,
-      "bitterness": 0.148,
+      "sweetness": 0.273,
+      "bitterness": 0.125,
       "smokiness": 0.0,
-      "citrus": 0.095,
-      "floral": 0.143,
-      "spice": 0.129,
-      "herbal": 0.19,
-      "fruity": 0.095,
-      "oaky": 0.033,
-      "abv": 26.24
+      "citrus": 0.101,
+      "floral": 0.152,
+      "spice": 0.126,
+      "herbal": 0.202,
+      "fruity": 0.101,
+      "oaky": 0.025,
+      "abv": 16.45
     },
     "tags": [
       "modern-classic",
@@ -8293,16 +8385,16 @@
       "Garnish with a pineapple wedge."
     ],
     "flavorProfile": {
-      "sweetness": 0.322,
+      "sweetness": 0.464,
       "bitterness": 0.0,
       "smokiness": 0.0,
-      "citrus": 0.044,
-      "floral": 0.078,
+      "citrus": 0.109,
+      "floral": 0.082,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.222,
+      "fruity": 0.436,
       "oaky": 0.0,
-      "abv": 21.53
+      "abv": 7.05
     },
     "tags": [
       "classic",
@@ -8345,16 +8437,16 @@
       "Strain over fresh ice in a rocks glass."
     ],
     "flavorProfile": {
-      "sweetness": 0.337,
-      "bitterness": 0.021,
+      "sweetness": 0.239,
+      "bitterness": 0.023,
       "smokiness": 0.0,
-      "citrus": 0.189,
-      "floral": 0.053,
+      "citrus": 0.204,
+      "floral": 0.062,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.042,
+      "fruity": 0.045,
       "oaky": 0.0,
-      "abv": 20.39
+      "abv": 15.66
     },
     "tags": [
       "classic",
@@ -8390,16 +8482,16 @@
       "Stir gently."
     ],
     "flavorProfile": {
-      "sweetness": 0.157,
-      "bitterness": 0.086,
+      "sweetness": 0.245,
+      "bitterness": 0.218,
       "smokiness": 0.0,
-      "citrus": 0.229,
-      "floral": 0.071,
+      "citrus": 0.582,
+      "floral": 0.027,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.086,
+      "fruity": 0.218,
       "oaky": 0.0,
-      "abv": 27.68
+      "abv": 9.19
     },
     "tags": [
       "classic",
@@ -8442,16 +8534,16 @@
       "Stir gently."
     ],
     "flavorProfile": {
-      "sweetness": 0.144,
-      "bitterness": 0.067,
+      "sweetness": 0.237,
+      "bitterness": 0.143,
       "smokiness": 0.0,
-      "citrus": 0.267,
-      "floral": 0.056,
+      "citrus": 0.257,
+      "floral": 0.026,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.156,
+      "fruity": 0.354,
       "oaky": 0.0,
-      "abv": 21.53
+      "abv": 8.66
     },
     "tags": [
       "classic",
@@ -8494,16 +8586,16 @@
       "Stir gently."
     ],
     "flavorProfile": {
-      "sweetness": 0.233,
-      "bitterness": 0.044,
+      "sweetness": 0.318,
+      "bitterness": 0.073,
       "smokiness": 0.0,
-      "citrus": 0.222,
-      "floral": 0.078,
+      "citrus": 0.364,
+      "floral": 0.064,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.222,
+      "fruity": 0.364,
       "oaky": 0.0,
-      "abv": 21.53
+      "abv": 9.19
     },
     "tags": [
       "classic",
@@ -8546,16 +8638,16 @@
       "Strain over fresh ice in a rocks glass."
     ],
     "flavorProfile": {
-      "sweetness": 0.371,
-      "bitterness": 0.038,
+      "sweetness": 0.386,
+      "bitterness": 0.086,
       "smokiness": 0.0,
-      "citrus": 0.057,
-      "floral": 0.114,
+      "citrus": 0.129,
+      "floral": 0.086,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.329,
+      "fruity": 0.414,
       "oaky": 0.0,
-      "abv": 24.29
+      "abv": 11.14
     },
     "tags": [
       "classic",
@@ -8605,16 +8697,16 @@
       "Strain over fresh ice in a highball glass."
     ],
     "flavorProfile": {
-      "sweetness": 0.392,
-      "bitterness": 0.032,
+      "sweetness": 0.378,
+      "bitterness": 0.067,
       "smokiness": 0.0,
-      "citrus": 0.16,
-      "floral": 0.112,
+      "citrus": 0.333,
+      "floral": 0.078,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.356,
+      "fruity": 0.411,
       "oaky": 0.0,
-      "abv": 20.4
+      "abv": 7.71
     },
     "tags": [
       "classic",
@@ -8651,16 +8743,16 @@
       "Stir gently."
     ],
     "flavorProfile": {
-      "sweetness": 0.691,
+      "sweetness": 0.582,
       "bitterness": 0.0,
       "smokiness": 0.0,
-      "citrus": 0.255,
-      "floral": 0.164,
+      "citrus": 0.509,
+      "floral": 0.127,
       "spice": 0.0,
       "herbal": 0.0,
-      "fruity": 0.627,
+      "fruity": 0.555,
       "oaky": 0.0,
-      "abv": 11.14
+      "abv": 4.15
     },
     "tags": [
       "classic",
@@ -8678,18 +8770,18 @@
     "method": "shake",
     "ingredients": [
       {
-        "ingredientStyleId": "66632808-abfa-5f4e-bcfc-1d0d6840a8db",
+        "ingredientStyleId": "a80df066-d077-570a-bb94-b136c90363c9",
         "amount": "22ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally crème de noyaux (almond liqueur); amaretto is the nearest catalogued almond-flavoured liqueur."
+        "substituteNotes": null
       },
       {
-        "ingredientStyleId": "186a5771-0cb5-5c09-a43a-848effa0cae2",
+        "ingredientStyleId": "7156c9d0-b18b-5c2a-a14a-6b4cd60542a6",
         "amount": "22ml",
         "preparation": null,
         "isOptional": false,
-        "substituteNotes": "Traditionally white crème de cacao; hazelnut liqueur substitutes with a nuttier sweetness."
+        "substituteNotes": "White crème de cacao keeps the pink colour."
       },
       {
         "ingredientStyleId": "6d14fddf-dcf2-545f-9a0d-ff4d9eda5c29",
@@ -8704,16 +8796,16 @@
       "Double strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.667,
-      "bitterness": 0.078,
+      "sweetness": 0.6,
+      "bitterness": 0.1,
       "smokiness": 0.0,
       "citrus": 0.0,
-      "floral": 0.078,
-      "spice": 0.039,
+      "floral": 0.033,
+      "spice": 0.067,
       "herbal": 0.0,
-      "fruity": 0.117,
-      "oaky": 0.039,
-      "abv": 18.67
+      "fruity": 0.1,
+      "oaky": 0.033,
+      "abv": 11.0
     },
     "tags": [
       "classic",
@@ -8758,14 +8850,14 @@
       "Garnish with a cinnamon stick."
     ],
     "flavorProfile": {
-      "sweetness": 0.562,
+      "sweetness": 0.432,
       "bitterness": 0.0,
       "smokiness": 0.0,
-      "citrus": 0.086,
-      "floral": 0.038,
-      "spice": 0.448,
-      "herbal": 0.014,
-      "fruity": 0.229,
+      "citrus": 0.098,
+      "floral": 0.089,
+      "spice": 0.077,
+      "herbal": 0.002,
+      "fruity": 0.536,
       "oaky": 0.0,
       "abv": 0.0
     },
@@ -8821,14 +8913,14 @@
       "Garnish with a rosemary sprig."
     ],
     "flavorProfile": {
-      "sweetness": 0.335,
-      "bitterness": 0.094,
+      "sweetness": 0.154,
+      "bitterness": 0.111,
       "smokiness": 0.0,
-      "citrus": 0.188,
-      "floral": 0.112,
-      "spice": 0.047,
-      "herbal": 0.212,
-      "fruity": 0.071,
+      "citrus": 0.274,
+      "floral": 0.026,
+      "spice": 0.017,
+      "herbal": 0.077,
+      "fruity": 0.103,
       "oaky": 0.0,
       "abv": 0.0
     },
@@ -8875,16 +8967,16 @@
       "Stir gently."
     ],
     "flavorProfile": {
-      "sweetness": 0.142,
-      "bitterness": 0.142,
+      "sweetness": 0.241,
+      "bitterness": 0.241,
       "smokiness": 0.0,
-      "citrus": 0.335,
-      "floral": 0.194,
-      "spice": 0.139,
-      "herbal": 0.258,
-      "fruity": 0.206,
+      "citrus": 0.625,
+      "floral": 0.08,
+      "spice": 0.055,
+      "herbal": 0.107,
+      "fruity": 0.268,
       "oaky": 0.0,
-      "abv": 25.16
+      "abv": 9.08
     },
     "tags": [
       "modern-classic",
@@ -8934,16 +9026,16 @@
       "Top with cola and stir."
     ],
     "flavorProfile": {
-      "sweetness": 0.256,
+      "sweetness": 0.58,
       "bitterness": 0.1,
       "smokiness": 0.0,
-      "citrus": 0.311,
-      "floral": 0.167,
-      "spice": 0.156,
-      "herbal": 0.244,
-      "fruity": 0.178,
+      "citrus": 0.103,
+      "floral": 0.077,
+      "spice": 0.189,
+      "herbal": 0.171,
+      "fruity": 0.131,
       "oaky": 0.0,
-      "abv": 21.67
+      "abv": 8.72
     },
     "tags": [
       "classic",
@@ -8986,16 +9078,16 @@
       "Top with club soda."
     ],
     "flavorProfile": {
-      "sweetness": 0.078,
-      "bitterness": 0.078,
+      "sweetness": 0.033,
+      "bitterness": 0.033,
       "smokiness": 0.0,
-      "citrus": 0.311,
-      "floral": 0.167,
-      "spice": 0.111,
-      "herbal": 0.222,
-      "fruity": 0.156,
+      "citrus": 0.125,
+      "floral": 0.075,
+      "spice": 0.05,
+      "herbal": 0.1,
+      "fruity": 0.067,
       "oaky": 0.0,
-      "abv": 21.67
+      "abv": 8.48
     },
     "tags": [
       "modern-classic",
@@ -9047,16 +9139,16 @@
       "Garnish with a lemon twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.144,
-      "bitterness": 0.289,
+      "sweetness": 0.147,
+      "bitterness": 0.268,
       "smokiness": 0.0,
-      "citrus": 0.2,
+      "citrus": 0.173,
       "floral": 0.2,
-      "spice": 0.056,
-      "herbal": 0.411,
+      "spice": 0.053,
+      "herbal": 0.432,
       "fruity": 0.1,
-      "oaky": 0.044,
-      "abv": 17.11
+      "oaky": 0.047,
+      "abv": 12.16
     },
     "tags": [
       "classic",
@@ -9101,16 +9193,16 @@
       "Garnish with an orange twist."
     ],
     "flavorProfile": {
-      "sweetness": 0.322,
-      "bitterness": 0.289,
+      "sweetness": 0.288,
+      "bitterness": 0.262,
       "smokiness": 0.0,
-      "citrus": 0.2,
-      "floral": 0.156,
-      "spice": 0.1,
-      "herbal": 0.367,
-      "fruity": 0.189,
-      "oaky": 0.089,
-      "abv": 17.11
+      "citrus": 0.186,
+      "floral": 0.144,
+      "spice": 0.081,
+      "herbal": 0.363,
+      "fruity": 0.175,
+      "oaky": 0.094,
+      "abv": 12.09
     },
     "tags": [
       "classic",
@@ -9142,7 +9234,7 @@
         "substituteNotes": null
       },
       {
-        "ingredientStyleId": "592d0b00-9ec2-56f4-b492-d13ac359fe2f",
+        "ingredientStyleId": "c808c931-c073-51e9-9066-3dab22040a64",
         "amount": "22ml",
         "preparation": null,
         "isOptional": false,
@@ -9161,16 +9253,16 @@
       "Strain into a chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.398,
-      "bitterness": 0.196,
+      "sweetness": 0.43,
+      "bitterness": 0.136,
       "smokiness": 0.0,
-      "citrus": 0.055,
-      "floral": 0.204,
-      "spice": 0.239,
-      "herbal": 0.429,
-      "fruity": 0.263,
-      "oaky": 0.151,
-      "abv": 44.39
+      "citrus": 0.047,
+      "floral": 0.212,
+      "spice": 0.234,
+      "herbal": 0.32,
+      "fruity": 0.311,
+      "oaky": 0.172,
+      "abv": 27.88
     },
     "tags": [
       "classic",
@@ -9220,16 +9312,16 @@
       "Double strain into a cinnamon-sugar-rimmed chilled coupe."
     ],
     "flavorProfile": {
-      "sweetness": 0.524,
-      "bitterness": 0.067,
-      "smokiness": 0.048,
-      "citrus": 0.486,
-      "floral": 0.081,
-      "spice": 0.238,
-      "herbal": 0.048,
-      "fruity": 0.281,
-      "oaky": 0.143,
-      "abv": 29.52
+      "sweetness": 0.48,
+      "bitterness": 0.08,
+      "smokiness": 0.06,
+      "citrus": 0.4,
+      "floral": 0.08,
+      "spice": 0.3,
+      "herbal": 0.06,
+      "fruity": 0.28,
+      "oaky": 0.18,
+      "abv": 18.66
     },
     "tags": [
       "modern-classic",
@@ -9280,16 +9372,16 @@
       "Garnish with a lime wedge."
     ],
     "flavorProfile": {
-      "sweetness": 0.359,
-      "bitterness": 0.079,
-      "smokiness": 0.051,
-      "citrus": 0.251,
+      "sweetness": 0.393,
+      "bitterness": 0.034,
+      "smokiness": 0.025,
+      "citrus": 0.149,
       "floral": 0.0,
-      "spice": 0.246,
+      "spice": 0.508,
       "herbal": 0.0,
-      "fruity": 0.223,
-      "oaky": 0.256,
-      "abv": 21.79
+      "fruity": 0.157,
+      "oaky": 0.123,
+      "abv": 9.09
     },
     "tags": [
       "modern-classic",

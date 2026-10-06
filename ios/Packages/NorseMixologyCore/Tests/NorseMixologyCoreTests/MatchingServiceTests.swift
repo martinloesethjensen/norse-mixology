@@ -157,4 +157,52 @@ final class MatchingServiceTests: XCTestCase {
             }
         }
     }
+
+    // MARK: - Substitution rules
+
+    private func results(_ names: String...) throws -> [RecipeMatchResult] {
+        let index = TaxonomyIndex(categories: try loadTaxonomy())
+        let cabinet = try names.map { cabinetItem(for: try style(named: $0, in: index), index: index) }
+        return MatchingService.match(cabinet: cabinet, recipes: try loadRecipes(), index: index)
+    }
+
+    func testEveryRuleNamesARealCatalogStyle() throws {
+        let names = Set(TaxonomyIndex(categories: try loadTaxonomy()).stylesById.values.map(\.name))
+        for rule in CuratedSubstitutions.all {
+            XCTAssertTrue(names.contains(rule.requiredStyleName), rule.requiredStyleName)
+            XCTAssertTrue(names.contains(rule.substituteStyleName), rule.substituteStyleName)
+        }
+        let grouped = SubstitutionGroups.all.flatMap { $0 }
+        for name in grouped { XCTAssertTrue(names.contains(name), name) }
+        XCTAssertEqual(grouped.count, Set(grouped).count, "a style may belong to only one group")
+    }
+
+    func testFreshLimeStandsInForLimeJuice() throws {
+        let daiquiri = try XCTUnwrap(try results("White/Blanco Rum", "Fresh Lime", "Simple Syrup").first { $0.recipe.name == "Daiquiri" })
+        XCTAssertEqual(daiquiri.matchType, .exact)
+        XCTAssertEqual(daiquiri.substitutions.map(\.substitute.name), ["Fresh Lime"])
+    }
+
+    func testOrangeJuiceDoesNotSourADaiquiri() throws {
+        XCTAssertFalse(try results("White/Blanco Rum", "Orange Juice", "Simple Syrup").contains { $0.recipe.name == "Daiquiri" })
+    }
+
+    func testTomatoJuiceDoesNotStandInForPineapple() throws {
+        XCTAssertFalse(try results("White/Blanco Rum", "Tomato Juice", "Coconut Cream").contains { $0.recipe.name == "Piña Colada" })
+    }
+
+    func testSweetVermouthDoesNotMakeAMartini() throws {
+        XCTAssertFalse(try results("London Dry Gin", "Sweet/Rosso Vermouth").contains { $0.recipe.name == "Martini" })
+    }
+
+    func testCuratedRulesAreOneWay() throws {
+        // Orgeat → Amaretto is allowed; a non-alcoholic syrup must not replace the Amaretto Sour's base.
+        XCTAssertFalse(try results("Orgeat", "Lemon Juice", "Simple Syrup").contains { $0.recipe.name == "Amaretto Sour" })
+    }
+
+    func testGingerAleStillStandsInForGingerBeer() throws {
+        let mule = try XCTUnwrap(try results("Neutral Vodka", "Lime Juice", "Ginger Ale").first { $0.recipe.name == "Moscow Mule" })
+        XCTAssertEqual(mule.matchType, .partial)
+        XCTAssertEqual(mule.substitutions.map(\.substitute.name), ["Ginger Ale"])
+    }
 }

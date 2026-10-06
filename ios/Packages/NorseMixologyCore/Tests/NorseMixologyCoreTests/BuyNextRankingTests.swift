@@ -152,7 +152,7 @@ final class BuyNextRankingTests: XCTestCase {
     func testLastWordCabinetSuggestsGreenChartreuseAsReadyNow() throws {
         let (index, recipes) = try catalog()
         let entries = CatalogAvailability.evaluate(
-            recipes: recipes, cabinet: try cabinet(["London Dry Gin", "Lime Juice", "Raspberry Liqueur"], index: index), index: index)
+            recipes: recipes, cabinet: try cabinet(["London Dry Gin", "Lime Juice", "Maraschino Liqueur"], index: index), index: index)
 
         let chartreuse = try XCTUnwrap(rank(entries, limit: 100).first { $0.style.name == "Green Chartreuse" })
         XCTAssertGreaterThanOrEqual(chartreuse.readyNow, 1)
