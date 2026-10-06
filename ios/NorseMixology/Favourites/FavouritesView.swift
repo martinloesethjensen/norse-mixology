@@ -137,7 +137,8 @@ private struct FavouriteRecipeDetail: View {
     @Environment(TaxonomyStore.self) private var taxonomyStore
 
     var body: some View {
-        let cabinet = CabinetService.allItems(context: modelContext)
+        let cabinet = Pantry.effectiveCabinet(
+            CabinetService.allItems(context: modelContext), staples: PantryStore.load(), index: taxonomyStore.index)
         RecipeDetailView(
             recipe: recipe,
             match: RecipeService.matchResult(for: recipe, cabinet: cabinet, taxonomyCategories: taxonomyStore.categories),

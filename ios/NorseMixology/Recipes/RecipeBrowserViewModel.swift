@@ -93,7 +93,9 @@ final class RecipeBrowserViewModel {
         refresh(cabinet: CabinetService.allItems(context: context), taxonomyStore: taxonomyStore)
     }
 
-    func refresh(cabinet: [CabinetItem], taxonomyStore: TaxonomyStore) {
+    func refresh(cabinet ownedItems: [CabinetItem], taxonomyStore: TaxonomyStore) {
+        // Pantry staples count as owned for every result below, but never enter SwiftData.
+        let cabinet = Pantry.effectiveCabinet(ownedItems, staples: PantryStore.load(), index: taxonomyStore.index)
         let newResults = RecipeService.findRecipes(
             for: cabinet,
             recipes: taxonomyStore.recipes,
