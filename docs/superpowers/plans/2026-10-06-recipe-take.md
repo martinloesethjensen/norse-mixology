@@ -1152,11 +1152,11 @@ Append to `RecipeFilterTests` (inside the class, before its final `}`). The clas
         let mine = try ratings(("Negroni", 1), ("Daiquiri", 5))
         // Both in the group: rated OR 4+ is just "rated".
         XCTAssertEqual(ratedNames(.myRating(.rated), .myRating(.fourOrMore), ratings: mine), ["Negroni", "Daiquiri"])
-        // AND with another kind: only rated recipes that are also stirred.
-        let stirredAndRated = ratedNames(.myRating(.rated), .method(.stir), ratings: mine)
+        // AND with another kind: only rated recipes that are also built (Negroni is built, Daiquiri is shaken).
+        let stirredAndRated = ratedNames(.myRating(.rated), .method(.build), ratings: mine)
         XCTAssertTrue(stirredAndRated.isSubset(of: ["Negroni", "Daiquiri"]))
         XCTAssertEqual(stirredAndRated, Set(["Negroni", "Daiquiri"].filter { name in
-            recipes.first { $0.name == name }?.method == .stir
+            recipes.first { $0.name == name }?.method == .build
         }))
     }
 
