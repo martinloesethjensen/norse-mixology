@@ -41,9 +41,14 @@ public final class RecipeTakeViewModel {
     }
 
     public func refresh() {
-        ratings = RecipeTakeService.ratings(context: modelContext)
-        hasNotes = RecipeTakeService.recipeIdsWithNotes(context: modelContext)
-        photoCounts = RecipeTakeService.photoCounts(context: modelContext)
+        // Assign only on change: every notes save calls this, and an equal
+        // assignment would still invalidate observers.
+        let newRatings = RecipeTakeService.ratings(context: modelContext)
+        if newRatings != ratings { ratings = newRatings }
+        let newHasNotes = RecipeTakeService.recipeIdsWithNotes(context: modelContext)
+        if newHasNotes != hasNotes { hasNotes = newHasNotes }
+        let newCounts = RecipeTakeService.photoCounts(context: modelContext)
+        if newCounts != photoCounts { photoCounts = newCounts }
     }
 
     public func clearError() { lastError = nil }

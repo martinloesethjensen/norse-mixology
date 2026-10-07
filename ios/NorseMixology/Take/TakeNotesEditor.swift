@@ -9,6 +9,9 @@ struct TakeNotesEditor: View {
     @Environment(RecipeTakeViewModel.self) private var take
     @Environment(\.scenePhase) private var scenePhase
     @State private var text = ""
+    /// The text as last loaded from or saved to the store. Guards against a stale
+    /// editor (same recipe open in another tab) overwriting newer notes.
+    @State private var baseline = ""
     @State private var saveTask: Task<Void, Never>?
     @FocusState private var isFocused: Bool
 
@@ -45,7 +48,13 @@ struct TakeNotesEditor: View {
                     .accessibilityLabel("\(text.count) of \(TakeLimits.maxNotesLength) characters")
             }
         }
-        .onAppear { text = take.notes(for: recipe.id) }
+        .onAppear {
+            // Only reload when there are no unsaved local edits.
+            guard text == baseline else { return }
+            let stored = take.notes(for: recipe.id)
+            text = stored
+            baseline = stored
+        }
         .onChange(of: text) { _, newValue in
             if newValue.count > TakeLimits.maxNotesLength {
                 text = String(newValue.prefix(TakeLimits.maxNotesLength))
@@ -74,11 +83,13 @@ struct TakeNotesEditor: View {
         }
     }
 
-    /// Saves now, unless nothing changed (loading the stored text also fires `onChange`).
+    /// Saves now, unless nothing changed since the last load or save (loading the
+    /// stored text also fires `onChange`).
     private func flush() {
         saveTask?.cancel()
         saveTask = nil
-        guard text != take.notes(for: recipe.id) else { return }
+        guard text != baseline else { return }
         take.setNotes(text, for: recipe)
+        baseline = text
     }
 }

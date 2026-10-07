@@ -15,6 +15,7 @@ struct StarRatingControl: View {
                 } label: {
                     Image(systemName: star <= rating ? "star.fill" : "star")
                         .font(.title2)
+                        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                         .foregroundStyle(star <= rating ? DesignTokens.accent : DesignTokens.textSecondary)
                         .frame(minWidth: 44, minHeight: 44)
                         .contentShape(Rectangle())

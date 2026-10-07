@@ -6,6 +6,18 @@ struct MyTakeSection: View {
     let recipe: Recipe
 
     @Environment(RecipeTakeViewModel.self) private var take
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    private func stars(_ rating: Int) -> some View {
+        StarRatingControl(rating: rating) { take.setRating($0, for: recipe) }
+    }
+
+    private func ratingCaption(_ rating: Int) -> some View {
+        Text(rating == 0 ? "Not rated" : "\(rating) of 5")
+            .dsText(.body)
+            .foregroundStyle(DesignTokens.textSecondary)
+            .accessibilityHidden(true)
+    }
 
     var body: some View {
         let rating = take.rating(for: recipe.id)
@@ -16,12 +28,16 @@ struct MyTakeSection: View {
                 .foregroundStyle(DesignTokens.textPrimary)
                 .accessibilityAddTraits(.isHeader)
 
-            HStack(spacing: 8) {
-                StarRatingControl(rating: rating) { take.setRating($0, for: recipe) }
-                Text(rating == 0 ? "Not rated" : "\(rating) of 5")
-                    .dsText(.body)
-                    .foregroundStyle(DesignTokens.textSecondary)
-                    .accessibilityHidden(true)
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(alignment: .leading, spacing: 4) {
+                    stars(rating)
+                    ratingCaption(rating)
+                }
+            } else {
+                HStack(spacing: 8) {
+                    stars(rating)
+                    ratingCaption(rating)
+                }
             }
 
             TakeNotesEditor(recipe: recipe)

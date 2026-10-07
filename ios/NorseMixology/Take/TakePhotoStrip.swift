@@ -9,6 +9,7 @@ struct TakePhotoStrip: View {
     let recipe: Recipe
 
     @Environment(RecipeTakeViewModel.self) private var take
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var pickerItems: [PhotosPickerItem] = []
     @State private var viewerTarget: ViewerTarget?
     @State private var message: AddMessage?
@@ -98,8 +99,10 @@ struct TakePhotoStrip: View {
         VStack(spacing: 4) {
             Image(systemName: isAdding ? "hourglass" : "plus")
                 .font(.title3)
-            Text("Add photo")
-                .dsText(.body)
+            if !dynamicTypeSize.isAccessibilitySize {
+                Text("Add photo")
+                    .dsText(.body)
+            }
         }
         .foregroundStyle(DesignTokens.accent)
         .frame(width: 88, height: 88)
@@ -122,25 +125,28 @@ struct TakePhotoStrip: View {
     private func add(_ items: [PhotosPickerItem]) async {
         isAdding = true
         message = nil
-        var datas: [Data] = []
+        var totals = AddPhotosResult()
         var unreadable = 0
+        // One photo at a time: load, process, store, then let the data go.
         for item in items {
-            if let data = try? await item.loadTransferable(type: Data.self) {
-                datas.append(data)
-            } else {
+            guard let data = try? await item.loadTransferable(type: Data.self) else {
                 unreadable += 1
+                continue
             }
+            let one = await take.addPhotos([data], for: recipe)
+            totals.added += one.added
+            totals.failed += one.failed
+            totals.refusedForLimit += one.refusedForLimit
         }
         pickerItems = []
 
-        let result = await take.addPhotos(datas, for: recipe)
         let total = items.count
-        let failed = result.failed + unreadable
-        if result.added == total {
+        let failed = totals.failed + unreadable
+        if totals.added == total {
             message = nil
-        } else if result.added > 0 {
-            message = .partial(added: result.added, total: total)
-        } else if result.refusedForLimit > 0 && failed == 0 {
+        } else if totals.added > 0 {
+            message = .partial(added: totals.added, total: total)
+        } else if totals.refusedForLimit > 0 && failed == 0 {
             message = .limit
         } else {
             message = .failed

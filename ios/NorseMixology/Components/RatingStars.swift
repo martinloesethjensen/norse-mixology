@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// The user's rating, read-only: five stars, filled up to the rating. One
-/// accessibility element ("Rated, 4 of 5"). Interactive rating is `StarRatingControl`.
+/// accessibility element (label "Your rating", value "4 of 5"). Interactive rating is `StarRatingControl`.
 struct RatingStars: View {
     let rating: Int
     var font: Font = .caption
