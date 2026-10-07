@@ -87,11 +87,12 @@ struct RecipeDetailView: View {
                             .foregroundStyle(DesignTokens.textSecondary)
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .background(alignment: .top) {
                     // Bleeds to the screen edges and up under the navigation bar; scrolls away with the content.
                     TakeHeaderBackground(thumbnail: headerPhoto)
                         .padding(.horizontal, -20)
-                        .padding(.top, -120)
+                        .padding(.top, -160)
                 }
 
                 ingredientsSection

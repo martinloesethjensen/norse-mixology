@@ -17,7 +17,7 @@ struct TakeHeaderBackground: View {
                 .blur(radius: 24)
                 .overlay(DesignTokens.background.opacity(0.78))
                 .frame(maxWidth: .infinity)
-                .frame(height: 300)
+                .frame(height: 340)
                 .clipped()
                 .mask(
                     LinearGradient(colors: [.black, .black, .clear], startPoint: .top, endPoint: .bottom)
