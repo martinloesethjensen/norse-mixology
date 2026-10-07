@@ -34,6 +34,7 @@
 		6E39E4AEBA132E29E2141075 /* TakePhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A1142C081A3764D3B98B02 /* TakePhotoViewer.swift */; };
 		6F1A87238F4B3F9BF3196ABA /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E5EDEF9C46A276147F73 /* FlowLayout.swift */; };
 		7A061A1C2ED9FC5A12CEDE3F /* FlavorBarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D60ED76DD306568EDBDDF6 /* FlavorBarsView.swift */; };
+		7E8FC7F7E2F147B1A324AFA8 /* TakeHeaderBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258CC603F25C2CFA219574FF /* TakeHeaderBackground.swift */; };
 		8010047C72E957C914CD46A4 /* RecipeResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6323A9628A9113D0FC2473C /* RecipeResultsList.swift */; };
 		8CA37F5B25665C81EC78C6AF /* TakeNotesEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9826CB137E2B061007D00DDC /* TakeNotesEditor.swift */; };
 		8EDFC3DB4B2C67B87058C27E /* TasteLinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB041AE1AAC9C5F7AAAD1CA /* TasteLinesView.swift */; };
@@ -72,6 +73,7 @@
 		225F46BBEE893F2C52A5E369 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		23EA133EC6A0161771FAA917 /* BrowseHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseHeader.swift; sourceTree = "<group>"; };
 		240BA3C4F5721C0439FA1FF2 /* ThisOrThatCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThisOrThatCard.swift; sourceTree = "<group>"; };
+		258CC603F25C2CFA219574FF /* TakeHeaderBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeHeaderBackground.swift; sourceTree = "<group>"; };
 		2A33C7F852A7528DDB21F7AB /* TakeMarkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeMarkers.swift; sourceTree = "<group>"; };
 		3220C27E0E6E6FC75816A15E /* CabinetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetViewModel.swift; sourceTree = "<group>"; };
 		4370B1935E7E009D1EEB9B06 /* ShoppingItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingItemRow.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 			children = (
 				59338C4F82147FB76FBE0751 /* MyTakeSection.swift */,
 				05D33BCAB8950B38D0DFA4DA /* StarRatingControl.swift */,
+				258CC603F25C2CFA219574FF /* TakeHeaderBackground.swift */,
 				9826CB137E2B061007D00DDC /* TakeNotesEditor.swift */,
 				55AAC2E477A9CD66B36F387D /* TakePhotoStrip.swift */,
 				A8A1142C081A3764D3B98B02 /* TakePhotoViewer.swift */,
@@ -404,6 +407,7 @@
 				FFB26C32D1E84AAEE19118C2 /* ShoppingItemRow.swift in Sources */,
 				4DF5E32ECC70E9195E2C2069 /* ShoppingListView.swift in Sources */,
 				9D3A045DAB1F29775CD160F1 /* StarRatingControl.swift in Sources */,
+				7E8FC7F7E2F147B1A324AFA8 /* TakeHeaderBackground.swift in Sources */,
 				90F9BB2D8D66228356A73D30 /* TakeMarkers.swift in Sources */,
 				8CA37F5B25665C81EC78C6AF /* TakeNotesEditor.swift in Sources */,
 				0326CE4A58DF49103D09456D /* TakePhotoStrip.swift in Sources */,
