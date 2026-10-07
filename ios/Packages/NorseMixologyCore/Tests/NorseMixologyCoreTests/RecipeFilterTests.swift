@@ -144,4 +144,66 @@ final class RecipeFilterTests: XCTestCase {
         XCTAssertEqual(filtered.almost.map(\.id), grouped.almost.filter { $0.recipe.method == .stir }.map(\.id))
         XCTAssertEqual(filtered.exploring.map(\.id), grouped.exploring.filter { $0.recipe.method == .stir }.map(\.id))
     }
+
+    // MARK: - My ratings
+
+    private func ratedNames(_ criteria: RecipeFilter.Criterion..., ratings: [UUID: Int]) -> Set<String> {
+        var filter = RecipeFilter()
+        criteria.forEach { filter.toggle($0) }
+        return Set(recipes.filter { filter.matches($0, index: index, ratings: ratings) }.map(\.name))
+    }
+
+    private func ratings(_ pairs: (String, Int)...) throws -> [UUID: Int] {
+        var result: [UUID: Int] = [:]
+        for (name, stars) in pairs {
+            result[try XCTUnwrap(recipes.first { $0.name == name }, "no recipe named \(name)").id] = stars
+        }
+        return result
+    }
+
+    func testRatedKeepsOnlyRatedRecipes() throws {
+        let mine = try ratings(("Negroni", 2), ("Daiquiri", 5))
+        XCTAssertEqual(ratedNames(.myRating(.rated), ratings: mine), ["Negroni", "Daiquiri"])
+    }
+
+    func testFourStarsOrMoreKeepsOnlyHighRatings() throws {
+        let mine = try ratings(("Negroni", 3), ("Daiquiri", 4), ("Margarita", 5))
+        XCTAssertEqual(ratedNames(.myRating(.fourOrMore), ratings: mine), ["Daiquiri", "Margarita"])
+    }
+
+    func testRatingCriteriaFormOneOrGroupAndCombineWithOtherKindsByAnd() throws {
+        let mine = try ratings(("Negroni", 1), ("Daiquiri", 5))
+        // Both in the group: rated OR 4+ is just "rated".
+        XCTAssertEqual(ratedNames(.myRating(.rated), .myRating(.fourOrMore), ratings: mine), ["Negroni", "Daiquiri"])
+        // AND with another kind: only rated recipes that are also built (Negroni is built, Daiquiri is shaken).
+        let stirredAndRated = ratedNames(.myRating(.rated), .method(.build), ratings: mine)
+        XCTAssertTrue(stirredAndRated.isSubset(of: ["Negroni", "Daiquiri"]))
+        XCTAssertEqual(stirredAndRated, Set(["Negroni", "Daiquiri"].filter { name in
+            recipes.first { $0.name == name }?.method == .build
+        }))
+    }
+
+    func testWithoutARatingsDictionaryNothingCountsAsRated() {
+        XCTAssertTrue(names(filter(.myRating(.rated))).isEmpty)
+        XCTAssertTrue(names(filter(.myRating(.fourOrMore))).isEmpty)
+    }
+
+    func testGroupedFilteringPassesTheRatingsThrough() throws {
+        let mine = try ratings(("Negroni", 5), ("Aviation", 2))
+        var rated = RecipeFilter()
+        rated.toggle(.myRating(.rated))
+
+        let entries = CatalogAvailability.evaluate(recipes: recipes, cabinet: [], index: index)
+        let availability = GroupedAvailability(entries: entries, profile: .neutral).filtered(by: rated, index: index, ratings: mine)
+        XCTAssertEqual(Set(availability.allIds), Set(mine.keys))
+
+        let matches = recipes.map { RecipeMatchResult(recipe: $0, matchScore: 1, matchType: .exact, substitutions: []) }
+        let grouped = GroupedMatchResults(results: matches).filtered(by: rated, index: index, ratings: mine)
+        XCTAssertEqual(Set(grouped.perfect.map(\.id)), Set(mine.keys))
+    }
+
+    func testRatingChipLabels() {
+        XCTAssertEqual(RecipeFilter.MyRating.rated.displayName, "Rated")
+        XCTAssertEqual(RecipeFilter.MyRating.fourOrMore.displayName, "4 stars or more")
+    }
 }
