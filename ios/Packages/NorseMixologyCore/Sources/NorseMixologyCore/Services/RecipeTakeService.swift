@@ -46,7 +46,17 @@ public enum RecipeTakeService {
         take.updatedAt = date
         let photo = RecipePhoto(recipeId: recipe.id, thumbnail: thumbnail, full: full, dateAdded: date)
         context.insert(photo)
-        try finish(recipe.id, context: context)
+        do {
+            try finish(recipe.id, context: context)
+        } catch {
+            // Don't leave the failed photo pending: it would show in the strip and be saved later.
+            context.delete(photo)
+            if let pending = Self.take(for: recipe.id, context: context),
+               pending.rating == 0, pending.notes.isEmpty, photoCount(recipe.id, context: context) == 0 {
+                context.delete(pending)
+            }
+            throw error
+        }
         return photo.id
     }
 

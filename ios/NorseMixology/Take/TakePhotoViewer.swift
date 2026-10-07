@@ -42,6 +42,14 @@ struct TakePhotoViewer: View {
                 Button("Delete photo", role: .destructive) { deleteSelected(from: photos) }
             }
             .toolbarBackground(.visible, for: .navigationBar)
+            .alert(
+            "Couldn't save your changes",
+            isPresented: Binding(get: { take.lastError != nil }, set: { if !$0 { take.clearError() } })
+        ) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("Your device couldn't save this change right now. It will be saved automatically when it can — check that your device has free space.")
+        }
         }
     }
 

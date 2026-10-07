@@ -59,7 +59,7 @@ struct TakePhotoStrip: View {
                     .dsText(.body)
                     .foregroundStyle(DesignTokens.textSecondary)
             }
-            if let message {
+            if let message, !(freeSlots == 0 && isLimit(message)) {
                 messageText(message)
                     .dsText(.body)
                     .foregroundStyle(DesignTokens.matchSubstituted)
@@ -72,6 +72,11 @@ struct TakePhotoStrip: View {
         .fullScreenCover(item: $viewerTarget) { target in
             TakePhotoViewer(recipe: recipe, startID: target.id)
         }
+    }
+
+    private func isLimit(_ message: AddMessage) -> Bool {
+        if case .limit = message { return true }
+        return false
     }
 
     private func thumbnail(_ photo: PhotoItem) -> some View {

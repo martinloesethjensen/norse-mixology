@@ -33,7 +33,7 @@ struct MyTakeSection: View {
         ) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("Your changes are still on screen. Try again, and check that your device has free space.")
+            Text("Your device couldn't save this change right now. It will be saved automatically when it can — check that your device has free space.")
         }
     }
 }
