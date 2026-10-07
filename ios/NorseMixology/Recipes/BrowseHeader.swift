@@ -11,6 +11,7 @@ extension RecipeFilter.Criterion {
         case .glass(let glass): return glass.displayName
         case .method(let method): return method.displayName
         case .difficulty(let difficulty): return difficulty.displayName
+        case .myRating(let rating): return rating.displayName
         }
     }
 }

@@ -13,6 +13,7 @@ struct RecipeCardView: View {
     var revealDelay: Double = 0
 
     @Environment(FavouritesViewModel.self) private var favourites
+    @Environment(RecipeTakeViewModel.self) private var take
     @Environment(RecipeBrowserViewModel.self) private var browserViewModel
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -36,6 +37,9 @@ struct RecipeCardView: View {
                     .dsText(.heading)
                     .foregroundStyle(DesignTokens.textPrimary)
                 Spacer(minLength: 8)
+                if let stars = take.ratings[recipe.id] {
+                    RatingStars(rating: stars)
+                }
                 if favourites.isFavourited(recipe.id) {
                     Image(systemName: "heart.fill")
                         .foregroundStyle(DesignTokens.accent)
@@ -54,6 +58,8 @@ struct RecipeCardView: View {
             }
 
             FlavorNoteChips(profile: browserViewModel.noteProfile(for: recipe), taste: browserViewModel.tasteProfile)
+
+            TakeMarkers(recipeId: recipe.id)
 
             MatchBadgeView(state: MatchBadgeState(result: result), playHeroSweep: playHeroSweep, sweepDelay: sweepDelay)
 

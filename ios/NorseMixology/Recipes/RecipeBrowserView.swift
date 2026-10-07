@@ -11,6 +11,7 @@ import NorseMixologyCore
 struct RecipeBrowserView: View {
     @Environment(RecipeBrowserViewModel.self) private var viewModel
     @Environment(TaxonomyStore.self) private var taxonomyStore
+    @Environment(RecipeTakeViewModel.self) private var take
     @Environment(\.modelContext) private var modelContext
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
@@ -36,6 +37,10 @@ struct RecipeBrowserView: View {
         .onChange(of: taxonomyStore.recipesLoaded) { refresh() }
         .onChange(of: viewModel.browseState) {
             storedMode = viewModel.browseState.mode.rawValue
+            viewModel.clearSelectionIfHidden()
+        }
+        .onChange(of: take.ratings, initial: true) {
+            viewModel.ratings = take.ratings
             viewModel.clearSelectionIfHidden()
         }
         .sheet(isPresented: $isPresentingFilters) {

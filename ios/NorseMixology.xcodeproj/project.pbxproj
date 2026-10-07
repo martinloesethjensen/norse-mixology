@@ -17,6 +17,7 @@
 		1F61758E55F372CF31DB782D /* MatchBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E7FB6DFEDFA01C43B90C45 /* MatchBadgeView.swift */; };
 		2054B1A2638A953550A5B15E /* NorseMixologyCore in Frameworks */ = {isa = PBXBuildFile; productRef = 76DB75D275C8F897141A9B75 /* NorseMixologyCore */; };
 		27AEEB76099E720C8F187309 /* ThisOrThatCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240BA3C4F5721C0439FA1FF2 /* ThisOrThatCard.swift */; };
+		28128A89A8D97340864072B5 /* RatingStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665F87EC861EE061987FB172 /* RatingStars.swift */; };
 		2FD7E96A4C5E11F5D2797055 /* CabinetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3220C27E0E6E6FC75816A15E /* CabinetViewModel.swift */; };
 		303EE8CF7021F1D862698604 /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEF8DBACE716CAD2809A3D2 /* FavouritesView.swift */; };
 		3B1085008C62A6CCE0DDB1D8 /* NoMatchingRecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A0DEF3586E46145BF3D7 /* NoMatchingRecipesView.swift */; };
@@ -32,6 +33,7 @@
 		7A061A1C2ED9FC5A12CEDE3F /* FlavorBarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D60ED76DD306568EDBDDF6 /* FlavorBarsView.swift */; };
 		8010047C72E957C914CD46A4 /* RecipeResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6323A9628A9113D0FC2473C /* RecipeResultsList.swift */; };
 		8EDFC3DB4B2C67B87058C27E /* TasteLinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB041AE1AAC9C5F7AAAD1CA /* TasteLinesView.swift */; };
+		90F9BB2D8D66228356A73D30 /* TakeMarkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33C7F852A7528DDB21F7AB /* TakeMarkers.swift */; };
 		9AEA6C76C2A80D8F3A9F9D2B /* RecipeFilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E48F0C6C5805CF318C2415F /* RecipeFilterSheet.swift */; };
 		A2EF2F62113F2EC826DA6F04 /* AddIngredientConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02101A11D23B974EE6190E0C /* AddIngredientConfirmationView.swift */; };
 		A4B25089D52880F9F8EBAA1F /* CatalogList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BBAA3C3929CC32B7BA3E93 /* CatalogList.swift */; };
@@ -64,6 +66,7 @@
 		225F46BBEE893F2C52A5E369 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		23EA133EC6A0161771FAA917 /* BrowseHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseHeader.swift; sourceTree = "<group>"; };
 		240BA3C4F5721C0439FA1FF2 /* ThisOrThatCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThisOrThatCard.swift; sourceTree = "<group>"; };
+		2A33C7F852A7528DDB21F7AB /* TakeMarkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeMarkers.swift; sourceTree = "<group>"; };
 		3220C27E0E6E6FC75816A15E /* CabinetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetViewModel.swift; sourceTree = "<group>"; };
 		4370B1935E7E009D1EEB9B06 /* ShoppingItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingItemRow.swift; sourceTree = "<group>"; };
 		473AAF5A5DE39416F1FE4E0A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -75,6 +78,7 @@
 		5F38AA75896B8A39D2016A7B /* AddIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientView.swift; sourceTree = "<group>"; };
 		629E19A8EDDEE649A647565D /* CatalogLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogLaunch.swift; sourceTree = "<group>"; };
 		65E7FB6DFEDFA01C43B90C45 /* MatchBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchBadgeView.swift; sourceTree = "<group>"; };
+		665F87EC861EE061987FB172 /* RatingStars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingStars.swift; sourceTree = "<group>"; };
 		75D19359C364DC1F5C2E3C12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		767F774D22633E5B2870C159 /* IngredientDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientDetailView.swift; sourceTree = "<group>"; };
 		79ED64A37D5930D4EB647C26 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
@@ -204,6 +208,8 @@
 				98D60ED76DD306568EDBDDF6 /* FlavorBarsView.swift */,
 				E3EA799D98322277FF158B11 /* FlavorNoteChips.swift */,
 				F5EDD9D302E90D6B589516B9 /* FloatingIcon.swift */,
+				665F87EC861EE061987FB172 /* RatingStars.swift */,
+				2A33C7F852A7528DDB21F7AB /* TakeMarkers.swift */,
 				8A3E9EC6F2408FA5B5E9032E /* UndoToast.swift */,
 				ED4BD23DBD7E010C9AB9D2F8 /* YouMarker.swift */,
 			);
@@ -363,6 +369,7 @@
 				1F61758E55F372CF31DB782D /* MatchBadgeView.swift in Sources */,
 				3B1085008C62A6CCE0DDB1D8 /* NoMatchingRecipesView.swift in Sources */,
 				3FD609A620F528A8235BB7F6 /* NorseMixologyApp.swift in Sources */,
+				28128A89A8D97340864072B5 /* RatingStars.swift in Sources */,
 				B2C87521E5AFC04B2BD0CF30 /* RecipeBrowserView.swift in Sources */,
 				68942B801ECE0BAAF6B982ED /* RecipeBrowserViewModel.swift in Sources */,
 				189A5FFCF30CD1DE629AC740 /* RecipeCardView.swift in Sources */,
@@ -372,6 +379,7 @@
 				EF5D29F89FF88A90B85ADE9F /* SettingsView.swift in Sources */,
 				FFB26C32D1E84AAEE19118C2 /* ShoppingItemRow.swift in Sources */,
 				4DF5E32ECC70E9195E2C2069 /* ShoppingListView.swift in Sources */,
+				90F9BB2D8D66228356A73D30 /* TakeMarkers.swift in Sources */,
 				8EDFC3DB4B2C67B87058C27E /* TasteLinesView.swift in Sources */,
 				50B592CA6EC88336DF0DE6C6 /* TasteOnboardingView.swift in Sources */,
 				AE26490B2BCE00C2191A0C8A /* TasteQuizQuestion.swift in Sources */,
