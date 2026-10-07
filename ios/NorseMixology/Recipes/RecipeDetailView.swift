@@ -88,6 +88,8 @@ struct RecipeDetailView: View {
                 if !recipe.steps.isEmpty {
                     methodSection
                 }
+
+                MyTakeSection(recipe: recipe)
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 20)
