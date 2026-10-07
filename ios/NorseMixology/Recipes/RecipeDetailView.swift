@@ -20,6 +20,7 @@ struct RecipeDetailView: View {
     @Environment(CabinetViewModel.self) private var cabinet
     @Environment(RecipeBrowserViewModel.self) private var browser
     @Environment(ShoppingListViewModel.self) private var shopping
+    @Environment(RecipeTakeViewModel.self) private var take
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var heartIsPulsing = false
     @State private var addingStyle: IngredientStyle?
@@ -50,6 +51,12 @@ struct RecipeDetailView: View {
 
     private var isFavourite: Bool { favourites.isFavourited(recipe.id) }
 
+    /// The first photo's thumbnail. Reading `photoCounts` makes the header refresh when photos change.
+    private var headerPhoto: Data? {
+        _ = take.photoCounts[recipe.id]
+        return take.photos(for: recipe.id).first?.thumbnail
+    }
+
     /// Missing required styles in recipe order, without duplicates.
     private var missingStyles: [IngredientStyle] {
         var seen: Set<UUID> = []
@@ -71,12 +78,21 @@ struct RecipeDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 28) {
-                header
+                VStack(alignment: .leading, spacing: 28) {
+                    header
 
-                if !recipe.description.isEmpty {
-                    Text(recipe.description)
-                        .dsText(.body)
-                        .foregroundStyle(DesignTokens.textSecondary)
+                    if !recipe.description.isEmpty {
+                        Text(recipe.description)
+                            .dsText(.body)
+                            .foregroundStyle(DesignTokens.textSecondary)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(alignment: .top) {
+                    // Bleeds to the screen edges and up under the navigation bar; scrolls away with the content.
+                    TakeHeaderBackground(thumbnail: headerPhoto)
+                        .padding(.horizontal, -20)
+                        .padding(.top, -160)
                 }
 
                 ingredientsSection
@@ -88,6 +104,8 @@ struct RecipeDetailView: View {
                 if !recipe.steps.isEmpty {
                     methodSection
                 }
+
+                MyTakeSection(recipe: recipe)
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 20)
@@ -148,6 +166,10 @@ struct RecipeDetailView: View {
             ViewThatFits(in: .horizontal) {
                 HStack(spacing: 8) { headerPills }
                 VStack(alignment: .leading, spacing: 8) { headerPills }
+            }
+
+            if let stars = take.ratings[recipe.id] {
+                RatingStars(rating: stars, font: .subheadline)
             }
         }
     }

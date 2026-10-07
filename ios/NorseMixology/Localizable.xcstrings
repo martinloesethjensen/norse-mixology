@@ -17,6 +17,9 @@
     "%@ glass" : {
 
     },
+    "%@ is on your shopping list" : {
+
+    },
     "%@, mild" : {
 
     },
@@ -55,6 +58,35 @@
         }
       }
     },
+    "%lld of %lld added" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld of %2$lld added"
+          }
+        }
+      }
+    },
+    "%lld of %lld characters" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld of %2$lld characters"
+          }
+        }
+      }
+    },
+    "%lld of 5" : {
+
+    },
+    "%lld photos" : {
+
+    },
+    "%lld photos is the limit" : {
+
+    },
     "+%lld more" : {
 
     },
@@ -78,6 +110,9 @@
         }
       }
     },
+    "1 photo" : {
+
+    },
     "Add %@ to cabinet" : {
 
     },
@@ -88,6 +123,15 @@
 
     },
     "Add all missing to shopping list (%lld)" : {
+
+    },
+    "Add all to shopping list" : {
+
+    },
+    "Add missing ingredients from a recipe and they'll show up here." : {
+
+    },
+    "Add photo" : {
 
     },
     "Add to Cabinet" : {
@@ -150,7 +194,22 @@
     "Confirm" : {
 
     },
+    "Couldn't add that photo" : {
+
+    },
     "Couldn't create the preview data container" : {
+
+    },
+    "Couldn't save your changes" : {
+
+    },
+    "Delete" : {
+
+    },
+    "Delete photo" : {
+
+    },
+    "Delete this photo?" : {
 
     },
     "Difficulty" : {
@@ -177,6 +236,9 @@
     "Favourites" : {
 
     },
+    "Fewest missing first" : {
+
+    },
     "Filters" : {
 
     },
@@ -195,7 +257,19 @@
     "Glass" : {
 
     },
+    "Got %@" : {
+
+    },
     "Hides the substitution note" : {
+
+    },
+    "I have %@" : {
+
+    },
+    "I have all of these" : {
+
+    },
+    "I have it" : {
 
     },
     "Loading recipes" : {
@@ -219,10 +293,25 @@
     "Missing 3+" : {
 
     },
+    "Missing ingredients" : {
+
+    },
     "Mode" : {
 
     },
     "Moved %@ to your cabinet" : {
+
+    },
+    "Moves it to your cabinet" : {
+
+    },
+    "My ratings" : {
+
+    },
+    "My take" : {
+
+    },
+    "Need to buy" : {
 
     },
     "Needs %@" : {
@@ -255,11 +344,42 @@
     "None active" : {
 
     },
+    "Not rated" : {
+
+    },
+    "Note" : {
+
+    },
+    "Notes" : {
+
+    },
     "Nothing to buy" : {
+
+    },
+    "OK" : {
+
+    },
+    "On list" : {
 
     },
     "One bottle away" : {
 
+    },
+    "Opens the photo" : {
+
+    },
+    "Optional" : {
+
+    },
+    "Photo %lld of %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Photo %1$lld of %2$lld"
+          }
+        }
+      }
     },
     "Pick a cocktail from the list to see how to make it." : {
 
@@ -306,10 +426,16 @@
     "Search ingredients or brands" : {
 
     },
+    "Search recipes or ingredients" : {
+
+    },
     "Select a Recipe" : {
 
     },
     "Settings" : {
+
+    },
+    "Shopping" : {
 
     },
     "Shopping list (%lld)" : {
@@ -398,6 +524,9 @@
         }
       }
     },
+    "What would you change? What did you serve it with?" : {
+
+    },
     "Worth a shopping trip" : {
 
     },
@@ -428,7 +557,13 @@
     "Your cabinet is empty" : {
 
     },
+    "Your device couldn't save this change right now. It will be saved automatically when it can — check that your device has free space." : {
+
+    },
     "Your list (%lld)" : {
+
+    },
+    "Your rating" : {
 
     },
     "e.g. Hendrick's" : {
@@ -441,6 +576,9 @@
 
     },
     "🔍 Worth Exploring" : {
+
+    },
+    "🛒 Missing Ingredients" : {
 
     }
   },

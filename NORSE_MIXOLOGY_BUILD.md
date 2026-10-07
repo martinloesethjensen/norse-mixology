@@ -237,6 +237,16 @@ Replaces the five unlabelled "tasting dots". Design canvas: "Tasting Dots" (Clau
 - **Accessibility:** each chip's label is one whole phrase ("Bitter, strong", "Herbal, mild, matches your taste") so a row that combines its children never separates a strength from its flavour; each bar reads "Bitter, High. You: low". At accessibility text sizes the bar rows and the legend stack (checked at the largest size) and the diamond grows to at most 1.6×.
 - **Retired:** `FlavorProfileIndicatorView` (the dots). `FlavorProfile.accessibilitySummary` stays (still tested) but is no longer used by a view.
 
+## Recipe take (iOS)
+
+- **Spec:** `docs/superpowers/specs/2026-10-06-recipe-take-design.md`. Roadmap sub-project C. One "My take" per recipe; the per-time "made it" log is not built.
+- **Storage:** SwiftData `RecipeTake` (rating 0…5, notes, cached `recipeName`) and `RecipePhoto` (thumbnail `Data` + `full` via `@Attribute(.externalStorage)`), both keyed by `recipeId`, added to the existing container as a lightweight migration (tested against an on-disk three-model store). Never touched by catalog updates: nothing in the take code reads the catalog, and a take survives its recipe leaving it.
+- **Rules (`TakeLimits`, `RecipeTakeService`):** rating 0…5 (others rejected, not clamped); notes ≤ 2,000 chars (trimmed; whitespace-only = empty); ≤ 6 photos per recipe; a take with no rating, notes or photos is deleted; one take per recipe; every change saved immediately and a failed save throws `TakeError.saveFailed` (alert tells the user changes are saved automatically; check free space; failed photo removed).
+- **Photos:** `PhotoProcessor` (ImageIO) downsamples while reading — a huge photo is never decoded at full size — to a ≤ 1600 px full JPEG and a ~320 px thumbnail (quality 0.8), applies EXIF orientation, never upscales, refuses unreadable data. Picked with `PhotosPicker`, so no photo-library permission. Lists and the header read thumbnails only.
+- **View model:** `RecipeTakeViewModel` (`@MainActor @Observable`, app root) publishes `ratings`, `hasNotes`, `photoCounts` for cards and rows; `addPhotos` returns added / failed / refused-for-limit so nothing is dropped silently.
+- **UI:** "My take" after Method on every recipe screen (shared by Recipes and Favourites): `StarRatingControl` (44 pt stars, tap the current star to clear, one adjustable VoiceOver control), `TakeNotesEditor` (autosave after 0.6 s, on disappear and when the app goes inactive), `TakePhotoStrip` + `TakePhotoViewer` (delete asks first). Header: read-only stars, and the first photo blurred under a 78% wash of the screen background (backdrop bleeds to screen edges and under status bar; plain with no photo or Reduce Transparency). Cards and rows: read-only stars plus a quiet "Note" / "N photos" line; filter group "My ratings" (Rated, 4 stars or more).
+- **Not built:** camera capture, the made-it log, searching notes, export/share (backup and iCloud is the next roadmap item — everything is in SwiftData so it can follow). BlurHash is deliberately not used for local photos; revisit if the catalog ships remote images.
+
 ## Design System — "Modern Neon Bar"
 
 Both platforms follow system light/dark appearance (never forced). Same tokens, mapped for each mode:

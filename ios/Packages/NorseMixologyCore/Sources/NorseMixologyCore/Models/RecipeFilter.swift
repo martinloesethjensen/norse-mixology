@@ -25,6 +25,19 @@ public struct RecipeFilter: Equatable, Sendable {
         }
     }
 
+    /// "My ratings" filter values (Recipe Take spec §2).
+    public enum MyRating: Hashable, Sendable {
+        case rated
+        case fourOrMore
+
+        public var displayName: String {
+            switch self {
+            case .rated: return "Rated"
+            case .fourOrMore: return "4 stars or more"
+            }
+        }
+    }
+
     /// One removable filter value — what a chip shows and what the filter sheet toggles.
     public enum Criterion: Hashable, Sendable {
         case tag(String)
@@ -33,6 +46,7 @@ public struct RecipeFilter: Equatable, Sendable {
         case glass(GlassType)
         case method(Method)
         case difficulty(Difficulty)
+        case myRating(MyRating)
     }
 
     /// Curated style tags offered in the filter UI; other catalog tags are ignored.
@@ -66,8 +80,8 @@ public struct RecipeFilter: Equatable, Sendable {
         criteria = []
     }
 
-    public func matches(_ recipe: Recipe, index: TaxonomyIndex) -> Bool {
-        matchesQuery(recipe, index: index) && matchesCriteria(recipe, index: index)
+    public func matches(_ recipe: Recipe, index: TaxonomyIndex, ratings: [UUID: Int] = [:]) -> Bool {
+        matchesQuery(recipe, index: index) && matchesCriteria(recipe, index: index, ratings: ratings)
     }
 
     /// Families of the ingredient(s) `RoleDerivation` treats as the recipe's base.
@@ -91,7 +105,7 @@ public struct RecipeFilter: Equatable, Sendable {
         }
     }
 
-    private func matchesCriteria(_ recipe: Recipe, index: TaxonomyIndex) -> Bool {
+    private func matchesCriteria(_ recipe: Recipe, index: TaxonomyIndex, ratings: [UUID: Int]) -> Bool {
         guard !criteria.isEmpty else { return true }
         var tags: Set<String> = []
         var strengths: Set<Strength> = []
@@ -99,6 +113,7 @@ public struct RecipeFilter: Equatable, Sendable {
         var glasses: Set<GlassType> = []
         var methods: Set<Method> = []
         var difficulties: Set<Difficulty> = []
+        var myRatings: Set<MyRating> = []
         for criterion in criteria {
             switch criterion {
             case .tag(let tag): tags.insert(tag)
@@ -107,6 +122,7 @@ public struct RecipeFilter: Equatable, Sendable {
             case .glass(let glass): glasses.insert(glass)
             case .method(let method): methods.insert(method)
             case .difficulty(let difficulty): difficulties.insert(difficulty)
+            case .myRating(let rating): myRatings.insert(rating)
             }
         }
         if !tags.isEmpty, tags.isDisjoint(with: recipe.tags) { return false }
@@ -115,6 +131,11 @@ public struct RecipeFilter: Equatable, Sendable {
         if !glasses.isEmpty, !glasses.contains(recipe.glassType) { return false }
         if !methods.isEmpty, !methods.contains(recipe.method) { return false }
         if !difficulties.isEmpty, !difficulties.contains(recipe.difficulty) { return false }
+        if !myRatings.isEmpty {
+            let stars = ratings[recipe.id] ?? 0
+            let matchesAny = myRatings.contains { $0 == .rated ? stars >= 1 : stars >= 4 }
+            if !matchesAny { return false }
+        }
         return true
     }
 }
@@ -154,9 +175,9 @@ public struct RecipeFilterOptions: Equatable, Sendable {
 public extension GroupedMatchResults {
     /// The Can make view filtered without re-running the engine: tiers and the
     /// order within them are kept.
-    func filtered(by filter: RecipeFilter, index: TaxonomyIndex) -> GroupedMatchResults {
+    func filtered(by filter: RecipeFilter, index: TaxonomyIndex, ratings: [UUID: Int] = [:]) -> GroupedMatchResults {
         guard !filter.isEmpty else { return self }
-        let keep = { (result: RecipeMatchResult) in filter.matches(result.recipe, index: index) }
+        let keep = { (result: RecipeMatchResult) in filter.matches(result.recipe, index: index, ratings: ratings) }
         return GroupedMatchResults(results: perfect.filter(keep) + almost.filter(keep) + exploring.filter(keep))
     }
 }
