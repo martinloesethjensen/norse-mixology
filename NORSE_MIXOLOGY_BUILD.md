@@ -118,7 +118,7 @@ Garnish-role ingredients never drop a recipe (treated like an unresolved *option
 Pure presentation logic lives in `NorseMixologyCore` (`RecipePresentation.swift`, unit-tested) so both platforms apply identical rules:
 
 - **Grouping** of match results: `matchType == exact` → **Perfect Match**; partial with ≤ 1 substitution → **Almost There**; partial with ≥ 2 substitutions → **Worth Exploring**. Order within a group is the engine's order (never re-sorted).
-- **Card badge:** exact → "✓ All ingredients" (lime); partial → "1 sub needed" / "N subs needed" (gold). Results never contain recipes with an unresolved required ingredient, so there is no "missing" card badge.
+- **Card badge:** exact → "✓ All ingredients" (green); partial → "1 sub needed" / "N subs needed" (copper). Results never contain recipes with an unresolved required ingredient, so there is no "missing" card badge.
 - **Ingredient row status** (recipe detail): a reported substitution for that required style → *substituted* (wins even if the exact style is also in the cabinet, e.g. a user "accept" override); else exact style in cabinet → *exact*; else → *unavailable*. Only optional/garnish ingredients can be unavailable — e.g. a Negroni with gin/Campari/vermouth is a Perfect Match whose orange-wheel row shows unavailable.
 - **Where results live:** the Recipes tab hosts the browser and re-matches whenever it appears (and on pull-to-refresh). Cabinet's "Find Recipes" re-matches and switches to the Recipes tab.
 - **Layout:** compact width pushes the detail screen; regular width shows a list/detail split inside the Recipes tab. The tab bar is kept on iPad — an app-wide sidebar shell was considered in Phase 6 and left as a post-MVP option (see the vault's Future Improvements).
@@ -247,25 +247,31 @@ Replaces the five unlabelled "tasting dots". Design canvas: "Tasting Dots" (Clau
 - **UI:** "My take" after Method on every recipe screen (shared by Recipes and Favourites): `StarRatingControl` (44 pt stars, tap the current star to clear, one adjustable VoiceOver control), `TakeNotesEditor` (autosave after 0.6 s, on disappear and when the app goes inactive), `TakePhotoStrip` + `TakePhotoViewer` (delete asks first). Header: read-only stars, and the first photo blurred under a 78% wash of the screen background (backdrop bleeds to screen edges and under status bar; plain with no photo or Reduce Transparency). Cards and rows: read-only stars plus a quiet "Note" / "N photos" line; filter group "My ratings" (Rated, 4 stars or more).
 - **Not built:** camera capture, the made-it log, searching notes, export/share (backup and iCloud is the next roadmap item — everything is in SwiftData so it can follow). BlurHash is deliberately not used for local photos; revisit if the catalog ships remote images.
 
-## Design System — "Modern Neon Bar"
+## Design System — "Rune"
 
-Both platforms follow system light/dark appearance (never forced). Same tokens, mapped for each mode:
+Spec: `docs/superpowers/specs/2026-10-17-rune-identity-design.md` (mockups alongside). The mark is the rune ᛉ (Algiz) drawn as a stemmed glass, in brass on oxblood. Both platforms follow system light/dark appearance (never forced). Same tokens, mapped for each mode:
 
 | Token | Dark | Light |
 |---|---|---|
-| Background | `#0D0F14` | `#F7F8FA` |
-| Surface | `#161920` | `#FFFFFF` |
-| Surface Raised | `#1F232D` | `#EFF1F4` |
-| Border | `#262B36` | `#DDE1E7` |
-| Accent (lime) | `#8FE388` | `#8FE388` |
-| Text Primary | `#EEF1F5` | `#14171C` |
-| Text Secondary | `#9AA1AF` | `#5B6472` |
+| Background | `#2A1215` | `#F6EEE1` |
+| Surface | `#3B1A1E` | `#FFFBF4` |
+| Surface Raised | `#4A2328` | `#EFE4D3` |
+| Border (decorative) | `#5A2E33` | `#E2D4BE` |
+| Accent | `#D2AE6A` brass | `#4A1D22` oxblood |
+| On Accent | `#3A2A0C` | `#F0E4D0` |
+| Text Primary | `#F0E4D0` | `#2A1215` |
+| Text Secondary | `#B9A99A` | `#705C4F` |
 
-Match-status: Exact `#8FE388`, Substituted `#F0B93D` (both modes); Unavailable `#4A5160` dark / `#A6AEBA` light.
+Match-status (icons/foreground): Exact `#7DB37A` / `#37703A`, Substituted (copper) `#E5803A` / `#A04E12`, Unavailable `#8C7870` / `#8A7B6E`. Badges are solid in dark and a tinted pill with a hairline in light: Exact fill/text `#7DB37A`/`#14290F` dark, `#DCEBD8`/`#2D5A2A` light; Substituted `#E5803A`/`#3A1A06` dark, `#F6DCC6`/`#7A3A0C` light. Flavour notes follow the accent (strong text `#D2AE6A` / `#4A1D22`, fill `#4A2328` / `#F1E2CF`, strong border `#8C6E3A` / `#8E3A3F`, mild border `#8C7870` / `#9C8A7C`, bar = accent) so green only ever means "can make".
 
-Typography (native system fonts — SF Pro on iOS, Roboto on Android): Display/Title 26sp/pt·800, Section Heading 16sp/pt·600, Body 13sp/pt·400 (secondary colour), Label/Badge 10sp/pt·700 uppercase.
+Changed from the spec's starting values to pass the contrast floor: light Text Secondary (`#7A6658` → `#705C4F`, was 4.32:1 on Surface Raised) dark Unavailable / mild note border (`#7E6A62` → `#8C7870`, was 2.64:1), and light Exact (`#3F7A3C` → `#37703A`, was 4.11:1 as body text on Surface Raised). Swap moved from amber to copper so it doesn't read as the brass accent in dark mode.
 
-The full palette is wired into every iOS screen as of Phase 6 (`Theme/DesignTokens.swift` is the only place colours and font sizes are defined); Android gets the same in Phase 10. Until then an Android screen uses its default theme, which already respects system appearance.
+- **Where the values live:** `RunePalette` in `NorseMixologyCore` holds every hex value; `Theme/DesignTokens.swift` maps them to SwiftUI colours and is the only place the app gets a colour. `RunePaletteTests` pins the contrast floor (text ≥ 4.5:1 — including the match colours, which are also used as text — and meaningful icons ≥ 3:1, both modes), the swap/accent hue gap, that `AccentColor` and `LaunchBackground` in the asset catalog match the palette, and that no neon lime is left. The only hard-coded colours are the photo viewer's black backdrop and white spinner.
+- **Icon and launch artwork:** SVG masters in `ios/design/`; `ios/scripts/render-icons.sh` (needs `brew install librsvg`) renders the `AppIcon` PNGs and the `LaunchMark` images. The launch screen is the `UILaunchScreen` dictionary in `ios/NorseMixology/Info.plist` (merged with the generated keys via `INFOPLIST_FILE`), with `LaunchBackground` = the Background token so there's no colour jump into the first screen.
+
+Typography (native system fonts — SF Pro on iOS, Roboto on Android): Display/Title 26sp/pt·800, Section Heading 16sp/pt·600, Body 13sp/pt·400 (secondary colour), Label/Badge 10sp/pt·700 uppercase. No custom font in the app. Carved capitals (Cinzel SemiBold, OFL) appear only in the launch-mark wordmark, converted to outlines in `ios/design/launch-mark-*.svg`, so rendering never needs the font installed. To change the wordmark, re-outline it from the OFL Cinzel variable font in google/fonts (`ofl/cinzel`) at wght 600, e.g. with fontTools `instantiateVariableFont` + `SVGPathPen`.
+
+Android is parked and still uses the previous "Modern Neon Bar" look; it gets the Rune identity when it resumes (#3).
 
 ## iOS Architecture
 

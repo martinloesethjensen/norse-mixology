@@ -1,9 +1,10 @@
 import SwiftUI
 import NorseMixologyCore
 
-/// Filled pill communicating how completely the cabinet covers a recipe.
-/// Lime = everything on hand, gold = substitutions needed
-/// (see Design System → match-status colours).
+/// Pill communicating how completely the cabinet covers a recipe.
+/// Green = everything on hand, copper = substitutions needed
+/// (see Design System → match-status colours). Solid in dark mode; a tinted
+/// pill with a hairline edge in light mode, so it still reads on raised cards.
 struct MatchBadgeView: View {
     let state: MatchBadgeState
     /// Plays a one-shot diagonal highlight sweep across the badge — reserved
@@ -20,6 +21,7 @@ struct MatchBadgeView: View {
     static let sweepDuration: Double = 0.35
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.colorScheme) private var colorScheme
     @State private var sweepProgress: CGFloat = 0
 
     var body: some View {
@@ -29,10 +31,15 @@ struct MatchBadgeView: View {
             .tracking(0.6)
             .multilineTextAlignment(.leading)
             .fixedSize(horizontal: false, vertical: true)
-            .foregroundStyle(DesignTokens.onBadge)
+            .foregroundStyle(state.badgeText)
             .padding(.horizontal, 9)
             .padding(.vertical, 4)
-            .background(Capsule().fill(state.color))
+            .background(Capsule().fill(state.badgeFill))
+            .overlay {
+                if colorScheme == .light {
+                    Capsule().strokeBorder(state.badgeText.opacity(0.35), lineWidth: 1)
+                }
+            }
             .overlay(sweepHighlight)
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(state == .exact ? "All ingredients in your cabinet" : state.label)
@@ -50,7 +57,7 @@ struct MatchBadgeView: View {
             GeometryReader { proxy in
                 let width = proxy.size.width
                 LinearGradient(
-                    colors: [.clear, .white.opacity(0.55), .clear],
+                    colors: [.clear, sweepColor, .clear],
                     startPoint: .leading, endPoint: .trailing
                 )
                 .frame(width: width * 0.6)
@@ -59,6 +66,12 @@ struct MatchBadgeView: View {
             .mask(Capsule())
             .allowsHitTesting(false)
         }
+    }
+
+    /// White shows on the solid dark-mode fill; the pale light-mode fill
+    /// needs a tint of the badge's own text colour instead.
+    private var sweepColor: Color {
+        colorScheme == .dark ? .white.opacity(0.55) : state.badgeText.opacity(0.25)
     }
 
     private func startSweepIfNeeded() {
