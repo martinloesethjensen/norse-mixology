@@ -109,6 +109,8 @@ final class RunePaletteTests: XCTestCase {
 
     func testAssetCatalogColoursMatchPalette() throws {
         XCTAssertEqual(try colorSet("AccentColor"), RunePalette.accent)
+        // The launch screen hands off to the first screen without a colour jump.
+        XCTAssertEqual(try colorSet("LaunchBackground"), RunePalette.background)
     }
 
     func testNoNeonLimeLeft() throws {

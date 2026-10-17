@@ -21,3 +21,9 @@ render() {
 for variant in light dark tinted; do
     render "icon-$variant.svg" 1024 1024 "$assets/AppIcon.appiconset/icon-$variant.png"
 done
+
+mkdir -p "$assets/LaunchMark.imageset"
+for variant in light dark; do
+    render "launch-mark-$variant.svg" 240 240 "$assets/LaunchMark.imageset/launch-mark-$variant@2x.png"
+    render "launch-mark-$variant.svg" 360 360 "$assets/LaunchMark.imageset/launch-mark-$variant@3x.png"
+done
