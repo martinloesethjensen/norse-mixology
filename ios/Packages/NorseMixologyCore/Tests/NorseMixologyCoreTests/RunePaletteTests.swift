@@ -53,6 +53,14 @@ final class RunePaletteTests: XCTestCase {
         assertContrast(("noteStrongText", RunePalette.noteStrongText), on: [("noteStrongFill", RunePalette.noteStrongFill)], atLeast: 4.5)
     }
 
+    /// Match colours are also used as body text ("Ready" status lines,
+    /// substitution notes, the Substitutions heading), not only as icons.
+    func testMatchColoursAsTextContrast() {
+        let backgrounds = [("background", RunePalette.background)] + surfaces
+        assertContrast(("matchExact", RunePalette.matchExact), on: backgrounds, atLeast: 4.5)
+        assertContrast(("matchSubstituted", RunePalette.matchSubstituted), on: backgrounds, atLeast: 4.5)
+    }
+
     func testBadgeTextContrast() {
         assertContrast(("matchExactBadgeText", RunePalette.matchExactBadgeText),
                        on: [("matchExactBadgeFill", RunePalette.matchExactBadgeFill)], atLeast: 4.5)

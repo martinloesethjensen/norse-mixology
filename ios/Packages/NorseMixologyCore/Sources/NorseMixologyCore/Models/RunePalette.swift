@@ -34,7 +34,8 @@ public enum RunePalette {
     public static let onAccent = PaletteColor(dark: 0x3A2A0C, light: 0xF0E4D0)
 
     // Match / availability: green = can make, copper = swap, grey = missing.
-    public static let matchExact = PaletteColor(dark: 0x7DB37A, light: 0x3F7A3C)
+    // Light value darkened from the spec's #3F7A3C: it is also body text, and was 4.11:1 on surfaceRaised.
+    public static let matchExact = PaletteColor(dark: 0x7DB37A, light: 0x37703A)
     public static let matchSubstituted = PaletteColor(dark: 0xE5803A, light: 0xA04E12)
     // Dark value lightened from the spec's #7E6A62, which was 2.64:1 on surfaceRaised.
     public static let matchUnavailable = PaletteColor(dark: 0x8C7870, light: 0x8A7B6E)
