@@ -16,6 +16,8 @@ struct RecipeResultsList: View {
     let grouped: GroupedMatchResults
     let interaction: Interaction
     let onRefresh: () -> Void
+    /// Switches to All recipes; offered from the empty state so an empty cabinet isn't a dead end.
+    var onBrowseAll: (() -> Void)? = nil
 
     var body: some View {
         if grouped.isEmpty {
@@ -27,6 +29,12 @@ struct RecipeResultsList: View {
                 }
             } description: {
                 Text("Your cabinet didn't match any recipes. Try adding some base spirits like gin, rum, or vodka.")
+            } actions: {
+                if let onBrowseAll {
+                    Button("Browse all recipes", action: onBrowseAll)
+                        .buttonStyle(.dsPrimary)
+                        .frame(maxWidth: 280)
+                }
             }
             .dsScreenBackground()
         } else {

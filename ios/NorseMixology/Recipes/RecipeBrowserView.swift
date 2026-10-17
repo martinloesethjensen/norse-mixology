@@ -12,12 +12,16 @@ struct RecipeBrowserView: View {
     @Environment(RecipeBrowserViewModel.self) private var viewModel
     @Environment(TaxonomyStore.self) private var taxonomyStore
     @Environment(RecipeTakeViewModel.self) private var take
+    @Environment(CabinetViewModel.self) private var cabinet
     @Environment(\.modelContext) private var modelContext
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    /// Remembered across launches; search text and filters deliberately are not.
-    @SceneStorage("recipes.browseMode") private var storedMode = RecipeBrowseState.Mode.canMake.rawValue
+    /// Remembered across launches; search text and filters deliberately are not. Empty until the user picks a mode,
+    /// which is how "never chose" is told apart from "chose Can make".
+    @SceneStorage("recipes.browseMode") private var storedMode = ""
     @State private var isPresentingFilters = false
+    /// Set when an empty cabinet opens the tab in All recipes, so that default isn't saved as the user's choice.
+    @State private var isApplyingFirstLaunchMode = false
 
     var body: some View {
         Group {
@@ -30,13 +34,23 @@ struct RecipeBrowserView: View {
         .onAppear {
             if let mode = RecipeBrowseState.Mode(rawValue: storedMode) {
                 viewModel.browseState.mode = mode
+            } else if cabinet.isEmpty, viewModel.browseState.mode == .canMake {
+                // First launch, nothing to cook with yet: Can make would only show an empty state.
+                isApplyingFirstLaunchMode = true
+                viewModel.browseState.mode = .all
             }
             refresh()
         }
         // The bundled catalog loads asynchronously at launch; re-match once it lands.
         .onChange(of: taxonomyStore.recipesLoaded) { refresh() }
+        .onChange(of: viewModel.browseState.mode) {
+            if isApplyingFirstLaunchMode {
+                isApplyingFirstLaunchMode = false
+            } else {
+                storedMode = viewModel.browseState.mode.rawValue
+            }
+        }
         .onChange(of: viewModel.browseState) {
-            storedMode = viewModel.browseState.mode.rawValue
             viewModel.clearSelectionIfHidden()
         }
         .onChange(of: take.ratings, initial: true) {
@@ -116,7 +130,10 @@ struct RecipeBrowserView: View {
             if !viewModel.grouped.isEmpty && viewModel.visibleGrouped.isEmpty {
                 NoMatchingRecipesView(onClear: clearFilters)
             } else {
-                RecipeResultsList(grouped: viewModel.visibleGrouped, interaction: interaction, onRefresh: refresh)
+                RecipeResultsList(
+                    grouped: viewModel.visibleGrouped, interaction: interaction, onRefresh: refresh,
+                    onBrowseAll: { viewModel.browseState.mode = .all }
+                )
             }
         case .all:
             if viewModel.visibleAvailability.isEmpty, !viewModel.browseState.filter.isEmpty {
