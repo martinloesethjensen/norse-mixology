@@ -68,6 +68,68 @@ final class RunePaletteTests: XCTestCase {
         assertContrast(("noteBar", RunePalette.noteBar), on: surfaces, atLeast: 3)
     }
 
+    // MARK: - App sources agree with the palette
+
+    private var appDirectory: URL {
+        URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent() // NorseMixologyCoreTests
+            .deletingLastPathComponent() // Tests
+            .deletingLastPathComponent() // NorseMixologyCore
+            .deletingLastPathComponent() // Packages
+            .deletingLastPathComponent() // ios
+            .appending(path: "NorseMixology")
+    }
+
+    /// Reads an asset-catalog colour set as (dark, light) 0xRRGGBB values.
+    private func colorSet(_ name: String) throws -> PaletteColor {
+        let url = appDirectory.appending(path: "Assets.xcassets/\(name).colorset/Contents.json")
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any])
+        let entries = try XCTUnwrap(json["colors"] as? [[String: Any]])
+        var light: UInt32?
+        var dark: UInt32?
+        for entry in entries {
+            let components = try XCTUnwrap((entry["color"] as? [String: Any])?["components"] as? [String: String])
+            func channel(_ key: String) throws -> UInt32 {
+                let raw = try XCTUnwrap(components[key])
+                if raw.hasPrefix("0x") { return try XCTUnwrap(UInt32(raw.dropFirst(2), radix: 16)) }
+                let number = try XCTUnwrap(Double(raw))
+                return raw.contains(".") ? UInt32((number * 255).rounded()) : UInt32(number)
+            }
+            let rgb = try channel("red") << 16 | channel("green") << 8 | channel("blue")
+            let appearances = entry["appearances"] as? [[String: String]] ?? []
+            if appearances.contains(where: { $0["value"] == "dark" }) {
+                dark = rgb
+            } else if appearances.isEmpty {
+                light = rgb
+            }
+        }
+        return PaletteColor(dark: try XCTUnwrap(dark, "\(name) has no dark entry"),
+                            light: try XCTUnwrap(light, "\(name) has no default entry"))
+    }
+
+    func testAssetCatalogColoursMatchPalette() throws {
+        XCTAssertEqual(try colorSet("AccentColor"), RunePalette.accent)
+    }
+
+    func testNoNeonLimeLeft() throws {
+        let files = try XCTUnwrap(FileManager.default.enumerator(at: appDirectory, includingPropertiesForKeys: nil))
+        var offenders: [String] = []
+        for case let url as URL in files {
+            let path = url.path
+            if path.contains("/Resources/") { continue } // catalog JSON: "lime" is the fruit
+            guard ["swift", "json"].contains(url.pathExtension),
+                  let text = try? String(contentsOf: url, encoding: .utf8) else { continue }
+            let lower = text.lowercased()
+            if lower.contains("8fe388") || (lower.contains("\"0x8f\"") && lower.contains("\"0xe3\"")) {
+                offenders.append(url.lastPathComponent + " (hex)")
+            }
+            if url.pathExtension == "swift", lower.contains("lime") {
+                offenders.append(url.lastPathComponent + " (\"lime\")")
+            }
+        }
+        XCTAssertEqual(offenders, [])
+    }
+
     func testSwapAndAccentHuesAreApartInDark() {
         let distance = abs(WCAG.hueDegrees(RunePalette.accent.dark) - WCAG.hueDegrees(RunePalette.matchSubstituted.dark))
         XCTAssertGreaterThanOrEqual(distance, 10)
