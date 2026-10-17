@@ -247,6 +247,16 @@ Replaces the five unlabelled "tasting dots". Design canvas: "Tasting Dots" (Clau
 - **UI:** "My take" after Method on every recipe screen (shared by Recipes and Favourites): `StarRatingControl` (44 pt stars, tap the current star to clear, one adjustable VoiceOver control), `TakeNotesEditor` (autosave after 0.6 s, on disappear and when the app goes inactive), `TakePhotoStrip` + `TakePhotoViewer` (delete asks first). Header: read-only stars, and the first photo blurred under a 78% wash of the screen background (backdrop bleeds to screen edges and under status bar; plain with no photo or Reduce Transparency). Cards and rows: read-only stars plus a quiet "Note" / "N photos" line; filter group "My ratings" (Rated, 4 stars or more).
 - **Not built:** camera capture, the made-it log, searching notes, export/share (backup and iCloud is the next roadmap item — everything is in SwiftData so it can follow). BlurHash is deliberately not used for local photos; revisit if the catalog ships remote images.
 
+## Backup file (iOS)
+
+- **Spec:** `docs/superpowers/specs/2026-10-13-backup-design.md`. Roadmap item E, first part; iCloud sync is a later sub-project.
+- **Format:** `.nmbackup` (exported UTType `dev.martinloeseth.norsemixology.backup`) is an AppleArchive (LZFSE) holding `manifest.json` (`BackupManifest`, `formatVersion` 1, ISO-8601 dates with milliseconds, ids kept) plus `photos/<id>.jpg` and `photos/<id>-thumb.jpg`. Contents: cabinet, favourites, shopping list, takes and photos. The taste profile (UserDefaults) is not included.
+- **Writing (`BackupWriter`):** runs off the main actor through its own `ModelContext`s (the view model saves the main context first, so a note mid-autosave is included), and copies photos one at a time. Temporary folders all start with `NorseMixologyBackup-` and are removed after use and at launch.
+- **Reading (`BackupReader`):** everything is validated before the store is touched: not an archive or no manifest → `notABackup`; `formatVersion` > 1 → `newerVersion`; broken manifest, unsafe or missing photo paths, rating outside 0…5 → `damaged`; notes trimmed to 2,000 characters.
+- **Restore (`BackupMerger`):** fills gaps and never deletes. Cabinet and shopping items are matched by ingredient style (shopping also skips anything now in the cabinet), favourites by recipe. For takes the newer `updatedAt` wins; photos are combined by id up to 6 per recipe and the rest reported as skipped. One save, with `rollback()` on failure ("Couldn't restore. Nothing was changed."); restoring twice reports "Already up to date".
+- **UI:** Settings → Backup ("Back up now" → share sheet; "Restore from backup…" → file picker → summary → Restore → result). `BackupPresenter` at the app root presents the sheets and errors and handles `.onOpenURL`, so tapping a backup in Files or AirDrop opens the summary on any tab. `StoreBackupCheck` keeps the SwiftData store included in iCloud/Finder device backups.
+- **Not built:** automatic backups, encryption, choosing what to restore, replace-on-restore, iCloud sync.
+
 ## Design System — "Modern Neon Bar"
 
 Both platforms follow system light/dark appearance (never forced). Same tokens, mapped for each mode:
