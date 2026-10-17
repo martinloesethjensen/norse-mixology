@@ -20,6 +20,7 @@ struct RecipeDetailView: View {
     @Environment(CabinetViewModel.self) private var cabinet
     @Environment(RecipeBrowserViewModel.self) private var browser
     @Environment(ShoppingListViewModel.self) private var shopping
+    @Environment(RecipeTakeViewModel.self) private var take
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var heartIsPulsing = false
     @State private var addingStyle: IngredientStyle?
@@ -50,6 +51,12 @@ struct RecipeDetailView: View {
 
     private var isFavourite: Bool { favourites.isFavourited(recipe.id) }
 
+    /// The first photo's thumbnail. Reading `photoCounts` makes the header refresh when photos change.
+    private var headerPhoto: Data? {
+        _ = take.photoCounts[recipe.id]
+        return take.photos(for: recipe.id).first?.thumbnail
+    }
+
     /// Missing required styles in recipe order, without duplicates.
     private var missingStyles: [IngredientStyle] {
         var seen: Set<UUID> = []
@@ -71,12 +78,21 @@ struct RecipeDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 28) {
-                header
+                VStack(alignment: .leading, spacing: 28) {
+                    header
 
-                if !recipe.description.isEmpty {
-                    Text(recipe.description)
-                        .dsText(.body)
-                        .foregroundStyle(DesignTokens.textSecondary)
+                    if !recipe.description.isEmpty {
+                        Text(recipe.description)
+                            .dsText(.body)
+                            .foregroundStyle(DesignTokens.textSecondary)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(alignment: .top) {
+                    // Bleeds to the screen edges and up under the navigation bar; scrolls away with the content.
+                    TakeHeaderBackground(thumbnail: headerPhoto)
+                        .padding(.horizontal, -20)
+                        .padding(.top, -160)
                 }
 
                 ingredientsSection
@@ -88,6 +104,8 @@ struct RecipeDetailView: View {
                 if !recipe.steps.isEmpty {
                     methodSection
                 }
+
+                MyTakeSection(recipe: recipe)
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 20)
@@ -109,13 +127,29 @@ struct RecipeDetailView: View {
         .sheet(item: $addingStyle) { style in
             AddIngredientConfirmationView(style: style, cabinetViewModel: cabinet, taxonomyStore: taxonomyStore) {
                 addingStyle = nil
-                browser.refresh(cabinet: cabinet.items, taxonomyStore: taxonomyStore)
-                shopping.pruneOwned(cabinetStyleIds: Set(cabinet.items.map(\.ingredientStyleId)))
-                addedCount += 1
-                AccessibilityNotification.Announcement(String(localized: "Added to cabinet")).post()
+                cabinetDidChange(announcement: String(localized: "Added to cabinet"))
             }
         }
         .sensoryFeedback(.success, trigger: addedCount)
+    }
+
+    /// Shared tail of every add-to-cabinet path: re-match, drop shopping items that are now owned, confirm.
+    private func cabinetDidChange(announcement: String) {
+        browser.refresh(cabinet: cabinet.items, taxonomyStore: taxonomyStore)
+        shopping.pruneOwned(cabinetStyleIds: Set(cabinet.items.map(\.ingredientStyleId)))
+        addedCount += 1
+        AccessibilityNotification.Announcement(announcement).post()
+    }
+
+    private func quickAdd(_ style: IngredientStyle) {
+        cabinet.add(style, taxonomyStore: taxonomyStore)
+        cabinetDidChange(announcement: String(localized: "Added to cabinet"))
+    }
+
+    private func addAllMissing() {
+        let added = cabinet.addAll(missingStyles, taxonomyStore: taxonomyStore)
+        guard added > 0 else { return }
+        cabinetDidChange(announcement: String(localized: "Added \(added) ingredients to cabinet"))
     }
 
     private func toggleFavourite() {
@@ -149,6 +183,10 @@ struct RecipeDetailView: View {
                 HStack(spacing: 8) { headerPills }
                 VStack(alignment: .leading, spacing: 8) { headerPills }
             }
+
+            if let stars = take.ratings[recipe.id] {
+                RatingStars(rating: stars, font: .subheadline)
+            }
         }
     }
 
@@ -180,6 +218,14 @@ struct RecipeDetailView: View {
                 .buttonStyle(.bordered)
                 .tint(DesignTokens.accent)
                 .disabled(unlisted.isEmpty)
+
+                Button(action: addAllMissing) {
+                    Label("I have all of these (\(missingStyles.count))", systemImage: "checkmark.circle")
+                        .dsText(.body)
+                        .frame(minHeight: 44)
+                }
+                .buttonStyle(.bordered)
+                .tint(DesignTokens.accent)
             }
             VStack(alignment: .leading, spacing: 16) {
                 ForEach(RecipeAvailability.rows(for: recipe, substitutions: substitutions, cabinetStyleIds: cabinetStyleIds)) { row in
@@ -190,7 +236,8 @@ struct RecipeDetailView: View {
                         ingredient: row.ingredient,
                         status: row.status,
                         substitute: row.substitution,
-                        onAdd: canAdd ? { addingStyle = style } : nil,
+                        onAdd: canAdd ? { if let style { quickAdd(style) } } : nil,
+                        onAddWithBrand: canAdd ? { addingStyle = style } : nil,
                         onAddToList: canAdd ? { if let style { toggleListed(style) } } : nil,
                         isListed: style.map { shopping.contains(styleId: $0.id) } ?? false
                     )

@@ -40,6 +40,17 @@ final class CabinetViewModel {
         }
     }
 
+    /// Adds every style not already owned in one go; returns how many were added.
+    @discardableResult
+    func addAll(_ styles: [IngredientStyle], taxonomyStore: TaxonomyStore) -> Int {
+        let added = CabinetService.addAll(styles, index: taxonomyStore.index, context: modelContext)
+        guard added > 0 else { return 0 }
+        withAnimation(UIAccessibility.isReduceMotionEnabled ? nil : .spring(response: 0.35, dampingFraction: 0.7)) {
+            refresh()
+        }
+        return added
+    }
+
     func remove(_ item: CabinetItem) {
         CabinetService.remove(item, context: modelContext)
         refresh()

@@ -125,12 +125,17 @@ final class HardeningTests: XCTestCase {
         let entries = CatalogAvailability.evaluate(recipes: recipes, cabinet: Array(cabinet), index: index)
         let grouped = GroupedAvailability(entries: entries, profile: profile)
         let filtered = grouped.filtered(by: filter, index: index)
+        let ratings = Dictionary(uniqueKeysWithValues: recipes.prefix(40).map { ($0.id, 4) })
+        var ratingFilter = RecipeFilter()
+        ratingFilter.toggle(.myRating(.fourOrMore))
+        let rated = grouped.filtered(by: ratingFilter, index: index, ratings: ratings)
         _ = RecipeFilterOptions(recipes: recipes, index: index)
         let suggestions = BuyNextRanking.rank(entries: entries, listedStyleIds: [], profile: profile)
         let elapsed = CFAbsoluteTimeGetCurrent() - start
 
         XCTAssertEqual(entries.count, recipes.count)
         XCTAssertFalse(filtered.isEmpty)
+        XCTAssertFalse(rated.isEmpty)
         XCTAssertFalse(suggestions.isEmpty)
         XCTAssertLessThan(elapsed, 0.1, "refresh pipeline over \(recipes.count) recipes took \(Int(elapsed * 1000))ms")
     }

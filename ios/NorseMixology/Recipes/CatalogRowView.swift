@@ -7,6 +7,7 @@ struct CatalogRowView: View {
     var isSelected = false
 
     @Environment(FavouritesViewModel.self) private var favourites
+    @Environment(RecipeTakeViewModel.self) private var take
     @Environment(RecipeBrowserViewModel.self) private var browser
 
     var body: some View {
@@ -23,8 +24,12 @@ struct CatalogRowView: View {
                     .foregroundStyle(statusColor)
                 FlavorNoteChips(profile: browser.noteProfile(for: entry.recipe), taste: browser.tasteProfile)
                     .padding(.top, 4)
+                TakeMarkers(recipeId: entry.recipe.id)
             }
             Spacer(minLength: 8)
+            if let stars = take.ratings[entry.recipe.id] {
+                RatingStars(rating: stars)
+            }
             if favourites.isFavourited(entry.recipe.id) {
                 Image(systemName: "heart.fill")
                     .foregroundStyle(DesignTokens.accent)

@@ -8,6 +8,19 @@ public enum CabinetService {
         context.insert(item)
     }
 
+    /// Adds a brand-less cabinet item for each style not already owned (duplicates in `styles` count once) and returns how many were added.
+    /// Backs "I have all of these" on a recipe's missing ingredients.
+    @discardableResult
+    public static func addAll(_ styles: [IngredientStyle], index: TaxonomyIndex, context: ModelContext, date: Date = Date()) -> Int {
+        var owned = Set(allItems(context: context).map(\.ingredientStyleId))
+        var added = 0
+        for style in styles where owned.insert(style.id).inserted {
+            add(CabinetItem.make(from: style, index: index, date: date), context: context)
+            added += 1
+        }
+        return added
+    }
+
     public static func remove(_ item: CabinetItem, context: ModelContext) {
         context.delete(item)
     }
