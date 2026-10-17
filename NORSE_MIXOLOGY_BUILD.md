@@ -22,7 +22,7 @@ A mixology app where you tell it what's in your cabinet and it finds the cocktai
 - ✅ Two platforms: iOS (SwiftUI) + Android (Jetpack Compose), phone and tablet
 - ✅ Anonymous — no login required
 - ✅ Smart substitution, computed entirely on-device
-- ❌ No backend/network calls in MVP (Rust backend is a later release)
+- ❌ No backend in MVP (Rust backend is a later release). The only network call is the iOS catalog refresh: a read-only, hash-verified download of the static catalog (see Catalog delivery)
 - ❌ No tvOS/macOS in MVP
 - ❌ No user accounts, no social/sharing
 
@@ -34,7 +34,7 @@ A mixology app where you tell it what's in your cabinet and it finds the cocktai
 | Local storage | SwiftData | Room |
 | State management | `@Observable` view models | `ViewModel` + `StateFlow` |
 | Navigation | `TabView`/`NavigationStack`, `NavigationSplitView` at tablet width | Navigation 3, `NavigationSuiteScaffold` |
-| Networking | none in MVP | none in MVP |
+| Networking | catalog refresh only (`CatalogUpdater`, URLSession) | none (bundled seed data) |
 | Min OS | iOS 17 | Android 8.0 / API 26 |
 
 ## Repo Layout
@@ -53,7 +53,7 @@ norse-mixology/
         └── ui/{cabinet,recipes,favourites,theme}/
 ```
 
-Neither platform has a `Networking/`/`networking/` folder — there is no server counterpart in MVP.
+Neither platform has a `Networking/`/`networking/` folder — there is no server counterpart in MVP. The iOS catalog refresh lives in `NorseMixologyCore/Catalog/` and talks only to the static catalog host.
 
 ## Data Model & Matching Engine
 
