@@ -1042,6 +1042,29 @@
             },
             "abvMin": 30.0,
             "abvMax": 42.3
+          },
+          {
+            "id": "34ef9e88-2b4d-573c-8715-8682b87c6bba",
+            "name": "Drambuie",
+            "familyId": "d5e9dc50-5888-5be4-9d7d-1fff4a97bad0",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Drambuie"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.7,
+              "bitterness": 0.0,
+              "smokiness": 0.1,
+              "citrus": 0.0,
+              "floral": 0.2,
+              "spice": 0.3,
+              "herbal": 0.4,
+              "fruity": 0.0,
+              "oaky": 0.3,
+              "abv": 40.0
+            },
+            "abvMin": 40.0,
+            "abvMax": 40.0
           }
         ]
       },
@@ -1167,6 +1190,30 @@
             },
             "abvMin": 16.0,
             "abvMax": 18.0
+          },
+          {
+            "id": "df41d858-6820-5c62-a39b-fdd110a90dad",
+            "name": "Sloe Gin",
+            "familyId": "993b6b19-7877-525a-bfd9-c9cdfdd88185",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Plymouth Sloe Gin",
+              "Hayman's Sloe Gin"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.6,
+              "bitterness": 0.2,
+              "smokiness": 0.0,
+              "citrus": 0.1,
+              "floral": 0.1,
+              "spice": 0.0,
+              "herbal": 0.2,
+              "fruity": 0.7,
+              "oaky": 0.0,
+              "abv": 27.5
+            },
+            "abvMin": 26.0,
+            "abvMax": 29.0
           }
         ]
       },
@@ -1228,6 +1275,30 @@
               "abv": 18.0
             },
             "abvMin": 16.0,
+            "abvMax": 20.0
+          },
+          {
+            "id": "8e97398c-3616-5135-a514-43cbc6929831",
+            "name": "Elderflower Liqueur",
+            "familyId": "5d1e67b3-df1d-5d79-bafe-97f23caef7e8",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "St-Germain",
+              "Fiorente"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.7,
+              "bitterness": 0.0,
+              "smokiness": 0.0,
+              "citrus": 0.2,
+              "floral": 0.8,
+              "spice": 0.0,
+              "herbal": 0.0,
+              "fruity": 0.4,
+              "oaky": 0.0,
+              "abv": 20.0
+            },
+            "abvMin": 20.0,
             "abvMax": 20.0
           }
         ]
@@ -1483,6 +1554,29 @@
             },
             "abvMin": 29.0,
             "abvMax": 32.0
+          },
+          {
+            "id": "c6fb8567-6b8b-5fa2-aa15-7d7684f80c79",
+            "name": "Cynar",
+            "familyId": "7a8d09da-2f46-549a-a745-1144edcfb648",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Cynar"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.4,
+              "bitterness": 0.7,
+              "smokiness": 0.0,
+              "citrus": 0.1,
+              "floral": 0.0,
+              "spice": 0.1,
+              "herbal": 0.6,
+              "fruity": 0.0,
+              "oaky": 0.0,
+              "abv": 16.5
+            },
+            "abvMin": 16.5,
+            "abvMax": 16.5
           }
         ]
       }
