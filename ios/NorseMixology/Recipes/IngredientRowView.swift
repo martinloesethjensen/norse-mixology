@@ -8,8 +8,10 @@ struct IngredientRowView: View {
     let ingredient: RecipeIngredient
     let status: AvailabilityStatus
     let substitute: SubstitutionDetail?
-    /// Set only for a missing *required* ingredient: shows a trailing "add to cabinet" button.
+    /// Set only for a missing *required* ingredient: shows a trailing "I have it" button that adds it to the cabinet in one tap.
     var onAdd: (() -> Void)? = nil
+    /// Opens the brand confirmation instead; offered from the "I have it" button's long-press menu.
+    var onAddWithBrand: (() -> Void)? = nil
     /// Set only for a missing *required* ingredient: toggles it on the shopping list.
     var onAddToList: (() -> Void)? = nil
     var isListed = false
@@ -62,7 +64,13 @@ struct IngredientRowView: View {
                     .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            .accessibilityLabel(Text("Add \(name) to cabinet"))
+            .contextMenu {
+                if let onAddWithBrand {
+                    Button("Add with brand…", systemImage: "tag", action: onAddWithBrand)
+                }
+            }
+            .accessibilityLabel(Text("I have \(name)"))
+            .accessibilityHint(Text("Adds it to your cabinet. Touch and hold for more options."))
         }
         if let onAddToList {
             Button(action: onAddToList) {

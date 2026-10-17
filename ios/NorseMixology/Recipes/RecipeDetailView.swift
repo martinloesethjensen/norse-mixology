@@ -127,13 +127,29 @@ struct RecipeDetailView: View {
         .sheet(item: $addingStyle) { style in
             AddIngredientConfirmationView(style: style, cabinetViewModel: cabinet, taxonomyStore: taxonomyStore) {
                 addingStyle = nil
-                browser.refresh(cabinet: cabinet.items, taxonomyStore: taxonomyStore)
-                shopping.pruneOwned(cabinetStyleIds: Set(cabinet.items.map(\.ingredientStyleId)))
-                addedCount += 1
-                AccessibilityNotification.Announcement(String(localized: "Added to cabinet")).post()
+                cabinetDidChange(announcement: String(localized: "Added to cabinet"))
             }
         }
         .sensoryFeedback(.success, trigger: addedCount)
+    }
+
+    /// Shared tail of every add-to-cabinet path: re-match, drop shopping items that are now owned, confirm.
+    private func cabinetDidChange(announcement: String) {
+        browser.refresh(cabinet: cabinet.items, taxonomyStore: taxonomyStore)
+        shopping.pruneOwned(cabinetStyleIds: Set(cabinet.items.map(\.ingredientStyleId)))
+        addedCount += 1
+        AccessibilityNotification.Announcement(announcement).post()
+    }
+
+    private func quickAdd(_ style: IngredientStyle) {
+        cabinet.add(style, taxonomyStore: taxonomyStore)
+        cabinetDidChange(announcement: String(localized: "Added to cabinet"))
+    }
+
+    private func addAllMissing() {
+        let added = cabinet.addAll(missingStyles, taxonomyStore: taxonomyStore)
+        guard added > 0 else { return }
+        cabinetDidChange(announcement: String(localized: "Added \(added) ingredients to cabinet"))
     }
 
     private func toggleFavourite() {
@@ -202,6 +218,14 @@ struct RecipeDetailView: View {
                 .buttonStyle(.bordered)
                 .tint(DesignTokens.accent)
                 .disabled(unlisted.isEmpty)
+
+                Button(action: addAllMissing) {
+                    Label("I have all of these (\(missingStyles.count))", systemImage: "checkmark.circle")
+                        .dsText(.body)
+                        .frame(minHeight: 44)
+                }
+                .buttonStyle(.bordered)
+                .tint(DesignTokens.accent)
             }
             VStack(alignment: .leading, spacing: 16) {
                 ForEach(RecipeAvailability.rows(for: recipe, substitutions: substitutions, cabinetStyleIds: cabinetStyleIds)) { row in
@@ -212,7 +236,8 @@ struct RecipeDetailView: View {
                         ingredient: row.ingredient,
                         status: row.status,
                         substitute: row.substitution,
-                        onAdd: canAdd ? { addingStyle = style } : nil,
+                        onAdd: canAdd ? { if let style { quickAdd(style) } } : nil,
+                        onAddWithBrand: canAdd ? { addingStyle = style } : nil,
                         onAddToList: canAdd ? { if let style { toggleListed(style) } } : nil,
                         isListed: style.map { shopping.contains(styleId: $0.id) } ?? false
                     )
