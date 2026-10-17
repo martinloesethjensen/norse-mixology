@@ -31,7 +31,7 @@ struct SettingsView: View {
 
                 Section {
                     ForEach(PantryStaple.allCases) { staple in
-                        Toggle(staple.title, isOn: pantryBinding(for: staple))
+                        Toggle(staple.displayName, isOn: pantryBinding(for: staple))
                             .tint(DesignTokens.accent)
                             .listRowBackground(DesignTokens.surface)
                     }
@@ -73,20 +73,6 @@ struct SettingsView: View {
     private var captionText: LocalizedStringKey {
         if !profile.hasCompletedOnboarding { return "You haven't taken the taste quiz yet." }
         return TasteRanking.isActive(profile) ? "Based on your taste quiz answers." : "No preference yet. Retake the quiz to set yours."
-    }
-}
-
-private extension PantryStaple {
-    var title: LocalizedStringKey {
-        switch self {
-        case .sugar: return "Sugar"
-        case .honey: return "Honey"
-        case .eggs: return "Eggs"
-        case .sodaWater: return "Soda water"
-        case .lemonsAndLimes: return "Lemons and limes"
-        case .oranges: return "Oranges"
-        case .salt: return "Salt"
-        }
     }
 }
 

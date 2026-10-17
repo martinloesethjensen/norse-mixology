@@ -13,6 +13,19 @@ public enum PantryStaple: String, CaseIterable, Sendable, Identifiable {
 
     public var id: String { rawValue }
 
+    /// Settings toggle title. Kept in core, like `FlavorAxis.settingsTitle`.
+    public var displayName: String {
+        switch self {
+        case .sugar: return "Sugar"
+        case .honey: return "Honey"
+        case .eggs: return "Eggs"
+        case .sodaWater: return "Soda water"
+        case .lemonsAndLimes: return "Lemons and limes"
+        case .oranges: return "Oranges"
+        case .salt: return "Salt"
+        }
+    }
+
     public var styleNames: [String] {
         switch self {
         case .sugar: return ["Simple Syrup", "Demerara Syrup", "Sugar Rim"]

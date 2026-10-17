@@ -58,6 +58,12 @@ final class PantryTests: XCTestCase {
         XCTAssertEqual(all.count, Set(all).count, "a style belongs to one staple")
     }
 
+    func testEveryStapleHasADistinctDisplayName() {
+        let names = PantryStaple.allCases.map(\.displayName)
+        XCTAssertFalse(names.contains(""))
+        XCTAssertEqual(names.count, Set(names).count)
+    }
+
     func testStyleIdsCoverOnlyTheChosenStaples() throws {
         let index = try catalog().index
         let ids = Pantry.styleIds(for: [.eggs], index: index)
