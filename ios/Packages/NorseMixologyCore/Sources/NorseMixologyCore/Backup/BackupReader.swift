@@ -34,8 +34,15 @@ public struct OpenedBackup: Sendable {
 /// (Backup spec §3, §5). All checks happen before a restore touches the store.
 public enum BackupReader {
     public static func open(_ file: URL,
-                            temporaryDirectory: URL = FileManager.default.temporaryDirectory) throws -> OpenedBackup {
+                            temporaryDirectory: URL = FileManager.default.temporaryDirectory,
+                            availableSpace: (URL) -> Int64? = BackupSpace.available(at:)) throws -> OpenedBackup {
         let fileManager = FileManager.default
+        // Unpacked photos are about the size of the (already compressed) file; allow twice that.
+        let fileSize = Int64((try? file.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0)
+        if let free = availableSpace(temporaryDirectory), free < fileSize * 2 {
+            AppLog.backup.error("Backup refused: not enough free space")
+            throw BackupError.outOfSpace
+        }
         let workspace = temporaryDirectory.appendingPathComponent(BackupWriter.temporaryPrefix + UUID().uuidString,
                                                                   isDirectory: true)
         let folder = workspace.appendingPathComponent("contents", isDirectory: true)

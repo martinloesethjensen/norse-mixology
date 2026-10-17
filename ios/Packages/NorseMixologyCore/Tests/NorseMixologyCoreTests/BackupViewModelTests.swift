@@ -49,7 +49,7 @@ final class BackupViewModelTests: XCTestCase {
         guard case .opened(let summary) = vm.state else { return XCTFail("expected opened, got \(vm.state)") }
         XCTAssertEqual(summary.photos, 2)
 
-        vm.confirmRestore()
+        await vm.confirmRestore()
 
         guard case .finished(let result) = vm.state else { return XCTFail("expected finished, got \(vm.state)") }
         XCTAssertEqual(result.photosAdded, 2)
@@ -57,7 +57,7 @@ final class BackupViewModelTests: XCTestCase {
         XCTAssertEqual(try target.container.mainContext.fetchCount(FetchDescriptor<CabinetItem>()), 2)
 
         await vm.open(url: archive)
-        vm.confirmRestore()
+        await vm.confirmRestore()
         XCTAssertEqual(vm.state, .finished(RestoreResult()), "the same file again changes nothing")
     }
 
@@ -78,7 +78,7 @@ final class BackupViewModelTests: XCTestCase {
         let store = try BackupTestStore()
         let vm = try makeViewModel(store)
 
-        vm.confirmRestore()
+        await vm.confirmRestore()
 
         XCTAssertEqual(vm.state, .idle)
     }
@@ -102,5 +102,64 @@ final class BackupViewModelTests: XCTestCase {
         XCTAssertEqual(try FileManager.default.contentsOfDirectory(atPath: temporary.path).count, 1, "first folder removed")
         vm.cancel()
         XCTAssertEqual(try FileManager.default.contentsOfDirectory(atPath: temporary.path), [])
+    }
+
+    // MARK: - Final review fixes
+
+    func testRestoreUpdatesWhatTheMainContextShows() async throws {
+        let store = try BackupTestStore()
+        let recipeId = UUID()
+        store.container.mainContext.insert(RecipeTake(recipeId: recipeId, recipeName: "A", rating: 2, notes: "old", updatedAt: BackupFixtures.date(1)))
+        try store.container.mainContext.save()
+        XCTAssertEqual(RecipeTakeService.take(for: recipeId, context: store.container.mainContext)?.notes, "old")
+        let manifest = BackupManifest(appVersion: "1.0", createdAt: BackupFixtures.date(0), takes: [
+            TakeRecord(id: UUID(), recipeId: recipeId, recipeName: "A", rating: 5, notes: "new", updatedAt: BackupFixtures.date(50)),
+        ])
+        let archive = try BackupFixtures.archive(manifest: BackupFixtures.encoded(manifest), in: try store.scratch())
+        let vm = try makeViewModel(store)
+
+        await vm.open(url: archive)
+        await vm.confirmRestore()
+
+        XCTAssertEqual(vm.state.restoreResult?.takesUpdated, 1)
+        XCTAssertEqual(RecipeTakeService.take(for: recipeId, context: store.container.mainContext)?.notes, "new")
+    }
+
+    func testAFailedRestoreIsShownInTheRestoreSheetAndChangesNothing() async throws {
+        let source = try BackupTestStore()
+        try BackupFixtures.populate(ModelContext(source.container))
+        let archive = try BackupWriter.write(container: source.container, appVersion: "1.0", temporaryDirectory: try source.scratch())
+        let target = try BackupTestStore()
+        target.container.mainContext.insert(BackupFixtures.cabinetItem(name: "Mine"))
+        let vm = BackupViewModel(container: target.container, appVersion: "1.0", temporaryDirectory: try target.scratch(),
+                                 save: { _ in throw CocoaError(.fileWriteUnknown) })
+
+        await vm.open(url: archive)
+        await vm.confirmRestore()
+
+        XCTAssertEqual(vm.state, .restoreFailed(.restoreFailed))
+        XCTAssertEqual(try target.container.mainContext.fetch(FetchDescriptor<CabinetItem>()).map(\.displayName), ["Mine"],
+                       "the user's own item is kept; nothing from the backup")
+        XCTAssertEqual(try ModelContext(target.container).fetchCount(FetchDescriptor<RecipePhoto>()), 0)
+    }
+
+    func testAFileOpenedFromFilesIsRemovedFromTheInbox() async throws {
+        let store = try BackupTestStore()
+        let inbox = try store.scratch().appendingPathComponent("Documents/Inbox", isDirectory: true)
+        try FileManager.default.createDirectory(at: inbox, withIntermediateDirectories: true)
+        let valid = BackupFixtures.validManifest()
+        let made = try BackupFixtures.archive(manifest: BackupFixtures.encoded(valid.manifest), files: valid.files, in: try store.scratch())
+        let copy = inbox.appendingPathComponent("Norse Mixology Backup 2026-10-17.nmbackup")
+        try FileManager.default.copyItem(at: made, to: copy)
+        let junk = inbox.appendingPathComponent("junk.nmbackup")
+        try Data("x".utf8).write(to: junk)
+        let vm = try makeViewModel(store)
+
+        await vm.open(url: copy)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: copy.path))
+        vm.cancel()
+        await vm.open(url: junk)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: junk.path), "removed even when refused")
+        XCTAssertTrue(FileManager.default.fileExists(atPath: made.path), "files outside the Inbox are never removed")
     }
 }

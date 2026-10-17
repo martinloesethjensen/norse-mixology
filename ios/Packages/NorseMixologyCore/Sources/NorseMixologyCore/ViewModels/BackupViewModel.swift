@@ -16,7 +16,15 @@ public final class BackupViewModel {
         case opened(BackupSummary)
         case restoring
         case finished(RestoreResult)
+        /// Before or outside a restore (making a backup, opening a file): shown as an alert.
         case failed(BackupError)
+        /// The restore itself failed: shown inside the restore sheet, which is already up.
+        case restoreFailed(BackupError)
+
+        public var restoreResult: RestoreResult? {
+            if case .finished(let result) = self { return result }
+            return nil
+        }
     }
 
     public private(set) var state: State = .idle
@@ -25,14 +33,18 @@ public final class BackupViewModel {
     private let appVersion: String
     private let temporaryDirectory: URL
     private let onRestored: @MainActor () -> Void
+    private let save: @Sendable (ModelContext) throws -> Void
     private var opened: OpenedBackup?
 
+    /// `save` is injectable so tests can make the restore's save fail.
     public init(container: ModelContainer, appVersion: String,
                 temporaryDirectory: URL = FileManager.default.temporaryDirectory,
+                save: @escaping @Sendable (ModelContext) throws -> Void = { try $0.save() },
                 onRestored: @escaping @MainActor () -> Void = {}) {
         self.container = container
         self.appVersion = appVersion
         self.temporaryDirectory = temporaryDirectory
+        self.save = save
         self.onRestored = onRestored
     }
 
@@ -74,20 +86,27 @@ public final class BackupViewModel {
         } catch {
             state = .failed(BackupError.from(error, otherwise: .notABackup))
         }
+        Self.removeIfInInbox(url)
     }
 
-    public func confirmRestore() {
+    /// Merges into a private context off the main actor: the main thread stays
+    /// responsive, and a failed restore rolls back only its own context — never
+    /// the user's pending edits in the main context.
+    public func confirmRestore() async {
         guard case .opened = state, let backup = opened else { return }
         state = .restoring
         try? container.mainContext.save()
+        let container = container, save = save
         do {
-            let result = try BackupMerger.merge(backup, into: container.mainContext)
+            let result = try await Task.detached(priority: .userInitiated) {
+                try BackupMerger.merge(backup, into: ModelContext(container), save: save)
+            }.value
             closeOpened()
             state = .finished(result)
             onRestored()
         } catch {
             closeOpened()
-            state = .failed(BackupError.from(error, otherwise: .restoreFailed))
+            state = .restoreFailed(BackupError.from(error, otherwise: .restoreFailed))
         }
     }
 
@@ -103,6 +122,14 @@ public final class BackupViewModel {
         if case .ready(let url) = state {
             try? FileManager.default.removeItem(at: url.deletingLastPathComponent())
         }
+    }
+
+    /// Files opened from Files or AirDrop are copied into `Documents/Inbox`; remove the copy.
+    private static func removeIfInInbox(_ url: URL) {
+        let components = url.standardizedFileURL.pathComponents
+        guard components.count >= 3, components[components.count - 2] == "Inbox",
+              components[components.count - 3] == "Documents" else { return }
+        try? FileManager.default.removeItem(at: url)
     }
 
     private func closeOpened() {

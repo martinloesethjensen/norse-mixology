@@ -106,4 +106,20 @@ final class BackupWriterTests: XCTestCase {
         XCTAssertEqual(try file.resourceValues(forKeys: [.isExcludedFromBackupKey]).isExcludedFromBackup, false)
         XCTAssertFalse(StoreBackupCheck.ensureIncluded(file), "nothing to fix the second time")
     }
+
+    func testAFailedWriteIsOutOfSpaceOnlyWhenTheDiskIsNearlyFull() throws {
+        let store = try BackupTestStore()
+        // A file where the temporary directory should be makes every write fail.
+        let blocked = try store.scratch().appendingPathComponent("not-a-directory")
+        try Data("x".utf8).write(to: blocked)
+
+        XCTAssertThrowsError(try BackupWriter.write(container: store.container, appVersion: "1.0", temporaryDirectory: blocked,
+                                                    availableSpace: { _ in 1_000 })) { error in
+            XCTAssertEqual(error as? BackupError, .outOfSpace)
+        }
+        XCTAssertThrowsError(try BackupWriter.write(container: store.container, appVersion: "1.0", temporaryDirectory: blocked,
+                                                    availableSpace: { _ in 50_000_000_000 })) { error in
+            XCTAssertEqual(error as? BackupError, .exportFailed)
+        }
+    }
 }

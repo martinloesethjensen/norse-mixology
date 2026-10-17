@@ -243,6 +243,9 @@
     "Couldn't create the preview data container" : {
 
     },
+    "Couldn't restore" : {
+
+    },
     "Couldn't restore. Nothing was changed." : {
 
     },

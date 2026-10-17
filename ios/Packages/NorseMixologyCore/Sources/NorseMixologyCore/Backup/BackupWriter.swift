@@ -13,7 +13,8 @@ public enum BackupWriter {
     public static let temporaryPrefix = "NorseMixologyBackup-"
 
     public static func write(container: ModelContainer, appVersion: String, now: Date = Date(),
-                             temporaryDirectory: URL = FileManager.default.temporaryDirectory) throws -> URL {
+                             temporaryDirectory: URL = FileManager.default.temporaryDirectory,
+                             availableSpace: (URL) -> Int64? = BackupSpace.available(at:)) throws -> URL {
         let fileManager = FileManager.default
         let workspace = temporaryDirectory.appendingPathComponent(temporaryPrefix + UUID().uuidString, isDirectory: true)
         let staging = workspace.appendingPathComponent("staging", isDirectory: true)
@@ -28,7 +29,11 @@ public enum BackupWriter {
         } catch {
             try? fileManager.removeItem(at: workspace)
             AppLog.backup.error("Backup failed: \(String(describing: error), privacy: .public)")
-            throw BackupError.from(error, otherwise: .exportFailed)
+            var mapped = BackupError.from(error, otherwise: .exportFailed)
+            if mapped == .exportFailed, let free = availableSpace(temporaryDirectory), free < BackupSpace.nearlyFull {
+                mapped = .outOfSpace
+            }
+            throw mapped
         }
     }
 

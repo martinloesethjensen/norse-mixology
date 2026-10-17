@@ -17,6 +17,8 @@ struct RestoreSummarySheet: View {
                             .frame(maxWidth: .infinity)
                     case .finished(let result):
                         resultView(result)
+                    case .restoreFailed:
+                        failedView
                     default:
                         EmptyView()
                     }
@@ -46,7 +48,7 @@ struct RestoreSummarySheet: View {
             Text("Nothing on this phone will be deleted.")
                 .dsText(.body)
                 .foregroundStyle(DesignTokens.textSecondary)
-            primaryButton("Restore") { backup.confirmRestore() }
+            primaryButton("Restore") { Task { await backup.confirmRestore() } }
             secondaryButton("Cancel") { backup.cancel() }
         }
     }
@@ -80,6 +82,27 @@ struct RestoreSummarySheet: View {
             }
             primaryButton("Done") { backup.cancel() }
         }
+    }
+
+    /// Shown here rather than as an alert: the sheet is already up, and an alert
+    /// can't present while it is dismissing.
+    private var failedView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Couldn't restore")
+                .dsText(.heading)
+                .foregroundStyle(DesignTokens.textPrimary)
+            Text(failureMessage)
+                .dsText(.body)
+                .foregroundStyle(DesignTokens.textSecondary)
+            primaryButton("Done") { backup.cancel() }
+        }
+    }
+
+    private var failureMessage: LocalizedStringKey {
+        guard case .restoreFailed(let error) = backup.state, error == .outOfSpace else {
+            return "Couldn't restore. Nothing was changed."
+        }
+        return "There isn't enough free space. Free some space and try again."
     }
 
     private func line(_ text: LocalizedStringKey) -> some View {

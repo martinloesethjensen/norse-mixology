@@ -100,4 +100,16 @@ final class BackupReaderTests: XCTestCase {
 
         XCTAssertEqual(try FileManager.default.contentsOfDirectory(atPath: temporary.path), [])
     }
+
+    func testTooLittleFreeSpaceIsOutOfSpace() throws {
+        let store = try BackupTestStore()
+        let valid = BackupFixtures.validManifest()
+        let archive = try BackupFixtures.archive(manifest: BackupFixtures.encoded(valid.manifest), files: valid.files, in: try store.scratch())
+        let temporary = try store.scratch()
+
+        XCTAssertThrowsError(try BackupReader.open(archive, temporaryDirectory: temporary, availableSpace: { _ in 10 })) { error in
+            XCTAssertEqual(error as? BackupError, .outOfSpace)
+        }
+        XCTAssertEqual(try FileManager.default.contentsOfDirectory(atPath: temporary.path), [])
+    }
 }

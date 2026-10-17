@@ -28,12 +28,12 @@ struct NorseMixologyApp: App {
             _cabinetViewModel = State(initialValue: cabinet)
             _shoppingListViewModel = State(initialValue: shopping)
             _recipeTakeViewModel = State(initialValue: takes)
-            _backupViewModel = State(initialValue: BackupViewModel(container: container, appVersion: Self.appVersion) {
+            _backupViewModel = State(initialValue: BackupViewModel(container: container, appVersion: Self.appVersion, onRestored: {
                 favourites.refresh()
                 cabinet.refresh()
                 shopping.refresh()
                 takes.refresh()
-            })
+            }))
             BackupWriter.cleanUpStaleFiles()
             if let storeURL = container.configurations.first?.url {
                 StoreBackupCheck.ensureIncluded(storeURL)

@@ -39,7 +39,7 @@ struct BackupPresenter: ViewModifier {
         Binding(
             get: {
                 switch backup.state {
-                case .opened, .restoring, .finished: return true
+                case .opened, .restoring, .finished, .restoreFailed: return true
                 default: return false
                 }
             },
