@@ -72,6 +72,7 @@ struct ContentView: View {
             .environment(CabinetViewModel(modelContext: container.mainContext))
             .environment(ShoppingListViewModel(modelContext: container.mainContext))
             .environment(RecipeTakeViewModel(modelContext: container.mainContext))
+            .environment(BackupViewModel(container: container, appVersion: "preview"))
             .modelContainer(container)
     } else {
         Text("Couldn't create the preview data container")

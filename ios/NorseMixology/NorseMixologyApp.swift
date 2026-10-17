@@ -9,6 +9,7 @@ struct NorseMixologyApp: App {
     @State private var cabinetViewModel: CabinetViewModel
     @State private var shoppingListViewModel: ShoppingListViewModel
     @State private var recipeTakeViewModel: RecipeTakeViewModel
+    @State private var backupViewModel: BackupViewModel
     private let modelContainer: ModelContainer
 
     @State private var showOnboardingInitially: Bool
@@ -19,10 +20,24 @@ struct NorseMixologyApp: App {
         do {
             let container = try ModelContainer(for: CabinetItem.self, FavouriteRecipe.self, ShoppingItem.self, RecipeTake.self, RecipePhoto.self)
             modelContainer = container
-            _favouritesViewModel = State(initialValue: FavouritesViewModel(modelContext: container.mainContext))
-            _cabinetViewModel = State(initialValue: CabinetViewModel(modelContext: container.mainContext))
-            _shoppingListViewModel = State(initialValue: ShoppingListViewModel(modelContext: container.mainContext))
-            _recipeTakeViewModel = State(initialValue: RecipeTakeViewModel(modelContext: container.mainContext))
+            let favourites = FavouritesViewModel(modelContext: container.mainContext)
+            let cabinet = CabinetViewModel(modelContext: container.mainContext)
+            let shopping = ShoppingListViewModel(modelContext: container.mainContext)
+            let takes = RecipeTakeViewModel(modelContext: container.mainContext)
+            _favouritesViewModel = State(initialValue: favourites)
+            _cabinetViewModel = State(initialValue: cabinet)
+            _shoppingListViewModel = State(initialValue: shopping)
+            _recipeTakeViewModel = State(initialValue: takes)
+            _backupViewModel = State(initialValue: BackupViewModel(container: container, appVersion: Self.appVersion) {
+                favourites.refresh()
+                cabinet.refresh()
+                shopping.refresh()
+                takes.refresh()
+            })
+            BackupWriter.cleanUpStaleFiles()
+            if let storeURL = container.configurations.first?.url {
+                StoreBackupCheck.ensureIncluded(storeURL)
+            }
             _showOnboardingInitially = State(initialValue: Self.resolveShowOnboarding(context: container.mainContext))
         } catch {
             fatalError("Failed to create the SwiftData container: \(error)")
@@ -32,11 +47,13 @@ struct NorseMixologyApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(showOnboardingInitially: showOnboardingInitially)
+                .backupPresenter()
                 .environment(taxonomyStore)
                 .environment(favouritesViewModel)
                 .environment(cabinetViewModel)
                 .environment(shoppingListViewModel)
                 .environment(recipeTakeViewModel)
+                .environment(backupViewModel)
                 .task {
                     await loadCatalog()
                 }
@@ -48,6 +65,10 @@ struct NorseMixologyApp: App {
     /// cabinet or favourite data (but never completed the quiz, since it
     /// predates this phase) silently gets a neutral *completed* profile
     /// instead — only genuinely fresh installs see the onboarding flow.
+    private static var appVersion: String {
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "unknown"
+    }
+
     private static func resolveShowOnboarding(context: ModelContext) -> Bool {
         let profile = TasteProfileStore.load()
         guard !profile.hasCompletedOnboarding else { return false }

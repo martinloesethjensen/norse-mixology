@@ -18,6 +18,25 @@ targets:
     deploymentTarget: "17.0"
     sources:
       - path: NorseMixology
+    info:
+      path: NorseMixology/Info.plist
+      properties:
+        LSSupportsOpeningDocumentsInPlace: false
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Norse Mixology Backup
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Owner
+            LSItemContentTypes:
+              - dev.martinloeseth.norsemixology.backup
+        UTExportedTypeDeclarations:
+          - UTTypeIdentifier: dev.martinloeseth.norsemixology.backup
+            UTTypeDescription: Norse Mixology Backup
+            UTTypeConformsTo:
+              - public.data
+              - public.archive
+            UTTypeTagSpecification:
+              public.filename-extension:
+                - nmbackup
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.martinloeseth.NorseMixology
