@@ -6,4 +6,7 @@ public enum AppLog {
 
     /// Bundled taxonomy / recipe catalog loading.
     public static let catalog = Logger(subsystem: subsystem, category: "catalog")
+
+    /// Backup export and restore. Never logs note contents.
+    public static let backup = Logger(subsystem: subsystem, category: "backup")
 }

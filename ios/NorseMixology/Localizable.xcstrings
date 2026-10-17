@@ -17,9 +17,6 @@
     "%@ glass" : {
 
     },
-    "%@ is on your shopping list" : {
-
-    },
     "%@, mild" : {
 
     },
@@ -46,6 +43,12 @@
 
     },
     "%lld active" : {
+
+    },
+    "%lld cabinet items" : {
+
+    },
+    "%lld favourites" : {
 
     },
     "%lld of %lld" : {
@@ -87,6 +90,22 @@
     "%lld photos is the limit" : {
 
     },
+    "%lld photos skipped (%lld-photo limit)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld photos skipped (%2$lld-photo limit)"
+          }
+        }
+      }
+    },
+    "%lld ratings and notes" : {
+
+    },
+    "%lld shopping list items" : {
+
+    },
     "+%lld more" : {
 
     },
@@ -122,12 +141,6 @@
     "Add all missing to shopping list (%lld)" : {
 
     },
-    "Add all to shopping list" : {
-
-    },
-    "Add missing ingredients from a recipe and they'll show up here." : {
-
-    },
     "Add photo" : {
 
     },
@@ -143,7 +156,22 @@
     "Add with brand…" : {
 
     },
+    "Added %lld cabinet items" : {
+
+    },
+    "Added %lld favourites" : {
+
+    },
     "Added %lld ingredients to cabinet" : {
+
+    },
+    "Added %lld photos" : {
+
+    },
+    "Added %lld ratings and notes" : {
+
+    },
+    "Added %lld shopping list items" : {
 
     },
     "Added to cabinet" : {
@@ -156,6 +184,18 @@
 
     },
     "Already in your cabinet" : {
+
+    },
+    "Already up to date" : {
+
+    },
+    "Back up now" : {
+
+    },
+    "Backup" : {
+
+    },
+    "Backup from %@" : {
 
     },
     "Base spirit" : {
@@ -206,7 +246,16 @@
     "Couldn't add that photo" : {
 
     },
+    "Couldn't create the backup. Try again." : {
+
+    },
     "Couldn't create the preview data container" : {
+
+    },
+    "Couldn't restore" : {
+
+    },
+    "Couldn't restore. Nothing was changed." : {
 
     },
     "Couldn't save your changes" : {
@@ -233,6 +282,9 @@
     "Double tap to choose" : {
 
     },
+    "Everything in this backup is already on this phone." : {
+
+    },
     "Example brands: %@" : {
 
     },
@@ -245,16 +297,10 @@
     "Favourites" : {
 
     },
-    "Fewest missing first" : {
-
-    },
     "Filters" : {
 
     },
     "Find Recipes" : {
-
-    },
-    "Flavour profile" : {
 
     },
     "Gets %lld recipes closer" : {
@@ -266,22 +312,13 @@
     "Glass" : {
 
     },
-    "Got %@" : {
-
-    },
     "Hides the substitution note" : {
 
     },
     "I have %@" : {
 
     },
-    "I have all of these" : {
-
-    },
     "I have all of these (%lld)" : {
-
-    },
-    "I have it" : {
 
     },
     "Loading recipes" : {
@@ -305,25 +342,16 @@
     "Missing 3+" : {
 
     },
-    "Missing ingredients" : {
-
-    },
     "Mode" : {
 
     },
     "Moved %@ to your cabinet" : {
 
     },
-    "Moves it to your cabinet" : {
-
-    },
     "My ratings" : {
 
     },
     "My take" : {
-
-    },
-    "Need to buy" : {
 
     },
     "Needs %@" : {
@@ -365,22 +393,22 @@
     "Notes" : {
 
     },
+    "Nothing on this phone will be deleted." : {
+
+    },
     "Nothing to buy" : {
 
     },
     "OK" : {
 
     },
-    "On list" : {
-
-    },
     "One bottle away" : {
 
     },
-    "Opens the photo" : {
+    "Opening backup…" : {
 
     },
-    "Optional" : {
+    "Opens the photo" : {
 
     },
     "Photo %lld of %lld" : {
@@ -394,6 +422,9 @@
       }
     },
     "Pick a cocktail from the list to see how to make it." : {
+
+    },
+    "Preparing backup…" : {
 
     },
     "Ready" : {
@@ -426,6 +457,21 @@
     "Remove from favourites" : {
 
     },
+    "Restore" : {
+
+    },
+    "Restore backup" : {
+
+    },
+    "Restore from backup…" : {
+
+    },
+    "Restored" : {
+
+    },
+    "Restoring…" : {
+
+    },
     "Retake Quiz" : {
 
     },
@@ -438,16 +484,10 @@
     "Search ingredients or brands" : {
 
     },
-    "Search recipes or ingredients" : {
-
-    },
     "Select a Recipe" : {
 
     },
     "Settings" : {
-
-    },
-    "Shopping" : {
 
     },
     "Shopping list (%lld)" : {
@@ -466,6 +506,9 @@
 
     },
     "Skips the taste quiz and uses a neutral profile" : {
+
+    },
+    "Something went wrong." : {
 
     },
     "Step %lld: %@" : {
@@ -496,6 +539,18 @@
     "The recipe catalog couldn't be loaded. Reinstalling the app will restore it." : {
 
     },
+    "There isn't enough free space. Free some space and try again." : {
+
+    },
+    "This backup is damaged and can't be restored." : {
+
+    },
+    "This backup was made by a newer version of the app. Update the app to restore it." : {
+
+    },
+    "This file isn't a Norse Mixology backup." : {
+
+    },
     "This ingredient" : {
 
     },
@@ -521,6 +576,9 @@
 
     },
     "Unknown spirit" : {
+
+    },
+    "Updated %lld ratings and notes" : {
 
     },
     "Using %@" : {
@@ -572,6 +630,9 @@
     "Your device couldn't save this change right now. It will be saved automatically when it can — check that your device has free space." : {
 
     },
+    "Your iPhone's own iCloud backup also includes this app's data. Use this to keep a copy you control or to move to a new phone." : {
+
+    },
     "Your list (%lld)" : {
 
     },
@@ -588,9 +649,6 @@
 
     },
     "🔍 Worth Exploring" : {
-
-    },
-    "🛒 Missing Ingredients" : {
 
     }
   },
