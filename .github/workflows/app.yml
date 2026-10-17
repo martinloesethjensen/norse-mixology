@@ -34,21 +34,21 @@ jobs:
       - name: Generate project
         working-directory: ios
         run: xcodegen generate
-      # Informational for now: reports, but doesn't fail on, a committed project.pbxproj
-      # that differs from what project.yml generates (a stale file can silently leave a
-      # new Swift file out of the target). Make it fail once main is known to be clean.
+      # A committed project.pbxproj that differs from what project.yml generates can
+      # silently leave a new Swift file out of the target, so drift fails the build.
       - name: Committed project matches project.yml
         run: |
           if git diff --quiet -- ios/NorseMixology.xcodeproj; then
             echo "Committed project is up to date with project.yml." >> "$GITHUB_STEP_SUMMARY"
           else
-            echo "::warning title=Project drift::ios/NorseMixology.xcodeproj differs from what 'xcodegen generate' produces. Run it and commit the result."
+            echo "::error title=Project drift::ios/NorseMixology.xcodeproj differs from what 'xcodegen generate' produces. Run 'xcodegen generate' in ios/ and commit the result."
             {
               echo "### Project drift"
               echo '```'
               git diff --stat -- ios/NorseMixology.xcodeproj
               echo '```'
             } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
           fi
       - name: Build for the simulator
         working-directory: ios
