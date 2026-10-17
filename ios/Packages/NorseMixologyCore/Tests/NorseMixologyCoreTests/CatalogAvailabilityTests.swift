@@ -38,7 +38,7 @@ final class CatalogAvailabilityTests: XCTestCase {
         let cabinets: [[CabinetItem]] = [
             [],
             try cabinet("London Dry Gin", "Bitter Aperitif", "Sweet/Rosso Vermouth"),
-            try cabinet("London Dry Gin", "Lime Juice", "Raspberry Liqueur"),
+            try cabinet("London Dry Gin", "Lime Juice", "Maraschino Liqueur"),
             try cabinet("Rye Whiskey", "Angostura Bitters"),
             Array(first30),
         ]
@@ -62,7 +62,7 @@ final class CatalogAvailabilityTests: XCTestCase {
 
     func testLastWordIsMissingOnlyGreenChartreuse() throws {
         let entries = CatalogAvailability.evaluate(
-            recipes: recipes, cabinet: try cabinet("London Dry Gin", "Lime Juice", "Raspberry Liqueur"), index: index)
+            recipes: recipes, cabinet: try cabinet("London Dry Gin", "Lime Juice", "Maraschino Liqueur"), index: index)
         let lastWord = try entry("Last Word", in: entries)
         XCTAssertNil(lastWord.match)
         XCTAssertEqual(lastWord.missing.map(\.name), ["Green Chartreuse"])
@@ -72,7 +72,7 @@ final class CatalogAvailabilityTests: XCTestCase {
     func testAddingTheMissingIngredientMovesTheRecipeToReady() throws {
         let entries = CatalogAvailability.evaluate(
             recipes: recipes,
-            cabinet: try cabinet("London Dry Gin", "Lime Juice", "Raspberry Liqueur", "Green Chartreuse"),
+            cabinet: try cabinet("London Dry Gin", "Lime Juice", "Maraschino Liqueur", "Green Chartreuse"),
             index: index)
         let lastWord = try entry("Last Word", in: entries)
         XCTAssertNotNil(lastWord.match)
