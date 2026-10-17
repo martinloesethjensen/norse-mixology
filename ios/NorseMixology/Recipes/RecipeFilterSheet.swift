@@ -17,6 +17,7 @@ struct RecipeFilterSheet: View {
                 section("Glass", options.glassTypes.map { RecipeFilter.Criterion.glass($0) })
                 section("Method", options.methods.map { RecipeFilter.Criterion.method($0) })
                 section("Difficulty", options.difficulties.map { RecipeFilter.Criterion.difficulty($0) })
+                section("My ratings", [RecipeFilter.Criterion.myRating(.rated), .myRating(.fourOrMore)])
             }
             .dsListBackground()
             .navigationTitle("Filters")

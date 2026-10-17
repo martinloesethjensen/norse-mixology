@@ -63,7 +63,7 @@ struct ContentView: View {
 
 #Preview {
     if let container = try? ModelContainer(
-        for: CabinetItem.self, FavouriteRecipe.self, ShoppingItem.self,
+        for: CabinetItem.self, FavouriteRecipe.self, ShoppingItem.self, RecipeTake.self, RecipePhoto.self,
         configurations: ModelConfiguration(isStoredInMemoryOnly: true)
     ) {
         ContentView(showOnboardingInitially: false)
@@ -71,6 +71,7 @@ struct ContentView: View {
             .environment(FavouritesViewModel(modelContext: container.mainContext))
             .environment(CabinetViewModel(modelContext: container.mainContext))
             .environment(ShoppingListViewModel(modelContext: container.mainContext))
+            .environment(RecipeTakeViewModel(modelContext: container.mainContext))
             .modelContainer(container)
     } else {
         Text("Couldn't create the preview data container")

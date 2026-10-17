@@ -54,4 +54,59 @@ final class CabinetServiceTests: XCTestCase {
         let items = CabinetService.allItems(context: context)
         XCTAssertEqual(items.map(\.category), ["Fruit", "Spirit"])
     }
+
+    // MARK: - addAll (recipe "I have all of these")
+
+    private func taxonomyIndex() throws -> TaxonomyIndex {
+        TaxonomyIndex(categories: try IngredientTaxonomy.loadCategories(from: CatalogFixtures.taxonomyData()))
+    }
+
+    private func style(_ name: String, in index: TaxonomyIndex) throws -> IngredientStyle {
+        try XCTUnwrap(index.stylesById.values.first { $0.name == name }, "no style named \(name)")
+    }
+
+    func testAddAllInsertsEveryStyleAndReturnsTheCount() throws {
+        let context = try makeInMemoryContext()
+        let index = try taxonomyIndex()
+        let styles = [try style("London Dry Gin", in: index), try style("Lime Juice", in: index)]
+
+        let added = CabinetService.addAll(styles, index: index, context: context)
+
+        XCTAssertEqual(added, 2)
+        let items = CabinetService.allItems(context: context)
+        XCTAssertEqual(Set(items.map(\.ingredientStyleId)), Set(styles.map(\.id)))
+        XCTAssertTrue(items.allSatisfy { $0.brand == nil }, "bulk add never invents a brand")
+    }
+
+    func testAddAllSkipsStylesAlreadyOwned() throws {
+        let context = try makeInMemoryContext()
+        let index = try taxonomyIndex()
+        let gin = try style("London Dry Gin", in: index)
+        let lime = try style("Lime Juice", in: index)
+        CabinetService.add(CabinetItem.make(from: gin, index: index, brand: "Tanqueray"), context: context)
+
+        let added = CabinetService.addAll([gin, lime], index: index, context: context)
+
+        XCTAssertEqual(added, 1)
+        let items = CabinetService.allItems(context: context)
+        XCTAssertEqual(items.count, 2)
+        XCTAssertEqual(items.first { $0.ingredientStyleId == gin.id }?.brand, "Tanqueray", "the existing branded item is untouched")
+    }
+
+    func testAddAllIgnoresDuplicatesInTheInput() throws {
+        let context = try makeInMemoryContext()
+        let index = try taxonomyIndex()
+        let gin = try style("London Dry Gin", in: index)
+
+        XCTAssertEqual(CabinetService.addAll([gin, gin], index: index, context: context), 1)
+        XCTAssertEqual(CabinetService.allItems(context: context).count, 1)
+    }
+
+    func testAddAllWithNothingToAddReturnsZero() throws {
+        let context = try makeInMemoryContext()
+        let index = try taxonomyIndex()
+
+        XCTAssertEqual(CabinetService.addAll([], index: index, context: context), 0)
+        XCTAssertTrue(CabinetService.allItems(context: context).isEmpty)
+    }
 }
