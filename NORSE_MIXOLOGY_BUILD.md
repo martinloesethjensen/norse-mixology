@@ -249,6 +249,13 @@ Replaces the five unlabelled "tasting dots". Design canvas: "Tasting Dots" (Clau
 - **UI:** "My take" after Method on every recipe screen (shared by Recipes and Favourites): `StarRatingControl` (44 pt stars, tap the current star to clear, one adjustable VoiceOver control), `TakeNotesEditor` (autosave after 0.6 s, on disappear and when the app goes inactive), `TakePhotoStrip` + `TakePhotoViewer` (delete asks first). Header: read-only stars, and the first photo blurred under a 78% wash of the screen background (backdrop bleeds to screen edges and under status bar; plain with no photo or Reduce Transparency). Cards and rows: read-only stars plus a quiet "Note" / "N photos" line; filter group "My ratings" (Rated, 4 stars or more).
 - **Not built:** camera capture, the made-it log, searching notes, export/share (backup and iCloud is the next roadmap item — everything is in SwiftData so it can follow). BlurHash is deliberately not used for local photos; revisit if the catalog ships remote images.
 
+## Pantry staples (iOS)
+
+- **Spec:** `docs/superpowers/specs/2026-10-06-pantry-staples-design.md`. Issue #5.
+- **A setting, not inventory.** `PantryStore` keeps the chosen `PantryStaple`s in `UserDefaults`. Nothing is stored as a `CabinetItem`, so the Cabinet screen, the shopping list and the SwiftData schema are untouched.
+- **Additive.** `Pantry.effectiveCabinet` appends an unsaved `CabinetItem` per covered style, and `RecipeBrowserViewModel.refresh(cabinet:)` and the Favourites detail match against that. The engine, `CatalogAvailability` and `BuyNextRanking` don't change; Buy next can't suggest a staple because staples are never `missing`.
+- **Any new matching entry point must go through `Pantry.effectiveCabinet`**, or pantry users will see recipes disagree between screens.
+
 ## Design System — "Rune"
 
 Spec: `docs/superpowers/specs/2026-10-17-rune-identity-design.md` (mockups alongside). The mark is the rune ᛉ (Algiz) drawn as a stemmed glass, in brass on oxblood. Both platforms follow system light/dark appearance (never forced). Same tokens, mapped for each mode:

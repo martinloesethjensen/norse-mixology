@@ -4,10 +4,12 @@ import NorseMixologyCore
 /// The Settings tab: shows the saved taste profile read-only and offers
 /// "Retake Quiz", which presents `TasteOnboardingView` as a sheet.
 /// Cancelling the sheet leaves the stored profile untouched; completing it
-/// overwrites the profile shown here.
+/// overwrites the profile shown here. Also holds the pantry staples, which
+/// recipes treat as always in stock (Pantry Staples spec §3).
 struct SettingsView: View {
     @State private var profile = TasteProfileStore.load()
     @State private var isRetakingQuiz = false
+    @State private var pantry = PantryStore.load()
 
     var body: some View {
         NavigationStack {
@@ -26,18 +28,46 @@ struct SettingsView: View {
                     Button("Retake Quiz") { isRetakingQuiz = true }
                         .listRowBackground(DesignTokens.surface)
                 }
+
+                Section {
+                    ForEach(PantryStaple.allCases) { staple in
+                        Toggle(staple.displayName, isOn: pantryBinding(for: staple))
+                            .tint(DesignTokens.accent)
+                            .listRowBackground(DesignTokens.surface)
+                    }
+                } header: {
+                    Text("Pantry")
+                } footer: {
+                    Text("Recipes treat these as always in stock. They stay out of your cabinet and are never suggested to buy.")
+                        .dsText(.body)
+                        .foregroundStyle(DesignTokens.textSecondary)
+                }
             }
             .scrollContentBackground(.hidden)
             .dsScreenBackground()
             .navigationTitle("Settings")
         }
-        .onAppear { profile = TasteProfileStore.load() }
+        .onAppear {
+            profile = TasteProfileStore.load()
+            pantry = PantryStore.load()
+        }
         .sheet(isPresented: $isRetakingQuiz) {
             TasteOnboardingView(isPresentedAsRetake: true) { updated in
                 profile = updated
                 isRetakingQuiz = false
             }
         }
+    }
+
+    /// Saves on every change; the Recipes and Shopping list screens re-match when they next appear.
+    private func pantryBinding(for staple: PantryStaple) -> Binding<Bool> {
+        Binding(
+            get: { pantry.contains(staple) },
+            set: { isOn in
+                if isOn { pantry.insert(staple) } else { pantry.remove(staple) }
+                PantryStore.save(pantry)
+            }
+        )
     }
 
     private var captionText: LocalizedStringKey {
