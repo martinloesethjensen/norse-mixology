@@ -919,6 +919,30 @@
             },
             "abvMin": 24.0,
             "abvMax": 28.0
+          },
+          {
+            "id": "a80df066-d077-570a-bb94-b136c90363c9",
+            "name": "Crème de Noyaux",
+            "familyId": "e8a4cc4e-c9ab-55ec-a14a-046efac4701d",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Tempus Fugit Crème de Noyaux",
+              "Bols Crème de Noyaux"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.8,
+              "bitterness": 0.1,
+              "smokiness": 0.0,
+              "citrus": 0.0,
+              "floral": 0.1,
+              "spice": 0.1,
+              "herbal": 0.0,
+              "fruity": 0.3,
+              "oaky": 0.0,
+              "abv": 25.0
+            },
+            "abvMin": 20.0,
+            "abvMax": 30.0
           }
         ]
       },
@@ -968,6 +992,75 @@
               "herbal": 0.6,
               "fruity": 0.1,
               "oaky": 0.1,
+              "abv": 40.0
+            },
+            "abvMin": 40.0,
+            "abvMax": 40.0
+          },
+          {
+            "id": "c808c931-c073-51e9-9066-3dab22040a64",
+            "name": "Yellow Chartreuse",
+            "familyId": "d5e9dc50-5888-5be4-9d7d-1fff4a97bad0",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Chartreuse Jaune"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.6,
+              "bitterness": 0.1,
+              "smokiness": 0.0,
+              "citrus": 0.1,
+              "floral": 0.4,
+              "spice": 0.2,
+              "herbal": 0.7,
+              "fruity": 0.0,
+              "oaky": 0.0,
+              "abv": 41.5
+            },
+            "abvMin": 40.0,
+            "abvMax": 43.0
+          },
+          {
+            "id": "f0d2acbe-18d4-5d1a-81bb-eb33783e8749",
+            "name": "Galliano",
+            "familyId": "d5e9dc50-5888-5be4-9d7d-1fff4a97bad0",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Galliano L'Autentico"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.7,
+              "bitterness": 0.0,
+              "smokiness": 0.0,
+              "citrus": 0.1,
+              "floral": 0.2,
+              "spice": 0.3,
+              "herbal": 0.6,
+              "fruity": 0.0,
+              "oaky": 0.0,
+              "abv": 36.15
+            },
+            "abvMin": 30.0,
+            "abvMax": 42.3
+          },
+          {
+            "id": "34ef9e88-2b4d-573c-8715-8682b87c6bba",
+            "name": "Drambuie",
+            "familyId": "d5e9dc50-5888-5be4-9d7d-1fff4a97bad0",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Drambuie"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.7,
+              "bitterness": 0.0,
+              "smokiness": 0.1,
+              "citrus": 0.0,
+              "floral": 0.2,
+              "spice": 0.3,
+              "herbal": 0.4,
+              "fruity": 0.0,
+              "oaky": 0.3,
               "abv": 40.0
             },
             "abvMin": 40.0,
@@ -1025,6 +1118,250 @@
             },
             "abvMin": 15.0,
             "abvMax": 20.0
+          },
+          {
+            "id": "0cdae766-cd5e-59cf-aa3e-5650d6b4f59c",
+            "name": "Crème de Cassis",
+            "familyId": "993b6b19-7877-525a-bfd9-c9cdfdd88185",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Lejay",
+              "Giffard Cassis Noir de Bourgogne"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.8,
+              "bitterness": 0.1,
+              "smokiness": 0.0,
+              "citrus": 0.0,
+              "floral": 0.1,
+              "spice": 0.0,
+              "herbal": 0.0,
+              "fruity": 0.9,
+              "oaky": 0.0,
+              "abv": 17.5
+            },
+            "abvMin": 15.0,
+            "abvMax": 20.0
+          },
+          {
+            "id": "8c5ffae1-1f2d-584a-9201-6ea1704ecd36",
+            "name": "Cherry Liqueur",
+            "familyId": "993b6b19-7877-525a-bfd9-c9cdfdd88185",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Cherry Heering",
+              "Luxardo Sangue Morlacco"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.8,
+              "bitterness": 0.1,
+              "smokiness": 0.0,
+              "citrus": 0.0,
+              "floral": 0.0,
+              "spice": 0.2,
+              "herbal": 0.0,
+              "fruity": 0.8,
+              "oaky": 0.1,
+              "abv": 27.0
+            },
+            "abvMin": 24.0,
+            "abvMax": 30.0
+          },
+          {
+            "id": "f5cfb2dc-5cdc-5ae0-a043-169ca697c948",
+            "name": "Blackberry Liqueur",
+            "familyId": "993b6b19-7877-525a-bfd9-c9cdfdd88185",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Giffard Crème de Mûre",
+              "Merlet Crème de Mûre"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.8,
+              "bitterness": 0.1,
+              "smokiness": 0.0,
+              "citrus": 0.0,
+              "floral": 0.1,
+              "spice": 0.0,
+              "herbal": 0.0,
+              "fruity": 0.8,
+              "oaky": 0.0,
+              "abv": 17.0
+            },
+            "abvMin": 16.0,
+            "abvMax": 18.0
+          },
+          {
+            "id": "df41d858-6820-5c62-a39b-fdd110a90dad",
+            "name": "Sloe Gin",
+            "familyId": "993b6b19-7877-525a-bfd9-c9cdfdd88185",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Plymouth Sloe Gin",
+              "Hayman's Sloe Gin"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.6,
+              "bitterness": 0.2,
+              "smokiness": 0.0,
+              "citrus": 0.1,
+              "floral": 0.1,
+              "spice": 0.0,
+              "herbal": 0.2,
+              "fruity": 0.7,
+              "oaky": 0.0,
+              "abv": 27.5
+            },
+            "abvMin": 26.0,
+            "abvMax": 29.0
+          }
+        ]
+      },
+      {
+        "id": "03001b41-7306-5f13-8287-796835265022",
+        "name": "Maraschino",
+        "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+        "styles": [
+          {
+            "id": "8674f226-6a00-5c6a-bb09-b5c49af96c34",
+            "name": "Maraschino Liqueur",
+            "familyId": "03001b41-7306-5f13-8287-796835265022",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Luxardo Maraschino",
+              "Maraska"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.6,
+              "bitterness": 0.1,
+              "smokiness": 0.0,
+              "citrus": 0.0,
+              "floral": 0.5,
+              "spice": 0.0,
+              "herbal": 0.2,
+              "fruity": 0.5,
+              "oaky": 0.0,
+              "abv": 32.0
+            },
+            "abvMin": 32.0,
+            "abvMax": 32.0
+          }
+        ]
+      },
+      {
+        "id": "5d1e67b3-df1d-5d79-bafe-97f23caef7e8",
+        "name": "Floral",
+        "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+        "styles": [
+          {
+            "id": "6ce79edd-1f05-5576-8f10-26a45161485c",
+            "name": "Crème de Violette",
+            "familyId": "5d1e67b3-df1d-5d79-bafe-97f23caef7e8",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Rothman & Winter",
+              "Giffard Violette"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.7,
+              "bitterness": 0.0,
+              "smokiness": 0.0,
+              "citrus": 0.0,
+              "floral": 0.9,
+              "spice": 0.0,
+              "herbal": 0.0,
+              "fruity": 0.2,
+              "oaky": 0.0,
+              "abv": 18.0
+            },
+            "abvMin": 16.0,
+            "abvMax": 20.0
+          },
+          {
+            "id": "8e97398c-3616-5135-a514-43cbc6929831",
+            "name": "Elderflower Liqueur",
+            "familyId": "5d1e67b3-df1d-5d79-bafe-97f23caef7e8",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "St-Germain",
+              "Fiorente"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.7,
+              "bitterness": 0.0,
+              "smokiness": 0.0,
+              "citrus": 0.2,
+              "floral": 0.8,
+              "spice": 0.0,
+              "herbal": 0.0,
+              "fruity": 0.4,
+              "oaky": 0.0,
+              "abv": 20.0
+            },
+            "abvMin": 20.0,
+            "abvMax": 20.0
+          }
+        ]
+      },
+      {
+        "id": "35f59956-b8ff-5246-95f8-0cd8dd7fc4c8",
+        "name": "Mint",
+        "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+        "styles": [
+          {
+            "id": "48aa8375-e307-5f44-bf16-5054a348fc1b",
+            "name": "Crème de Menthe",
+            "familyId": "35f59956-b8ff-5246-95f8-0cd8dd7fc4c8",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Tempus Fugit Crème de Menthe",
+              "Giffard Menthe-Pastille"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.8,
+              "bitterness": 0.0,
+              "smokiness": 0.0,
+              "citrus": 0.0,
+              "floral": 0.0,
+              "spice": 0.1,
+              "herbal": 0.9,
+              "fruity": 0.0,
+              "oaky": 0.0,
+              "abv": 26.0
+            },
+            "abvMin": 24.0,
+            "abvMax": 28.0
+          }
+        ]
+      },
+      {
+        "id": "2d13002e-0a9d-5c6f-b6c7-378e35ad6f2d",
+        "name": "Chocolate",
+        "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+        "styles": [
+          {
+            "id": "7156c9d0-b18b-5c2a-a14a-6b4cd60542a6",
+            "name": "Crème de Cacao",
+            "familyId": "2d13002e-0a9d-5c6f-b6c7-378e35ad6f2d",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Tempus Fugit Crème de Cacao",
+              "Giffard Crème de Cacao"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.8,
+              "bitterness": 0.2,
+              "smokiness": 0.0,
+              "citrus": 0.0,
+              "floral": 0.0,
+              "spice": 0.1,
+              "herbal": 0.0,
+              "fruity": 0.0,
+              "oaky": 0.1,
+              "abv": 22.5
+            },
+            "abvMin": 20.0,
+            "abvMax": 25.0
           }
         ]
       },
@@ -1168,6 +1505,78 @@
             },
             "abvMin": 11.0,
             "abvMax": 11.0
+          },
+          {
+            "id": "66756560-7e7a-5615-aaf1-f42317fd8aa9",
+            "name": "Light Amaro",
+            "familyId": "7a8d09da-2f46-549a-a745-1144edcfb648",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Amaro Nonino Quintessentia",
+              "Amaro Montenegro",
+              "Amaro Meletti"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.5,
+              "bitterness": 0.5,
+              "smokiness": 0.0,
+              "citrus": 0.3,
+              "floral": 0.2,
+              "spice": 0.3,
+              "herbal": 0.5,
+              "fruity": 0.2,
+              "oaky": 0.2,
+              "abv": 29.0
+            },
+            "abvMin": 23.0,
+            "abvMax": 35.0
+          },
+          {
+            "id": "db167e3f-7f61-58ba-96b3-d20a0be98079",
+            "name": "Dark Amaro",
+            "familyId": "7a8d09da-2f46-549a-a745-1144edcfb648",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Averna",
+              "Ramazzotti"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.6,
+              "bitterness": 0.7,
+              "smokiness": 0.0,
+              "citrus": 0.2,
+              "floral": 0.0,
+              "spice": 0.3,
+              "herbal": 0.5,
+              "fruity": 0.1,
+              "oaky": 0.2,
+              "abv": 30.5
+            },
+            "abvMin": 29.0,
+            "abvMax": 32.0
+          },
+          {
+            "id": "c6fb8567-6b8b-5fa2-aa15-7d7684f80c79",
+            "name": "Cynar",
+            "familyId": "7a8d09da-2f46-549a-a745-1144edcfb648",
+            "categoryId": "26f32eb1-1e48-5b60-baf8-758d7a28a416",
+            "exampleBrands": [
+              "Cynar"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.4,
+              "bitterness": 0.7,
+              "smokiness": 0.0,
+              "citrus": 0.1,
+              "floral": 0.0,
+              "spice": 0.1,
+              "herbal": 0.6,
+              "fruity": 0.0,
+              "oaky": 0.0,
+              "abv": 16.5
+            },
+            "abvMin": 16.5,
+            "abvMax": 16.5
           }
         ]
       }
@@ -1252,6 +1661,61 @@
             },
             "abvMin": 16.0,
             "abvMax": 18.0
+          },
+          {
+            "id": "7bd5cfbd-e42d-5d82-b67b-fa20af8d3227",
+            "name": "Blanc Aperitif Wine",
+            "familyId": "d9cccfea-29d8-5028-8260-433915e77316",
+            "categoryId": "15db1e62-658f-5c37-8ddc-6f92918da512",
+            "exampleBrands": [
+              "Lillet Blanc",
+              "Cocchi Americano"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.5,
+              "bitterness": 0.3,
+              "smokiness": 0.0,
+              "citrus": 0.4,
+              "floral": 0.3,
+              "spice": 0.0,
+              "herbal": 0.2,
+              "fruity": 0.4,
+              "oaky": 0.0,
+              "abv": 16.75
+            },
+            "abvMin": 16.5,
+            "abvMax": 17.0
+          }
+        ]
+      },
+      {
+        "id": "e875b7c0-41ce-55bf-b93a-005897e36e27",
+        "name": "Still Wine",
+        "categoryId": "15db1e62-658f-5c37-8ddc-6f92918da512",
+        "styles": [
+          {
+            "id": "06284f95-df68-5f0f-ac06-a6e67b98da46",
+            "name": "Red Wine",
+            "familyId": "e875b7c0-41ce-55bf-b93a-005897e36e27",
+            "categoryId": "15db1e62-658f-5c37-8ddc-6f92918da512",
+            "exampleBrands": [
+              "Any dry red",
+              "Côtes du Rhône"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.2,
+              "bitterness": 0.2,
+              "smokiness": 0.0,
+              "citrus": 0.0,
+              "floral": 0.1,
+              "spice": 0.1,
+              "herbal": 0.0,
+              "fruity": 0.7,
+              "oaky": 0.3,
+              "abv": 13.25
+            },
+            "abvMin": 12.0,
+            "abvMax": 14.5
           }
         ]
       },
@@ -1809,6 +2273,29 @@
             },
             "abvMin": 0.0,
             "abvMax": 0.0
+          },
+          {
+            "id": "1f7a4622-c271-5846-adf2-4db6b8395c15",
+            "name": "Butter",
+            "familyId": "0950c749-eed4-564a-b51a-cb6780195787",
+            "categoryId": "dc7751df-9c80-5df4-8d5a-379ca64ff819",
+            "exampleBrands": [
+              "Unsalted"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.1,
+              "bitterness": 0.0,
+              "smokiness": 0.0,
+              "citrus": 0.0,
+              "floral": 0.0,
+              "spice": 0.0,
+              "herbal": 0.0,
+              "fruity": 0.0,
+              "oaky": 0.0,
+              "abv": 0.0
+            },
+            "abvMin": 0.0,
+            "abvMax": 0.0
           }
         ]
       },
@@ -1839,6 +2326,112 @@
             },
             "abvMin": 0.0,
             "abvMax": 0.0
+          },
+          {
+            "id": "6b34bfc7-79ae-5dbe-baae-412ed72d1421",
+            "name": "Espresso",
+            "familyId": "6b455064-32f9-554a-a33c-0db8f05235cf",
+            "categoryId": "dc7751df-9c80-5df4-8d5a-379ca64ff819",
+            "exampleBrands": [
+              "Freshly pulled"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.1,
+              "bitterness": 0.7,
+              "smokiness": 0.2,
+              "citrus": 0.0,
+              "floral": 0.0,
+              "spice": 0.0,
+              "herbal": 0.0,
+              "fruity": 0.0,
+              "oaky": 0.0,
+              "abv": 0.0
+            },
+            "abvMin": 0.0,
+            "abvMax": 0.0
+          },
+          {
+            "id": "76ca3369-d768-50c7-90c8-d12c20e02c0b",
+            "name": "Hot Coffee",
+            "familyId": "6b455064-32f9-554a-a33c-0db8f05235cf",
+            "categoryId": "dc7751df-9c80-5df4-8d5a-379ca64ff819",
+            "exampleBrands": [
+              "Freshly brewed"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.1,
+              "bitterness": 0.5,
+              "smokiness": 0.1,
+              "citrus": 0.0,
+              "floral": 0.0,
+              "spice": 0.0,
+              "herbal": 0.0,
+              "fruity": 0.0,
+              "oaky": 0.0,
+              "abv": 0.0
+            },
+            "abvMin": 0.0,
+            "abvMax": 0.0
+          }
+        ]
+      },
+      {
+        "id": "73ccf5aa-041f-549f-a24e-a6e5530d7420",
+        "name": "Tea",
+        "categoryId": "dc7751df-9c80-5df4-8d5a-379ca64ff819",
+        "styles": [
+          {
+            "id": "d5f738bc-3958-5d2f-8e6b-fbb3c560f58b",
+            "name": "Black Tea",
+            "familyId": "73ccf5aa-041f-549f-a24e-a6e5530d7420",
+            "categoryId": "dc7751df-9c80-5df4-8d5a-379ca64ff819",
+            "exampleBrands": [
+              "Any (brewed)"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.0,
+              "bitterness": 0.3,
+              "smokiness": 0.0,
+              "citrus": 0.0,
+              "floral": 0.2,
+              "spice": 0.0,
+              "herbal": 0.2,
+              "fruity": 0.0,
+              "oaky": 0.1,
+              "abv": 0.0
+            },
+            "abvMin": 0.0,
+            "abvMax": 0.0
+          }
+        ]
+      },
+      {
+        "id": "48517f09-9312-52d3-9491-c1e4bb0fcc87",
+        "name": "Beer",
+        "categoryId": "dc7751df-9c80-5df4-8d5a-379ca64ff819",
+        "styles": [
+          {
+            "id": "1e3d284b-8b70-5406-a485-f369a82d02f0",
+            "name": "Stout",
+            "familyId": "48517f09-9312-52d3-9491-c1e4bb0fcc87",
+            "categoryId": "dc7751df-9c80-5df4-8d5a-379ca64ff819",
+            "exampleBrands": [
+              "Guinness"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.2,
+              "bitterness": 0.5,
+              "smokiness": 0.3,
+              "citrus": 0.0,
+              "floral": 0.0,
+              "spice": 0.0,
+              "herbal": 0.0,
+              "fruity": 0.0,
+              "oaky": 0.2,
+              "abv": 5.85
+            },
+            "abvMin": 4.2,
+            "abvMax": 7.5
           }
         ]
       }
@@ -2034,6 +2627,30 @@
               "spice": 0.7,
               "herbal": 0.0,
               "fruity": 0.0,
+              "oaky": 0.0,
+              "abv": 0.0
+            },
+            "abvMin": 0.0,
+            "abvMax": 0.0
+          },
+          {
+            "id": "98c30480-eb30-54e0-ab0f-21af47a98005",
+            "name": "Raspberry Syrup",
+            "familyId": "c93ac357-6dc9-50ab-80d9-2da7ee6f9d6b",
+            "categoryId": "cd7e4c37-b351-56df-8915-6861b1d9cd4e",
+            "exampleBrands": [
+              "Small Hand Foods",
+              "House-made"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.9,
+              "bitterness": 0.0,
+              "smokiness": 0.0,
+              "citrus": 0.0,
+              "floral": 0.1,
+              "spice": 0.0,
+              "herbal": 0.0,
+              "fruity": 0.7,
               "oaky": 0.0,
               "abv": 0.0
             },
@@ -2538,6 +3155,29 @@
             },
             "abvMin": 0.0,
             "abvMax": 0.0
+          },
+          {
+            "id": "f368345e-72f1-5aa7-8ba3-40f57499cab9",
+            "name": "Orange Twist",
+            "familyId": "afa41f64-6deb-5be3-9026-c057a34da626",
+            "categoryId": "e9e7e05d-322b-5364-b182-8f0a675666d3",
+            "exampleBrands": [
+              "Any"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.0,
+              "bitterness": 0.1,
+              "smokiness": 0.0,
+              "citrus": 0.5,
+              "floral": 0.2,
+              "spice": 0.0,
+              "herbal": 0.0,
+              "fruity": 0.1,
+              "oaky": 0.0,
+              "abv": 0.0
+            },
+            "abvMin": 0.0,
+            "abvMax": 0.0
           }
         ]
       },
@@ -2586,6 +3226,53 @@
               "floral": 0.0,
               "spice": 0.2,
               "herbal": 0.1,
+              "fruity": 0.0,
+              "oaky": 0.0,
+              "abv": 0.0
+            },
+            "abvMin": 0.0,
+            "abvMax": 0.0
+          },
+          {
+            "id": "e5bea1b6-40d8-52d0-8bd4-33949b7de6f2",
+            "name": "Worcestershire Sauce",
+            "familyId": "25fdec1e-580a-501c-bd69-ce9332d36dce",
+            "categoryId": "e9e7e05d-322b-5364-b182-8f0a675666d3",
+            "exampleBrands": [
+              "Lea & Perrins"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.2,
+              "bitterness": 0.0,
+              "smokiness": 0.1,
+              "citrus": 0.0,
+              "floral": 0.0,
+              "spice": 0.5,
+              "herbal": 0.2,
+              "fruity": 0.1,
+              "oaky": 0.0,
+              "abv": 0.0
+            },
+            "abvMin": 0.0,
+            "abvMax": 0.0
+          },
+          {
+            "id": "0984ad62-9d63-5a69-acc3-42d4d4b24a06",
+            "name": "Hot Sauce",
+            "familyId": "25fdec1e-580a-501c-bd69-ce9332d36dce",
+            "categoryId": "e9e7e05d-322b-5364-b182-8f0a675666d3",
+            "exampleBrands": [
+              "Tabasco",
+              "Cholula"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.0,
+              "bitterness": 0.0,
+              "smokiness": 0.0,
+              "citrus": 0.1,
+              "floral": 0.0,
+              "spice": 0.9,
+              "herbal": 0.0,
               "fruity": 0.0,
               "oaky": 0.0,
               "abv": 0.0
@@ -2669,6 +3356,29 @@
               "floral": 0.0,
               "spice": 0.0,
               "herbal": 0.0,
+              "fruity": 0.0,
+              "oaky": 0.0,
+              "abv": 0.0
+            },
+            "abvMin": 0.0,
+            "abvMax": 0.0
+          },
+          {
+            "id": "af32f996-b977-5b6c-ae29-ebe33df5fa64",
+            "name": "Celery Salt",
+            "familyId": "2d7378f2-d8a8-56b7-93c5-9bae708fcb65",
+            "categoryId": "e9e7e05d-322b-5364-b182-8f0a675666d3",
+            "exampleBrands": [
+              "Any"
+            ],
+            "flavorProfile": {
+              "sweetness": 0.0,
+              "bitterness": 0.0,
+              "smokiness": 0.0,
+              "citrus": 0.0,
+              "floral": 0.0,
+              "spice": 0.2,
+              "herbal": 0.3,
               "fruity": 0.0,
               "oaky": 0.0,
               "abv": 0.0

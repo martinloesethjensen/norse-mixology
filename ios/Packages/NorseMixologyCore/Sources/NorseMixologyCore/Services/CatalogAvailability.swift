@@ -31,6 +31,7 @@ public enum CatalogAvailability {
             cabinetByFamilyId[item.ingredientFamilyId, default: []].append(item)
         }
         let curatedTable = CuratedSubstitutions.table(index: index)
+        let groups = SubstitutionGroups.table(index: index)
 
         return recipes.map { recipe in
             if let match = matchById[recipe.id] {
@@ -52,6 +53,7 @@ public enum CatalogAvailability {
                     cabinetByFamilyId: cabinetByFamilyId,
                     stylesById: index.stylesById,
                     curatedTable: curatedTable,
+                    groups: groups,
                     prefs: prefs
                 )
                 switch resolution {
