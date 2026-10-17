@@ -113,9 +113,6 @@
     "1 photo" : {
 
     },
-    "Add %@ to cabinet" : {
-
-    },
     "Add %@ to shopping list" : {
 
     },
@@ -143,7 +140,16 @@
     "Add what's in your cabinet to get started" : {
 
     },
+    "Add with brand…" : {
+
+    },
+    "Added %lld ingredients to cabinet" : {
+
+    },
     "Added to cabinet" : {
+
+    },
+    "Adds it to your cabinet. Touch and hold for more options." : {
 
     },
     "All recipes" : {
@@ -168,6 +174,9 @@
 
     },
     "Browse" : {
+
+    },
+    "Browse all recipes" : {
 
     },
     "Buy next" : {
@@ -267,6 +276,9 @@
 
     },
     "I have all of these" : {
+
+    },
+    "I have all of these (%lld)" : {
 
     },
     "I have it" : {
