@@ -24,6 +24,6 @@ done
 
 mkdir -p "$assets/LaunchMark.imageset"
 for variant in light dark; do
-    render "launch-mark-$variant.svg" 240 240 "$assets/LaunchMark.imageset/launch-mark-$variant@2x.png"
-    render "launch-mark-$variant.svg" 360 360 "$assets/LaunchMark.imageset/launch-mark-$variant@3x.png"
+    render "launch-mark-$variant.svg" 360 300 "$assets/LaunchMark.imageset/launch-mark-$variant@2x.png"
+    render "launch-mark-$variant.svg" 540 450 "$assets/LaunchMark.imageset/launch-mark-$variant@3x.png"
 done
