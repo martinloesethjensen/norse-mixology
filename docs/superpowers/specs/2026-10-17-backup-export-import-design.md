@@ -1,7 +1,7 @@
 # Backup — Export and Import — Design
 
 **Date:** 2026-10-17
-**Status:** Draft. Two decisions are open (§7).
+**Status:** Approved 2026-10-17 (decisions in §7).
 **Scope:** iOS only (Android parked, #3). Roadmap **E, part 1** (see `2026-10-04-recipe-catalog-browse-design.md` §7, revised by #6). It ships with **C** ("My take", `2026-10-06-recipe-take-design.md`), which is already on `main`. iCloud sync (E, part 2) follows custom recipes (D).
 
 ---
@@ -16,9 +16,9 @@ Guiding principle: **failure first.** A restore must never leave the store half-
 |---|---|---|
 | What's in a backup | All user data: cabinet, favourites, shopping list, recipe takes, photos, taste profile, pantry staples | Everything the user created. The catalog isn't included, because it's public and versioned |
 | Not included | `@SceneStorage` UI state, the catalog, caches | Rebuilt or re-downloaded automatically |
-| Container | **One `.norsebackup` file: a ZIP** holding `manifest.json`, `data.json` and `photos/<id>.jpg` | One file to AirDrop, save in Files or email. Standard enough to inspect and to read from Android later. *(Open decision 1)* |
+| Container | **One `.norsebackup` file: a ZIP** holding `manifest.json`, `data.json` and `photos/<id>.jpg` | One file to AirDrop, save in Files or email. Standard enough to inspect and to read from Android later. *(Decision 1)* |
 | Photos | Only the **full** JPEG. Thumbnails are regenerated on import with `PhotoProcessor` | Halves photo storage in the file, and re-processing doubles as validation of untrusted image data |
-| Restore | **Replace everything**, after a confirmation that shows what the backup contains | Predictable for the main use (new phone, reinstall). No merge rules to explain. *(Open decision 2)* |
+| Restore | **Replace everything**, after a confirmation that shows what the backup contains | Predictable for the main use (new phone, reinstall). No merge rules to explain. *(Decision 2)* |
 | Atomicity | Validate the whole file first, then replace inside one SwiftData save; preferences are written only after the save succeeds | A failure at any point leaves the current data untouched |
 | Where | **Settings → Backup**: "Export backup", "Restore from backup", "Last exported" | One place. No new tab |
 
@@ -195,18 +195,12 @@ The file can come from anywhere (AirDrop, Mail):
 
 ---
 
-## 7. Open decisions
+## 7. Decisions (2026-10-17)
 
-1. **Container: ZIP via ZIPFoundation (recommended), or Apple Archive.**
-   - ZIP needs a dependency. [ZIPFoundation](https://github.com/weichsel/ZIPFoundation) is MIT-licensed, Swift-native, and streams reads and writes. The result is a standard format you can inspect anywhere and that a future Android app can read.
-   - Apple Archive (`AppleArchive`, iOS 14+) needs no dependency, but the `.aar` format is Apple-only, so it's harder to inspect and closes the Android door.
-   - The package already depends on GRDB, so one more well-known dependency fits.
-2. **Restore: replace everything (recommended), or merge.**
-   - Replace is predictable and matches the main use, a new phone or a reinstall.
-   - Merge (upsert by ID, newer `updatedAt` wins for takes) helps someone combining two devices, but needs rules the user has to understand, such as what happens to a cabinet item deleted on one side.
-   - Merge can be added later as a second button without changing the file format.
-
----
+1. **Container: ZIP via ZIPFoundation.** [ZIPFoundation](https://github.com/weichsel/ZIPFoundation) (MIT, Swift-native, streaming read and write) is added to `NorseMixologyCore` beside GRDB. A standard ZIP can be inspected anywhere and read by a future Android app.
+   - Rejected: Apple Archive. It needs no dependency, but the format is Apple-only.
+2. **Restore: replace everything.** After the confirmation, the phone ends up exactly like the backup. This suits the main use, a new phone or a reinstall.
+   - Rejected for now: merging. It needs per-record rules the user has to understand, such as whether a bottle deleted on one device comes back. It can be added later as a second button without changing the file format.
 
 ## 8. Out of scope
 
