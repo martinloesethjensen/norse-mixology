@@ -2,44 +2,48 @@ import SwiftUI
 import UIKit
 import NorseMixologyCore
 
-/// "Modern Neon Bar" tokens from the vault's Design System note, mapped for
-/// both system appearances (see NORSE_MIXOLOGY_BUILD.md → Design System).
+/// "Rune" tokens — oxblood, brass and bone — for both system appearances
+/// (see NORSE_MIXOLOGY_BUILD.md → Design System). The values live in
+/// `RunePalette` (core), where their contrast is unit-tested.
 ///
 /// Every screen takes its colours and text styles from here — nothing else in
 /// the app hard-codes a colour or a font size.
 enum DesignTokens {
-    static let background = Color.adaptive(dark: 0x0D0F14, light: 0xF7F8FA)
-    static let surface = Color.adaptive(dark: 0x161920, light: 0xFFFFFF)
-    static let surfaceRaised = Color.adaptive(dark: 0x1F232D, light: 0xEFF1F4)
-    static let border = Color.adaptive(dark: 0x262B36, light: 0xDDE1E7)
-    static let accent = Color(hex: 0x8FE388)
-    static let textPrimary = Color.adaptive(dark: 0xEEF1F5, light: 0x14171C)
-    static let textSecondary = Color.adaptive(dark: 0x9AA1AF, light: 0x5B6472)
+    static let background = Color.adaptive(RunePalette.background)
+    static let surface = Color.adaptive(RunePalette.surface)
+    static let surfaceRaised = Color.adaptive(RunePalette.surfaceRaised)
+    static let border = Color.adaptive(RunePalette.border)
+    /// Brass in dark, oxblood in light.
+    static let accent = Color.adaptive(RunePalette.accent)
+    /// Text on accent fills (the primary button).
+    static let onAccent = Color.adaptive(RunePalette.onAccent)
+    static let textPrimary = Color.adaptive(RunePalette.textPrimary)
+    static let textSecondary = Color.adaptive(RunePalette.textSecondary)
 
-    static let matchExact = Color(hex: 0x8FE388)
-    static let matchSubstituted = Color(hex: 0xF0B93D)
-    static let matchUnavailable = Color.adaptive(dark: 0x4A5160, light: 0xA6AEBA)
+    static let matchExact = Color.adaptive(RunePalette.matchExact)
+    static let matchSubstituted = Color.adaptive(RunePalette.matchSubstituted)
+    static let matchUnavailable = Color.adaptive(RunePalette.matchUnavailable)
+
+    // Match badges: solid in dark, tinted pill with dark text in light.
+    static let matchExactBadgeFill = Color.adaptive(RunePalette.matchExactBadgeFill)
+    static let matchExactBadgeText = Color.adaptive(RunePalette.matchExactBadgeText)
+    static let matchSubstitutedBadgeFill = Color.adaptive(RunePalette.matchSubstitutedBadgeFill)
+    static let matchSubstitutedBadgeText = Color.adaptive(RunePalette.matchSubstitutedBadgeText)
 
     // Flavour notes (Tasting Dots): strong = tinted fill, mild = outline only.
-    static let noteStrongText = Color.adaptive(dark: 0x8FE388, light: 0x1F6B2A)
-    static let noteStrongFill = Color.adaptive(dark: 0x1B2A21, light: 0xE3F5E1)
-    static let noteStrongBorder = Color.adaptive(dark: 0x4E9A5C, light: 0x2F8A3A)
-    static let noteMildBorder = Color.adaptive(dark: 0x6B7585, light: 0x7A8493)
-    static let noteBar = Color.adaptive(dark: 0x8FE388, light: 0x2F8A3A)
-
-    /// Text on the filled lime/gold badges — dark in both modes for contrast.
-    static let onBadge = Color(hex: 0x0D0F14)
+    static let noteStrongText = Color.adaptive(RunePalette.noteStrongText)
+    static let noteStrongFill = Color.adaptive(RunePalette.noteStrongFill)
+    static let noteStrongBorder = Color.adaptive(RunePalette.noteStrongBorder)
+    static let noteMildBorder = Color.adaptive(RunePalette.noteMildBorder)
+    static let noteBar = Color.adaptive(RunePalette.noteBar)
 }
 
 extension Color {
-    init(hex: UInt32) {
-        self.init(uiColor: UIColor(hex: hex))
-    }
-
-    /// A colour that resolves to `dark` or `light` following the system appearance.
-    static func adaptive(dark: UInt32, light: UInt32) -> Color {
+    /// A palette colour that resolves to its dark or light value following
+    /// the system appearance.
+    static func adaptive(_ color: PaletteColor) -> Color {
         Color(uiColor: UIColor { traits in
-            UIColor(hex: traits.userInterfaceStyle == .dark ? dark : light)
+            UIColor(hex: traits.userInterfaceStyle == .dark ? color.dark : color.light)
         })
     }
 }
@@ -122,6 +126,20 @@ extension MatchBadgeState {
         case .substituted: return DesignTokens.matchSubstituted
         }
     }
+
+    var badgeFill: Color {
+        switch self {
+        case .exact: return DesignTokens.matchExactBadgeFill
+        case .substituted: return DesignTokens.matchSubstitutedBadgeFill
+        }
+    }
+
+    var badgeText: Color {
+        switch self {
+        case .exact: return DesignTokens.matchExactBadgeText
+        case .substituted: return DesignTokens.matchSubstitutedBadgeText
+        }
+    }
 }
 
 extension AvailabilityStatus {
@@ -195,12 +213,12 @@ private struct TransientNoticeModifier: ViewModifier {
     }
 }
 
-/// The primary call-to-action: filled lime with dark text, at least 44pt tall.
+/// The primary call-to-action: filled accent (brass / oxblood), at least 44pt tall.
 struct DSPrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .dsText(.heading)
-            .foregroundStyle(DesignTokens.onBadge)
+            .foregroundStyle(DesignTokens.onAccent)
             .padding(.horizontal, 20)
             .padding(.vertical, 12)
             .frame(maxWidth: .infinity, minHeight: 44)
