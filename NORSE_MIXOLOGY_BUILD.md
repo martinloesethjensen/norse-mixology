@@ -259,6 +259,13 @@ Replaces the five unlabelled "tasting dots". Design canvas: "Tasting Dots" (Clau
 - **UI:** Settings → Backup ("Back up now" → share sheet; "Restore from backup…" → file picker → summary → Restore → result). `BackupPresenter` at the app root presents the sheets and errors and handles `.onOpenURL`, so tapping a backup in Files or AirDrop opens the summary on any tab. `StoreBackupCheck` keeps the SwiftData store included in iCloud/Finder device backups.
 - **Not built:** automatic backups, encryption, choosing what to restore, replace-on-restore, iCloud sync.
 
+## Pantry staples (iOS)
+
+- **Spec:** `docs/superpowers/specs/2026-10-06-pantry-staples-design.md`. Issue #5.
+- **A setting, not inventory.** `PantryStore` keeps the chosen `PantryStaple`s in `UserDefaults`. Nothing is stored as a `CabinetItem`, so the Cabinet screen, the shopping list and the SwiftData schema are untouched.
+- **Additive.** `Pantry.effectiveCabinet` appends an unsaved `CabinetItem` per covered style, and `RecipeBrowserViewModel.refresh(cabinet:)` and the Favourites detail match against that. The engine, `CatalogAvailability` and `BuyNextRanking` don't change; Buy next can't suggest a staple because staples are never `missing`.
+- **Any new matching entry point must go through `Pantry.effectiveCabinet`**, or pantry users will see recipes disagree between screens.
+
 ## Design System — "Rune"
 
 Spec: `docs/superpowers/specs/2026-10-17-rune-identity-design.md` (mockups alongside). The mark is the rune ᛉ (Algiz) drawn as a stemmed glass, in brass on oxblood. Both platforms follow system light/dark appearance (never forced). Same tokens, mapped for each mode:
