@@ -15,6 +15,26 @@ public enum PhotoError: Error, Equatable, Sendable {
 /// Alpha is flattened by the JPEG encoder (picked photos are photographs).
 public enum PhotoProcessor {
     public static func process(_ data: Data) throws -> (full: Data, thumbnail: Data) {
+        let (source, longestEdge) = try open(data)
+        let full = try render(source, maxPixels: min(TakeLimits.fullPhotoMaxPixels, longestEdge))
+        let thumbnail = try render(source, maxPixels: min(TakeLimits.thumbnailMaxPixels, longestEdge))
+        return (full, thumbnail)
+    }
+
+    /// For a photo read from a backup: validated like `process`, but a JPEG that is
+    /// already within the size cap keeps its original bytes, so every export and
+    /// restore doesn't recompress it again. Only the thumbnail is rebuilt.
+    public static func processRestored(_ data: Data) throws -> (full: Data, thumbnail: Data) {
+        let (source, longestEdge) = try open(data)
+        let isJPEG = (CGImageSourceGetType(source) as String?) == UTType.jpeg.identifier
+        let full = isJPEG && longestEdge <= TakeLimits.fullPhotoMaxPixels
+            ? data
+            : try render(source, maxPixels: min(TakeLimits.fullPhotoMaxPixels, longestEdge))
+        let thumbnail = try render(source, maxPixels: min(TakeLimits.thumbnailMaxPixels, longestEdge))
+        return (full, thumbnail)
+    }
+
+    private static func open(_ data: Data) throws -> (source: CGImageSource, longestEdge: Int) {
         guard !data.isEmpty,
               let source = CGImageSourceCreateWithData(data as CFData, nil),
               CGImageSourceGetCount(source) > 0,
@@ -22,11 +42,7 @@ public enum PhotoProcessor {
               let width = properties[kCGImagePropertyPixelWidth] as? Int,
               let height = properties[kCGImagePropertyPixelHeight] as? Int,
               width > 0, height > 0 else { throw PhotoError.unreadable }
-
-        let longestEdge = max(width, height)
-        let full = try render(source, maxPixels: min(TakeLimits.fullPhotoMaxPixels, longestEdge))
-        let thumbnail = try render(source, maxPixels: min(TakeLimits.thumbnailMaxPixels, longestEdge))
-        return (full, thumbnail)
+        return (source, max(width, height))
     }
 
     private static func render(_ source: CGImageSource, maxPixels: Int) throws -> Data {
