@@ -51,6 +51,44 @@ final class RunePaletteTests: XCTestCase {
         assertContrast(("textSecondary", RunePalette.textSecondary), on: backgrounds, atLeast: 4.5)
         assertContrast(("onAccent", RunePalette.onAccent), on: [("accent", RunePalette.accent)], atLeast: 4.5)
         assertContrast(("noteStrongText", RunePalette.noteStrongText), on: [("noteStrongFill", RunePalette.noteStrongFill)], atLeast: 4.5)
+        // The ingredient sheet's taste-fit panel sets body text on the strong-note fill.
+        assertContrast(("textPrimary", RunePalette.textPrimary), on: [("noteStrongFill", RunePalette.noteStrongFill)], atLeast: 4.5)
+        assertContrast(("textSecondary", RunePalette.textSecondary), on: [("noteStrongFill", RunePalette.noteStrongFill)], atLeast: 4.5)
+    }
+
+    /// Strong flavour chips are told apart from mild (outline-only) ones by
+    /// their fill, so the fill must show on every surface a chip sits on —
+    /// recipe cards are Surface Raised. Measured as CIE76 ΔE, since in light
+    /// the fill can only differ by hue: darker would fail text contrast above.
+    func testStrongNoteFillShowsOnSurfaces() {
+        for mode in Mode.allCases {
+            for (name, surface) in surfaces {
+                let distance = Self.deltaE(value(RunePalette.noteStrongFill, mode), value(surface, mode))
+                XCTAssertGreaterThanOrEqual(
+                    distance, 8,
+                    "noteStrongFill on \(name) (\(mode.rawValue)) is ΔE \(String(format: "%.1f", distance))"
+                )
+            }
+        }
+    }
+
+    /// CIE76 colour difference between two sRGB 0xRRGGBB values (D65).
+    private static func deltaE(_ a: UInt32, _ b: UInt32) -> Double {
+        func lab(_ c: UInt32) -> (Double, Double, Double) {
+            func linear(_ v: UInt32) -> Double {
+                let s = Double(v & 0xFF) / 255
+                return s <= 0.04045 ? s / 12.92 : pow((s + 0.055) / 1.055, 2.4)
+            }
+            let (r, g, b) = (linear(c >> 16), linear(c >> 8), linear(c))
+            let x = (0.4124 * r + 0.3576 * g + 0.1805 * b) / 0.95047
+            let y = 0.2126 * r + 0.7152 * g + 0.0722 * b
+            let z = (0.0193 * r + 0.1192 * g + 0.9505 * b) / 1.08883
+            func f(_ t: Double) -> Double { t > 0.008856 ? cbrt(t) : 7.787 * t + 16.0 / 116 }
+            return (116 * f(y) - 16, 500 * (f(x) - f(y)), 200 * (f(y) - f(z)))
+        }
+        let (l1, a1, b1) = lab(a)
+        let (l2, a2, b2) = lab(b)
+        return ((l1 - l2) * (l1 - l2) + (a1 - a2) * (a1 - a2) + (b1 - b2) * (b1 - b2)).squareRoot()
     }
 
     /// Match colours are also used as body text ("Ready" status lines,
