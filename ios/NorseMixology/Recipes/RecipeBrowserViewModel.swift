@@ -44,8 +44,8 @@ final class RecipeBrowserViewModel {
     private(set) var filterOptions = RecipeFilterOptions.empty
     /// The user's quiz answers as of the last refresh — drives the "you" diamond on recipe chips.
     private(set) var tasteProfile = UserTasteProfile.neutral
-    /// The user's ratings (recipe id → 1…5), kept in sync by the Recipes tab; the "My ratings" filter reads them.
-    var ratings: [UUID: Int] = [:]
+    /// The user's ratings (recipe id → 0.5…5), kept in sync by the Recipes tab; the "My ratings" filter reads them.
+    var ratings: [UUID: Double] = [:]
     /// Recipe scores are blends, so notes are read against the catalog's own extremes.
     private(set) var flavorScale = RecipeFlavorScale(recipes: [])
 

@@ -125,7 +125,7 @@ final class HardeningTests: XCTestCase {
         let entries = CatalogAvailability.evaluate(recipes: recipes, cabinet: Array(cabinet), index: index)
         let grouped = GroupedAvailability(entries: entries, profile: profile)
         let filtered = grouped.filtered(by: filter, index: index)
-        let ratings = Dictionary(uniqueKeysWithValues: recipes.prefix(40).map { ($0.id, 4) })
+        let ratings = Dictionary(uniqueKeysWithValues: recipes.prefix(40).map { ($0.id, 4.0) })
         var ratingFilter = RecipeFilter()
         ratingFilter.toggle(.myRating(.fourOrMore))
         let rated = grouped.filtered(by: ratingFilter, index: index, ratings: ratings)

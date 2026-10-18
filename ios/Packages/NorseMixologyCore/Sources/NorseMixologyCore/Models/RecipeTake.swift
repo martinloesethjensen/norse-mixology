@@ -10,12 +10,12 @@ public final class RecipeTake {
     // Defaults let SwiftData add this model to existing stores without a custom migration.
     public var recipeId: UUID = UUID()
     public var recipeName: String = ""
-    /// 0 = not rated, otherwise 1…5.
-    public var rating: Int = 0
+    /// 0 = not rated, otherwise 0.5…5 in half-star steps.
+    public var rating: Double = 0
     public var notes: String = ""
     public var updatedAt: Date = Date()
 
-    public init(id: UUID = UUID(), recipeId: UUID, recipeName: String, rating: Int = 0, notes: String = "", updatedAt: Date = Date()) {
+    public init(id: UUID = UUID(), recipeId: UUID, recipeName: String, rating: Double = 0, notes: String = "", updatedAt: Date = Date()) {
         self.id = id
         self.recipeId = recipeId
         self.recipeName = recipeName

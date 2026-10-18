@@ -184,9 +184,12 @@ struct RecipeDetailView: View {
                 VStack(alignment: .leading, spacing: 8) { headerPills }
             }
 
-            if let stars = take.ratings[recipe.id] {
-                RatingStars(rating: stars, font: .subheadline)
-            }
+            // The row is always laid out, so rating a recipe (which happens further down
+            // the screen) never pushes the content below the header.
+            let stars = take.ratings[recipe.id]
+            RatingStars(rating: stars ?? 0, font: .subheadline)
+                .opacity(stars == nil ? 0 : 1)
+                .accessibilityHidden(stars == nil)
         }
     }
 

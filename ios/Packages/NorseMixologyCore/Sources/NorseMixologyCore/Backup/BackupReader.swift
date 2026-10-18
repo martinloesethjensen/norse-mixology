@@ -80,7 +80,7 @@ public enum BackupReader {
 
     static func validate(_ manifest: inout BackupManifest, in folder: URL) throws {
         for index in manifest.takes.indices {
-            guard TakeLimits.ratingRange.contains(manifest.takes[index].rating) else { throw BackupError.damaged }
+            guard TakeLimits.isValidRating(manifest.takes[index].rating) else { throw BackupError.damaged }
             manifest.takes[index].notes = String(manifest.takes[index].notes.prefix(TakeLimits.maxNotesLength))
         }
         let root = folder.resolvingSymlinksInPath().standardizedFileURL.path + "/"

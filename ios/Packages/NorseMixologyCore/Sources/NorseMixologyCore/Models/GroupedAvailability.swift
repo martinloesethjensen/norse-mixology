@@ -57,7 +57,7 @@ public struct GroupedAvailability: Equatable, Sendable {
     }
 
     /// Keeps tiers and the order within them.
-    public func filtered(by filter: RecipeFilter, index: TaxonomyIndex, ratings: [UUID: Int] = [:]) -> GroupedAvailability {
+    public func filtered(by filter: RecipeFilter, index: TaxonomyIndex, ratings: [UUID: Double] = [:]) -> GroupedAvailability {
         guard !filter.isEmpty else { return self }
         let keep = { (entry: CatalogEntry) in filter.matches(entry.recipe, index: index, ratings: ratings) }
         return GroupedAvailability(ready: ready.filter(keep), missing1: missing1.filter(keep),

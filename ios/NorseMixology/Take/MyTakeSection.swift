@@ -8,12 +8,12 @@ struct MyTakeSection: View {
     @Environment(RecipeTakeViewModel.self) private var take
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    private func stars(_ rating: Int) -> some View {
+    private func stars(_ rating: Double) -> some View {
         StarRatingControl(rating: rating) { take.setRating($0, for: recipe) }
     }
 
-    private func ratingCaption(_ rating: Int) -> some View {
-        Text(rating == 0 ? "Not rated" : "\(rating) of 5")
+    private func ratingCaption(_ rating: Double) -> some View {
+        Text(rating == 0 ? "Not rated" : "\(rating.ratingText) of 5")
             .dsText(.body)
             .foregroundStyle(DesignTokens.textSecondary)
             .accessibilityHidden(true)

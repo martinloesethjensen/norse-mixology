@@ -62,7 +62,7 @@ public struct TakeRecord: Codable, Equatable, Sendable {
     public var id: UUID
     public var recipeId: UUID
     public var recipeName: String
-    public var rating: Int
+    public var rating: Double
     public var notes: String
     public var updatedAt: Date
 }

@@ -69,7 +69,7 @@ enum BackupFixtures {
     }
 
     /// A valid manifest with one take and one photo, plus the photo files it names.
-    static func validManifest(photoId: UUID = UUID(), recipeId: UUID = UUID(), rating: Int = 4, notes: String = "Nice")
+    static func validManifest(photoId: UUID = UUID(), recipeId: UUID = UUID(), rating: Double = 4, notes: String = "Nice")
         -> (manifest: BackupManifest, files: [String: Data]) {
         let paths = PhotoRecord.paths(for: photoId)
         let manifest = BackupManifest(

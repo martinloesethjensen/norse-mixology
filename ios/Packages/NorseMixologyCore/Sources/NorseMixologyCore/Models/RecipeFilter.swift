@@ -80,7 +80,7 @@ public struct RecipeFilter: Equatable, Sendable {
         criteria = []
     }
 
-    public func matches(_ recipe: Recipe, index: TaxonomyIndex, ratings: [UUID: Int] = [:]) -> Bool {
+    public func matches(_ recipe: Recipe, index: TaxonomyIndex, ratings: [UUID: Double] = [:]) -> Bool {
         matchesQuery(recipe, index: index) && matchesCriteria(recipe, index: index, ratings: ratings)
     }
 
@@ -105,7 +105,7 @@ public struct RecipeFilter: Equatable, Sendable {
         }
     }
 
-    private func matchesCriteria(_ recipe: Recipe, index: TaxonomyIndex, ratings: [UUID: Int]) -> Bool {
+    private func matchesCriteria(_ recipe: Recipe, index: TaxonomyIndex, ratings: [UUID: Double]) -> Bool {
         guard !criteria.isEmpty else { return true }
         var tags: Set<String> = []
         var strengths: Set<Strength> = []
@@ -133,7 +133,7 @@ public struct RecipeFilter: Equatable, Sendable {
         if !difficulties.isEmpty, !difficulties.contains(recipe.difficulty) { return false }
         if !myRatings.isEmpty {
             let stars = ratings[recipe.id] ?? 0
-            let matchesAny = myRatings.contains { $0 == .rated ? stars >= 1 : stars >= 4 }
+            let matchesAny = myRatings.contains { $0 == .rated ? stars > 0 : stars >= 4 }
             if !matchesAny { return false }
         }
         return true
@@ -175,7 +175,7 @@ public struct RecipeFilterOptions: Equatable, Sendable {
 public extension GroupedMatchResults {
     /// The Can make view filtered without re-running the engine: tiers and the
     /// order within them are kept.
-    func filtered(by filter: RecipeFilter, index: TaxonomyIndex, ratings: [UUID: Int] = [:]) -> GroupedMatchResults {
+    func filtered(by filter: RecipeFilter, index: TaxonomyIndex, ratings: [UUID: Double] = [:]) -> GroupedMatchResults {
         guard !filter.isEmpty else { return self }
         let keep = { (result: RecipeMatchResult) in filter.matches(result.recipe, index: index, ratings: ratings) }
         return GroupedMatchResults(results: perfect.filter(keep) + almost.filter(keep) + exploring.filter(keep))
