@@ -81,15 +81,16 @@ public struct BackupData: Codable, Equatable, Sendable { … }       // §2 DTOs
 
 public enum BackupExporter {
     /// Reads the store and preferences and writes a .norsebackup to `url`.
-    /// Runs off the main actor with its own ModelContext.
-    public static func export(container: ModelContainer, defaults: UserDefaults, catalogVersion: String?,
+    /// The app runs it off the main actor with a ModelContext of its own.
+    public static func export(context: ModelContext, defaults: UserDefaults, catalogContentVersion: String?,
                               appVersion: String, to url: URL, now: Date) throws -> BackupManifest
 }
 
 public struct BackupContents: Sendable {          // validated, ready to restore
-    public let manifest: BackupManifest
+    public let manifest: BackupManifest           // as written; `data` may hold less after normalisation
     public let data: BackupData
-    public let photoFiles: [UUID: URL]            // extracted to a temporary directory
+    public let photoFiles: [UUID: PhotoFiles]     // processed full image + thumbnail, as files
+    public let directory: URL                     // fresh folder inside the given temp directory; caller deletes it
 }
 
 public enum BackupReader {
@@ -99,18 +100,19 @@ public enum BackupReader {
 
 public enum BackupRestorer {
     /// Replaces all user data in one save. On any error the store and preferences are unchanged.
-    public static func restore(_ contents: BackupContents, container: ModelContainer, defaults: UserDefaults) throws
+    /// The app passes its main context, so views see the result at once.
+    public static func restore(_ contents: BackupContents, context: ModelContext, defaults: UserDefaults) throws
 }
 
 public enum BackupError: Error, Equatable {
-    case notABackup, newerFormat(Int), damaged(String), tooLarge, photoUnreadable(UUID), saveFailed
+    case notABackup, newerFormat(Int), damaged(String), tooLarge, photoUnreadable(UUID), writeFailed, saveFailed
 }
 ```
 
 ### Validation (in `BackupReader.read`, before anything is written)
 
 - `format` must match and `formatVersion` must be ≤ 1. Both JSON files must decode, and the counts must match `data.json`.
-- IDs are unique within each list, and every `photos[].file` exists in the archive.
+- IDs are unique within each list, and there's at most one take per recipe. Every `photos[].file` is `photos/<its id>.jpg` and exists in the archive, and every photo belongs to a recipe that has a take.
 - Values are checked against existing rules:
   - ratings must be in `TakeLimits.ratingRange`;
   - notes over `TakeLimits.maxNotesLength` are truncated, as typing would;
@@ -118,7 +120,7 @@ public enum BackupError: Error, Equatable {
   - flavour values must be in 0…1.
 
   A take that is empty after this follows the existing "empty take doesn't exist" rule.
-- Every photo goes through `PhotoProcessor.process`, which validates the image, caps it at 1600 px and builds the thumbnail. A photo that fails is a `photoUnreadable` error. One silently missing photo would be worse than a clear refusal.
+- Every photo goes through `PhotoProcessor.processRestored`, which validates the image and builds the thumbnail. A JPEG already within 1600 px keeps its original bytes, so a round trip doesn't recompress it; anything else is re-encoded and capped at 1600 px. A photo that fails is a `photoUnreadable` error. One silently missing photo would be worse than a clear refusal.
 
 ### Untrusted-file guards
 
@@ -155,7 +157,7 @@ The file can come from anywhere (AirDrop, Mail):
 
 ### Wiring
 
-- The exporter and restorer take the app's `ModelContainer`.
+- The exporter takes a background `ModelContext` made from the app's container; the restorer takes the main context.
 - New app files go through `xcodegen generate`; the App workflow now fails on project drift, so the regenerated project must be committed.
 - New strings go into `Localizable.xcstrings` via `sync-strings.sh`.
 
