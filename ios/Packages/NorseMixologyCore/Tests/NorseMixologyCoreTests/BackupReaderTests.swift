@@ -112,4 +112,66 @@ final class BackupReaderTests: XCTestCase {
         }
         XCTAssertEqual(try FileManager.default.contentsOfDirectory(atPath: temporary.path), [])
     }
+
+    // MARK: - Photos and values from an untrusted file
+
+    private func open(_ manifest: BackupManifest, files: [String: Data], in store: BackupTestStore) throws -> OpenedBackup {
+        let archive = try BackupFixtures.archive(manifest: BackupFixtures.encoded(manifest), files: files, in: try store.scratch())
+        return try BackupReader.open(archive, temporaryDirectory: try store.scratch())
+    }
+
+    func testAPhotoThatIsNotAnImageIsDamaged() throws {
+        let store = try BackupTestStore()
+        let valid = BackupFixtures.validManifest()
+        var files = valid.files
+        files[valid.manifest.photos[0].fullFile] = Data("not a jpeg".utf8)
+        try assertRefused(try BackupFixtures.archive(manifest: BackupFixtures.encoded(valid.manifest), files: files, in: try store.scratch()),
+                          as: .damaged, in: store)
+    }
+
+    func testABrokenThumbnailIsRebuiltFromTheFullImage() throws {
+        let store = try BackupTestStore()
+        let valid = BackupFixtures.validManifest()
+        let photo = valid.manifest.photos[0]
+        var files = valid.files
+        files[photo.thumbnailFile] = Data([8, 8])
+
+        let opened = try open(valid.manifest, files: files, in: store)
+        defer { opened.close() }
+
+        let thumbnail = try Data(contentsOf: opened.url(for: photo.thumbnailFile))
+        XCTAssertNotNil(TestImages.pixelSize(of: thumbnail))
+        XCTAssertEqual(try Data(contentsOf: opened.url(for: photo.fullFile)), BackupFixtures.otherPhoto.full, "the full image is untouched")
+    }
+
+    func testAnOversizedPhotoIsScaledDownAndAValidOneKeepsItsBytes() throws {
+        let store = try BackupTestStore()
+        let valid = BackupFixtures.validManifest()
+        let photo = valid.manifest.photos[0]
+        var files = valid.files
+        files[photo.fullFile] = TestImages.jpeg(width: 2_000, height: 1_000)
+
+        let opened = try open(valid.manifest, files: files, in: store)
+        defer { opened.close() }
+
+        let size = try XCTUnwrap(TestImages.pixelSize(of: Data(contentsOf: opened.url(for: photo.fullFile))))
+        XCTAssertEqual(max(size.width, size.height), TakeLimits.fullPhotoMaxPixels)
+        XCTAssertEqual(try Data(contentsOf: opened.url(for: photo.thumbnailFile)), BackupFixtures.otherPhoto.thumbnail)
+    }
+
+    func testFlavourValuesOutOfRangeAreDamaged() throws {
+        let store = try BackupTestStore()
+        var valid = BackupFixtures.validManifest()
+        valid.manifest.cabinet = [CabinetRecord(BackupFixtures.cabinetItem())]
+        let opened = try open(valid.manifest, files: valid.files, in: store)
+        opened.close() // abv is a percentage, so 25 is fine
+
+        let changes: [(inout FlavorProfile) -> Void] = [{ $0.bitterness = 1.5 }, { $0.citrus = -0.1 }, { $0.abv = 101 }]
+        for change in changes {
+            var bad = valid
+            change(&bad.manifest.cabinet[0].flavor)
+            try assertRefused(try BackupFixtures.archive(manifest: BackupFixtures.encoded(bad.manifest), files: bad.files, in: try store.scratch()),
+                              as: .damaged, in: store)
+        }
+    }
 }

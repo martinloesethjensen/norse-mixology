@@ -44,8 +44,8 @@ final class BackupMergerTests: XCTestCase {
         XCTAssertEqual(take.rating, 5)
         XCTAssertEqual(take.notes, "Orange peel.")
         XCTAssertEqual(RecipeTakeService.photos(for: recipeId, context: fresh).map(\.id), photoIds)
-        XCTAssertEqual(RecipeTakeService.photo(id: photoIds[1], context: fresh)?.full, Data(repeating: 9, count: 5_000))
-        XCTAssertEqual(RecipeTakeService.photo(id: photoIds[1], context: fresh)?.thumbnail, Data([3, 4]))
+        XCTAssertEqual(RecipeTakeService.photo(id: photoIds[1], context: fresh)?.full, BackupFixtures.photoBytes[1].full)
+        XCTAssertEqual(RecipeTakeService.photo(id: photoIds[1], context: fresh)?.thumbnail, BackupFixtures.photoBytes[1].thumbnail)
     }
 
     func testNothingOnThePhoneIsDeletedAndDuplicatesAreSkipped() throws {
@@ -132,8 +132,8 @@ final class BackupMergerTests: XCTestCase {
             let paths = PhotoRecord.paths(for: id)
             photos.append(PhotoRecord(id: id, recipeId: recipeId, dateAdded: BackupFixtures.date(Double(100 + index)),
                                       fullFile: paths.full, thumbnailFile: paths.thumbnail))
-            files[paths.full] = Data([2])
-            files[paths.thumbnail] = Data([2])
+            files[paths.full] = BackupFixtures.otherPhoto.full
+            files[paths.thumbnail] = BackupFixtures.otherPhoto.thumbnail
         }
         let backup = try opened(BackupManifest(appVersion: "1.0", createdAt: BackupFixtures.date(0), photos: photos), files: files, in: store)
         defer { backup.close() }
