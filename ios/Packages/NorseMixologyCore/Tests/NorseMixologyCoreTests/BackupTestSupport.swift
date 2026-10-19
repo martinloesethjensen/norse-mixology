@@ -32,6 +32,13 @@ final class BackupTestStore {
 enum BackupFixtures {
     static let flavor = FlavorProfile(sweetness: 0.1, bitterness: 0.8, smokiness: 0, citrus: 0.2, floral: 0, spice: 0.1,
                                       herbal: 0.6, fruity: 0, oaky: 0, abv: 25)
+    /// Real JPEGs, because the reader decodes every photo; different sizes, so their bytes differ.
+    static let photoBytes: [(full: Data, thumbnail: Data)] = [
+        (TestImages.jpeg(width: 64, height: 48), TestImages.jpeg(width: 32, height: 24)),
+        (TestImages.jpeg(width: 80, height: 60), TestImages.jpeg(width: 40, height: 30)),
+    ]
+    static let otherPhoto = (full: TestImages.jpeg(width: 48, height: 48), thumbnail: TestImages.jpeg(width: 24, height: 24))
+
     /// Whole seconds, so dates survive the millisecond JSON format exactly.
     static func date(_ seconds: TimeInterval) -> Date { Date(timeIntervalSince1970: 1_760_000_000 + seconds) }
 
@@ -49,8 +56,10 @@ enum BackupFixtures {
         context.insert(FavouriteRecipe(recipeId: recipeId, recipeName: "Negroni", dateFavourited: date(2)))
         context.insert(ShoppingItem(ingredientStyleId: UUID(), styleName: "Sweet Vermouth", dateAdded: date(3)))
         context.insert(RecipeTake(recipeId: recipeId, recipeName: "Negroni", rating: 5, notes: "Orange peel.", updatedAt: date(4)))
-        let first = RecipePhoto(recipeId: recipeId, thumbnail: Data([1, 2]), full: Data(repeating: 7, count: 4_000), dateAdded: date(5))
-        let second = RecipePhoto(recipeId: recipeId, thumbnail: Data([3, 4]), full: Data(repeating: 9, count: 5_000), dateAdded: date(6))
+        let first = RecipePhoto(recipeId: recipeId, thumbnail: photoBytes[0].thumbnail, full: photoBytes[0].full,
+                                dateAdded: date(5))
+        let second = RecipePhoto(recipeId: recipeId, thumbnail: photoBytes[1].thumbnail, full: photoBytes[1].full,
+                                 dateAdded: date(6))
         context.insert(first)
         context.insert(second)
         try context.save()
@@ -76,7 +85,7 @@ enum BackupFixtures {
             appVersion: "1.0", createdAt: date(100),
             takes: [TakeRecord(id: UUID(), recipeId: recipeId, recipeName: "Daiquiri", rating: rating, notes: notes, updatedAt: date(10))],
             photos: [PhotoRecord(id: photoId, recipeId: recipeId, dateAdded: date(11), fullFile: paths.full, thumbnailFile: paths.thumbnail)])
-        return (manifest, [paths.full: Data(repeating: 5, count: 900), paths.thumbnail: Data([8, 8])])
+        return (manifest, [paths.full: otherPhoto.full, paths.thumbnail: otherPhoto.thumbnail])
     }
 
     static func encoded(_ manifest: BackupManifest) throws -> Data { try BackupJSON.encoder().encode(manifest) }
