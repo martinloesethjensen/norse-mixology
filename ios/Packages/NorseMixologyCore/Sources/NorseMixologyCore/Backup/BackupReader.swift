@@ -64,8 +64,15 @@ public enum BackupReader {
         let formatVersion: Int
     }
 
+    /// Far above what a real backup holds; checked before a file is read into memory.
+    static let maxManifestBytes = 20 << 20
+    static let maxPhotoBytes = 25 << 20
+
     static func readManifest(in folder: URL) throws -> BackupManifest {
-        guard let data = try? Data(contentsOf: folder.appendingPathComponent(BackupManifest.fileName)) else {
+        let url = folder.appendingPathComponent(BackupManifest.fileName)
+        guard let size = try? url.resourceValues(forKeys: [.fileSizeKey]).fileSize else { throw BackupError.notABackup }
+        guard size <= maxManifestBytes else { throw BackupError.damaged }
+        guard let data = try? Data(contentsOf: url) else {
             throw BackupError.notABackup
         }
         // Read the version on its own first, so a newer file is reported as newer even if its shape changed.
@@ -79,6 +86,12 @@ public enum BackupReader {
     }
 
     static func validate(_ manifest: inout BackupManifest, in folder: URL) throws {
+        // The nine taste axes are 0…1; `abv` is a percentage.
+        for item in manifest.cabinet {
+            let f = item.flavor
+            let axes = [f.sweetness, f.bitterness, f.smokiness, f.citrus, f.floral, f.spice, f.herbal, f.fruity, f.oaky]
+            guard axes.allSatisfy({ (0...1).contains($0) }), (0...100).contains(f.abv) else { throw BackupError.damaged }
+        }
         for index in manifest.takes.indices {
             guard TakeLimits.isValidRating(manifest.takes[index].rating) else { throw BackupError.damaged }
             manifest.takes[index].notes = String(manifest.takes[index].notes.prefix(TakeLimits.maxNotesLength))
@@ -90,7 +103,24 @@ public enum BackupReader {
                 let resolved = folder.appendingPathComponent(path).resolvingSymlinksInPath().standardizedFileURL
                 guard resolved.path.hasPrefix(root) else { throw BackupError.damaged }
                 let values = try? resolved.resourceValues(forKeys: [.fileSizeKey, .isRegularFileKey])
-                guard values?.isRegularFile == true, (values?.fileSize ?? 0) > 0 else { throw BackupError.damaged }
+                guard values?.isRegularFile == true, let size = values?.fileSize, size > 0, size <= maxPhotoBytes else {
+                    throw BackupError.damaged
+                }
+            }
+        }
+        // Only after every path is known to be safe: decode each photo, one at a time,
+        // so a file that isn't an image never reaches the store.
+        for photo in manifest.photos {
+            try autoreleasepool {
+                let fullURL = folder.appendingPathComponent(photo.fullFile)
+                let thumbnailURL = folder.appendingPathComponent(photo.thumbnailFile)
+                let full = try Data(contentsOf: fullURL)
+                let thumbnail = try Data(contentsOf: thumbnailURL)
+                guard let restored = try? PhotoProcessor.processRestored(full: full, thumbnail: thumbnail) else {
+                    throw BackupError.damaged
+                }
+                if restored.full != full { try restored.full.write(to: fullURL) }
+                if restored.thumbnail != thumbnail { try restored.thumbnail.write(to: thumbnailURL) }
             }
         }
     }

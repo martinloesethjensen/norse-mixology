@@ -17,6 +17,19 @@ final class BackupWriterTests: XCTestCase {
         XCTAssertEqual(try Data(contentsOf: target.appendingPathComponent("photos/a.jpg")).count, 3_000)
     }
 
+    func testAnArchiveThatUnpacksPastTheLimitIsDamaged() throws {
+        let store = try BackupTestStore()
+        // A megabyte of zeros compresses to almost nothing: the cap must apply to what comes out.
+        let archive = try BackupFixtures.archive(manifest: Data("{}".utf8), files: ["photos/a.jpg": Data(count: 1 << 20)],
+                                                 in: try store.scratch())
+        XCTAssertLessThan(try XCTUnwrap(archive.resourceValues(forKeys: [.fileSizeKey]).fileSize), 64 << 10)
+
+        XCTAssertThrowsError(try BackupArchive.unpack(archive, into: try store.scratch(), limit: 64 << 10)) { error in
+            XCTAssertEqual(error as? BackupError, .damaged)
+        }
+        XCTAssertNoThrow(try BackupArchive.unpack(archive, into: try store.scratch(), limit: 2 << 20))
+    }
+
     func testAnythingThatIsNotAnArchiveIsRefused() throws {
         let store = try BackupTestStore()
         let folder = try store.scratch()
@@ -52,8 +65,8 @@ final class BackupWriterTests: XCTestCase {
         XCTAssertEqual(manifest.takes.map(\.notes), ["Orange peel."])
         XCTAssertEqual(manifest.photos.map(\.id), photoIds, "oldest first")
         let first = manifest.photos[0]
-        XCTAssertEqual(try Data(contentsOf: unpacked.appendingPathComponent(first.fullFile)), Data(repeating: 7, count: 4_000))
-        XCTAssertEqual(try Data(contentsOf: unpacked.appendingPathComponent(first.thumbnailFile)), Data([1, 2]))
+        XCTAssertEqual(try Data(contentsOf: unpacked.appendingPathComponent(first.fullFile)), BackupFixtures.photoBytes[0].full)
+        XCTAssertEqual(try Data(contentsOf: unpacked.appendingPathComponent(first.thumbnailFile)), BackupFixtures.photoBytes[0].thumbnail)
     }
 
     func testAnEmptyStoreGivesAValidBackupWithNothingInIt() throws {
