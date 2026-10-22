@@ -46,7 +46,9 @@ public enum RunePalette {
 
     // Flavour notes (Tasting Dots) follow the accent, so green keeps meaning "can make".
     public static let noteStrongText = PaletteColor(dark: 0xD2AE6A, light: 0x4A1D22)
-    public static let noteStrongFill = PaletteColor(dark: 0x4A2328, light: 0xF1E2CF)
+    // Changed from the spec's #4A2328 / #F1E2CF, which matched Surface Raised, so strong chips
+    // on recipe cards lost their fill: brass-tinted in dark, rose-tinted in light.
+    public static let noteStrongFill = PaletteColor(dark: 0x5A3530, light: 0xF4D8D2)
     public static let noteStrongBorder = PaletteColor(dark: 0x8C6E3A, light: 0x8E3A3F)
     public static let noteMildBorder = PaletteColor(dark: 0x8C7870, light: 0x9C8A7C)
     public static let noteBar = PaletteColor(dark: 0xD2AE6A, light: 0x4A1D22)
