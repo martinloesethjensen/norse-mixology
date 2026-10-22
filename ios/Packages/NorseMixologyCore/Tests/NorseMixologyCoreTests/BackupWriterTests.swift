@@ -56,7 +56,7 @@ final class BackupWriterTests: XCTestCase {
         let unpacked = try store.scratch()
         try BackupArchive.unpack(archive, into: unpacked)
         let manifest = try BackupJSON.decoder().decode(BackupManifest.self, from: Data(contentsOf: unpacked.appendingPathComponent("manifest.json")))
-        XCTAssertEqual(manifest.formatVersion, 1)
+        XCTAssertEqual(manifest.formatVersion, 2)
         XCTAssertEqual(manifest.appVersion, "1.0")
         XCTAssertEqual(manifest.createdAt, now)
         XCTAssertEqual(manifest.cabinet.count, 2)

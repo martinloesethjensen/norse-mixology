@@ -38,7 +38,7 @@ final class BackupReaderTests: XCTestCase {
 
     func testANewerFormatIsReportedAsNewerEvenIfItsShapeChanged() throws {
         let store = try BackupTestStore()
-        let archive = try BackupFixtures.archive(manifest: Data(#"{"formatVersion": 2, "everything": "different"}"#.utf8),
+        let archive = try BackupFixtures.archive(manifest: Data(#"{"formatVersion": \#(BackupManifest.currentFormatVersion + 1), "everything": "different"}"#.utf8),
                                                  in: try store.scratch())
         try assertRefused(archive, as: .newerVersion, in: store)
     }
@@ -86,6 +86,20 @@ final class BackupReaderTests: XCTestCase {
         let opened = try BackupReader.open(archive, temporaryDirectory: try store.scratch())
         defer { opened.close() }
         XCTAssertEqual(opened.manifest.takes[0].notes.count, TakeLimits.maxNotesLength)
+    }
+
+    func testHalfStarsOpenAndOtherFractionsAreDamaged() throws {
+        let store = try BackupTestStore()
+        let halfStar = BackupFixtures.validManifest(rating: 3.5)
+        let archive = try BackupFixtures.archive(manifest: BackupFixtures.encoded(halfStar.manifest), files: halfStar.files, in: try store.scratch())
+        let opened = try BackupReader.open(archive, temporaryDirectory: try store.scratch())
+        defer { opened.close() }
+        XCTAssertEqual(opened.manifest.formatVersion, BackupManifest.currentFormatVersion)
+        XCTAssertEqual(opened.manifest.takes[0].rating, 3.5)
+
+        let between = BackupFixtures.validManifest(rating: 3.3)
+        try assertRefused(try BackupFixtures.archive(manifest: BackupFixtures.encoded(between.manifest), files: between.files, in: try store.scratch()),
+                          as: .damaged, in: store)
     }
 
     func testClosingRemovesTheTemporaryFolder() throws {

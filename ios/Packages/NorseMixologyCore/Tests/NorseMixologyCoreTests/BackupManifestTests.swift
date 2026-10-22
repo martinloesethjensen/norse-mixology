@@ -41,7 +41,7 @@ final class BackupManifestTests: XCTestCase {
         let decoded = try BackupJSON.decoder().decode(BackupManifest.self, from: data)
 
         XCTAssertEqual(decoded, manifest)
-        XCTAssertTrue(String(decoding: data, as: UTF8.self).contains("\"formatVersion\" : 1"))
+        XCTAssertTrue(String(decoding: data, as: UTF8.self).contains("\"formatVersion\" : 2"))
     }
 
     func testUnknownKeysAreIgnored() throws {

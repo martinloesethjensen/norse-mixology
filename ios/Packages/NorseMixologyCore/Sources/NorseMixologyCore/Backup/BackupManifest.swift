@@ -4,7 +4,9 @@ import Foundation
 /// Ids are kept as they are, so a restore can recognise what it already has.
 /// Unknown keys are ignored when decoding, so additive fields stay readable.
 public struct BackupManifest: Codable, Equatable, Sendable {
-    public static let currentFormatVersion = 1
+    /// 1: whole-star ratings. 2: ratings in half-star steps (a 1 reads into a 2 unchanged;
+    /// an app that only knows 1 refuses a 2 as newer, instead of failing to decode 3.5).
+    public static let currentFormatVersion = 2
     public static let fileName = "manifest.json"
 
     public var formatVersion: Int
