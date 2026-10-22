@@ -1,21 +1,52 @@
 import SwiftUI
 
-/// The user's rating, read-only: five stars, filled up to the rating. One
-/// accessibility element (label "Your rating", value "4 of 5"). Interactive rating is `StarRatingControl`.
+extension Double {
+    /// "4" for whole ratings, "4.5" for half stars.
+    var ratingText: String {
+        formatted(.number.precision(.fractionLength(0...1)))
+    }
+}
+
+/// One star at position `star` (1…5) of a rating: empty, half or full. The three
+/// symbols differ slightly in width, so the glyph is laid out against the widest one;
+/// changing a rating never moves its neighbours.
+struct StarGlyph: View {
+    let star: Int
+    let rating: Double
+
+    private var isFull: Bool { rating >= Double(star) }
+    private var isHalf: Bool { !isFull && rating >= Double(star) - 0.5 }
+
+    private var symbol: String {
+        if isFull { return "star.fill" }
+        return isHalf ? "star.leadinghalf.filled" : "star"
+    }
+
+    var body: some View {
+        Image(systemName: "star.fill")
+            .hidden()
+            .overlay {
+                Image(systemName: symbol)
+                    .foregroundStyle(isFull || isHalf ? DesignTokens.accent : DesignTokens.textSecondary)
+            }
+    }
+}
+
+/// The user's rating, read-only: five stars, filled up to the rating in half-star steps. One
+/// accessibility element (label "Your rating", value "4.5 of 5"). Interactive rating is `StarRatingControl`.
 struct RatingStars: View {
-    let rating: Int
+    let rating: Double
     var font: Font = .caption
 
     var body: some View {
         HStack(spacing: 2) {
             ForEach(1...5, id: \.self) { star in
-                Image(systemName: star <= rating ? "star.fill" : "star")
+                StarGlyph(star: star, rating: rating)
                     .font(font)
-                    .foregroundStyle(star <= rating ? DesignTokens.accent : DesignTokens.textSecondary)
             }
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Your rating")
-        .accessibilityValue("\(rating) of 5")
+        .accessibilityValue("\(rating.ratingText) of 5")
     }
 }

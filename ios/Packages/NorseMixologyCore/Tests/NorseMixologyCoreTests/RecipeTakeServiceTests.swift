@@ -39,11 +39,23 @@ final class RecipeTakeServiceTests: XCTestCase {
         XCTAssertEqual(take.recipeName, "Negroni")
     }
 
+    func testHalfStarRatingsAreStoredAndListed() throws {
+        let store = try makeStore()
+        let recipe = makeRecipe()
+
+        try RecipeTakeService.setRating(4.5, for: recipe, context: store.context)
+        XCTAssertEqual(RecipeTakeService.take(for: recipe.id, context: store.context)?.rating, 4.5)
+        XCTAssertEqual(RecipeTakeService.ratings(context: store.context), [recipe.id: 4.5])
+
+        try RecipeTakeService.setRating(0.5, for: recipe, context: store.context)
+        XCTAssertEqual(RecipeTakeService.ratings(context: store.context), [recipe.id: 0.5])
+    }
+
     func testRatingsOutsideZeroToFiveAreRejectedAndNothingIsStored() throws {
         let store = try makeStore()
         let recipe = makeRecipe()
 
-        for invalid in [-1, 6, 99] {
+        for invalid in [-1, 6, 99, 0.25, 4.3, 5.5] {
             XCTAssertThrowsError(try RecipeTakeService.setRating(invalid, for: recipe, context: store.context)) { error in
                 XCTAssertEqual(error as? TakeError, .invalidRating)
             }

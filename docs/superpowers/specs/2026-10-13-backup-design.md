@@ -21,7 +21,7 @@ Rejected: a single JSON file with base64 photos (photos grow by a third, and the
 
 ---
 
-## 2. Format (schema version 1)
+## 2. Format (schema version 2)
 
 Archive contents:
 
@@ -33,7 +33,8 @@ photos/<photoId>-thumb.jpg    thumbnail (~320 px, as stored)
 
 `manifest.json` (`BackupManifest`, `Codable`, ISO-8601 dates):
 
-- `formatVersion: Int` (1), `appVersion: String`, `createdAt: Date`
+- `formatVersion: Int` (2), `appVersion: String`, `createdAt: Date`
+  - Version 2 (2026-10-22) allows half-star ratings (`rating` 0…5 in steps of 0.5). Version 1 files, with whole-star ratings, still restore; the committed `backup-v1.nmbackup` fixture keeps that true.
 - `cabinet: [CabinetRecord]`: every `CabinetItem` field, including `id`, the ids, names, brand, the ten flavour values and `dateAdded`
 - `favourites: [FavouriteRecord]`: `id`, `recipeId`, `recipeName`, `dateFavourited`
 - `shopping: [ShoppingRecord]`: `id`, `ingredientStyleId`, `styleName`, `dateAdded`
@@ -55,7 +56,7 @@ Ids are kept as they are, so a restore can recognise what it already has. Unknow
   - `open(_ url:) throws -> OpenedBackup` unpacks into a temporary folder and decodes the manifest. `OpenedBackup` holds the manifest, the folder URL and a summary of counts.
   - It validates before returning:
     - the file is an archive
-    - `formatVersion ≤ 1`
+    - `formatVersion ≤ 2`
     - the manifest decodes
     - every referenced photo file exists and is non-empty
     - paths contain no `..` and no absolute paths (no path traversal)
@@ -109,7 +110,7 @@ Ids are kept as they are, so a restore can recognise what it already has. Unknow
 | Failure | Behaviour | Test |
 |---|---|---|
 | Not an archive, empty file, or wrong archive | `notABackup`; store untouched | Reader test with random bytes, an empty file, an archive without a manifest |
-| Newer `formatVersion` | `newerVersion`; store untouched | Reader test with `formatVersion: 2` |
+| Newer `formatVersion` | `newerVersion`; store untouched | Reader test with `formatVersion` one above the current |
 | Manifest references a missing or empty photo | `damaged`; store untouched | Reader test |
 | Path traversal in a manifest path (`../`, absolute) | `damaged` | Reader test |
 | Out-of-range rating, or notes over the limit | Rating → `damaged`; notes trimmed | Reader test |

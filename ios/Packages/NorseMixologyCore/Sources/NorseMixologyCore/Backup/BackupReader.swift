@@ -93,7 +93,7 @@ public enum BackupReader {
             guard axes.allSatisfy({ (0...1).contains($0) }), (0...100).contains(f.abv) else { throw BackupError.damaged }
         }
         for index in manifest.takes.indices {
-            guard TakeLimits.ratingRange.contains(manifest.takes[index].rating) else { throw BackupError.damaged }
+            guard TakeLimits.isValidRating(manifest.takes[index].rating) else { throw BackupError.damaged }
             manifest.takes[index].notes = String(manifest.takes[index].notes.prefix(TakeLimits.maxNotesLength))
         }
         let root = folder.resolvingSymlinksInPath().standardizedFileURL.path + "/"

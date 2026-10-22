@@ -29,7 +29,7 @@ public struct AddPhotosResult: Equatable, Sendable {
 public final class RecipeTakeViewModel {
     private let modelContext: ModelContext
 
-    public private(set) var ratings: [UUID: Int] = [:]
+    public private(set) var ratings: [UUID: Double] = [:]
     public private(set) var hasNotes: Set<UUID> = []
     public private(set) var photoCounts: [UUID: Int] = [:]
     /// The last failure, for the screen to report; cleared by `clearError()`.
@@ -55,10 +55,10 @@ public final class RecipeTakeViewModel {
 
     // MARK: - Rating
 
-    public func rating(for recipeId: UUID) -> Int { ratings[recipeId] ?? 0 }
+    public func rating(for recipeId: UUID) -> Double { ratings[recipeId] ?? 0 }
 
-    /// Tapping the star that is already the rating clears it.
-    public func setRating(_ tapped: Int, for recipe: Recipe) {
+    /// Tapping the value that is already the rating clears it.
+    public func setRating(_ tapped: Double, for recipe: Recipe) {
         let target = tapped == rating(for: recipe.id) ? 0 : tapped
         perform { try RecipeTakeService.setRating(target, for: recipe, context: modelContext) }
     }

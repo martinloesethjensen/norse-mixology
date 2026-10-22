@@ -18,9 +18,9 @@ public enum RecipeTakeService {
         return (try? context.fetch(descriptor))?.first
     }
 
-    /// 0 clears the rating; anything outside 0…5 is rejected, not clamped.
-    public static func setRating(_ rating: Int, for recipe: Recipe, context: ModelContext, date: Date = Date()) throws {
-        guard TakeLimits.ratingRange.contains(rating) else { throw TakeError.invalidRating }
+    /// 0 clears the rating; anything outside 0…5 or off the half-star grid is rejected, not clamped.
+    public static func setRating(_ rating: Double, for recipe: Recipe, context: ModelContext, date: Date = Date()) throws {
+        guard TakeLimits.isValidRating(rating) else { throw TakeError.invalidRating }
         if rating == 0, take(for: recipe.id, context: context) == nil { return }
         let take = ensureTake(for: recipe, context: context)
         take.rating = rating
@@ -84,7 +84,7 @@ public enum RecipeTakeService {
 
     // MARK: - Lists (read by cards and rows, so no per-row queries)
 
-    public static func ratings(context: ModelContext) -> [UUID: Int] {
+    public static func ratings(context: ModelContext) -> [UUID: Double] {
         let descriptor = FetchDescriptor<RecipeTake>(predicate: #Predicate { $0.rating > 0 })
         let takes = (try? context.fetch(descriptor)) ?? []
         return Dictionary(takes.map { ($0.recipeId, $0.rating) }, uniquingKeysWith: { first, _ in first })

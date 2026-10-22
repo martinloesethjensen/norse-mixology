@@ -147,14 +147,14 @@ final class RecipeFilterTests: XCTestCase {
 
     // MARK: - My ratings
 
-    private func ratedNames(_ criteria: RecipeFilter.Criterion..., ratings: [UUID: Int]) -> Set<String> {
+    private func ratedNames(_ criteria: RecipeFilter.Criterion..., ratings: [UUID: Double]) -> Set<String> {
         var filter = RecipeFilter()
         criteria.forEach { filter.toggle($0) }
         return Set(recipes.filter { filter.matches($0, index: index, ratings: ratings) }.map(\.name))
     }
 
-    private func ratings(_ pairs: (String, Int)...) throws -> [UUID: Int] {
-        var result: [UUID: Int] = [:]
+    private func ratings(_ pairs: (String, Double)...) throws -> [UUID: Double] {
+        var result: [UUID: Double] = [:]
         for (name, stars) in pairs {
             result[try XCTUnwrap(recipes.first { $0.name == name }, "no recipe named \(name)").id] = stars
         }
@@ -169,6 +169,12 @@ final class RecipeFilterTests: XCTestCase {
     func testFourStarsOrMoreKeepsOnlyHighRatings() throws {
         let mine = try ratings(("Negroni", 3), ("Daiquiri", 4), ("Margarita", 5))
         XCTAssertEqual(ratedNames(.myRating(.fourOrMore), ratings: mine), ["Daiquiri", "Margarita"])
+    }
+
+    func testHalfStarRatingsCountAsRatedAndRespectTheFourStarLine() throws {
+        let mine = try ratings(("Negroni", 0.5), ("Daiquiri", 3.5), ("Margarita", 4), ("Manhattan", 4.5))
+        XCTAssertEqual(ratedNames(.myRating(.rated), ratings: mine), ["Negroni", "Daiquiri", "Margarita", "Manhattan"])
+        XCTAssertEqual(ratedNames(.myRating(.fourOrMore), ratings: mine), ["Margarita", "Manhattan"])
     }
 
     func testRatingCriteriaFormOneOrGroupAndCombineWithOtherKindsByAnd() throws {

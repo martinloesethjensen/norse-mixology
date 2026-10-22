@@ -1,9 +1,10 @@
 import SwiftUI
 import PhotosUI
+import AVFoundation
 import NorseMixologyCore
 
-/// The photo strip: thumbnails, an "Add photo" tile (system picker, no photo-library
-/// permission needed) and a viewer. Partial failures and the six-photo limit are
+/// The photo strip: thumbnails, an "Add photo" tile (a menu: take a photo with the camera, or
+/// choose from the system picker, which needs no photo-library permission) and a viewer. Partial failures and the six-photo limit are
 /// reported, never silent.
 struct TakePhotoStrip: View {
     let recipe: Recipe
@@ -14,6 +15,8 @@ struct TakePhotoStrip: View {
     @State private var viewerTarget: ViewerTarget?
     @State private var message: AddMessage?
     @State private var isAdding = false
+    @State private var showsLibrary = false
+    @State private var showsCamera = false
 
     private struct ViewerTarget: Identifiable {
         let id: UUID
@@ -23,6 +26,7 @@ struct TakePhotoStrip: View {
         case partial(added: Int, total: Int)
         case limit
         case failed
+        case cameraDenied
     }
 
     var body: some View {
@@ -45,11 +49,7 @@ struct TakePhotoStrip: View {
                         .accessibilityHint("Opens the photo")
                     }
                     if freeSlots > 0 {
-                        PhotosPicker(selection: $pickerItems, maxSelectionCount: freeSlots, matching: .images) {
-                            addTile
-                        }
-                        .disabled(isAdding)
-                        .accessibilityLabel("Add photo")
+                        addMenu
                     }
                 }
                 .padding(.vertical, 2)
@@ -66,12 +66,49 @@ struct TakePhotoStrip: View {
                     .foregroundStyle(DesignTokens.matchSubstituted)
             }
         }
+        .photosPicker(isPresented: $showsLibrary, selection: $pickerItems, maxSelectionCount: max(1, freeSlots), matching: .images)
+        .fullScreenCover(isPresented: $showsCamera) {
+            CameraPicker { image in Task { await addCaptured(image) } }
+                .ignoresSafeArea()
+        }
         .onChange(of: pickerItems) { _, items in
             guard !items.isEmpty else { return }
             Task { await add(items) }
         }
         .fullScreenCover(item: $viewerTarget) { target in
             TakePhotoViewer(recipe: recipe, startID: target.id)
+        }
+    }
+
+    /// Camera first (when the device has one), then the library.
+    private var addMenu: some View {
+        Menu {
+            if CameraPicker.isAvailable {
+                Button("Take Photo", systemImage: "camera") { Task { await openCamera() } }
+            }
+            Button("Choose from Library", systemImage: "photo.on.rectangle") { showsLibrary = true }
+        } label: {
+            addTile
+        }
+        .disabled(isAdding)
+        .accessibilityLabel("Add photo")
+    }
+
+    private func openCamera() async {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .denied, .restricted:
+            message = .cameraDenied
+        case .notDetermined:
+            // The system camera asks on first use; asking here first keeps a "no" from showing a black screen.
+            if await AVCaptureDevice.requestAccess(for: .video) {
+                message = nil
+                showsCamera = true
+            } else {
+                message = .cameraDenied
+            }
+        default:
+            message = nil
+            showsCamera = true
         }
     }
 
@@ -119,7 +156,25 @@ struct TakePhotoStrip: View {
         case .partial(let added, let total): Text("\(added) of \(total) added")
         case .limit: Text("\(TakeLimits.maxPhotos) photos is the limit")
         case .failed: Text("Couldn't add that photo")
+        case .cameraDenied: Text("Allow camera access in Settings to take photos")
         }
+    }
+
+    private func addCaptured(_ image: UIImage) async {
+        isAdding = true
+        message = nil
+        // Orientation is carried in the JPEG metadata, which the photo processor honours.
+        if let data = image.jpegData(compressionQuality: 0.95) {
+            let result = await take.addPhotos([data], for: recipe)
+            if result.added == 1 {
+                message = nil
+            } else {
+                message = result.refusedForLimit > 0 && result.failed == 0 ? .limit : .failed
+            }
+        } else {
+            message = .failed
+        }
+        isAdding = false
     }
 
     private func add(_ items: [PhotosPickerItem]) async {
